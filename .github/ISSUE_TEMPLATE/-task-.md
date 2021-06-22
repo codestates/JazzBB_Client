@@ -8,18 +8,9 @@ assignees: ''
 ---
 
 # ISSUE
-* Group
-   - [ ]  Client
-   - [ ]  Server
-   - [ ]  SR
-
-* Type: bug, feature, delete
-   - [ ]  Feature
-   - [ ]  Bug
-   - [ ]  delete
-
+* Group : Client, Server, SR
+* Type: feature, bug, delete
 * Detail: 여기에 태스크 디테일 작성
-
 
 # TODO
  * Job1
