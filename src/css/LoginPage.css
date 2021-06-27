@@ -1,0 +1,71 @@
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);   
+
+}
+
+ .loginModal {
+       width: 300px;
+       height: 300px;
+       background-color: white;
+       position: relative;
+       box-sizing: border-box;
+       margin: 250px auto;
+       padding: 20px;
+       background: #fff;   
+ }
+
+.close {
+        float: right;
+        font-size: 30px;
+        cursor: pointer;
+}
+
+.modalContents {
+        margin: 50px auto;
+        width: 100%;
+        position: relative;
+        padding: 0 20px 32px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+}
+
+.socialBox {
+    margin-bottom: 30px;
+}
+
+.kakao {
+      border-color: #feec34;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      border-radius: 3px;
+    }
+
+.loginEnd {
+        text-align: center;
+        font-size: 11px;
+      }
+.loginLine {
+          color: #bcbcbc;
+          font-size: 11px;
+          margin-bottom: 35px;
+        }
+a {
+            color: black;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        
+.noUser {
+          text-decoration: underline;
+        }

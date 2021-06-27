@@ -1,0 +1,135 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* 재즈바 사진 (헤더) */
+.bossHeader{ 
+    width: 100%;
+    height: 80px;
+    background-color: rgb(246, 206, 126);
+    text-align: center;
+}
+.outer-box{
+    margin-left: 18%;
+    margin-right:5%;
+    margin-bottom: 5%;
+}
+
+.content {
+    background-color: rgb(225, 225, 225);
+    width: 100%;
+    margin-top: 30px;
+    height: 100%;
+}
+
+.content-title{
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    /* margin: 10px; */
+    font-weight: bold;
+}
+.hrcss { border-color: rgb(239, 237, 237); width: 100%; }
+
+
+.date-box{
+    margin: 20px;
+}
+
+.date {
+    display: inline-flex;
+    font-size: 20px;
+}
+
+.datePicker{
+    float: right;
+}
+
+.status-box {
+    height: 200px;
+    display: block;
+    text-align: center;
+}
+
+.status{
+    display: inline-block;
+    width: 180px;
+    height: 180px;
+    margin-right: 50px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 10%;
+    
+}
+
+.status-title{
+    float: left;
+    margin: 10px;
+    font-size: 30px;
+}
+
+.status-number{
+float: right;
+font-size: 75px;
+margin : 100px 8px 5px 0px;
+}
+
+.status-f{
+    background-image: linear-gradient(0deg, #ffffff 0%, #e6e9ea 100%);
+
+}
+
+.status-s {
+    background-image: linear-gradient(0deg, #00bfff 0%, #84bbcd 100%);
+}
+
+.status-t{
+    background-color: rgb(241, 124, 124);
+    background-image: linear-gradient(0deg, #e179d2 0%, #dea7d6 100%);
+
+}
+
+.status-fourth{
+    background-image: linear-gradient(0deg, #efef78 0%, #d2c79e 100%);
+
+}
+
+.rv-info {
+    margin: 80px 20px;
+    padding-bottom: 80px;
+}
+
+.rv-info-contents{
+    margin: 10px;
+    font-size: 20px;
+    padding-bottom: 30px;
+    font-weight: bold;
+}
+
+#customers {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    
+
+  }
+  
+  /* #customers tr:nth-child(even){background-color: #bab8b8;} */
+  #customers tr:nth-child(even){background-color: #dcdbdb;}
+  #customers tr:nth-child(odd){background-color: rgb(239, 239, 239);}
+  
+  #customers tr:hover {background-color: rgb(252, 240, 158);}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #fff690;
+    color: rgb(0, 0, 0);
+    
+  }
