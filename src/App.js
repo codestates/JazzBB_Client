@@ -28,6 +28,7 @@ function App() {
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
     if (authorizationCode) {
+      console.log(authorizationCode)
       axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
        .then(res => {
         const token = res.data.data.accessToken;

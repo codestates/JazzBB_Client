@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../css/LoginPage.css";
 import Dummy from "../Pages/dummy";
 
-const { Kakao} = window;
+// const { Kakao} = window;
 
 function LoginPage (props) {
     console.log(process.env.REACT_APP_DB_HOST)
