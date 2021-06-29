@@ -350,6 +350,10 @@ input, select {
 
 
 /* 인기뮤지션 */
+.service-popular {
+    overflow: hidden;
+}
+
 .service-popular-header {
     display: block;
     position: relative;
@@ -425,6 +429,11 @@ input, select {
 
 
 /* 신규예약오픈 */
+.service-newResOpen {
+    overflow: hidden;
+}
+
+
 .service-newResOpen-header {
     display: block;
     position: relative;
@@ -513,7 +522,6 @@ input, select {
     height: auto;
     justify-content: space-between;
     align-items: center;
-    overflow: scroll;
 }
 
 .footer-logoarea{
@@ -529,7 +537,6 @@ input, select {
     width: 75%;
     height: auto;
     color: gray;
-    overflow: scroll;
     min-width: 300px;
     font-size: 1rem;
     word-break: keep-all;
@@ -542,10 +549,8 @@ input, select {
 .footer-infoarea-buttonsarea {
     margin-bottom: 5px;
     word-break: keep-all;
-    overflow: scroll;
 }
 
 .footer-infoarea-infobody {
     word-break: keep-all;
-    overflow: scroll;
 }
