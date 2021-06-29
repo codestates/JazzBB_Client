@@ -25,8 +25,8 @@ function App() {
   const state = useSelector(state => state.itemReducer);
 
   useEffect(() => {
-    const url = new URL(window.location.href)// https://localhost:3000/show?code=wqkfb1j3bfvo1evo
-    const authorizationCode = url.searchParams.get('code')
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get('code');
     if (authorizationCode) {
       axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
        .then(res => {
