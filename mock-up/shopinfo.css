@@ -121,178 +121,192 @@ input, select {
     height: 50px;
 }
 
+
+
+
+
 /* 본문 영역 */
 
 
-
-.mypage {
+.shopinfo {
     display: flex;
     justify-content: center;
 }
 
-.mypage-body {
+.shopinfo-body {
     width: 72%;
 }
 
-.mypage-body-header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid steelblue;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-}
 
-.mypage-body-header-accinfo {
-    display: flex;
-    align-items: baseline;
-}
-
-.mypage-body-header-accinfo-name {
-    font-weight: bolder;
-    font-size: 2rem;
-}
-
-.mypage-body-header-accinfo-tail {
-    font-size: 1.7rem;
-}
-
-
-
-/* 계정 정보 알려주는거 */
-.mypage-body-info {
-    display: flex;
-    height: 150px;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.3rem;
+.shopinfo-header {
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 30px;
 }
 
-.mypage-body-info-title {
-    width: 45%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    font-weight: 900;
-    justify-content: center;
-    padding-right: 5px;
-}
-
-.mypage-body-info-data {
-    width: 45%;
-    height: 100%;
-    border-left: 1px solid gray;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    justify-content: center;
-    padding-left: 5px;
-}
-
-.mypage-body-info-title-label, .mypage-body-info-data-result {
-    margin-bottom: 8px;
-}
-
-
-
-
-/* 최근 예약/최근 리뷰 */
-.mypage-body-recent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.shopinfo-header-img {
     width: 100%;
-    height: auto;
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    height: 200px;
+    object-fit: cover;
+}
+
+.shopinfo-header-infoarea {
     margin-top: 10px;
-    padding-top: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-}
-
-.mypage-body-recent-reservation {
-    width: 48%;
-    height: 200px;
-    padding: 10px;
-    border-right: 1px solid gray;
-}
-
-.mypage-body-recent-review {
-    width: 48%;
-    height: 200px;
-    padding: 10px;
-}
-
-.mypage-body-recent-reservation-title, .mypage-body-recent-review-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
+    padding: 20px;
 }
 
 
-.mypage-body-recent-reservation-labelarea, .mypage-body-recent-review-labelarea {
+.shopinfo-header-infoarea-shopname {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.shopinfo-header-infoarea-geo {
     display: flex;
-    margin-bottom: 7px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.shopinfo-header-infoarea-tmapbtn {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    background-color: #ED2609;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.shopinfo-header-infoarea-tmapbtn:hover {
+    background-color: #44A780;
+}
+
+.shopinfo-header-infoarea-phone, .shopinfo-header-infoarea-time {
+    margin-bottom: 10px;
+}
+
+.shopinfo-header-infoarea-ratingarea {
+    display: flex;
+    align-items: center;
+}
+
+.shopinfo-header-infoarea-ratingarea-rate {
+    margin-left: 5px;
+}
+
+.shopinfo-iconarea, .shopinfo-menuarea, .shopinfo-shopphoto, .shopinfo-reservation {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.shopinfo-menuarea-body {
+    width: 100%;
+    height: 100px;
+}
+
+.shopinfo-menuarea-titlearea-label, .shopinfo-shopphoto-titlearea-label, .shopinfo-reservation-titlearea-label {
+    font-size: 1.3rem;
     font-weight: 900;
 }
 
-.recentreservation-body, .recentreview-body {
+.shopinfo-menuarea-body, .shopinfo-reservation-body {
     display: flex;
-    font-size: 0.8rem;
-    margin-bottom: 2px;
-    height: 1rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
 }
 
-.recentreservation-body-date, .recentreservation-label-date {
-    width: 70px;
+.shopinfo-menuarea-link, .shopinfo-reservation-link {
+    font-weight: 900;
 }
 
-.recentreservation-body-name, .recentreservation-label-name {
-    width: 140px;
-    height: 1rem;
-    overflow: hidden;
-}
-
-.recentreservation-body-time, .recentreservation-label-time {
-    width: 40px;
-}
-
-.recentreservation-body-person, .recentreservation-label-person {
-    width: 40px;
-}
-
-.recentreservation-body-status-ok, .recentreservation-body-status-no, .recentreservation-body-status-stby, .recentreservation-label-status {
-    width: 50px;
-}
-
-.recentreservation-body-status-ok {
-    color: seagreen;
-}
-
-.recentreservation-body-status-no {
+.shopinfo-menuarea-link:hover, .shopinfo-reservation-link:hover {
+    font-weight: 900;
     color: red;
 }
 
-.recentreservation-body-status-stby {
-    color: tomato;
+
+.shopinfo-shopphoto {
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-.recentreview-body-info-date, .recentreview-label-date {
-    width: 70px;
+.shopinfo-shopphoto-titlearea {
+    display: block;
+    position: relative;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.recentreview-body-info-name, .recentreview-label-name {
-    width: 100px;
+.shopinfo-shopphoto-body {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow-x: auto;
+    padding-bottom: 14px;
+    margin: 0 -30px -14px;
 }
 
-.recentreview-body-info-text, .recentreview-label-text {
-    width: auto;
+.v-scroll-inner {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.shopinfo-shopphoto-contents {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.shopinfo-shopphoto-object {
+    width: 200px;
+    display: block;
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.shopinfo-shopphoto-object-photobox {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.shopinfo-shopphoto-object-photobox-img {
+    width: 200px;
+    height: 200px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+}
+
+
+.shopinfo-iconarea {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.shopinfo-iconarea-featureitem {
+    width: 25%;
+    flex: 0 1 25%;
+    display: block;
+    margin: 15px 0;
+}
+
+.shopinfo-iconarea-featureitem-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto 12px;
+    display: block;
+}
+
+.shopinfo-iconarea-featureitem-label {
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
