@@ -1,20 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { store } from "./app/store";
+import { store } from "./Components/redux/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { createStore } from 'redux';
 
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
         <App />
-      {/* </Provider> */}
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
