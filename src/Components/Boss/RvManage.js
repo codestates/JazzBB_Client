@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import DatePick from "./DatePick";
 import Sidebar from "./Sidebar";
-
-
-function RvManage() {
-  return (
-    <div>
+const RvManage =(props) => {
+  return ( <div>
       <Sidebar></Sidebar>
       <div className="outer-box">
       <div className="bossHeader"><img src="/img/tokyoJazz.jpg" alt=""/></div>

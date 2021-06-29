@@ -1,8 +1,11 @@
-
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
+import {connect} from 'react-redux'
+import { ChangeDate} from '../redux/new/action'
+
+
 
 function DatePick(){
     const week = ["일", "월", "화", "수", "목", "금", "토"];
@@ -29,8 +32,8 @@ function DatePick(){
         minDate={new Date()}
         closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
         placeholderText="날짜 변경"
-        //  selected={checkInDate}	// value
-        //  onChange={(date) => setCheckInDate(date)}	// 날짜를 선택하였을 때 실행될 함수
+         selected={date}	// value
+         onChange={(date) => console.log(date)}	// 날짜를 선택하였을 때 실행될 함수
       />
     </div>
   </div>
@@ -39,4 +42,22 @@ function DatePick(){
 
 }
 
-export default DatePick;
+const mapStateToProps =(state) =>{
+  return{
+    count : state.함수명.count
+  }
+}//count가 위 props로 전달됨.
+
+// const mapDispatchToProps = (dispatch) =>{
+//   return{
+//     ChangeDate : () =>dispatch(ChangeDate())
+//     //onclickbutton props.changedate() 실행
+//   }
+// }
+
+const mapDispatchToProps = {
+  // ChangeDate : ChangeDate
+  ChangeDate
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DatePick);

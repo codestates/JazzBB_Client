@@ -15,4 +15,4 @@ const ChangeDatereducer = (state=initialState, action) => {
     }
    }
 
-   export default ChangeDatereducer
+export default ChangeDatereducer
