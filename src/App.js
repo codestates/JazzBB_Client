@@ -14,6 +14,7 @@ import RvManage from "./Components/Boss/RvManage";
 import ShowManage from "./Components/Boss/ShowManage";
 import PhotoManage from "./Components/Boss/PhotoManage";
 import InfoManage from "./Components/Boss/InfoManage";
+import BossMainPagecopy from "./Pages/BossMainPagecopy";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/boss/show" render={() => <ShowManage></ShowManage> } />
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <InfoManage></InfoManage>} />
+          <Route path="/boss/copy" render={() => <BossMainPagecopy></BossMainPagecopy>} />
         </Switch>
       </div>
     </div>

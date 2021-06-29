@@ -24,6 +24,10 @@ import { BsBook } from "react-icons/bs";
       const menuActive =() =>{
         active ? setactive(false) : setactive(true)
       }
+
+      const click = () =>{
+        console.log('clilcked')
+      }
       return(
         <>
         <div className="sidebar">
@@ -46,7 +50,7 @@ import { BsBook } from "react-icons/bs";
                 <MenuItem  icon={<FiHome />}>
                   Home <Link to='/boss/main'/>
                 </MenuItem>
-                <MenuItem active={true} icon={<BsBook />}  > 예약 관리 <Link to='/boss/reservation'/></MenuItem>
+                <MenuItem active={true} icon={<BsBook />} onClick={click} > 예약 관리 <Link to='/boss/reservation'/></MenuItem>
                 <MenuItem icon={<CgMusicNote />} > 공연 관리 <Link to='/boss/show'/></MenuItem>
                 <MenuItem icon={<HiOutlinePhotograph />} > 사진관리 <Link to='/boss/photo'/></MenuItem>
                 <MenuItem icon={<RiPencilLine />} > 정보 수정 <Link to='/boss/infoedit'/></MenuItem>
