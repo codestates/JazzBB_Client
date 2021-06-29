@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, {  useState } from "react";
 import { Link } from 'react-router-dom'
 import {
     ProSidebar,
@@ -9,7 +9,7 @@ import {
     SidebarContent,
   } from "react-pro-sidebar";
   import "react-pro-sidebar/dist/css/styles.css";
-import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { FiHome, FiLogOut,  } from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { CgMusicNote } from "react-icons/cg";
 import { HiOutlinePhotograph } from "react-icons/hi";

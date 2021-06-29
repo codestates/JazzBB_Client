@@ -14,24 +14,9 @@ class Dummy extends Component {
     }
    
     // Kakao Login
-    responseKakao = (res) => {
-        this.setState({
-            id: res.profile.id,
-            name: res.profile.properties.nickname,
-            provider: 'kakao'
-        })
-        fetch(`${process.env.REACT_APP_DB_HOST}/kakao`, {
-            method: 'GET',
-            headers: {
-              Authorization: res.response.access_token,
-             
-            },
-          })
-            .then((res) => res.json())
-            .then((res) => localStorage.setItem('token', res.token), 
-                  //res- access_token 값을 백엔드에 전달
-                  alert('로그인 성공하였습니다'));
-        };
+    responseKakao = () => {
+        window.location.assign(process.env.KAKAO_OAUTH_URI)
+    };
     
 
     // Login Fail

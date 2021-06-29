@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
-import ChangeDatereducer from './new/reducer'
+import reducer from './new/reducer'
 
 const rootReducer = combineReducers({
-    changeDate : ChangeDatereducer
+    reducer
 })
 
 export default rootReducer
