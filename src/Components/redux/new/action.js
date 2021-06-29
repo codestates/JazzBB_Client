@@ -1,4 +1,5 @@
 export const SET_TOKEN = "SET_TOKEN";
+export const SET_BOSS_DATE = "SET_BOSS_DATE"
 
 export const setToken = (token) => {
     return {
@@ -8,3 +9,13 @@ export const setToken = (token) => {
       }
     }
 }
+
+export const setBossDate = (newDate) =>{
+  return{
+    type : SET_BOSS_DATE,
+    payload : {
+      newDate
+    }
+  }
+}
+

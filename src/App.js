@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import {
   Switch,
   Route,
-  Redirect,
-  withRouter,
-  BrowserRouter,
 } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios";
-import { LoginPage } from "./Pages/LoginPage";
+// import { LoginPage } from "./Pages/LoginPage";
 import Nav from "./Components/Nav";
 import Dummy from "./Pages/dummy";
 import BossMainPage from "./Pages/BossMainPage"

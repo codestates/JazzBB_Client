@@ -1,12 +1,12 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import Sidebar from "./Sidebar";
 import "./ShowManage.css";
 import DatePick from "./DatePick";
-import { CgFileAdd } from "react-icons/cg";
+// import { CgFileAdd } from "react-icons/cg";
 
 
 function ShowManage() {
-  let iconStyles = {fontSize: "5em" };
+  // let iconStyles = {fontSize: "5em" };
   return (
     <div >
       <Sidebar></Sidebar>

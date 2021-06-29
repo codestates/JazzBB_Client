@@ -6,10 +6,17 @@
 /* 재즈바 사진 (헤더) */
 .bossHeader{ 
     width: 100%;
-    height: 80px;
+    height: 100px;
     background-color: rgb(246, 206, 126);
     text-align: center;
 }
+
+.bossHeader>img{
+ object-fit: cover;
+ width: 100%;
+    height: 100px;
+}
+
 .outer-box{
     margin-left: 18%;
     margin-right:5%;
