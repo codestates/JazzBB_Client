@@ -1,3 +1,4 @@
+import { SET_TOKEN } from './action';
 import {CHANGE_DATE} from './types'
 
 export const initialState = {
@@ -5,8 +6,6 @@ export const initialState = {
         isLogin: false, // 로그인 상태 확인
 	    token: null, // 토큰 저장
         dbUserId: null, // reservation등 userId 필요한 작업
-        userId: null, // 회원정보 수정 or 로그인
-        password: null, // 회원정보 수정 or 로그인
         username: null, // 회원정보 수정
         mobile: null, // 회원정보 수정, reservation
         userThumbnail: null, // 회원정보 수정 초기 값 더미데이터 있으면 좋을듯
@@ -27,14 +26,17 @@ export const initialState = {
 };
 
 const ChangeDatereducer = (state=initialState, action) => {
+    const payload = action.payload;
     switch(action.type){
         case CHANGE_DATE:
             return{
                 ...state,
                 subscribers : state.subscribers +1
             }
-            default : return state;
+        case SET_TOKEN:
+            return Object.assign({}, state, {user: {...state.user, payload}})
+        default : return state;
     }
-   }
+}
 
    export default ChangeDatereducer
