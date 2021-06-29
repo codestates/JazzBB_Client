@@ -11,7 +11,6 @@ function BossMainPage() {
       <Sidebar>
       </Sidebar>
       <img src="/img/tokyoJazz.jpg" alt=""/>
-
     </div>
   );
 }

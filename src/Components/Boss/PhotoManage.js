@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import Sidebar from "./Sidebar";
 import './RvManage.css'
 function PhotoManage() {
