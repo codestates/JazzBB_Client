@@ -27,18 +27,20 @@ class Dummy extends Component {
 
     render() {
         return (
-            <Container>
-                <KakaoButton
+            <div>
+                <button onClick={()=> this.responseKakao()}>야 버튼이야</button>
+                {/* <KakaoButton
                     jsKey="d5d2b234d7581ef9f9bc2eb3fd250c1e"
                     buttonText="Kakao"
                     // onSuccess={this.responseKakao}
                     // onFailure={this.responseFail}
                     getProfile="true"
-                />
-            </Container>
+                /> */}
+            </div>
         );
     }
 }
+
 
 const Container = styled.div`
     display: flex;
