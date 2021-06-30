@@ -10,7 +10,11 @@ function BossMainPage() {
     <div className="App">
       <Sidebar>
       </Sidebar>
-      <img src="/img/tokyoJazz.jpg" alt=""/>
+      {/* <img src="/img/tokyoJazz.jpg" alt=""/> */}
+      <div className="alertBox">
+        <h2>승인 대기 중</h2>
+
+      </div>
     </div>
   );
 }

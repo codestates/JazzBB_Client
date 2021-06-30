@@ -44,8 +44,11 @@
     margin: 20px;
     margin-right: 50px;
 }
+/*  */
 
-
+.top-section{
+    display : flex;
+}
 .show-photo-box {
     height: 200px;
     display: flex;
@@ -53,6 +56,13 @@
     
 }
 
+.show-content-box{
+    display: flex
+}
+
+.show-photo-box{
+    float:left
+}
 
 .show-photo{
     background-color: white;
@@ -74,7 +84,17 @@
 }
 
 
-.show-description{
+.inputBox{
+    float: right;
+    flex-direction: column;
+
+}
+
+
+
+
+
+/* .show-description{
     margin: 100px 10px;
 }
 
@@ -83,9 +103,18 @@
 }
 
 .bottom-section{
-    /* display: flex; */
+    display: flex;
 }
 
 .show-button{
-    /* float: right; */
+    float: right;
 }
+
+.inputBox {
+        float: right;
+        margin-right: 100px;
+
+} */
+
+
+
