@@ -302,6 +302,42 @@ input, select {
 }
 
 
+.service-search {
+    display: flex;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.service-search-label {
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-right: 15px;
+}
+
+.service-search-form {
+    width: 900px;
+    height: 1.3rem;
+    margin-right: 15px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid gray;
+    font-size: 1.3rem;
+}
+
+.service-search-submit {
+    width: 50px;
+    height: 25px;
+    margin-right: 15px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid gray;
+}
+
+
 
 
 /* 라이브온 */
