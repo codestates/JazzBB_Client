@@ -30,7 +30,7 @@ import { BsBook } from "react-icons/bs";
         console.log('clilcked')
       }
       return(
-        <>
+        <div>
         <div className="sidebar">
         <div id="header">
           <ProSidebar collapsed={openClose}>
@@ -69,7 +69,7 @@ import { BsBook } from "react-icons/bs";
           </ProSidebar>
         </div>
         </div>
-      </>
+      </div>
 
       )
 
