@@ -20,23 +20,26 @@ dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
-  const state = useSelector(state => state.itemReducer);
+  const state = useSelector(state => state.reducer);
+  const getToken = (authorizationCode) => {
+    console.log(state);
+    axios.get(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
+    .then(res => {
+      // console.log(res);
+      const token = res.data.data.accessToken;
+      dispatch(setToken(token));
+    })
+    .catch(err => console.log(err))
+  }
 
-  useEffect(() => {
-    // console.log(process.env.REACT_APP_DB_HOST);
-    const url = new URL(window.location.href);
-    const authorizationCode = url.searchParams.get('code');
-    if (authorizationCode) {
-      // console.log(authorizationCode)
-      axios.get(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
-      .then(res => {
-        console.log(res);
-        const token = res.data.data.accessToken;
-        dispatch(setToken(token));
-       })
-      .catch(err => console.log(err))
-    }
-  })
+  const url = new URL(window.location.href);
+  const authorizationCode = url.searchParams.get('code');
+  if (authorizationCode) {
+    getToken(authorizationCode)
+  }
+  
+  // useEffect(() => {
+  // })
 
   return (
     <div>

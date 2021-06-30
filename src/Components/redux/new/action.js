@@ -4,6 +4,8 @@ export const SET_SHOW_LIST = "SET_SHOW_LIST"
 export const SET_BAR_LIST = "SET_BAR_LIST"
 export const SET_MENU_LIST = "SET_MENU_LIST"
 export const SET_PHOTO_LIST = "SET_PHOTO_LIST"
+export const SET_REVIEW_LIST = "SET_REVIEW_LIST"
+
 
 export const setToken = (token) => {
     return {
@@ -53,6 +55,15 @@ export const setMenuList = (list) =>{
 export const setPhotoList = (list) =>{
     return {
       type : SET_PHOTO_LIST,
+      payload : {
+        list
+      }
+    }
+}
+
+export const setReviewList = (list) =>{
+    return {
+      type : SET_REVIEW_LIST,
       payload : {
         list
       }

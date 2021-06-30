@@ -15,8 +15,8 @@ const initialState = {
     boardContent: null, // 게시글 CRUD
   },
   review: {
-    reviewId: null, // 댓글 수정, 삭제시 사용가능
     title: null, // 댓글 CRUD
+    point: null, // 댓글 CRUD
     content: null, // 댓글 CRUD
   },
   boss: {
@@ -113,6 +113,7 @@ const initialState = {
   showList: [],
   menu: [],
   barPhoto: [],
+  review: [],//{}
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };
 
