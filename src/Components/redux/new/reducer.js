@@ -9,6 +9,8 @@ const reducer = (state = initialState, action) => {
 
     case SET_BOSS_DATE:
       return Object.assign({}, state, { boss: {date : payload.newDate }});
+
+    // case SET_BOSS
     default:
       return state;
   }

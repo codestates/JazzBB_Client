@@ -2,35 +2,43 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
-import {setBossDate} from '../redux/new/action'
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux'
+import { setBossDate } from "../redux/new/action";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { connect } from "react-redux";
-
+import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
 
 function DatePick() {
-  const dispatch = useDispatch()
-const BossState = useSelector((state) => state.reducer.boss)
-const Boss_Date = BossState.date
+  const dispatch = useDispatch();
+  const BossState = useSelector((state) => state.reducer.boss);
+  const Boss_Date = BossState.date;
 
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   const today = new Date();
   const dateGenerate = (today) => {
-    let year = today.getFullYear(); 
-    let month = today.getMonth() + 1; 
-    let date = today.getDate(); 
-    let day = week[Number(today.getDay())]; 
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let date = today.getDate();
+    let day = week[Number(today.getDay())];
     let fixedDate =
       year + "년 " + month + "월 " + date + "일 " + "(" + day + ")";
     return fixedDate;
   };
-  const date = dateGenerate(Boss_Date)
+  const date = dateGenerate(Boss_Date);
 
-  
   return (
     <div className="date-box">
       <div className="date">
-        <div>{date}</div>
+        <div>
+          <span className="arrow">
+            <BiLeftArrow />
+          </span>
+          <span>{date}</span> 
+          <span className="arrow">
+            <BiRightArrow />
+          </span>
+        </div>
+        {/* <span> </span> */}
       </div>
       <div className="datePicker">
         <DatePicker
@@ -67,4 +75,3 @@ export default DatePick;
 // }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(DatePick);
-
