@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+// import{ OAUTH_URI, REACT_APP_KAKAO, REACT_APP_DB_HOST } from "./environment";
 import React, { useEffect } from "react";
 import {
   Switch,
@@ -14,25 +16,25 @@ import ShowManage from "./Components/Boss/ShowManage";
 import PhotoManage from "./Components/Boss/PhotoManage";
 import InfoManage from "./Components/Boss/InfoManage";
 import { setToken } from './Components/redux/new/action';
-require("dotenv").config()
-
+dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.itemReducer);
 
   useEffect(() => {
+    // console.log(process.env.REACT_APP_DB_HOST);
     const url = new URL(window.location.href);
-    console.log(url);
     const authorizationCode = url.searchParams.get('code');
     if (authorizationCode) {
-      console.log(authorizationCode)
-      axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
-       .then(res => {
+      // console.log(authorizationCode)
+      axios.get(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
+      .then(res => {
+        console.log(res);
         const token = res.data.data.accessToken;
         dispatch(setToken(token));
-        console.log(state);
        })
+      .catch(err => console.log(err))
     }
   })
 
