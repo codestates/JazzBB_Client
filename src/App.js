@@ -14,7 +14,7 @@ import ShowManage from "./Components/Boss/ShowManage";
 import PhotoManage from "./Components/Boss/PhotoManage";
 import InfoManage from "./Components/Boss/InfoManage";
 import { setToken } from './Components/redux/new/action';
-
+require("dotenv").config()
 
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
 
   useEffect(() => {
     const url = new URL(window.location.href);
+    console.log(url);
     const authorizationCode = url.searchParams.get('code');
     if (authorizationCode) {
       console.log(authorizationCode)
