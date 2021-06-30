@@ -19,16 +19,98 @@ const initialState = {
     title: null, // 댓글 CRUD
     content: null, // 댓글 CRUD
   },
+
+  jazzbar: null,
+  serviceOption: [
+    {
+      id: "1",
+      img: "./resource/icons/parking.png",
+      content: "주차가능",
+    },
+    {
+      id: "2",
+      img: "./resource/icons/vallet.png",
+      content: "발렛주차",
+    },
+    {
+      id: "3",
+      img: "./resource/icons/group.png", //'13'
+      content: "단체석",
+    },
+    {
+      id: "4",
+      img: "./resource/icons/room.png",
+      content: "개별룸",
+    },
+    {
+      id: "5",
+      img: "./resource/icons/dinner.png",
+      content: "식사가능",
+    },
+    {
+      id: "6",
+      img: "./resource/icons/corkage.png",
+      content: "콜키지가능",
+    },
+    {
+      id: "7",
+      img: "./resource/icons/night.png",
+      content: "심야영업",
+    },
+    {
+      id: "8",
+      img: "./resource/icons/onlinebook.png",
+      content: "온라인예약",
+    },
+  ],
+  barList: [],
+  menu: [],
+  barPhoto: [],
+  BossShowList: [
+    {
+      id: "01",
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "17:30-19:30",
+      player: {
+        contra: "남태현",
+      },
+      thumbnail: "",
+    },
+    {
+      id: "02",
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "19:30-21:30",
+      player: {
+        contra: "남태현",
+      },
+      thumbnail: "",
+    },
+    {
+      id: "03",
+      jazzbarId: "01",
+      date: "2021-07-02",
+      time: "17:30-19:30",
+      player: {
+        contra: "남태현",
+      },
+      thumbnail: "",
+    },
+  ],
   boss: {
     date: new Date(),
   },
-  reservation: [
+  reservation: [ //boss reservation
     {
       num: "01",
       name: "김수황",
       tel: "010-000-0000",
       psn: "03",
       status: "승인",
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "17:30-19:30",
     },
     {
       num: "02",
@@ -36,6 +118,9 @@ const initialState = {
       tel: "010-000-0000",
       psn: "03",
       status: "거절",
+      jazzbarId: "01",
+      date: "2021-07-02",
+      time: "19:30-21:30",
     },
     {
       num: "03",
@@ -43,12 +128,19 @@ const initialState = {
       tel: "010-000-0000",
       psn: "03",
       status: "대기",
-    }, {
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "17:30-19:30",
+    },
+    {
       num: "04",
       name: "김태선",
       tel: "010-000-0000",
       psn: "03",
       status: "승인",
+      jazzbarId: "01",
+      date: "2021-06-30",
+      time: "19:30-21:30",
     },
     {
       num: "05",
@@ -56,6 +148,9 @@ const initialState = {
       tel: "010-000-0000",
       psn: "03",
       status: "거절",
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "20:30-21:30",
     },
     {
       num: "06",
@@ -63,56 +158,12 @@ const initialState = {
       tel: "010-000-0000",
       psn: "03",
       status: "대기",
-    },
-    
-  ],
-  jazzbar: null,
-  serviceOption: [
-    {
-      id: '1',
-      img: './resource/icons/parking.png',
-      content: '주차가능'
-    },
-    {
-      id: '2',
-      img: './resource/icons/vallet.png',
-      content: '발렛주차'
-    },
-    {
-      id: '3',
-      img: './resource/icons/group.png', //'13'
-      content: '단체석'
-    },
-    {
-      id: '4',
-      img: './resource/icons/room.png',
-      content: '개별룸'
-    },
-    {
-      id: '5',
-      img: './resource/icons/dinner.png',
-      content: '식사가능'
-    },
-    {
-      id: '6',
-      img: './resource/icons/corkage.png',
-      content: '콜키지가능'
-    },
-    {
-      id: '7',
-      img: './resource/icons/night.png',
-      content: '심야영업'
-    },
-    {
-      id: '8',
-      img: './resource/icons/onlinebook.png',
-      content: '온라인예약'
+      jazzbarId: "01",
+      date: "2021-07-02",
+      time: "17:30-19:30",
     },
   ],
-  barList: [],
-  showList: [],
-  menu: [],
-  barPhoto: [],
+
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };
 

@@ -9,8 +9,8 @@ import axios from "axios";
 import Nav from "./Components/Nav";
 import Dummy from "./Pages/dummy";
 import BossMainPage from "./Pages/BossMainPage"
-import RvManage from "./Components/Boss/RvManage";
-import ShowManage from "./Components/Boss/ShowManage";
+import BreservationPage from "./Components/Boss/Reservation/BreservationPage";
+import BshowPage from "./Components/Boss/ShowManage/BshowPage";
 import PhotoManage from "./Components/Boss/PhotoManage";
 import InfoManage from "./Components/Boss/InfoManage";
 import { setToken } from './Components/redux/new/action';
@@ -45,8 +45,8 @@ function App() {
           {/* <Route path="/login" render={() => <LoginPage></LoginPage>} /> */}
           <Route path="/login" render={() => <Dummy></Dummy>} />
           <Route path="/boss/main" render={() => <BossMainPage></BossMainPage>} />
-          <Route path="/boss/reservation" render={() => <RvManage></RvManage>} />
-          <Route path="/boss/show" render={() => <ShowManage></ShowManage> } />
+          <Route path="/boss/reservation" render={() => <BreservationPage></BreservationPage>} />
+          <Route path="/boss/show" render={() => <BshowPage></BshowPage> } />
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <InfoManage></InfoManage>} />
         </Switch>

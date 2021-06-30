@@ -5,7 +5,7 @@ import DatePick from "./DatePick";
 // import { CgFileAdd } from "react-icons/cg";
 
 
-function ShowManage() {
+function BshowPage() {
   // let iconStyles = {fontSize: "5em" };
   return (
     <div >
@@ -45,4 +45,4 @@ function ShowManage() {
   );
 }
 
-export default ShowManage;
+export default BshowPage;
