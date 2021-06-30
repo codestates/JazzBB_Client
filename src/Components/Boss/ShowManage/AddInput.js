@@ -4,9 +4,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
+
 
 
 
@@ -63,40 +63,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomizedSelects() {
   const classes = useStyles();
-  const [showName, setshowName] = React.useState('');
-  const handleChange = (event) => {
-    setshowName(event.target.value);
+  const [age, setAge] = React.useState('');
+  const handleChange1 = (event) => {
+    setAge(event.target.value);
   };
+
+ 
   return (
-    <div>
-      <form className={classes.container} noValidate>
-      <TextField
-        id="text"
-        label="공연 제목"
-        type="text"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        inputProps={{
-          step: 300, // 5 min
-        }}
-      />
-    </form>
-      
+    <div className="input-outerbox">
+      <div className="input-showdate inputdiv" >
       <form className={classes.container} noValidate>
       <TextField
         id="date"
         label="공연날짜"
         type="date"
-        defaultValue="2017-05-24"
+        defaultValue="2021-07-01"
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
         }}
       />
     </form>
-    <form className={classes.container} noValidate>
+    </div>
+    <div className="input-showtime inputdiv">
       <TextField
         id="time"
         label="공연 시작 시간"
@@ -110,8 +99,6 @@ export default function CustomizedSelects() {
           step: 300, // 5 min
         }}
       />
-    </form>
-    <form className={classes.container} noValidate>
       <TextField
         id="time"
         label="공연 종료 시간"
@@ -125,7 +112,175 @@ export default function CustomizedSelects() {
           step: 300, // 5 min
         }}
       />
-    </form>
+    </div>
+    <div className="input-showPlayer inputdiv">
+    <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label"></InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange1}
+        >
+          <MenuItem value={10}>Pf</MenuItem>
+          <MenuItem value={20}>Bs</MenuItem>
+          <MenuItem value={30}>Tp</MenuItem>
+          <MenuItem value={30}>Dr</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        id="time"
+        label="연주자"
+        type="text"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+    </div>
+    <div className="input-showPlayer inputdiv">
+    <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label"></InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange1}
+        >
+          <MenuItem value={10}>Pf</MenuItem>
+          <MenuItem value={20}>Bs</MenuItem>
+          <MenuItem value={30}>Tp</MenuItem>
+          <MenuItem value={30}>Dr</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        id="time"
+        label="연주자"
+        type="text"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+    </div>
+    <div className="input-showPlayer inputdiv">
+    <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label"></InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange1}
+        >
+          <MenuItem value={10}>Pf</MenuItem>
+          <MenuItem value={20}>Bs</MenuItem>
+          <MenuItem value={30}>Tp</MenuItem>
+          <MenuItem value={30}>Dr</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        id="time"
+        label="연주자"
+        type="text"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+    </div>
+    <div className="input-showPlayer inputdiv">
+    <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label"></InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange1}
+        >
+          <MenuItem value={10}>Pf</MenuItem>
+          <MenuItem value={20}>Bs</MenuItem>
+          <MenuItem value={30}>Tp</MenuItem>
+          <MenuItem value={30}>Dr</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        id="time"
+        label="연주자"
+        type="text"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+    </div>
+    <div className="input-showPlayer inputdiv">
+    <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label"></InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange1}
+        >
+          <MenuItem value={10}>Pf</MenuItem>
+          <MenuItem value={20}>Bs</MenuItem>
+          <MenuItem value={30}>Tp</MenuItem>
+          <MenuItem value={30}>Dr</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        id="time"
+        label="연주자"
+        type="text"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+    </div>
+    <div className="input-showPlayer inputdiv">
+    <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label"></InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange1}
+        >
+          <MenuItem value={10}>Pf</MenuItem>
+          <MenuItem value={20}>Bs</MenuItem>
+          <MenuItem value={30}>Tp</MenuItem>
+          <MenuItem value={30}>Dr</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        id="time"
+        label="연주자"
+        type="text"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+    </div>
     </div>
   );
 }

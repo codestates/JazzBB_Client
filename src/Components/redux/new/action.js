@@ -3,7 +3,6 @@ export const SET_SHOW_LIST = "SET_SHOW_LIST"
 export const SET_BAR_LIST = "SET_BAR_LIST"
 export const SET_MENU_LIST = "SET_MENU_LIST"
 export const SET_PHOTO_LIST = "SET_PHOTO_LIST"
-export const SET_BOSS_SHOW_LIST = "SET_BOSS_SHOW_LIST"
 export const SET_BOSS_DATE = "SET_BOSS_DATE"
 
 
@@ -61,11 +60,3 @@ export const setPhotoList = (list) =>{
     }
 }
 
-export const setBossShowlist = (list) =>{
-  return{
-    type : SET_BOSS_SHOW_LIST,
-    payload : {
-      list
-    }
-  }
-}

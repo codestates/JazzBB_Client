@@ -1,0 +1,53 @@
+.allShow-box{
+}
+
+.oneShow-box{
+    background-color: rgb(212, 170, 201);
+    padding: 20px;
+    display: flex;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.oneShow-thumbnail{
+    float: left;
+     height: 265px;
+    box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+    justify-content: center;
+}
+.oneShow-info{
+    float: right;
+    margin-left: 10%;
+    width: 60%;
+    /* background-color: rgb(164, 145, 145); */
+}
+
+
+.oneShow-info > div{
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+}
+
+.oneShow-date {
+    font-weight: bold;
+}
+
+.data-title{
+    margin-right: 20px;
+}
+
+.MuiButtonBase-root{
+    width: 100%;
+}
+
+
+.oneShow-button-box{
+    /* display: flex; */
+}
+
+.oneShow-button-box > button{
+    width: 150px;
+    height: 50px;
+}

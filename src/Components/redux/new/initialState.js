@@ -72,36 +72,64 @@ const initialState = {
       jazzbarId: "01",
       date: "2021-07-01",
       time: "17:30-19:30",
-      player: {
-        contra: "남태현",
-      },
+      player: [
+        {
+          Pf: "남태현",
+        },
+        {
+          Bs: "남태현",
+        },
+        { Tp: "남태현" },
+        { Dr: "김수황" },
+      ],
       thumbnail: "",
+      content: "blahblahblah",
+      showCharge: "20,000",
     },
     {
       id: "02",
       jazzbarId: "01",
       date: "2021-07-01",
       time: "19:30-21:30",
-      player: {
-        contra: "남태현",
-      },
+      player: [
+        {
+          Pf: "남태현",
+        },
+        {
+          Bs: "남태현",
+        },
+        { Tp: "남태현" },
+        { Dr: "김수황" },
+      ],
       thumbnail: "",
+      content: "blahblahblah",
+      showCharge: "20,000",
     },
     {
       id: "03",
       jazzbarId: "01",
       date: "2021-07-02",
       time: "17:30-19:30",
-      player: {
-        contra: "남태현",
-      },
+      player: [
+        {
+          Pf: "남태현",
+        },
+        {
+          Bs: "남태현",
+        },
+        { Tp: "남태현" },
+        { Dr: "김수황" },
+      ],
       thumbnail: "",
+      content: "Ariana GrandeTell me something I need to knowThen take my breath and never let it goIf you just let me invade your spaceIll take this pleasure, take it with the painAnd if in the moment I bite my lipLove me, love me, love ",
+      showCharge: "20,000",
     },
   ],
   boss: {
     date: new Date(),
   },
-  reservation: [ //boss reservation
+  reservation: [
+    //boss reservation
     {
       num: "01",
       name: "김수황",

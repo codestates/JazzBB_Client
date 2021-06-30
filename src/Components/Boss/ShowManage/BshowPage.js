@@ -21,8 +21,6 @@ function BshowPage() {
           {/* 공연리스트 */}
           <div clssName ="b-show-list">
             <ShowHeader></ShowHeader>
-            <div></div>
- 
           </div>
          
         </div>
