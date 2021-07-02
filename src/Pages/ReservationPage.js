@@ -65,17 +65,28 @@ function Reservation(){
               </div>
             </div>
   
+<<<<<<< HEAD
             <div class="reservation-details-personWrapper">
               <div class="reservation-details-label">방문인원</div>
               <input class="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.jazzbar.defaultSeat} onChange={(number) => changePeople(number)} value="1" />
             </div>
+=======
+                              <div class="reservation-details-personWrapper">
+                                  <div class="reservation-details-label">방문인원</div>
+                                  <input class="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.jazzbar.defaultSeat}  value="1" />
+                              </div>
+>>>>>>> d764d67e137815cc910c111948936d5666ed8f83
                               {/* <div class="reservation-details-timeWrapper">
                                   <div class="reservation-details-label">방문일시</div>
                                   <input class="reservation-details-date" type="datetime-local" name="reservation-date" />
                               </div> */}
   
   
+<<<<<<< HEAD
             <button class="reservation-details-submit" onClick={()=> requestReservation()}>예약신청</button>
+=======
+                              <button class="reservation-details-submit" >예약신청</button>
+>>>>>>> d764d67e137815cc910c111948936d5666ed8f83
   
           </div>
   

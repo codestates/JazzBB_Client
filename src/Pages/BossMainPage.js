@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import RvManage from "../Components/Boss/RvManage";
+import BreservationPage from "../Components/Boss/Reservation/BreservationPage";
 import Sidebar from "../Components/Boss/Sidebar";
 import "../css/sidebar.css";
 import "../css/BossMainPage.css"

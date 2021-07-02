@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { SET_TOKEN, SET_BOSS_DATE, SET_LIST, TYPE_TEXT, MODIFY_SWITCH, SAVE_MY_ID, SET_PEOPLE, SET_SHOW } from "./action";
+=======
+import { SET_TOKEN, SET_BOSS_DATE, SET_LIST, TYPE_TEXT, MODIFY_SWITCH, SAVE_MY_ID, SET_SHOW } from "./action";
+>>>>>>> d764d67e137815cc910c111948936d5666ed8f83
 import initialState from "./initialState";
 
 const reducer = (state = initialState, action) => {

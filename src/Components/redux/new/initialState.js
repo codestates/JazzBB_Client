@@ -18,16 +18,161 @@ const initialState = {
     content: null, // 댓글 CRUD
     point: null, // 댓글 CRUD
   },
+
+ 
+  BossShowList: [
+    {
+      id: "01",
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "15:30-17:30",
+      player: [
+        {
+          position : "singer",
+          name: "서지민",
+        },
+        {
+          position : "piano",
+          name: "김수황",
+        },
+        {
+          position : "base",
+          name: "rlaxots",
+        },
+        {
+          position : "trumpet",
+          name: "성준락",
+        },
+      ],
+      thumbnail: "",
+      content: "blahblahblah",
+      showCharge: "20000",
+    },
+    {
+      id: "02",
+      jazzbarId: "01",
+      date: "2021-07-03",
+      time: "19:30-21:30",
+      player: [
+        {
+          position : "singer",
+          name: "서지민",
+        },
+        {
+          position : "piano",
+          name: "김수황",
+        },
+        {
+          position : "base",
+          name: "rlaxots",
+        },
+        {
+          position : "trumpet",
+          name: "성준락",
+        },
+      ],
+      thumbnail: "",
+      content: "blahblahblah",
+      showCharge: "20000",
+    },
+    {
+      id: "03",
+      jazzbarId: "01",
+      date: "2021-07-04",
+      time: "17:30-19:30",
+      player: [
+        {
+          position : "singer",
+          name: "서지민",
+        },
+        {
+          position : "piano",
+          name: "김수황",
+        },
+        {
+          position : "base",
+          name: "rlaxots",
+        },
+        {
+          position : "trumpet",
+          name: "성준락",
+        },
+      ],
+      thumbnail: "",
+      content: "Ariana GrandeTell me something I need to knowThen take my breath and never let it goIf you just let me invade your spaceIll take this pleasure, take it with the painAnd if in the moment I bite my lipLove me, love me, love ",
+      showCharge: "20000",
+    },
+    {
+      id: "04",
+      jazzbarId: "01",
+      date: "2021-07-10",
+      time: "17:30-19:30",
+      player: [
+        {
+          position : "singer",
+          name: "서지민",
+        },
+        {
+          position : "piano",
+          name: "김수황",
+        },
+        {
+          position : "base",
+          name: "rlaxots",
+        },
+        {
+          position : "trumpet",
+          name: "성준락",
+        },
+      ],
+      thumbnail: "",
+      content: "Ariana GrandeTell me something I need to knowThen take my breath and never let it goIf you just let me invade your spaceIll take this pleasure, take it with the painAnd if in the moment I bite my lipLove me, love me, love ",
+      showCharge: "20000",
+    },
+    {
+      id: "05",
+      jazzbarId: "01",
+      date: "2021-07-19",
+      time: "17:30-19:30",
+      player: [
+        {
+          position : "singer",
+          name: "서지민",
+        },
+        {
+          position : "piano",
+          name: "김수황",
+        },
+        {
+          position : "base",
+          name: "rlaxots",
+        },
+        {
+          position : "trumpet",
+          name: "성준락",
+        },
+      ],
+        
+    
+      thumbnail: "",
+      content: "Ariana GrandeTell me something I need to knowThen take my breath and never let it goIf you just let me invade your spaceIll take this pleasure, take it with the painAnd if in the moment I bite my lipLove me, love me, love ",
+      showCharge: "20000",
+    },
+  ],
   boss: {
     date: new Date(),
   },
   reservation: [
+    //boss reservation
     {
       num: "01",
       name: "김수황",
       tel: "010-000-0000",
       psn: "03",
       status: "승인",
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "17:30-19:30",
     },
     {
       num: "02",
@@ -35,6 +180,9 @@ const initialState = {
       tel: "010-000-0000",
       psn: "03",
       status: "거절",
+      jazzbarId: "01",
+      date: "2021-07-02",
+      time: "19:30-21:30",
     },
     {
       num: "03",
@@ -42,28 +190,40 @@ const initialState = {
       tel: "010-000-0000",
       psn: "03",
       status: "대기",
-    }, {
+      jazzbarId: "01",
+      date: "2021-07-03",
+      time: "17:30-19:30",
+    },
+    {
       num: "04",
       name: "김태선",
       tel: "010-000-0000",
-      psn: "03",
+      psn: "02",
       status: "승인",
+      jazzbarId: "01",
+      date: "2021-06-30",
+      time: "19:30-21:30",
     },
     {
       num: "05",
       name: "김수황",
       tel: "010-000-0000",
-      psn: "03",
+      psn: "05",
       status: "거절",
+      jazzbarId: "01",
+      date: "2021-07-01",
+      time: "20:30-21:30",
     },
     {
       num: "06",
       name: "김수황",
       tel: "010-000-0000",
-      psn: "03",
+      psn: "06",
       status: "대기",
+      jazzbarId: "01",
+      date: "2021-07-02",
+      time: "17:30-19:30",
     },
-    
   ],
   barList: [],
   jazzbar: null, //selected

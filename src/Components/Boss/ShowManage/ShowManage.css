@@ -1,0 +1,318 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* BshowPage.js */
+.outer-box{
+    margin-left: 18%;
+    margin-right:5%;
+    margin-bottom: 5%;
+}
+
+.bossHeader{ 
+    width: 100%;
+    height: 80px;
+    background-color: rgb(229, 229, 229);
+    text-align: center;
+}
+
+.bossHeader>img{
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+}
+
+
+.content {
+    width: 100%;
+    margin-top: 30px;
+    height: 100%;
+}
+
+.content-title{
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.hrcss { border-color: rgb(239, 237, 237); width: 100%; }
+
+
+/* AddShow.js*/
+.show-box{
+    background-color: rgb(255, 255, 255);
+    margin: 20px;
+    margin-right: 50px;
+    height: auto;
+    display: flex;
+}
+.show-innerbox{
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: baseline; */
+
+}
+
+
+
+.show-box_photo{  
+    background-color: teal;
+    height: 200px;
+    text-align: center;
+    margin: 0 10px 0 10px;
+
+}
+
+.show-box_input{
+
+}
+
+.show-box_content{
+
+}
+
+
+
+
+
+
+.show-photo{
+    cursor: pointer;
+}
+
+.show-photo>img{
+    /* width: 150px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px; */
+}
+
+
+
+.add-thumbnail-Wrapper {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.add-thumbnail {
+    width: 250px;
+    height: 250px;
+}
+
+.add-thumbnail-holder {
+    width: 250px;
+    height: 250px;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.add-thumbnail-upload {
+    border: none;
+    border-radius: 5px;
+    padding-left: 7px;
+    background-color: whitesmoke;
+    color: black;
+    width: 100%;
+    margin-top: 5px;
+    height: 23px;
+}
+
+.add-subtitle {
+    color: rgb(105, 101, 101);
+    font-family: "Jua";
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.bottom-box{
+    float: right;
+    /* background-color: rgb(168, 165, 165); */
+    width: 100px;
+    display: flex;
+    flex-direction :column-reverse;
+    /* align-items: center; */
+    padding : 55px
+}
+
+.bottom-box > button{
+    /* width: 150px;
+    height: 50px; */
+
+}
+
+/* AddInput.js */
+
+.input-outerbox{
+    padding: 0 20px 0 80px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.input-date-time{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputdiv{
+    margin-bottom: 30px;
+
+}
+
+.input-showPlayer{
+}
+
+.input-showtime{
+}
+
+
+
+.allShow-box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.card-outer-box{
+    margin-right: 30px;
+    }
+    
+    .card-box{
+        background-color: white;
+        width: 600px;
+        height: 415px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 40px;
+        border: 0.5px solid black
+    }
+    
+    
+    /* 카드의 왼쪽박스 */
+    .left-box{
+        width: 55%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+    }
+    .left-top{
+        height: 20%;
+        background-color: rgba(255, 255, 255, 0.726);
+    }
+    
+    .left-middle{
+        height: 20%;
+    }
+    
+    .left-middle >img{
+        width: 100%;
+        margin-left: 0.5px;
+        height: 80%px;
+    }
+    
+    
+    /* 카드의 오른쪽박스 */
+    .right-box{
+        background-color: rgba(245, 240, 240, 0.795);
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .right-box-top{
+        height: 20%;
+    }
+    
+    .hamicon{
+        float: right;
+        margin-top: 3px;
+        margin-left: 200px;
+        display: flex;
+    }
+
+  
+    
+    .right-box-bottom >div{
+        margin-bottom: 40px;
+        font-size: 18px;
+        display: flex;
+    }
+    
+    .data-content{
+        width: 100px;
+        word-break: break-all;
+    }
+
+
+  .checkBox{
+      display: flex;
+      flex-wrap: wrap;
+      width: 500px;
+      margin-left: 8px;
+  }
+
+  .checkBox > div {
+      display: flex;
+      margin-right: 25px;
+      width: 70px;
+  }
+
+  .checkBox > div >input {
+    margin-right: 8px;
+}
+
+.checkBox > div >div {
+  word-break: keep-all;
+}
+
+
+.input-content-box{
+    margin-left: 8px;
+}
+
+.checkBox{
+    margin-bottom: 25px;
+}
+
+
+.checkbox-alert{
+    color: rgb(105, 103, 103);
+    margin-bottom: 10px;
+    margin-left: 8px;
+}
+
+
+
+
+/* ModalInfoEdit.js */
+.modalinnerbox{
+    background-color: rgb(255, 255, 255);
+}
+
+.modal-Bottom-box{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column-reverse;
+
+}
+
+.modal-buttom-box-delete{
+    width: 150px;
+    height: 50px;
+}
+
+.modal-buttom-box-save{
+    width: 150px;
+    height: 50px;
+}
