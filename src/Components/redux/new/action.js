@@ -1,10 +1,11 @@
 export const SET_TOKEN = "SET_TOKEN";
 export const SET_BOSS_DATE = "SET_BOSS_DATE"
-export const SET_SHOW_LIST = "SET_SHOW_LIST"
-export const SET_BAR_LIST = "SET_BAR_LIST"
-export const SET_MENU_LIST = "SET_MENU_LIST"
-export const SET_PHOTO_LIST = "SET_PHOTO_LIST"
-export const SET_REVIEW_LIST = "SET_REVIEW_LIST"
+export const SET_LIST = "SET_LIST"
+export const TYPE_TEXT = "TYPE_TEXT"
+export const MODIFY_SWITCH = "MODIFY_SWITCH"
+export const SAVE_MY_ID = "SAVE_MY_ID"
+export const SET_SHOW = "SET_SHOW"
+
 
 
 export const setToken = (token) => {
@@ -25,47 +26,49 @@ export const setBossDate = (newDate) =>{
   }
 }
 
-export const setShowList = (list) =>{
+export const setList = (list, verify) =>{
     return {
-      type : SET_SHOW_LIST,
+      type : SET_LIST,
       payload : {
-        list
+        list,
+        verify
       }
     }
 }
 
-export const setBarList = (list) =>{
+export const typeText = (text, veriety) =>{
     return {
-      type : SET_BAR_LIST,
+      type : TYPE_TEXT,
       payload : {
-        list
+        text,
+        veriety
       }
     }
 }
 
-export const setMenuList = (list) =>{
+export const modifySwitch = (veriety) =>{
     return {
-      type : SET_MENU_LIST,
+      type : MODIFY_SWITCH,
       payload : {
-        list
+        veriety
       }
     }
 }
 
-export const setPhotoList = (list) =>{
+export const saveMyId = (id) =>{
     return {
-      type : SET_PHOTO_LIST,
+      type : SAVE_MY_ID,
       payload : {
-        list
+        id
       }
     }
 }
 
-export const setReviewList = (list) =>{
+export const setShow = (show) =>{
     return {
-      type : SET_REVIEW_LIST,
+      type : SET_SHOW,
       payload : {
-        list
+        show
       }
     }
 }

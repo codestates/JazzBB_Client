@@ -1,4 +1,4 @@
-import { SET_TOKEN, SET_BOSS_DATE, SET_SHOW_LIST, SET_BAR_LIST, SET_MENU_LIST, SET_PHOTO_LIST, SET_REVIEW_LIST } from "./action";
+import { SET_TOKEN, SET_BOSS_DATE, SET_LIST, TYPE_TEXT, MODIFY_SWITCH, SAVE_MY_ID } from "./action";
 import initialState from "./initialState";
 
 const reducer = (state = initialState, action) => {
@@ -10,20 +10,21 @@ const reducer = (state = initialState, action) => {
     case SET_BOSS_DATE:
       return Object.assign({}, state, { boss: {date : payload.newDate }});
 
-    case SET_SHOW_LIST:
-      return Object.assign({}, state, { showList: payload.list })
+    case SET_LIST:
+      return Object.assign({}, state, { [payload.verify]: payload.list });
 
-    case SET_BAR_LIST:
-      return Object.assign({}, state, { barList: payload.list })
-
-    case SET_MENU_LIST:
-      return Object.assign({}, state, { menu: payload.list })
+    case TYPE_TEXT:
+        return Object.assign({}, state, { review: { ...state.review, [payload.veriety]:payload.text} });
+        
+    case MODIFY_SWITCH:
+        return Object.assign({}, state, { togle: { ...state.togle, [payload.veriety]: !state.togle[payload.veriety]} });
     
-    case SET_PHOTO_LIST:
-      return Object.assign({}, state, { barPhoto: payload.list })
+    case SAVE_MY_ID:
+        return Object.assign({}, state, { myReviewId: payload.id });
 
-    case SET_REVIEW_LIST:
-      return Object.assign({}, state, { review: payload.list })
+    case SET_SHOW:
+        return Object.assign({}, state, { show: payload.show });
+
     default:
       return state;
   }
