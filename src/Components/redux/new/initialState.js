@@ -73,6 +73,7 @@ const initialState = {
   menu: [],
   showList: [],
   show: null,
+  people: null,
   serviceOption: [
     {
       id: '1',
