@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
-export default function CustomizedSelects() {
+export default function CustomizedSelects({data}) {
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -19,9 +19,6 @@ export default function CustomizedSelects() {
   }));
   const classes = useStyles();
 
-  // const handleInputChange1 = (key) => (e) => {
-  //   setPlayer({ [key]: e.target.value });
-  //   };
   const [state, setState] = React.useState({
     singer: false,
     piano: false,
@@ -35,7 +32,19 @@ export default function CustomizedSelects() {
     etc: false,
   });
   const playerArr = Object.keys(state);
+ const checkedPosition = data.player.map(el=> el.position)
+ 
+ const checkedWithoutCOmma = checkedPosition.map(el => el.replaceAll("\"", ""))
 
+//  checkedPosition.map(el => console.log(state.el))
+ console.log(checkedWithoutCOmma)
+
+//배열에 있는 키값들 true로 setState.
+
+  const time = data.time
+  const start = time.substring(0,5)
+  const end = time.substring(6,11)
+ 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: !state[event.target.name] });
   };
@@ -45,7 +54,6 @@ export default function CustomizedSelects() {
   const PositionChange = (event) => {
     const nKey = event.target.value;
     setPosition([...position, nKey]);
-    console.log(position, "@@@@@@@");
   };
   const handleInputChange = (event) => {
     if (position === "") {
@@ -55,16 +63,17 @@ export default function CustomizedSelects() {
       setPlayer({ [position]: nValue });
     }
   };
-
+console.log(data)
   return (
     <div className="input-outerbox">
-      <div className="input-content-box inputdiv">
+      <div className="input-content-box">
         <TextField
           id="standard-full-width"
           label="공연 소개"
           style={{ margin: 0 }}
           placeholder="공연의 간략한 소개"
           helperText=""
+          defaultValue={data.content}
           fullWidth
           margin="normal"
           InputLabelProps={{
@@ -75,10 +84,11 @@ export default function CustomizedSelects() {
       <div className="input-content-box inputdiv">
         <TextField
           id="standard"
-          label="공연 가격"
+          label="공연 가격 (숫자만 입력)"
           type={Number}
           style={{ margin: 0 }}
           placeholder="예 : 20000"
+          defaultValue={data.showCharge}
           helperText=""
           margin="normal"
           InputLabelProps={{
@@ -93,7 +103,7 @@ export default function CustomizedSelects() {
             id="date"
             label="공연날짜"
             type="date"
-            defaultValue="2021-07-01"
+            defaultValue={data ? data.date : "2021-07-01"}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -106,7 +116,7 @@ export default function CustomizedSelects() {
           id="time"
           label="공연 시작 시간"
           type="time"
-          defaultValue="19:30"
+          defaultValue={start}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -119,7 +129,7 @@ export default function CustomizedSelects() {
           id="time"
           label="공연 종료 시간"
           type="time"
-          defaultValue="19:30"
+          defaultValue={end}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -129,7 +139,6 @@ export default function CustomizedSelects() {
           }}
         />
       </div>
-
       <div>
         <div className="checkbox-alert">* 연주자들의 포지션을 선택해주세요.</div>
         <div className="checkBox">
@@ -138,6 +147,7 @@ export default function CustomizedSelects() {
               <input
                 type="checkbox"
                 name={el}
+                defaultChecked={data.player.el}
                 value={state.el}
                 onChange={handleChange}
               />

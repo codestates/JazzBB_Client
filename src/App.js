@@ -11,8 +11,9 @@ import Dummy from "./Pages/dummy";
 import BossMainPage from "./Pages/BossMainPage"
 import BreservationPage from "./Components/Boss/Reservation/BreservationPage";
 import BshowPage from "./Components/Boss/ShowManage/BshowPage";
-import PhotoManage from "./Components/Boss/PhotoManage";
+import PhotoManage from "./Components/Boss/Photo/PhotoManage";
 import InfoManage from "./Components/Boss/InfoManage";
+import JazzBarPage from './Pages/JazzBarPage'
 import { setToken } from './Components/redux/new/action';
 require("dotenv").config()
 
@@ -49,6 +50,7 @@ function App() {
           <Route path="/boss/show" render={() => <BshowPage></BshowPage> } />
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <InfoManage></InfoManage>} />
+          <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
         </Switch>
       </div>
     </div>

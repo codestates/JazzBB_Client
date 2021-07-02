@@ -11,9 +11,9 @@ function BshowPage() {
     <div>
       <Sidebar></Sidebar>
       <div className="outer-box">
-        <div className="bossHeader">
-          <img src="/img/tokyoJazz.jpg" alt="" />
-        </div>
+        {/* <div className="bossHeader">
+          {/* <img src="/img/tokyoJazz.jpg" alt="" /> */}
+        {/* </div>  */}
         <div className="content">
           <div className="content-title">공연 관리</div>
           <hr class="hrcss"></hr>

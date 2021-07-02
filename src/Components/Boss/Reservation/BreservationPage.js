@@ -14,7 +14,7 @@ const BreservationPage =() => {
   return ( <div>
       <Sidebar></Sidebar>
       <div className="outer-box">
-      <div className="bossHeader"><img src="/img/tokyoJazz.jpg" alt=""/></div>
+      {/* <div className="bossHeader"><img src="/img/tokyoJazz.jpg" alt=""/></div> */}
         <div className="content">
           <div className="content-title">예약 관리</div>
           <hr class="hrcss"></hr>
