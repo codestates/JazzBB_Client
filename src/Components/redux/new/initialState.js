@@ -15,57 +15,11 @@ const initialState = {
     boardContent: null, // 게시글 CRUD
   },
   review: {
-    reviewId: null, // 댓글 수정, 삭제시 사용가능
-    title: null, // 댓글 CRUD
     content: null, // 댓글 CRUD
+    point: null, // 댓글 CRUD
   },
 
-  jazzbar: null,
-  serviceOption: [
-    {
-      id: "1",
-      img: "./resource/icons/parking.png",
-      content: "주차가능",
-    },
-    {
-      id: "2",
-      img: "./resource/icons/vallet.png",
-      content: "발렛주차",
-    },
-    {
-      id: "3",
-      img: "./resource/icons/group.png", //'13'
-      content: "단체석",
-    },
-    {
-      id: "4",
-      img: "./resource/icons/room.png",
-      content: "개별룸",
-    },
-    {
-      id: "5",
-      img: "./resource/icons/dinner.png",
-      content: "식사가능",
-    },
-    {
-      id: "6",
-      img: "./resource/icons/corkage.png",
-      content: "콜키지가능",
-    },
-    {
-      id: "7",
-      img: "./resource/icons/night.png",
-      content: "심야영업",
-    },
-    {
-      id: "8",
-      img: "./resource/icons/onlinebook.png",
-      content: "온라인예약",
-    },
-  ],
-  barList: [],
-  menu: [],
-  barPhoto: [],
+ 
   BossShowList: [
     {
       id: "01",
@@ -271,7 +225,66 @@ const initialState = {
       time: "17:30-19:30",
     },
   ],
-
+  barList: [],
+  jazzbar: null, //selected
+  barPhoto: [],
+  reviewList: [],//{}
+  myReviewId: null,
+  menu: [],
+  showList: [],
+  show: null,
+  serviceOption: [
+    {
+      id: '1',
+      img: './resource/icons/parking.png',
+      content: '주차가능'
+    },
+    {
+      id: '2',
+      img: './resource/icons/vallet.png',
+      content: '발렛주차'
+    },
+    {
+      id: '3',
+      img: './resource/icons/group.png', //'13'
+      content: '단체석'
+    },
+    {
+      id: '4',
+      img: './resource/icons/room.png',
+      content: '개별룸'
+    },
+    {
+      id: '5',
+      img: './resource/icons/dinner.png',
+      content: '식사가능'
+    },
+    {
+      id: '6',
+      img: './resource/icons/corkage.png',
+      content: '콜키지가능'
+    },
+    {
+      id: '7',
+      img: './resource/icons/night.png',
+      content: '심야영업'
+    },
+    {
+      id: '8',
+      img: './resource/icons/onlinebook.png',
+      content: '온라인예약'
+    },
+  ],
+  notice: [
+    '공연 시작 10분 전에 자리해주세요.',
+    '화장실이나 기타 용무는 공연 전후로 마무리 해주시는 것이 좋습니다.',
+    '공연자에 대한 예의로, 공연 중 자리를 뜨지 않는 것이 좋습니다.',
+    '예약 승인 후 예약 취소 없이 방문하지 않는 노쇼(No-Show) 행위가 반복될 경우 예약이 거절되거나 시스템 이용이 정지될 수 있습니다.',
+  ],
+  togle: {
+    reviewModify: false,
+    reviewDelete: false,
+  }
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };
 

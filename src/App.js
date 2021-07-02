@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+// import{ OAUTH_URI, REACT_APP_KAKAO, REACT_APP_DB_HOST } from "./environment";
 import React, { useEffect } from "react";
 import {
   Switch,
@@ -15,27 +17,30 @@ import PhotoManage from "./Components/Boss/Photo/PhotoManage";
 import InfoManage from "./Components/Boss/InfoManage";
 import JazzBarPage from './Pages/JazzBarPage'
 import { setToken } from './Components/redux/new/action';
-require("dotenv").config()
-
+dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
-  const state = useSelector(state => state.itemReducer);
+  const state = useSelector(state => state.reducer);
+  const getToken = (authorizationCode) => {
+    console.log(state);
+    axios.get(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
+    .then(res => {
+      // console.log(res);
+      const token = res.data.data.accessToken;
+      dispatch(setToken(token));
+    })
+    .catch(err => console.log(err))
+  }
 
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    console.log(url);
-    const authorizationCode = url.searchParams.get('code');
-    if (authorizationCode) {
-      console.log(authorizationCode)
-      axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
-       .then(res => {
-        const token = res.data.data.accessToken;
-        dispatch(setToken(token));
-        console.log(state);
-       })
-    }
-  })
+  const url = new URL(window.location.href);
+  const authorizationCode = url.searchParams.get('code');
+  if (authorizationCode) {
+    getToken(authorizationCode)
+  }
+  
+  // useEffect(() => {
+  // })
 
   return (
     <div>

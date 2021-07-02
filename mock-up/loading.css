@@ -115,11 +115,6 @@ input, select {
     width: 20%;
 }
 
-/* .nav-btn {
-    border: none;
-    width: 100px;
-    height: 50px;
-} */
 
 .nav-btn {
     padding: 0.6em 2em;
@@ -204,264 +199,85 @@ input, select {
 
 
 
-
-
+  
 
 /* 본문 영역 */
 
 
 
-.reservation {
-    display: flex;
-    justify-content: center;
-}
 
-.reservation-body {
-    width: 72%;
-}
-
-.reservation-header {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    margin-top: 20px;
-    text-align: center;
-    padding: 30px;
-    margin-bottom: 20px;
-}
-
-.reservation-header-name {
-    font-size: 2.5rem;
-    font-weight: 900;
-}
-
-.reservation-header-locale {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.reservation-header-phone {
-    margin-top: 10px;
-}
-
-.reservation-header-openhour {
-    margin-top: 10px;
-}
-
-.reservation-shopnotice {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    height: 200px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.reservation-shopnotice-label {
-    font-size: 1.4rem;
-    font-weight: 900;
-    display: block;
-}
-
-.reservation-shopnotice-text {
-    padding: 20px;
-    line-height: 1.4;
-    height: 70%;
-    overflow-y: scroll;
-}
-
-.reservation-container {
-    display: flex;
-    justify-content: space-between;
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 30px;
-}
-
-.reservation-photobox {
-    width: 49%;
-}
-
-.reservation-photobox-img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-}
-
-.reservation-details {
-    width: 49%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.reservation-details-lineup {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    width: 90%;
-    height: 55%;
-    margin-bottom: 20px;
-    display: flex;
-    padding: 20px;
-    flex-direction: column;
-}
-
-.reservation-details-lineup-label {
-    font-weight: 900;
-    font-style: 1.2rem;
-    margin-bottom: 15px;
-}
-
-.reservation-details-lineup-text {
-    margin-left: 20px;
-    margin-right: 20px;
-    height: auto;
-    overflow-y: scroll;
-    line-height: 1.4;
-}
-
-
-
-
-.reservation-details-personWrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.reservation-details-timeWrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: 100px;
-}
-
-.reservation-details-label {
-    font-weight: 900;
-    margin-right: 10px;
-}
-
-.reservation-details-person {
-    width: 255px;
-    height: 1.5rem;
-}
-
-.reservation-details-date {
-    height: 1.5rem;
-}
-
-/* .reservation-details-submit {
-    border: none;
-    border-radius: 10px;
-    width: 300px;
-    height: 40px;
-    background-color: tomato;
-    font-size: 1.2rem;
-    font-weight: 900;
-    color: white;
-}
-
-.reservation-details-submit:hover {
-    background-color: orangered;
-} */
-
-.reservation-details-submit {
-    padding: 0.6em 2em;
-    border: none;
-    outline: none;
-    color: rgb(255, 255, 255);
-    background: #111;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;
-    width: 300px;
-    height: 40px;
-  }
-  
-  .reservation-details-submit:before {
-    content: "";
-    background: linear-gradient(
-      45deg,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #ff0000
-    );
+  .middle {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowingbn5 20s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    border-radius: 10px;
+  }
+
+  .bar {
+    width: 10px;
+    height: 70px;
+    background: #fff;
+    display: inline-block;
+    transform-origin: bottom center;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    /*   box-shadow:5px 10px 20px inset rgba(255,23,25.2); */
+    animation: loader 1.2s linear infinite;
+  }
+
+  .bar1 {
+    animation-delay: 0.1s;
+  }
+
+  .bar2 {
+    animation-delay: 0.2s;
+  }
+
+  .bar3 {
+    animation-delay: 0.3s;
+  }
+
+  .bar4 {
+    animation-delay: 0.4s;
+  }
+
+  .bar5 {
+    animation-delay: 0.5s;
+  }
+
+  .bar6 {
+    animation-delay: 0.6s;
+  }
+
+  .bar7 {
+    animation-delay: 0.7s;
   }
   
-  @keyframes glowingbn5 {
+  .bar8 {
+    animation-delay: 0.8s;
+  }
+  
+  @keyframes loader {
     0% {
-      background-position: 0 0;
+      transform: scaleY(0.1);
+      background: none;
     }
     50% {
-      background-position: 400% 0;
+      transform: scaleY(1);
+      background: red;
     }
     100% {
-      background-position: 0 0;
+      transform: scaleY(0.1);
+      background: transparent;
     }
   }
   
-  .reservation-details-submit:active {
-    color: #000;
-  }
-  
-  .reservation-details-submit:active:after {
-    background: transparent;
-  }
-  
-  .reservation-details-submit:hover:before {
-    opacity: 1;
-  }
-  
-  .reservation-details-submit:after {
-    z-index: -1;
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #191919;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-  }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 푸터 영역 */
+  /* 푸터 영역 */
 .footer {
     border-top: 1px solid gray;
     display: flex;
