@@ -6,7 +6,7 @@ import { ko } from "date-fns/esm/locale";
 import { useTable } from "react-table";
 import { useMemo } from "react";
 
-function RvManage() {
+function BreservationPage() {
   const data = useMemo(
     () => [
       {
@@ -214,4 +214,4 @@ function RvManage() {
   );
 }
 
-export default RvManage;
+export default BreservationPage;

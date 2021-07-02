@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "./Sidebar";
-import './RvManage.css'
+import Sidebar from "../Sidebar";
+// import '../ShowManage/RvManage.css'
 function PhotoManage() {
   return (
     <div>
