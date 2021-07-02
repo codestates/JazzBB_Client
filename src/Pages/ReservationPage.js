@@ -8,7 +8,6 @@ function Reservation(){
   const state = useSelector(state => state.reducer);
   const [openTime, closeTime] = state.jazzbar.openTime.split('-');
 
-  const 
 
   return (
   <div class="reservation">
@@ -51,7 +50,7 @@ function Reservation(){
   
                               <div class="reservation-details-personWrapper">
                                   <div class="reservation-details-label">방문인원</div>
-                                  <input class="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.jazzbar.defaultSeat} onChange={} value="1" />
+                                  <input class="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.jazzbar.defaultSeat}  value="1" />
                               </div>
                               {/* <div class="reservation-details-timeWrapper">
                                   <div class="reservation-details-label">방문일시</div>
@@ -59,7 +58,7 @@ function Reservation(){
                               </div> */}
   
   
-                              <button class="reservation-details-submit" onClick={}>예약신청</button>
+                              <button class="reservation-details-submit" >예약신청</button>
   
                           </div>
   
