@@ -226,13 +226,34 @@ const initialState = {
     },
   ],
   barList: [],
-  jazzbar: null, //selected
+  jazzbar: {
+    id: null,
+    barName: null,
+    moblie: null,
+    defaultSeat: null,
+    area: null,
+    thumbnail: null,
+    address: null,
+    rating: null,
+    serviceOption: null,
+    openTime: null,
+    gpsX: null,
+    gpsY: null,
+  }, //selected
   barPhoto: [],
   reviewList: [],//{}
   myReviewId: null,
   menu: [],
   showList: [],
-  show: null,
+  show: {
+    id: null,
+    time: null,
+    date: null,
+    player: null,
+    thumbnail: null,
+    content: null,
+    showCharge: null
+  },
   people: null,
   serviceOption: [
     {
@@ -285,6 +306,7 @@ const initialState = {
   togle: {
     reviewModify: false,
     reviewDelete: false,
+    menuModal: false,
   }
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };
