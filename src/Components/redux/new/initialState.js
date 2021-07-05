@@ -9,8 +9,10 @@ const initialState = {
     usertype: null, // 사장님인지 확인
     jazzbarId: null, // 사장님인 경우 사용 or 재즈바 선택시 사용
   },
-  board: {
+  boardList: [],
+  currentBoard: {
     boardId: null, // 게시글 수정, 삭제, 댓글 CRUD시 사용 가능
+    boardThumbnail: null,
     boardTitle: null, // 게시글 CRUD
     boardContent: null, // 게시글 CRUD
   },
@@ -18,7 +20,6 @@ const initialState = {
     content: null, // 댓글 CRUD
     point: null, // 댓글 CRUD
   },
-
  
   BossShowList: [
     {
@@ -227,16 +228,16 @@ const initialState = {
   ],
   barList: [],
   jazzbar: {
-    id: null,
-    barName: null,
-    moblie: null,
-    defaultSeat: null,
-    area: null,
-    thumbnail: null,
-    address: null,
-    rating: null,
-    serviceOption: null,
-    openTime: null,
+    id: 1,
+    barName: '개쩌는 쟤즈뺘',
+    moblie: '02-123-4567',
+    defaultSeat: '20',
+    area: '서울 서초구',
+    thumbnail: 'sdfds',
+    address: '서울 서초구 서초동 몇번지',
+    rating: '4.5',
+    serviceOption: '1246',
+    openTime: '17:00-20:00',
     gpsX: null,
     gpsY: null,
   }, //selected
@@ -307,6 +308,7 @@ const initialState = {
     reviewModify: false,
     reviewDelete: false,
     menuModal: false,
+    boardModal: false,
   }
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };

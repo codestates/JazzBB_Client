@@ -3,6 +3,8 @@ import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
 import { setPeople } from "../Components/redux/new/action";
+import "../css/reservation.css";
+
 
 function Reservation(){
   const dispatch = useDispatch();

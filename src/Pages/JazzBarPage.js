@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
 import { setList, typeText, modifySwitch, saveMyId, setShow, setToken} from "../Components/redux/new/action";
 import Modal from "react-modal";
+import "../css/shopinfo.css"
 
 
 function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOption, rating, openTime, gpsX, gpsY }
@@ -40,12 +41,13 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
    .catch(err => console.log(err))
 
   const optionArr = state.jazzbar.serviceOption.split('').map(el => {
-    state.serviceOption.forEach(ele => {
+    for(let ele of state.serviceOption){
       if(el === ele.id){
         return ele;
-      };
-    });
+      }
+    }
   })
+  console.log(optionArr)
   const typingReview = (e, veriety) => {
     dispatch(typeText(e.target.value, veriety));
   }
@@ -161,7 +163,11 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
           <div className="shopinfo-menuarea-body">
             <div className="shopinfo-menuarea-link" onClick={()=> menuModalTogle()}>메뉴판 사진 보기</div>
             <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={() => menuModalTogle()} closeTimeoutMS={200}>
-
+              <div className="shopinfo-menu-object">
+                {
+                  state.menu.map(el => <div className="shopinfo-menu-object-photobox-img" style={`background-image: url(${el.thumbnail});`}></div>)
+                }
+              </div>
             </Modal>
           </div>
         </div>
