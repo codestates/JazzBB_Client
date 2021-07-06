@@ -55,9 +55,9 @@ function JazzInfo () {
 
           </div>
           
-          <Modal isOpen={state.togle.boardModal} onRequestClose={() => closeModal()}>
+          {/* <Modal isOpen={state.togle.boardModal} onRequestClose={() => closeModal()}>
 
-          </Modal>
+          </Modal> */}
 
         </div>
       </div>
