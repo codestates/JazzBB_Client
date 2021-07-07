@@ -69,7 +69,7 @@ function AllShowEntry({ data }) {
         className="mymodal"
         overlayClassName="myoverlay"
         ariaHideApp={false}
-        closeTimeoutMS={500}
+        closeTimeoutMS={100}
       >
         <div onClick={toggleModal} className="closeModal">
           <Button color="primary">닫기</Button>{" "}
@@ -77,18 +77,6 @@ function AllShowEntry({ data }) {
         {!edit ? (
           <ModalEdit info={info}></ModalEdit>
         ) : (null
-          // <div>
-          //   <div className="modal-edit" onClick={setEditButton}>
-          //     <Button variant="outlined" color="primary">
-          //       공연 수정하기
-          //     </Button>
-          //   </div>
-          //   <div className="modal-delete">
-          //     <Button variant="outlined" color="secondary">
-          //       공연 삭제하기
-          //     </Button>
-          //   </div>
-          // </div>
         )}
       </Modal>
       <div className="card-outer-box">

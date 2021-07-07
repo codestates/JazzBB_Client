@@ -1,0 +1,35 @@
+.tag :hover {
+  background-color: #ffeb32;
+}
+
+.tag:after {
+  border-bottom: 0em solid;
+  border-right: 0em solid;
+}
+
+.tag:active {
+  -webkit-transform: translate(0.125em, 0.125em);
+          transform: translate(0.125em, 0.125em);
+}
+
+.tag:active:after {
+  -webkit-transform: translate(-0.125em, -0.125em);
+          transform: translate(-0.125em, -0.125em);
+}
+
+.tag {
+  color: #e4457d;
+  -webkit-box-shadow: inset 0 0 0 0em currentcolor;
+          box-shadow: inset 0 0 0 0em currentcolor;
+  -webkit-transition: color 0.2s ease-out;
+  transition: color 0.2s ease-out;
+}
+
+.tag:after {
+  border-color: currentcolor;
+}
+
+.tag:hover {
+  color: #cd2f66;
+}
+/*# sourceMappingURL=comm.css.map */

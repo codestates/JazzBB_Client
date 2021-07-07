@@ -1,0 +1,80 @@
+
+.tag :hover {
+  background-color: rgb(255, 235, 50);
+}
+
+// .tag {
+// position: relative;
+// display: block;
+// background-color: #FFF;
+
+// font-size: 1rem;
+// border: none;
+// outline: none;
+
+// text-decoration: none;
+
+// letter-spacing: 2px;
+// cursor: -webkit-grab;
+// cursor: -moz-grab;
+  
+//   &:before {
+//   content: attr( data-content-default );  }
+  
+//   &:active {
+//   cursor: -webkit-grabbing;
+//   cursor: -moz-grabbing;
+//   animation: spinner 200ms infinite linear;
+    
+//     &:before {
+//     content: attr( data-content-spinning ); }
+//   }
+// }
+
+
+// @keyframes spinner {
+//   from {
+//   box-shadow: 0 10px 20px rgba( 0,0,0, 0.2 );
+//   transform: rotateX( 0 ) rotateY( -360deg ); }
+  
+//   to {
+//   box-shadow: 0 10px 20px rgba( 0,0,0, 0.2 );
+//   transform: rotateX( 360deg ) rotateY( -360deg ); }
+// }
+
+//
+
+$text-color: #fff;
+$accent-color: #e4457d;
+$hover-color: #cd2f66;
+$offset: .125em;
+$border-width: 0em;
+$transition: .2s ease-out;
+.tag {
+   
+    &:after {
+        
+        border-bottom: $border-width solid;
+        border-right: $border-width solid;
+    }
+    &:active {
+        transform: translate($offset, $offset);
+        
+        &:after {
+            transform: translate(-$offset, -$offset);
+        }
+    }
+}
+
+.tag {
+    color: $accent-color;
+    box-shadow: inset 0 0 0 $border-width currentcolor;
+    transition: color $transition;
+    &:after {
+        border-color: currentcolor;
+    }
+    &:hover {
+        color: $hover-color;
+    }
+}
+
