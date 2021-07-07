@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jazzbarbar</title>
-    <link href="parking.css" rel="stylesheet" type="text/css">
+    <link href="signup.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div className="app-body">
@@ -22,27 +22,40 @@
         <!-- 본문 영역 -->
        
 
-            <div class="parking">
+        <div class="signup">
+            <div class="signup-body">
+                <div class="signup-titlebox">
+                    <div class="signup-titlebox-title">추가 정보 입력</div>
+                    <div class="signup-titlebox-subtitle">재즈바바 서비스 이용을 위해서는 추가 정보 입력이 필요합니다</div>
+                </div>
 
-
-                <div class="parking-body">
-                    <div class="parking-body-dataWrapper">
-                        <div class="parking-body-dataWrapper-left">
-                            <div class="parking-body-dataWrapper-left-icon">⚠️</div>
-                        </div>
-                        <div class="parking-body-dataWrapper-right">
-                            <div class="parking-body-dataWrapper-right-label">이 서비스는 점검 중입니다</div>
-                            <div class="parking-body-dataWrapper-right-text">불편을 드려 죄송합니다.</div>
-                            <div class="parking-body-dataWrapper-right-text">안정적인 서비스 제공을 위해 개발자가 4대 명검 중 하나인 '점검'을 뽑아들었습니다.</div>
-                            <div class="parking-body-dataWrapper-right-text">빠른 시일 내에 서비스를 제공할 수 있도록 노력하겠습니다.</div>
-                        </div>
+                <div class="signup-formwrapper">
+                    <div class="signup-form">
+                        <div class="signup-form-label">닉네임</div>
+                        <input class="signup-form-input-text" type="text" placeholder="닉네임을 입력하세요" required/>
                     </div>
+
+                    <div class="signup-form">
+                        <div class="signup-form-label">연락처</div>
+                        <input class="signup-form-input-phone" type="tel" maxlength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" required/>                 
+                    </div>
+
+                    <div class="signup-form">
+                        <div class="signup-form-label">회원유형</div>
+                        <select class='signup-form-usertype'>
+                            <option value='customer'>일반회원</option>
+                            <option value='boss'>업체회원</option>
+                        </select>
+                    </div>
+
+                    <button class="signup-btn">입력완료</button>
 
                 </div>
 
 
-            </div>
 
+            </div>
+        </div>
 
 
 

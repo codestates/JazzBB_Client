@@ -203,18 +203,18 @@ input, select {
 
 /* 본문 영역 */
 
-.infobbs {
+.infobbsdataentry {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.infobbs-body {
+.infobbsdataentry-body {
     width: 72%;
 }
 
 
-.infobbs-header {
+.infobbsdataentry-body-header {
     padding: 20px;
     border-top: none;
     border-bottom: 1px solid gray;
@@ -226,76 +226,141 @@ input, select {
     align-items: center;
 }
 
-.infobbs-header-label {
+.infobbsdataentry-body-header-label {
     font-size: 1.4rem;
     font-weight: 900;
     margin-bottom: 10px;
 }
 
-.infobbs-header-btnWrapper {
+.infobbsdataentry-body-header-btnwrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.infobbsdataentry-control-container {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.infobbsdataentry-control-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(241, 241, 241);
+    width: 41%;
+    padding: 10px;
+}
+
+.infobbsdataentry-control-icon {
+    width: 30px;
+}
+
+.infobbsdataentry-control-label {
+    font-weight: 900;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.infobbsdataentry-control-title {
+    padding: 10px;
+    margin-left: 10px;
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.infobbsdataentry-control-btnWrapper-list {
+    width: 10%;
+    padding: 10px;
+    background-color: rgb(241, 241, 241);
+    text-align: center;
+}
+
+.infobbsdataentry-control-btnWrapper-listicon {
+    width: 30px;
+}
+
+.infobbsdataentry-control-btnWrapper-listlabel {
+    font-weight: 900;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.infobbsdataentry-control-btns {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.infobbs-header-icon {
-    width: 30px;
-}
-
-.infobbs-header-btntitle {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
 
 
 
 
-.infobbs-data {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    justify-content: center;
-    align-items: center;
-}
 
 
-.infobbs-data-object {
-    border-radius: 10px;
+
+
+
+
+
+.infobbsdataentry-body-data {
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    width: 250px;
-    margin: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.infobbs-data-object-thumbnail-img {
-    width: 250px;
-    height: 200px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
+.infobbsdataentry-body-data-header {
+    background-color: rgb(255, 239, 226);
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+ }
 
-.infobbs-data-object-footer {
-    padding: 15px;
-}
-
-.infobbs-data-object-footer-label {
-    font-size: 1.1rem;
+.infobbsdataentry-body-data-header-label {
+    font-size: 1.2rem;
     font-weight: 900;
-    margin-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-.infobbs-data-object-footer-info {
-    width: 100%;
-    height: 30px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 1.2;
+.infobbsdataentry-body-data-header-createdAt {
+    color: gray;
 }
+
+
+.infobbsdataentry-body-data-thumbnail {
+    width: 100%;
+    height: 300px;
+    padding-bottom: 20px;
+}
+
+.infobbsdataentry-body-data-thumbnail-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.infobbsdataentry-body-data-infobody {
+    word-break: keep-all;
+    width: 100%;
+    line-height: 1.3;
+}
+
+
+
+
+
+
+
 
 
 

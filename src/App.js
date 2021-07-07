@@ -17,6 +17,9 @@ import PhotoManage from "./Components/Boss/Photo/PhotoManage";
 import BInfoManagePage from "./Components/Boss/InfoManage/BInfoManagePage";
 import JazzBarPage from './Pages/JazzBarPage'
 import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
+import Terms from './Pages/footer-terms'
+
+
 import { setToken } from './Components/redux/new/action';
 dotenv.config();
 
@@ -58,6 +61,7 @@ function App() {
           <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
           <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
+          <Route path="/footer/terms" render={() => <Terms></Terms>} />
         </Switch>
       </div>
     </div>

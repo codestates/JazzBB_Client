@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
+    "location": "^0.0.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-confirm-alert": "^2.7.0",

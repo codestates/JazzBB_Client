@@ -1,0 +1,594 @@
+/* CSS 초기화 코드가 99번째 줄까지 있습니다. 중간중간 글로벌 선언이 필요할 경우 수정할 수 있어요 */
+
+
+html, body, div, span, a, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, p, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    letter-spacing: -.02em;
+    white-space: normal;
+    word-break: break-all;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration: none;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;  
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 여기서부터 실제 코드 */
+
+
+/* 네비게이션 영역 */
+.nav {
+    display: flex;
+    border-bottom: 2px solid #bb001f;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    align-items: center;
+}
+
+#nav-logo{
+    width: 20%;
+}
+
+
+.nav-btn {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+  }
+  
+  .nav-btn:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowingbn5 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowingbn5 {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .nav-btn:active {
+    color: #000;
+  }
+  
+  .nav-btn:active:after {
+    background: transparent;
+  }
+  
+  .nav-btn:hover:before {
+    opacity: 1;
+  }
+  
+  .nav-btn:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #191919;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+
+
+
+
+
+
+
+  
+
+
+
+/* 본문 영역 */
+
+
+.shopinfo {
+    display: flex;
+    justify-content: center;
+}
+
+.shopinfo-body {
+    width: 72%;
+}
+
+
+.shopinfo-header {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    margin-bottom: 30px;
+}
+
+.shopinfo-header-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.shopinfo-header-infoarea {
+    margin-top: 10px;
+    padding: 20px;
+}
+
+
+.shopinfo-header-infoarea-shopname {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.shopinfo-header-infoarea-geo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.shopinfo-header-infoarea-tmapbtn {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    background-color: #ED2609;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.shopinfo-header-infoarea-tmapbtn:hover {
+    background-color: #44A780;
+}
+
+.shopinfo-header-infoarea-phone, .shopinfo-header-infoarea-time {
+    margin-bottom: 10px;
+}
+
+.shopinfo-header-infoarea-ratingarea {
+    display: flex;
+    align-items: center;
+}
+
+.shopinfo-header-infoarea-ratingarea-rate {
+    margin-left: 5px;
+}
+
+.shopinfo-iconarea, .shopinfo-menuarea, .shopinfo-shopphoto, .shopinfo-reservation, .shopinfo-review {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.shopinfo-menuarea-body {
+    width: 100%;
+    height: 100px;
+}
+
+.shopinfo-menuarea-titlearea-label, .shopinfo-shopphoto-titlearea-label, .shopinfo-reservation-label, .shopinfo-review-titlearea-label {
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+
+.shopinfo-reservation-sublabel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.shopinfo-menuarea-body {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.shopinfo-menuarea-link {
+    font-weight: 900;
+}
+
+.shopinfo-menuarea-link:hover {
+    font-weight: 900;
+    color: red;
+}
+
+
+
+
+.shopinfo-shopphoto {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.shopinfo-shopphoto-titlearea {
+    display: block;
+    position: relative;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.shopinfo-shopphoto-body {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow-x: scroll;
+    padding-bottom: 14px;
+    margin: 0 -30px -14px;
+}
+
+.v-scroll-inner {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.shopinfo-shopphoto-contents {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.shopinfo-shopphoto-object {
+    width: 200px;
+    display: block;
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.shopinfo-shopphoto-object-photobox {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.shopinfo-shopphoto-object-photobox-img {
+    width: 200px;
+    height: 200px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+}
+
+
+.shopinfo-iconarea {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.shopinfo-iconarea-featureitem {
+    width: 25%;
+    flex: 0 1 25%;
+    display: block;
+    margin: 15px 0;
+}
+
+.shopinfo-iconarea-featureitem-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto 12px;
+    display: block;
+}
+
+.shopinfo-iconarea-featureitem-label {
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.shopinfo-reservation {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.shopinfo-reservation-header {
+    display: block;
+    position: relative;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.shopinfo-reservation-body {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow-x: scroll;
+    padding-bottom: 14px;
+    margin: 0 -30px -14px;
+}
+
+.shopinfo-reservation-contents {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.shopinfo-reservation-object {
+    width: 200px;
+    display: block;
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.shopinfo-reservation-object-photobox {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.shopinfo-reservation-object-img {
+    width: 200px;
+    height: 200px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+}
+
+.shopinfo-reservation-object-footer {
+    position: relative;
+    padding-right: 50px;
+}
+
+.shopinfo-reservation-object-footer-name {
+    word-break: break-word;
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: -.032222222222222em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 4px;
+    line-height: 25px;
+    margin-left: 10px;
+}
+
+.shopinfo-reservation-object-footer-text {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+
+
+
+.shopinfo-review-body {
+    border: 1px solid gray;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.shopinfo-review-body-label {
+    display: flex;
+    background-color: rgb(255, 239, 226);
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.shopinfo-review-body-data {
+    display: flex;
+}
+
+.shopinfo-review-body-label-username, .shopinfo-review-body-data-username {
+    width: 100px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 5px;
+}
+
+.shopinfo-review-body-label-rate, .shopinfo-review-body-data-rate {
+    width: 50px;
+    text-align: center;
+    margin-left: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 5px;
+}
+
+.shopinfo-review-body-label-review, .shopinfo-review-body-data-review {
+    width: 1000px;
+    margin-left: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 5px;
+}
+
+.shopinfo-review-body-label-review {
+    text-align: center;
+}
+
+.shopinfo-review-form {
+    background-color: rgb(255, 239, 226);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.shopinfo-review-form-label {
+    font-weight: 900;
+    font-size: 1.1rem;
+}
+
+.shopinfo-review-form-input {
+    width: 850px;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.shopinfo-review-form-rate {
+    margin-right: 10px;
+}
+
+.shopinfo-review-form-submit {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+
+
+/* 푸터 영역 */
+.footer {
+    border-top: 1px solid gray;
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logoarea{
+    width: 20%;
+    padding: 30px;
+}
+
+#footer-logo {
+    width: 100%;   
+}
+
+.footer-infoarea {
+    width: 75%;
+    height: auto;
+    color: gray;
+    min-width: 300px;
+    font-size: 1rem;
+    word-break: keep-all;
+}
+
+.footer-infoarea-infolabel {
+    margin-bottom: 5px;
+}
+
+.footer-infoarea-buttonsarea {
+    margin-bottom: 5px;
+    word-break: keep-all;
+}
+
+.footer-infoarea-infobody {
+    word-break: keep-all;
+}

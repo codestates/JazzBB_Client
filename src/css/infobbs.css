@@ -221,9 +221,6 @@ input, select {
     border-left: none;
     border-right: none;
     margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .infobbs-header-label {
@@ -231,26 +228,6 @@ input, select {
     font-weight: 900;
     margin-bottom: 10px;
 }
-
-.infobbs-header-btnWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.infobbs-header-icon {
-    width: 30px;
-}
-
-.infobbs-header-btntitle {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-
-
 
 .infobbs-data {
     display: flex;
