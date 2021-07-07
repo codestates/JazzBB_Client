@@ -91,7 +91,6 @@ function MyPage () {
                         
 
             <div class="mypage-body-recent-reservation-container">
-
               {state.reservation.map(el => {
                 return(
                 <div class="recentreservation-body">
@@ -127,7 +126,6 @@ function MyPage () {
                 )
               })}
             </div>
-
           </div>
         </div>
       </div>

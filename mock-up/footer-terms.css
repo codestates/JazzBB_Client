@@ -203,18 +203,19 @@ input, select {
 
 /* 본문 영역 */
 
-.infobbsdataentry {
+
+
+.footer-terms {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
-.infobbsdataentry-body {
+.footer-terms-body {
     width: 72%;
 }
 
 
-.infobbsdataentry-body-header {
+.terms-header {
     padding: 20px;
     border-top: none;
     border-bottom: 1px solid gray;
@@ -226,138 +227,59 @@ input, select {
     align-items: center;
 }
 
-.infobbsdataentry-body-header-label {
+.terms-header-label {
     font-size: 1.4rem;
     font-weight: 900;
     margin-bottom: 10px;
 }
 
-.infobbsdataentry-body-header-btnwrapper {
+.terms-header-btnWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.infobbsdataentry-control-container {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.infobbsdataentry-control-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(241, 241, 241);
-    width: 41%;
-    padding: 10px;
-}
-
-.infobbsdataentry-control-icon {
+.terms-header-icon {
     width: 30px;
 }
 
-.infobbsdataentry-control-label {
+.terms-header-btntitle {
     font-weight: 900;
     font-size: 0.8rem;
     margin-top: 5px;
 }
 
-.infobbsdataentry-control-title {
-    padding: 10px;
-    margin-left: 10px;
-    width: 80%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
 
-.infobbsdataentry-control-btnWrapper-list {
-    width: 10%;
-    padding: 10px;
-    background-color: rgb(241, 241, 241);
-    text-align: center;
-}
-
-.infobbsdataentry-control-btnWrapper-listicon {
-    width: 30px;
-}
-
-.infobbsdataentry-control-btnWrapper-listlabel {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-.infobbsdataentry-control-btns {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.infobbsdataentry-body-data {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+.terms-body {
     padding: 20px;
-    margin-bottom: 20px;
 }
 
-.infobbsdataentry-body-data-header {
-    background-color: rgb(255, 239, 226);
-    padding: 25px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
- }
+.terms-body-title1 {
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-top: 50px;
+    margin-bottom: 15px;
+}
 
-.infobbsdataentry-body-data-header-label {
+.terms-body-objects {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    padding: 30px;
+    margin: 15px;
+    line-height: 1.5;
+    border-radius: 15px;
+}
+
+.terms-body-title2 {
+    font-weight: 900;
     font-size: 1.2rem;
-    font-weight: 900;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    margin-bottom: 15px;
 }
 
-.infobbsdataentry-body-data-header-createdAt {
-    color: gray;
+.terms-body-objects-list-ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
 }
-
-
-.infobbsdataentry-body-data-thumbnail {
-    width: 100%;
-    height: 300px;
-    padding-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-thumbnail-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.infobbsdataentry-body-data-infobody {
-    word-break: keep-all;
-    width: 100%;
-    line-height: 1.3;
-}
-
-
-
-
 
 
 
