@@ -33,7 +33,6 @@ function MyPage () {
      dispatch(setList(review, 'reviewList'));
      dispatch(setToken(token3));
    })
-  
 
   return (
     <div class="mypage">
@@ -84,7 +83,6 @@ function MyPage () {
                         
 
             <div class="mypage-body-recent-reservation-container">
-
               {state.reservation.map(el => {
                 <div class="recentreservation-body">
                   <div class="recentreservation-body-date">{el.show.date.replace('-','.') + '.'}</div>
@@ -116,7 +114,6 @@ function MyPage () {
                 </div>
               })}
             </div>
-
           </div>
         </div>
       </div>
