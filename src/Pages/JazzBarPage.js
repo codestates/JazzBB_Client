@@ -7,6 +7,8 @@ import Modal from "react-modal";
 import "../css/shopinfo.css"
 
 
+
+
 function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOption, rating, openTime, gpsX, gpsY }
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
@@ -47,7 +49,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
       }
     }
   })
-  console.log(optionArr)
+
   const typingReview = (e, veriety) => {
     dispatch(typeText(e.target.value, veriety));
   }
@@ -146,6 +148,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
         <div className="shopinfo-iconarea">
           {
             optionArr.map(el => {
+              {console.log(el.img)}
               <span className="shopinfo-iconarea-featureitem">
                 <img className="shopinfo-iconarea-featureitem-icon" src={el.img} />
                 <span className="shopinfo-iconarea-featureitem-label">{el.content}</span>

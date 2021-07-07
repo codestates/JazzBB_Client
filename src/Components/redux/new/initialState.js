@@ -1,3 +1,5 @@
+// import "../../../../public/resource"
+
 const initialState = {
   user: {
     isLogin: false, // 로그인 상태 확인
@@ -259,42 +261,42 @@ const initialState = {
   serviceOption: [
     {
       id: '1',
-      img: './resource/icons/parking.png',
+      img: '../../../../public/resource/icon/parking.png',
       content: '주차가능'
     },
     {
       id: '2',
-      img: './resource/icons/vallet.png',
+      img: '../../../../public/resource/icon/vallet.png',
       content: '발렛주차'
     },
     {
       id: '3',
-      img: './resource/icons/group.png', //'13'
+      img: '../../../../public/resource/icon/group.png', //'13'
       content: '단체석'
     },
     {
       id: '4',
-      img: './resource/icons/room.png',
+      img: '../../../../public/resource/icon/room.png',
       content: '개별룸'
     },
     {
       id: '5',
-      img: './resource/icons/dinner.png',
+      img: '../../../../public/resource/icon/dinner.png',
       content: '식사가능'
     },
     {
       id: '6',
-      img: './resource/icons/corkage.png',
+      img: '../../../../public/resource/icon/corkage.png',
       content: '콜키지가능'
     },
     {
       id: '7',
-      img: './resource/icons/night.png',
+      img: '../../../../public/resource/icon/night.png',
       content: '심야영업'
     },
     {
       id: '8',
-      img: './resource/icons/onlinebook.png',
+      img: '../../../../public/resource/icon/onlinebook.png',
       content: '온라인예약'
     },
   ],
