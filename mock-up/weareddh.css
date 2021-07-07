@@ -203,18 +203,17 @@ input, select {
 
 /* 본문 영역 */
 
-.infobbsdataentry {
+
+.weareddh {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
-.infobbsdataentry-body {
+.weareddh-body {
     width: 72%;
 }
 
-
-.infobbsdataentry-body-header {
+.weareddh-header {
     padding: 20px;
     border-top: none;
     border-bottom: 1px solid gray;
@@ -226,134 +225,158 @@ input, select {
     align-items: center;
 }
 
-.infobbsdataentry-body-header-label {
+.weareddh-header-label {
     font-size: 1.4rem;
     font-weight: 900;
     margin-bottom: 10px;
 }
 
-.infobbsdataentry-body-header-btnwrapper {
+.weareddh-header-btnWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.infobbsdataentry-control-container {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.infobbsdataentry-control-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(241, 241, 241);
-    width: 41%;
-    padding: 10px;
-}
-
-.infobbsdataentry-control-icon {
+.weareddh-header-icon {
     width: 30px;
 }
 
-.infobbsdataentry-control-label {
+.weareddh-header-btntitle {
     font-weight: 900;
     font-size: 0.8rem;
     margin-top: 5px;
 }
 
-.infobbsdataentry-control-title {
-    padding: 10px;
-    margin-left: 10px;
-    width: 80%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.infobbsdataentry-control-btnWrapper-list {
-    width: 10%;
-    padding: 10px;
-    background-color: rgb(241, 241, 241);
+.weareddh-aboutus-header {
+    height: 500px;
+    background: url(./resource/serverimg.jpg) no-repeat 90% 30%;
+    z-index: 11;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.infobbsdataentry-control-btnWrapper-listicon {
-    width: 30px;
-}
-
-.infobbsdataentry-control-btnWrapper-listlabel {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-.infobbsdataentry-control-btns {
+.weareddh-aboutus-labelWrapper {
+    width: 100%;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.436);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-.infobbsdataentry-body-data {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-header {
-    background-color: rgb(255, 239, 226);
-    padding: 25px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
- }
-
-.infobbsdataentry-body-data-header-label {
-    font-size: 1.2rem;
+.weareddh-aboutus-label {
+    color: white;
+    font-size: 3rem;
     font-weight: 900;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
-.infobbsdataentry-body-data-header-createdAt {
-    color: gray;
+.weareddh-aboutus-sublabel {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.weareddh-aboutus-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.weareddh-aboutus-infoWrapper {
+    width: 30%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+
+}
+
+.weareddh-aboutus-info-icon {
+    width: 80%;
+    height: 80px;
+    object-fit: scale-down;
+    margin-bottom: 20px;
+}
+
+.weareddh-aboutus-info-label {
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.weareddh-aboutus-info-ment {
+    line-height: 1.4;
 }
 
 
-.infobbsdataentry-body-data-thumbnail {
-    width: 100%;
-    height: 300px;
-    padding-bottom: 20px;
+.weareddh-aboutus-members {
+    margin-top: 150px;
 }
 
-.infobbsdataentry-body-data-thumbnail-img {
-    width: 100%;
-    height: 300px;
+
+.weareddh-aboutus-members-header {
+    height: 400px;
+    background: url(./resource/teambgimg.jpg) no-repeat 90% 30%;
+    z-index: 11;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weareddh-aboutus-contents {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.weareddh-aboutus-membersWrapper {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    width: 17%;
+    height: 500px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.weareddh-aboutus-members-photo {
+    width: 200px;
+    height: 200px;
     object-fit: cover;
+    margin-bottom: 30px;
 }
 
-.infobbsdataentry-body-data-infobody {
-    word-break: keep-all;
-    width: 100%;
-    line-height: 1.3;
+.weareddh-aboutus-members-fullname {
+    text-align: center;
+    margin-bottom: 25px;
 }
+
+.weareddh-aboutus-members-grade {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.weareddh-aboutus-members-name {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.weareddh-aboutus-members-position {
+    margin-bottom: 5px;
+}
+
+
+
+
+
 
 
 
