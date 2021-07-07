@@ -225,7 +225,7 @@ const initialState = {
       time: "17:30-19:30",
     },
   ],
-  barList: [],
+  barList: [], //전체 재즈바 리스트
   jazzbar: null, //selected
   barPhoto: [],
   reviewList: [],//{}

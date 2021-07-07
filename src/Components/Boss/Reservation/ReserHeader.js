@@ -17,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LabTabs() {
+  const [All, SetNotAll] =React.useState(false)
+  const set = () =>{
+    SetNotAll(true)
+    console.log('yap')
+  }
+ 
   const classes = useStyles();
   const [value, setValue] = React.useState('1');
 
@@ -29,12 +35,12 @@ export default function LabTabs() {
       <TabContext value={value}>
         <AppBar position="static">
           <TabList onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="전체 예약 보기" value="1" />
+            <Tab label="전체 예약 보기" value="1"  onClick={set}/>
             <Tab label="날짜별 예약 보기" value="2" />
           </TabList>
         </AppBar>
-        <TabPanel value="1">Item Oneㅇㅇ</TabPanel>
-        <TabPanel value="2"> <ReserByDate></ReserByDate></TabPanel>
+        <TabPanel value="1"><ReserByDate  AllPage={All}></ReserByDate></TabPanel>
+        <TabPanel value="2"> <ReserByDate ></ReserByDate></TabPanel>
       </TabContext>
     </div>
   );
