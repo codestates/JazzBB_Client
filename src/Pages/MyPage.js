@@ -12,10 +12,28 @@ function MyPage () {
 
   axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', {authorization: state.user.token})
    .then(res => {
-     const token = res.data.data.token;
+     const token1 = res.data.data.token;
      const info = res.data.data.userinfo;
+     dispatch(setUser(info));
+     dispatch(setToken(token1));
+    })
+    
+  axios.get(process.env.REACT_APP_DB_HOST + 'reservationRead', {authorization: state.user.token}, {user_id: state.user.id})
+    .then(res => {
+      const token2 = res.data.data.token;
+      const reservation = res.data.data.list;
+      dispatch(setList(reservation, 'reservation'));
+      dispatch(setToken(token2));
    })
-
+  
+  axios.get(process.env.REACT_APP_DB_HOST + 'reviewRead', {authorization: state.user.token}, {userId: state.user.id})
+   .then(res => {
+     const token3 = res.data.data.token;
+     const review = res.data.data.list;
+     dispatch(setList(review, 'reviewList'));
+     dispatch(setToken(token3));
+   })
+  
 
   return (
     <div class="mypage">
@@ -24,7 +42,7 @@ function MyPage () {
 
         <div class="mypage-body-header">
           <div class="mypage-body-header-accinfo">
-            <div class="mypage-body-header-accinfo-name">김코딩</div>
+            <div class="mypage-body-header-accinfo-name">{state.user.username}</div>
             <div class="mypage-body-header-accinfo-tail">님의 마이페이지</div>
           </div>
 
@@ -43,9 +61,9 @@ function MyPage () {
           </div>
 
           <div class="mypage-body-info-data">
-            <div class="mypage-body-info-data-result">example@kakao.com</div>
-            <div class="mypage-body-info-data-result">김코딩</div>
-            <div class="mypage-body-info-data-result">010-0000-0000</div>
+            <div class="mypage-body-info-data-result">{state.user.userId}</div>
+            <div class="mypage-body-info-data-result">{state.user.username}</div>
+            <div class="mypage-body-info-data-result">{state.user.mobile}</div>
           </div>
         </div>
 
@@ -66,33 +84,17 @@ function MyPage () {
                         
 
             <div class="mypage-body-recent-reservation-container">
-              <div class="recentreservation-body">
-                <div class="recentreservation-body-date">2021.07.95</div>
-                <div class="recentreservation-body-name">위코드 스테이츠 클래스 101</div>
-                <div class="recentreservation-body-time">19:30</div>
-                <div class="recentreservation-body-person">8</div>
-                <div class="recentreservation-body-status-ok">예약됨</div>
-              </div>
 
-
-              <div class="recentreservation-body">
-                <div class="recentreservation-body-date">2021.06.95</div>
-                <div class="recentreservation-body-name">그것은 재즈였다</div>
-                <div class="recentreservation-body-time">19:30</div>
-                <div class="recentreservation-body-person">85</div>
-                <div class="recentreservation-body-status-no">거절됨</div>
-              </div>
-
-                            
-              <div class="recentreservation-body">
-                <div class="recentreservation-body-date">2021.05.40</div>
-                <div class="recentreservation-body-name">개발자 쉼터</div>
-                <div class="recentreservation-body-time">19:30</div>
-                <div class="recentreservation-body-person">4</div>
-                <div class="recentreservation-body-status-stby">승인대기</div>
-              </div>
+              {state.reservation.map(el => {
+                <div class="recentreservation-body">
+                  <div class="recentreservation-body-date">{el.show.date.replace('-','.') + '.'}</div>
+                  <div class="recentreservation-body-name">{el.show.jazzbar.barName}</div>
+                  <div class="recentreservation-body-time">{el.show.time}</div>
+                  <div class="recentreservation-body-person">{el.people}</div>
+                  <div class="recentreservation-body-status-ok">{el.confirm == 'pending' ? '대기' : el.confirm == 'denied' ? '거절' : '승인'}</div>
+                </div>
+              })}
             </div>
-
           </div>
 
 
@@ -106,25 +108,16 @@ function MyPage () {
             </div>
 
             <div class="mypage-body-recent-review-container">
-              <div class="recentreview-body">
-                <div class="recentreview-body-info-date">2021.05.40</div>
-                <div class="recentreview-body-info-name">개발자 쉼터</div>
-                <div class="recentreview-body-info-text">졸라 힘드네 정말</div>
-              </div>
-
-              <div class="recentreview-body">
-                <div class="recentreview-body-info-date">2021.05.40</div>
-                <div class="recentreview-body-info-name">개발자 쉼터</div>
-                <div class="recentreview-body-info-text">졸라 힘드네 정말</div>
-              </div>
+              {state.reviewList.map(el => {
+                <div class="recentreview-body">
+                  <div class="recentreview-body-info-date">⭐ {el.point}</div>
+                  <div class="recentreview-body-info-name">{el.jazzbar.barName ? el.jazzbar.barName : el.board.title}</div>
+                  <div class="recentreview-body-info-text">{el.content}</div>
+                </div>
+              })}
             </div>
 
           </div>
-
-
-
-
-
         </div>
       </div>
     </div>

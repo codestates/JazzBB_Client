@@ -4,10 +4,11 @@ const initialState = {
   user: {
     isLogin: false, // 로그인 상태 확인
     token: null, // 토큰 저장
-    dbUserId: null, // reservation등 userId 필요한 작업
+    id: null, // db식별 id
+    userId: null,
     username: null, // 회원정보 수정
     mobile: null, // 회원정보 수정, reservation
-    userThumbnail: null, // 회원정보 수정 초기 값 더미데이터 있으면 좋을듯
+    thumbnail: null, // 회원정보 수정 초기 값 더미데이터 있으면 좋을듯
     usertype: null, // 사장님인지 확인
     jazzbarId: null, // 사장님인 경우 사용 or 재즈바 선택시 사용
   },

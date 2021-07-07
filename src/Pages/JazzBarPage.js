@@ -148,7 +148,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
         <div className="shopinfo-iconarea">
           {
             optionArr.map(el => {
-              {console.log(el.img)}
+              // {console.log(el.img)}
               <span className="shopinfo-iconarea-featureitem">
                 <img className="shopinfo-iconarea-featureitem-icon" src={el.img} />
                 <span className="shopinfo-iconarea-featureitem-label">{el.content}</span>
