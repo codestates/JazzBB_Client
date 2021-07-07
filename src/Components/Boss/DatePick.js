@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 // import { connect } from "react-redux";
 import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
 
-function DatePick() {
+function DatePick({ChangeDate}) {
   const dispatch = useDispatch();
   const BossState = useSelector((state) => state.reducer.boss);
   const Boss_Date = BossState.date;
@@ -18,13 +18,23 @@ function DatePick() {
   const dateGenerate = (today) => {
     let year = today.getFullYear();
     let month = today.getMonth() + 1;
+    if(month < 10){
+      month = '0' + month
+    }
     let date = today.getDate();
+    if(date < 10){
+      date = '0'+ date
+    }
     let day = week[Number(today.getDay())];
     let fixedDate =
-      year + "년 " + month + "월 " + date + "일 " + "(" + day + ")";
+      year + "-" + month + "-" + date ;
+      // year + "-" + month + "- " + date + "- " + "(" + day + ")";
     return fixedDate;
   };
   const date = dateGenerate(Boss_Date);
+  // console.log(date,'date')
+  ChangeDate(date)
+
 
   return (
     <div className="date-box">
@@ -44,7 +54,7 @@ function DatePick() {
         <DatePicker
           locale={ko}
           dateFormat="yyyy.MM.dd(eee)"
-          minDate={new Date()}
+          // minDate={new Date()}
           closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
           placeholderText="날짜 변경"
           //  selected={date}	// value

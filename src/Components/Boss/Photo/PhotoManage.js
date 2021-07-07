@@ -1,12 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Sidebar from "../Sidebar";
+import InputFile from '../ShowManage/InputFile'
 // import '../ShowManage/RvManage.css'
-function PhotoManage() {
+
+const  PhotoManage = ()=> {
   return (
     <div>
       <Sidebar></Sidebar>
     <div className="contentBox">
-       사진 수정
+      <div className="registered-photo">
+        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
+        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
+        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
+        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
+      </div>
+      <div className="willUploaded-photo">
+      <InputFile></InputFile>
+      </div>
     </div>
     </div>
   );
