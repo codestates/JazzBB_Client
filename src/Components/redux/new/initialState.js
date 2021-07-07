@@ -229,10 +229,6 @@ const initialState = {
       time: "17:30-19:30",
     },
   ],
-<<<<<<< HEAD
-  barList: [], //전체 재즈바 리스트
-  jazzbar: null, //selected
-=======
   barList: [],
   jazzbar: {
     id: 1,
@@ -248,7 +244,6 @@ const initialState = {
     gpsX: null,
     gpsY: null,
   }, //selected
->>>>>>> 205294f86424d1aa5ed566b13ce4c76c33ed2755
   barPhoto: [],
   reviewList: [],//{}
   myReviewId: null,
