@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
-export default function CustomizedSelects() {
+export default function CustomizedSelects({handleInputChange}) {
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -18,10 +18,6 @@ export default function CustomizedSelects() {
     },
   }));
   const classes = useStyles();
-
-  // const handleInputChange1 = (key) => (e) => {
-  //   setPlayer({ [key]: e.target.value });
-  //   };
   const [state, setState] = React.useState({
     singer: false,
     piano: false,
@@ -34,38 +30,24 @@ export default function CustomizedSelects() {
     percussion: false,
     etc: false,
   });
-  const playerArr = Object.keys(state);
-
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: !state[event.target.name] });
   };
-
-  const [position, setPosition] = React.useState([]);
-  const [player, setPlayer] = React.useState({});
-  const PositionChange = (event) => {
-    const nKey = event.target.value;
-    setPosition([...position, nKey]);
-    console.log(position, "@@@@@@@");
-  };
-  const handleInputChange = (event) => {
-    if (position === "") {
-      return <div>포지션을 먼저 선택해주세요</div>;
-    } else {
-      const nValue = event.target.value;
-      setPlayer({ [position]: nValue });
-    }
-  };
+  const playerArr = Object.keys(state);
+  
 
   return (
     <div className="input-outerbox">
       <div className="input-content-box inputdiv">
         <TextField
           id="standard-full-width"
+          name="content"
           label="공연 소개"
           style={{ margin: 0 }}
           placeholder="공연의 간략한 소개"
           helperText=""
           fullWidth
+          onChange={handleInputChange}
           margin="normal"
           InputLabelProps={{
             shrink: true,
@@ -75,10 +57,12 @@ export default function CustomizedSelects() {
       <div className="input-content-box inputdiv">
         <TextField
           id="standard"
+          name = "showCharge"
           label="공연 가격"
           type={Number}
           style={{ margin: 0 }}
           placeholder="예 : 20000"
+          onChange={handleInputChange}
           helperText=""
           margin="normal"
           InputLabelProps={{
@@ -91,10 +75,12 @@ export default function CustomizedSelects() {
         <form className={classes.container} noValidate>
           <TextField
             id="date"
+            name = "date"
             label="공연날짜"
             type="date"
             defaultValue="2021-07-01"
             className={classes.textField}
+            onChange={handleInputChange}
             InputLabelProps={{
               shrink: true,
             }}
@@ -104,10 +90,12 @@ export default function CustomizedSelects() {
       <div className="input-showtime inputdiv">
         <TextField
           id="time"
+          name = "startTime"
           label="공연 시작 시간"
           type="time"
           defaultValue="19:30"
           className={classes.textField}
+          onChange={handleInputChange}
           InputLabelProps={{
             shrink: true,
           }}
@@ -117,10 +105,12 @@ export default function CustomizedSelects() {
         />
         <TextField
           id="time"
+          name = "endTime"
           label="공연 종료 시간"
           type="time"
           defaultValue="19:30"
           className={classes.textField}
+          onChange={handleInputChange}
           InputLabelProps={{
             shrink: true,
           }}
@@ -149,8 +139,9 @@ export default function CustomizedSelects() {
       {state.singer ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="singer"
             label="보컬"
+            name="player"
             type="text"
             placeholder="보컬 이름"
             onChange={handleInputChange}
@@ -168,9 +159,10 @@ export default function CustomizedSelects() {
       {state.piano ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="piano"
             label="피아노 연주자"
             type="text"
+            name="player"
             placeholder="피아노 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -187,9 +179,10 @@ export default function CustomizedSelects() {
       {state.trumpet ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="trumpet"
             label="트럼펫 연주자"
             type="text"
+            name="player"
             placeholder="트럼펫 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -209,6 +202,7 @@ export default function CustomizedSelects() {
             id="time"
             label="베이스 연주자"
             type="text"
+            name="player"
             placeholder="베이스 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -225,9 +219,10 @@ export default function CustomizedSelects() {
       {state.guitar ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="guitar"
             label="기타 연주자"
             type="text"
+            name="player"
             placeholder="기타 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -244,9 +239,10 @@ export default function CustomizedSelects() {
       {state.percussion ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="percussion"
             label="퍼커션 연주자"
             type="text"
+            name="player"
             placeholder="퍼커션 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -263,9 +259,10 @@ export default function CustomizedSelects() {
       {state.drum ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="drum"
             label="드럼 연주자"
             type="text"
+            name="player"
             placeholder="드럼 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -282,9 +279,10 @@ export default function CustomizedSelects() {
       {state.trombone ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="trombone"
             label="트럼본 연주자"
             type="text"
+            name="player"
             placeholder="트럼본 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -300,9 +298,10 @@ export default function CustomizedSelects() {
       {state.saxophone ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="saxophone"
             label="색소폰 연주자"
             type="text"
+            name="player"
             placeholder="색소폰 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -319,9 +318,10 @@ export default function CustomizedSelects() {
       {state.etc ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="etc"
             label="직접입력"
             type="text"
+            name="player"
             placeholder="연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}

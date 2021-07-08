@@ -8,6 +8,7 @@ function ReserTable({ data }) {
       <td>{data.name}</td>
       <td>{data.tel}</td>
       <td>{data.psn}</td>
+      <td>{data.date}</td>
       <td>{time}</td>
       {data.status === "대기" ? (
         <td>
