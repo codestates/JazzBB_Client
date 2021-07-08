@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
-import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, setUser } from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, setToken, setUser, modifyUser, modifyFinish } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 
@@ -18,7 +18,7 @@ function MyPage () {
      dispatch(setToken(token1));
     })
     
-  axios.get(process.env.REACT_APP_DB_HOST + 'reservationRead', {authorization: state.user.token}, {user_id: state.user.id})
+  axios.get(process.env.REACT_APP_DB_HOST + '/reservationRead', {authorization: state.user.token}, {user_id: state.user.id})
     .then(res => {
       const token2 = res.data.data.token;
       const reservation = res.data.data.list;
@@ -26,7 +26,7 @@ function MyPage () {
       dispatch(setToken(token2));
    })
   
-  axios.get(process.env.REACT_APP_DB_HOST + 'reviewRead', {authorization: state.user.token}, {userId: state.user.id})
+  axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {authorization: state.user.token}, {userId: state.user.id})
    .then(res => {
      const token3 = res.data.data.token;
      const review = res.data.data.list;
@@ -34,19 +34,39 @@ function MyPage () {
      dispatch(setToken(token3));
    })
   
-  const modifyUser = (variety) => {
+  const modifyUserTogle = (variety) => {
+    dispatch(modifySwitch(variety));
+  }
+  
+  const changeState = (event, variety) => {
+    console.log(event.target.value)
+    dispatch(modifyUser(event.target.value, variety));
+  }
+  
+  const handleModifyUser = (variety) => {
+    dispatch(modifyFinish());
     dispatch(modifySwitch(variety));
   }
 
   const withdrawUser = () => {
-    // axios.
+    axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", {authorization: state.user.token})
+     .then(() => {
+      dispatch(modifySwitch('withdrawModal'));
+      
+     })
   }
 
   return (
     <div class="mypage">
 
       <div class="mypage-body">
-
+        <Modal isOpen={state.togle.withdrawModal} onRequestClose={() => modifyUserTogle('withdrawModal')}>
+          <div class="mypage-withdraw-modal-body">
+            <div class="mypage-withdraw-modal-text">정말 회원을 탈퇴하시겠습니까?</div>
+            <button class="mypage-withdraw-modal-button-yes" onClick={()=> withdrawUser()}>탈퇴합니다</button>
+            <button class="mypage-withdraw-modal-button-no" onClick={()=> modifyUserTogle('withdrawModal')}>탈퇴하지 않겠습니다</button>
+          </div>
+        </Modal>
         <div class="mypage-body-header">
           <div class="mypage-body-header-accinfo">
             <div class="mypage-body-header-accinfo-name">{state.user.username}</div>
@@ -54,9 +74,8 @@ function MyPage () {
           </div>
 
           <div class="mypage-body-header-btnarea">
-            <button class="mypage-body-header-btn" onClick={() => modifyUser('username')}>닉네임 수정</button>
-            <button class="mypage-body-header-btn" onClick={() => modifyUser('mobile')}>연락처 수정</button>
-            <button class="mypage-body-header-btn" onClick={() => withdrawUser()}>회원탈퇴</button>
+            <button class="mypage-body-header-btn" onClick={() => modifyUserTogle('user')}>회원정보 수정</button>
+            <button class="mypage-body-header-btn" onClick={() => modifyUserTogle('withdrawModal')}>회원탈퇴</button>
           </div>
         </div>
 
@@ -67,11 +86,19 @@ function MyPage () {
             <div class="mypage-body-info-title-label">연락처</div>
           </div>
 
-          <div class="mypage-body-info-data">
-            <div class="mypage-body-info-data-result">{state.user.userId}</div>
-            <div class="mypage-body-info-data-result">{state.user.username}</div>
-            <div class="mypage-body-info-data-result">{state.user.mobile}</div>
-          </div>
+            {!state.togle.user ? 
+            <div class="mypage-body-info-data">
+              <div class="mypage-body-info-data-result">{state.user.userId}</div>
+              <div class="mypage-body-info-data-result">{state.user.username}</div>
+              <div class="mypage-body-info-data-result">{state.user.mobile}</div>
+            </div>
+              :
+            <div class="mypage-body-info-data">
+              <div class="mypage-body-info-data-result">{state.user.userId}</div>
+              <input class="mypage-body-info-data-result" value={state.user.username} onChange={(e) => changeState(e, 'username')}></input>
+              <input class="mypage-body-info-data-result" value={state.user.mobile} onChange={(e) => changeState(e, 'mobile')}></input>
+            </div>
+            }
         </div>
 
 
@@ -98,7 +125,19 @@ function MyPage () {
                   <div class="recentreservation-body-name">{el.show.jazzbar.barName}</div>
                   <div class="recentreservation-body-time">{el.show.time}</div>
                   <div class="recentreservation-body-person">{el.people}</div>
-                  <div class="recentreservation-body-status-ok">{el.confirm == 'pending' ? '대기' : el.confirm == 'denied' ? '거절' : '승인'}</div>
+                  {el.confirm == 'pending' ? 
+                  <div class="recentreservation-body-status-stby">
+                    '대기' 
+                  </div>
+                  : el.confirm == 'denied' ? 
+                  <div class="recentreservation-body-status-no">
+                    '거절' 
+                  </div>
+                  : 
+                  <div class="recentreservation-body-status-ok"> 
+                    '승인'
+                  </div>
+                  }
                 </div>
                 )
               })}
@@ -127,6 +166,7 @@ function MyPage () {
               })}
             </div>
           </div>
+          {!state.togle.user ? <></> : <button class="review-modify-button" onClick={() => handleModifyUser('user')}>수정 완료</button>}
         </div>
       </div>
     </div>

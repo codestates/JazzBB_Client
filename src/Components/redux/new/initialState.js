@@ -5,12 +5,16 @@ const initialState = {
     isLogin: false, // 로그인 상태 확인
     token: null, // 토큰 저장
     id: null, // db식별 id
-    userId: "taeseon1997",
-    username: '김태선', // 회원정보 수정
-    mobile: '010-2345-4142', // 회원정보 수정, reservation
+    userId: "dkrlxhRL07",
+    username: '안세은', // 회원정보 수정
+    mobile: '010-2733-8320', // 회원정보 수정, reservation
     thumbnail: null, // 회원정보 수정 초기 값 더미데이터 있으면 좋을듯
     usertype: null, // 사장님인지 확인
     jazzbarId: null, // 사장님인 경우 사용 or 재즈바 선택시 사용
+  },
+  modifyUser:{
+    username: null,
+    mobile: null,
   },
   boardList: [],
   currentBoard: {
@@ -408,8 +412,8 @@ const initialState = {
     reviewDelete: false,
     menuModal: false,
     boardModal: false,
-    username: false,
-    mobile: false,
+    user: false,
+    withdrawModal: false,
   }
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };

@@ -8,6 +8,8 @@ export const SET_SHOW = "SET_SHOW"
 export const SET_PEOPLE = "SET_PEOPLE"
 export const SET_BOARD = "SET_BOARD"
 export const SET_USER = "SET_USER"
+export const MODIFY_USER = "MODIFY_USER"
+export const MODIFY_FINISH = "MODIFY_FINISH"
 
 
 export const setToken = (token) => {
@@ -38,21 +40,21 @@ export const setList = (list, verify) =>{
     }
 }
 
-export const typeText = (text, veriety) =>{
+export const typeText = (text, variety) =>{
     return {
       type : TYPE_TEXT,
       payload : {
         text,
-        veriety
+        variety
       }
     }
 }
 
-export const modifySwitch = (veriety) =>{
+export const modifySwitch = (variety) =>{
     return {
       type : MODIFY_SWITCH,
       payload : {
-        veriety
+        variety
       }
     }
 }
@@ -99,5 +101,22 @@ export const setUser = (user) => {
         payload : {
             user
         }
+    }
+}
+
+export const modifyUser = (text, variety) => {
+    return {
+        type : MODIFY_USER,
+        payload : {
+            text,
+            variety,
+        }
+    }
+}
+
+export const modifyFinish = () => {
+    return {
+        type : MODIFY_FINISH,
+        payload: null,
     }
 }

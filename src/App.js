@@ -16,13 +16,10 @@ import BshowPage from "./Components/Boss/ShowManage/BshowPage";
 import PhotoManage from "./Components/Boss/Photo/PhotoManage";
 import InfoManage from "./Components/Boss/InfoManage";
 import JazzBarPage from './Pages/JazzBarPage'
-<<<<<<< HEAD
 import Mypage from "./Pages/MyPage"
-=======
 import Terms from './Pages/footer-terms'
 
 
->>>>>>> 205294f86424d1aa5ed566b13ce4c76c33ed2755
 import { setToken } from './Components/redux/new/action';
 dotenv.config();
 
@@ -63,11 +60,8 @@ function App() {
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <InfoManage></InfoManage>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
-<<<<<<< HEAD
           <Route path="/mypage" render={() => <Mypage></Mypage>} />
-=======
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
->>>>>>> 205294f86424d1aa5ed566b13ce4c76c33ed2755
         </Switch>
       </div>
     </div>
