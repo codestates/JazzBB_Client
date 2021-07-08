@@ -1,0 +1,509 @@
+/* CSS 초기화 코드가 99번째 줄까지 있습니다. 중간중간 글로벌 선언이 필요할 경우 수정할 수 있어요 */
+
+
+html, body, div, span, a, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, p, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    letter-spacing: -.02em;
+    white-space: normal;
+    word-break: break-all;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration: none;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;  
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 여기서부터 실제 코드 */
+
+
+/* 네비게이션 영역 */
+.nav {
+    display: flex;
+    border-bottom: 2px solid #bb001f;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    align-items: center;
+}
+
+#nav-logo{
+    width: 20%;
+}
+
+
+.nav-btn {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+  }
+  
+  .nav-btn:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowingbn5 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowingbn5 {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .nav-btn:active {
+    color: #000;
+  }
+  
+  .nav-btn:active:after {
+    background: transparent;
+  }
+  
+  .nav-btn:hover:before {
+    opacity: 1;
+  }
+  
+  .nav-btn:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #191919;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+
+
+
+
+
+
+
+
+/* 본문 영역 */
+
+
+
+.mypage {
+    display: flex;
+    justify-content: center;
+}
+
+.mypage-body {
+    width: 72%;
+}
+
+.mypage-body-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid steelblue;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+.mypage-body-header-btn {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+  }
+  
+  .mypage-body-header-btn:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowingbn5 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowingbn5 {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .mypage-body-header-btn:active {
+    color: #000;
+  }
+  
+  .mypage-body-header-btn:active:after {
+    background: transparent;
+  }
+  
+  .mypage-body-header-btn:hover:before {
+    opacity: 1;
+  }
+  
+  .mypage-body-header-btn:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #191919;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+
+
+
+
+
+.mypage-body-header-accinfo {
+    display: flex;
+    align-items: baseline;
+}
+
+.mypage-body-header-accinfo-name {
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.mypage-body-header-accinfo-tail {
+    font-size: 1.7rem;
+}
+
+
+
+/* 계정 정보 알려주는거 */
+.mypage-body-info {
+    display: flex;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mypage-body-info-title {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    font-weight: 900;
+    justify-content: center;
+    padding-right: 5px;
+}
+
+.mypage-body-info-data {
+    width: 45%;
+    height: 100%;
+    border-left: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+    padding-left: 5px;
+}
+
+.mypage-body-info-title-label, .mypage-body-info-data-result {
+    margin-bottom: 8px;
+}
+
+
+
+
+/* 최근 예약/최근 리뷰 */
+.mypage-body-recent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.mypage-body-recent-reservation {
+    width: 48%;
+    height: 200px;
+    padding: 10px;
+    border-right: 1px solid gray;
+}
+
+.mypage-body-recent-review {
+    width: 48%;
+    height: 200px;
+    padding: 10px;
+}
+
+.mypage-body-recent-reservation-title, .mypage-body-recent-review-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+
+.mypage-body-recent-reservation-labelarea, .mypage-body-recent-review-labelarea {
+    display: flex;
+    margin-bottom: 7px;
+    font-weight: 900;
+}
+
+.recentreservation-body, .recentreview-body {
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+    height: 1rem;
+}
+
+.recentreservation-body-date, .recentreservation-label-date {
+    width: 70px;
+}
+
+.recentreservation-body-name, .recentreservation-label-name {
+    width: 140px;
+    height: 1rem;
+    overflow: hidden;
+}
+
+.recentreservation-body-time, .recentreservation-label-time {
+    width: 40px;
+}
+
+.recentreservation-body-person, .recentreservation-label-person {
+    width: 40px;
+}
+
+.recentreservation-body-status-ok, .recentreservation-body-status-no, .recentreservation-body-status-stby, .recentreservation-label-status {
+    width: 50px;
+}
+
+.recentreservation-body-status-ok {
+    color: seagreen;
+}
+
+.recentreservation-body-status-no {
+    color: red;
+}
+
+.recentreservation-body-status-stby {
+    color: tomato;
+}
+
+.recentreview-body-info-date, .recentreview-label-date {
+    width: 70px;
+}
+
+.recentreview-body-info-name, .recentreview-label-name {
+    width: 100px;
+}
+
+.recentreview-body-info-text, .recentreview-label-text {
+    width: auto;
+}
+
+
+
+
+
+
+
+
+/* 푸터 영역 */
+.footer {
+    border-top: 1px solid gray;
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logoarea{
+    width: 20%;
+    padding: 30px;
+}
+
+#footer-logo {
+    width: 100%;   
+}
+
+.footer-infoarea {
+    width: 75%;
+    height: auto;
+    color: gray;
+    min-width: 300px;
+    font-size: 1rem;
+    word-break: keep-all;
+}
+
+.footer-infoarea-infolabel {
+    margin-bottom: 5px;
+}
+
+.footer-infoarea-buttonsarea {
+    margin-bottom: 5px;
+    word-break: keep-all;
+}
+
+.footer-infoarea-infobody {
+    word-break: keep-all;
+}

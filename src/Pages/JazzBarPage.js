@@ -50,8 +50,8 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
     }
   })
 
-  const typingReview = (e, veriety) => {
-    dispatch(typeText(e.target.value, veriety));
+  const typingReview = (e, variety) => {
+    dispatch(typeText(e.target.value, variety));
   }
 
   const reviewPost = async () => {
