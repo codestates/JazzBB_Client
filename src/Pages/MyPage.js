@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
-import { setList, typeText, modifySwitch, setToken, setUser, modifyUser, modifyFinish } from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 
@@ -32,28 +32,40 @@ function MyPage () {
      const review = res.data.data.list;
      dispatch(setList(review, 'reviewList'));
      dispatch(setToken(token3));
-   })
-  
-  const modifyUserTogle = (variety) => {
-    dispatch(modifySwitch(variety));
-  }
-  
-  const changeState = (event, variety) => {
-    console.log(event.target.value)
-    dispatch(modifyUser(event.target.value, variety));
-  }
-  
-  const handleModifyUser = (variety) => {
-    dispatch(modifyFinish());
-    dispatch(modifySwitch(variety));
+    })
+    
+    const modifyUserTogle = (variety) => {
+      dispatch(modifySwitch(variety));
+    }
+    
+    const changeState = (event, variety) => {
+      console.log(event.target.value)
+      dispatch(modifyUser(event.target.value, variety));
+    }
+    
+    const handleModifyUser = (variety) => {
+      dispatch(modifyFinish());
+      axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', {authorization: state.user.token}, {...state.user})
+      .then(res => {
+        const token4 = res.data.data.token;
+        dispatch(setToken(token4));
+        dispatch(modifySwitch(variety));
+     })
   }
 
   const withdrawUser = () => {
+    // console.log()
     axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", {authorization: state.user.token})
-     .then(() => {
+    .then(() => {
       dispatch(modifySwitch('withdrawModal'));
-      
+      dispatch(modifySwitch('withdrawConfirm'));
+      dispatch(deleteState('user'));
      })
+  }
+
+  const redirectHome = () => {
+    dispatch(modifySwitch('withdrawConfirm'));
+    return <Redirect to="/home"/>;
   }
 
   return (
@@ -61,11 +73,20 @@ function MyPage () {
 
       <div class="mypage-body">
         <Modal isOpen={state.togle.withdrawModal} onRequestClose={() => modifyUserTogle('withdrawModal')}>
+            {state.togle.withdrawConfirm ? 
           <div class="mypage-withdraw-modal-body">
-            <div class="mypage-withdraw-modal-text">정말 회원을 탈퇴하시겠습니까?</div>
-            <button class="mypage-withdraw-modal-button-yes" onClick={()=> withdrawUser()}>탈퇴합니다</button>
-            <button class="mypage-withdraw-modal-button-no" onClick={()=> modifyUserTogle('withdrawModal')}>탈퇴하지 않겠습니다</button>
+            <div class="mypage-withdraw-modal-text">탈퇴가 완료되었습니다</div>
+            <div class="mypage-withdraw-modal-text">지금까지 이용해주셔서 감사합니다</div>
+            <button class="mypage-withdraw-modal-button-confirm" onClick={()=> redirectHome()}>탈퇴합니다</button>
           </div>
+            :
+            <div class="mypage-withdraw-modal-body">
+              <div class="mypage-withdraw-modal-text">정말 회원을 탈퇴하시겠습니까?</div>
+              <button class="mypage-withdraw-modal-button-yes" onClick={()=> withdrawUser()}>탈퇴합니다</button>
+              <button class="mypage-withdraw-modal-button-no" onClick={()=> modifyUserTogle('withdrawModal')}>탈퇴하지 않겠습니다</button>
+            </div>
+            }
+            
         </Modal>
         <div class="mypage-body-header">
           <div class="mypage-body-header-accinfo">
@@ -166,8 +187,8 @@ function MyPage () {
               })}
             </div>
           </div>
-          {!state.togle.user ? <></> : <button class="review-modify-button" onClick={() => handleModifyUser('user')}>수정 완료</button>}
         </div>
+          {!state.togle.user ? <></> : <button class="review-modify-button" onClick={() => handleModifyUser('user')}>수정 완료</button>}
       </div>
     </div>
 

@@ -10,6 +10,7 @@ export const SET_BOARD = "SET_BOARD"
 export const SET_USER = "SET_USER"
 export const MODIFY_USER = "MODIFY_USER"
 export const MODIFY_FINISH = "MODIFY_FINISH"
+export const DELETE_STATE = "DELETE_STATE"
 
 
 export const setToken = (token) => {
@@ -115,8 +116,17 @@ export const modifyUser = (text, variety) => {
 }
 
 export const modifyFinish = () => {
-    return {
-        type : MODIFY_FINISH,
-        payload: null,
-    }
+  return {
+      type : MODIFY_FINISH,
+      payload: null,
+  }
+}
+
+export const deleteState = (variety) => {
+  return {
+      type : DELETE_STATE,
+      payload: {
+        variety,
+      },
+  }
 }

@@ -414,6 +414,7 @@ const initialState = {
     boardModal: false,
     user: false,
     withdrawModal: false,
+    withdrawConfirm: false,
   }
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };
