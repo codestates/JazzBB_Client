@@ -74,18 +74,19 @@ function AddShow() {
             <div className="show-box_content">
               <div className="show-description"></div>
             </div>
-          </div>
-        </div>
-        <div className="bottom-box" onClick={handleAddShow}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
+
+            <div className="bottom-box">
+          <Button variant="contained" color="primary" size="large" onClick={handleAddShow} 
             // className={classes.button}
             startIcon={<SaveIcon />}
           >
             등록
           </Button>
+        </div>
+
+
+
+          </div>
         </div>
       </div>
     </div>

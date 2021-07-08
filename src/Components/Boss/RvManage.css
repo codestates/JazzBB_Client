@@ -54,9 +54,10 @@
 }
 
 .status-box {
-    height: 200px;
-    display: block;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .status{
