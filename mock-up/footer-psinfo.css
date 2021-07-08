@@ -1,7 +1,7 @@
 /* CSS 초기화 코드가 99번째 줄까지 있습니다. 중간중간 글로벌 선언이 필요할 경우 수정할 수 있어요 */
 
 
-html, body, div, span, a, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, p, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+html, body, div, span, a, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, p, fieldset, form, label, legend, caption, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -203,18 +203,19 @@ input, select {
 
 /* 본문 영역 */
 
-.infobbsdataentry {
+
+
+.footer-terms {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
-.infobbsdataentry-body {
+.footer-terms-body {
     width: 72%;
 }
 
 
-.infobbsdataentry-body-header {
+.terms-header {
     padding: 20px;
     border-top: none;
     border-bottom: 1px solid gray;
@@ -226,198 +227,109 @@ input, select {
     align-items: center;
 }
 
-.infobbsdataentry-body-header-label {
+.terms-header-label {
     font-size: 1.4rem;
     font-weight: 900;
     margin-bottom: 10px;
 }
 
-.infobbsdataentry-body-header-btnwrapper {
+.terms-header-btnWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.infobbsdataentry-control-container {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.infobbsdataentry-control-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(241, 241, 241);
-    width: 41%;
-    padding: 10px;
-}
-
-.infobbsdataentry-control-icon {
+.terms-header-icon {
     width: 30px;
 }
 
-.infobbsdataentry-control-label {
+.terms-header-btntitle {
     font-weight: 900;
     font-size: 0.8rem;
     margin-top: 5px;
 }
 
-.infobbsdataentry-control-title {
-    padding: 10px;
-    margin-left: 10px;
-    width: 80%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
 
-.infobbsdataentry-control-btnWrapper-list {
-    width: 10%;
-    padding: 10px;
-    background-color: rgb(241, 241, 241);
-    text-align: center;
-}
-
-.infobbsdataentry-control-btnWrapper-listicon {
-    width: 30px;
-}
-
-.infobbsdataentry-control-btnWrapper-listlabel {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-.infobbsdataentry-control-btns {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.infobbsdataentry-body-data {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+.terms-body {
     padding: 20px;
-    margin-bottom: 20px;
 }
 
-.infobbsdataentry-body-data-header {
-    background-color: rgb(255, 239, 226);
-    padding: 25px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
- }
+.terms-body-title1 {
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-top: 50px;
+    margin-bottom: 15px;
+}
 
-.infobbsdataentry-body-data-header-label {
+.terms-body-objects {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    padding: 30px;
+    margin: 15px;
+    line-height: 1.5;
+    border-radius: 15px;
+}
+
+.terms-body-title2 {
+    font-weight: 900;
     font-size: 1.2rem;
-    font-weight: 900;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    margin-bottom: 15px;
 }
 
-.infobbsdataentry-body-data-header-createdAt {
-    color: gray;
-}
-
-
-.infobbsdataentry-body-data-thumbnail {
-    width: 100%;
-    height: 300px;
-    padding-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-thumbnail-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.infobbsdataentry-body-data-infobody {
-    word-break: keep-all;
-    width: 100%;
-    line-height: 1.3;
+.terms-body-objects-list-ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
 }
 
 
-.infobbsdataentry-body-data-commentWrapper {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 25px;
+
+.tg{
+    border-collapse:collapse;
+    border-color:#aaa;
+    border-spacing:0;
+}
+.tg td{
+    background-color:#fff;
+    border-color:#aaa;
+    border-style:solid;
+    border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{
+    background-color:#f38630;
+    border-color:#aaa;
+    border-style:solid;
+    border-width:1px;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    font-weight:normal;
+    overflow:hidden;
+    padding:10px 5px;
+    word-break:normal;
 }
 
-.infobbsdataentry-body-data-comment {
-    margin-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-commentlabel {
-    font-size: 1.3rem;
-    font-weight: 900;
-    margin-bottom: 30px;
-}
-
-.infobbsdataentry-body-data-commentcontainer {
-    width: 100%;
-    background-color: rgb(255, 239, 226);
-    display: flex;
-    align-items: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.comment-name {
-    width: 10%;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: keep-all;
-}
-
-.comment-comment {
-    width: 85%;
-    padding-left: 10px;
-}
+.tg .tg-cly1{text-align:left;vertical-align:middle}
+.tg .tg-34fe{background-color:#f38630;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-6qw1{background-color:#f38630;text-align:center;vertical-align:top}
+.tg .tg-nrix{text-align:center;vertical-align:middle}
 
 
-.infobbsdataentry-body-data-newcomment {
-    background-color: rgb(255, 239, 226);
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.newcomment-label {
-    font-weight: 900;
-    text-align: center;
-    word-break: keep-all;
-    width: 10%;
-}
 
-.newcomment-comment {
-    width: 80%;
-    height: 1rem;
-}
 
-.newcomment-submitbtn {
-    width: 8%;
-    height: 22px;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

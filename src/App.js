@@ -14,9 +14,10 @@ import BossMainPage from "./Pages/BossMainPage"
 import BreservationPage from "./Components/Boss/Reservation/BreservationPage";
 import BshowPage from "./Components/Boss/ShowManage/BshowPage";
 import PhotoManage from "./Components/Boss/Photo/PhotoManage";
-import InfoManage from "./Components/Boss/InfoManage";
+import BInfoManagePage from "./Components/Boss/InfoManage/BInfoManagePage";
 import JazzBarPage from './Pages/JazzBarPage'
 import Mypage from "./Pages/MyPage"
+import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
 import Terms from './Pages/footer-terms'
 
 
@@ -58,7 +59,8 @@ function App() {
           <Route path="/boss/reservation" render={() => <BreservationPage></BreservationPage>} />
           <Route path="/boss/show" render={() => <BshowPage></BshowPage> } />
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
-          <Route path="/boss/infoedit" render={() => <InfoManage></InfoManage>} />
+          <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
+          <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
           <Route path="/mypage" render={() => <Mypage></Mypage>} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />

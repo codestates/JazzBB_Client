@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 export default function CustomizedSelects({data}) {
+  console.log(data)
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -19,7 +23,8 @@ export default function CustomizedSelects({data}) {
   }));
   const classes = useStyles();
 
-  const [state, setState] = React.useState({
+
+  const [state, setState] = useState({
     singer: false,
     piano: false,
     guitar: false,
@@ -32,14 +37,17 @@ export default function CustomizedSelects({data}) {
     etc: false,
   });
   const playerArr = Object.keys(state);
- const checkedPosition = data.player.map(el=> el.position)
- 
- const checkedWithoutCOmma = checkedPosition.map(el => el.replaceAll("\"", ""))
+  const checkedPosition = data.player.map(el=> el.position)
 
-//  checkedPosition.map(el => console.log(state.el))
- console.log(checkedWithoutCOmma)
+  // const yap = () => checkedPosition.map(el=> console.log())
+  const yap = () => checkedPosition.map(el=> setState({...state,  [el] : true}))
+  useEffect(() => {
+   yap()
+  }, [])
+  
+  console.log(state)
 
-//배열에 있는 키값들 true로 setState.
+
 
   const time = data.time
   const start = time.substring(0,5)
@@ -49,31 +57,66 @@ export default function CustomizedSelects({data}) {
     setState({ ...state, [event.target.name]: !state[event.target.name] });
   };
 
-  const [position, setPosition] = React.useState([]);
-  const [player, setPlayer] = React.useState({});
-  const PositionChange = (event) => {
-    const nKey = event.target.value;
-    setPosition([...position, nKey]);
-  };
-  const handleInputChange = (event) => {
-    if (position === "") {
-      return <div>포지션을 먼저 선택해주세요</div>;
-    } else {
-      const nValue = event.target.value;
-      setPlayer({ [position]: nValue });
-    }
-  };
-console.log(data)
+
+const [player, setPlayer] = React.useState({});
+const [inputValue, SetInputValue] = useState({...data, 
+  id: "02",
+  jazzbarId: "01",
+  player: [],
+  thumbnail: "", //server 코드에서 thumbnail 빠져있음. 추후 논의 필요.
+});
+
+const handleInputChange = (event) => {
+  const name = event.target.name;
+  if (name !== "player") {
+    const nameValue = event.target.value;
+    SetInputValue({ ...inputValue, [name]: nameValue });
+    console.log(inputValue)
+  } else {
+    setPlayer({ ...player, [event.target.id]: event.target.value });
+  }
+};
+
+const CreateShow = () => {
+  confirmAlert({
+    title: "새로운 공연을 등록하시겠습니까?",
+    buttons: [
+      {
+        label: "예",
+        onClick:  () => {
+          axios
+            .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
+            .then((res) => (window.location.href = "/boss/show"));
+          //server-showCreate  :jazzbar_id 빠짐....!!!
+        },
+      },
+      {
+        label: "아니오",
+      },
+    ],
+  });
+};
+const handleAddShow = async () => {
+  const StartEndtime = `${inputValue.startTime}-${inputValue.endTime}`;
+  await SetInputValue({
+    ...inputValue,
+    time: StartEndtime,
+    player: [player],
+  });
+  CreateShow();
+};
   return (
     <div className="input-outerbox">
       <div className="input-content-box">
         <TextField
           id="standard-full-width"
           label="공연 소개"
+          name = "content"
           style={{ margin: 0 }}
           placeholder="공연의 간략한 소개"
           helperText=""
           defaultValue={data.content}
+          onChange={handleInputChange}
           fullWidth
           margin="normal"
           InputLabelProps={{
@@ -84,10 +127,12 @@ console.log(data)
       <div className="input-content-box inputdiv">
         <TextField
           id="standard"
+          name = "showCharge"
           label="공연 가격 (숫자만 입력)"
           type={Number}
           style={{ margin: 0 }}
           placeholder="예 : 20000"
+          onChange={handleInputChange}
           defaultValue={data.showCharge}
           helperText=""
           margin="normal"
@@ -102,7 +147,9 @@ console.log(data)
           <TextField
             id="date"
             label="공연날짜"
+            name = "date"
             type="date"
+            onChange={handleInputChange}
             defaultValue={data ? data.date : "2021-07-01"}
             className={classes.textField}
             InputLabelProps={{
@@ -116,7 +163,9 @@ console.log(data)
           id="time"
           label="공연 시작 시간"
           type="time"
+          name="startTime"
           defaultValue={start}
+          onChange={handleInputChange}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -129,7 +178,9 @@ console.log(data)
           id="time"
           label="공연 종료 시간"
           type="time"
+          name="endTime"
           defaultValue={end}
+          onChange={handleInputChange}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -147,7 +198,7 @@ console.log(data)
               <input
                 type="checkbox"
                 name={el}
-                defaultChecked={data.player.el}
+                defaultChecked={checkedPosition.find(ele => ele === el) ? true : false}
                 value={state.el}
                 onChange={handleChange}
               />
@@ -159,9 +210,10 @@ console.log(data)
       {state.singer ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="singer"
             label="보컬"
             type="text"
+            name="player"
             placeholder="보컬 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -178,9 +230,10 @@ console.log(data)
       {state.piano ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="piano"
             label="피아노 연주자"
             type="text"
+            name="player"
             placeholder="피아노 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -197,9 +250,10 @@ console.log(data)
       {state.trumpet ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="trumpet"
             label="트럼펫 연주자"
             type="text"
+            name="player"
             placeholder="트럼펫 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -216,9 +270,10 @@ console.log(data)
       {state.base ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="base"
             label="베이스 연주자"
             type="text"
+            name="player"
             placeholder="베이스 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -235,9 +290,10 @@ console.log(data)
       {state.guitar ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="guitar"
             label="기타 연주자"
             type="text"
+            name="player"
             placeholder="기타 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -254,9 +310,10 @@ console.log(data)
       {state.percussion ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="percussion"
             label="퍼커션 연주자"
             type="text"
+            name="player"
             placeholder="퍼커션 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -273,9 +330,10 @@ console.log(data)
       {state.drum ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="drum"
             label="드럼 연주자"
             type="text"
+            name="player"
             placeholder="드럼 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -292,9 +350,10 @@ console.log(data)
       {state.trombone ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="trombone"
             label="트럼본 연주자"
             type="text"
+            name="player"
             placeholder="트럼본 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -310,9 +369,10 @@ console.log(data)
       {state.saxophone ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="saxophone"
             label="색소폰 연주자"
             type="text"
+            name="player"
             placeholder="색소폰 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
@@ -329,9 +389,10 @@ console.log(data)
       {state.etc ? (
         <div className="input-showPlayer inputdiv">
           <TextField
-            id="time"
+            id="etc"
             label="직접입력"
             type="text"
+            name="player"
             placeholder="연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
