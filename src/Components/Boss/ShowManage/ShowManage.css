@@ -43,56 +43,61 @@
 .show-box{
     background-color: rgb(255, 255, 255);
     margin: 20px;
-    margin-right: 50px;
     height: auto;
     display: flex;
+    flex-wrap: wrap;
 }
+
 .show-innerbox{
-    padding: 30px;
     display: flex;
-    justify-content: space-between;
-    /* align-items: baseline; */
-
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 20px;
 }
-
-
 
 .show-box_photo{  
-    background-color: teal;
-    height: 200px;
-    text-align: center;
-    margin: 0 10px 0 10px;
-
+    width: 270px;
+    min-width: 270px;
+    height: 350px;
+    min-height: 350px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
-.show-box_input{
-
-}
-
-.show-box_content{
-
-}
-
-
-
-
-
 
 .show-photo{
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .show-photo>img{
-    /* width: 150px;
+    width: 150px;
     height: 150px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px; */
 }
+
+.show-box_input {
+    width: 700px;
+    min-width: 700px;
+    padding-top: 25px;
+}
+
+
+
+
+
+
+
 
 
 
 .add-thumbnail-Wrapper {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     text-align: center;
     align-items: center;
@@ -120,7 +125,7 @@
     padding-left: 7px;
     background-color: whitesmoke;
     color: black;
-    width: 100%;
+    width: 250px;
     margin-top: 5px;
     height: 23px;
 }
@@ -133,18 +138,17 @@
 }
 
 .bottom-box{
-    float: right;
-    /* background-color: rgb(168, 165, 165); */
-    width: 100px;
+    width: 250px;
+    min-width: 100px;
+    height: 100%;
     display: flex;
-    flex-direction :column-reverse;
-    /* align-items: center; */
-    padding : 55px
+    align-items:flex-end;
+    justify-content: center;
 }
 
 .bottom-box > button{
-    /* width: 150px;
-    height: 50px; */
+    width: 150px;
+    height: 50px;
 
 }
 
@@ -167,13 +171,6 @@
 
 }
 
-.input-showPlayer{
-}
-
-.input-showtime{
-}
-
-
 
 .allShow-box{
     display: flex;
@@ -188,8 +185,8 @@
     
     .card-box{
         background-color: white;
-        width: 600px;
-        height: 415px;
+        width: 500px;
+        height: 350px;
         display: flex;
         flex-direction: row;
         margin-bottom: 40px;
@@ -231,22 +228,27 @@
     }
     
     .right-box-top{
-        height: 20%;
+        width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: flex-end;
     }
     
     .hamicon{
-        float: right;
-        margin-top: 3px;
-        margin-left: 200px;
-        display: flex;
+        margin: 10px;
     }
 
+    .right-box-bottom {
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+    }
   
     
     .right-box-bottom >div{
-        margin-bottom: 40px;
         font-size: 18px;
         display: flex;
+        margin-bottom: 20px;
     }
     
     .data-content{

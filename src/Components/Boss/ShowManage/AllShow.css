@@ -1,5 +1,4 @@
-.allShow-box{
-}
+
 
 .oneShow-box{
     background-color: rgb(212, 170, 201);
@@ -43,9 +42,7 @@
 }
 
 
-.oneShow-button-box{
-    /* display: flex; */
-}
+
 
 .oneShow-button-box > button{
     width: 150px;

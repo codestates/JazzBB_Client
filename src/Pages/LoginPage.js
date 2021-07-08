@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../css/LoginPage.css";
 import Dummy from "../Pages/dummy";
+import '../css/LoginPage.css'
 // import "../env";
 // import{ OAUTH_URI, REACT_APP_KAKAO, REACT_APP_DB_HOST } from "../env";
 // const { Kakao} = window;
