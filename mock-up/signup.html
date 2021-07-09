@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jazzbarbar</title>
+    <link href="signup.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div className="app-body">
+
+        <!-- 네비게이션 영역 -->
+        <div class="nav">
+            <img id="nav-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
+            <div class="nav-btnWrapper">
+                <button class="nav-btn">Search</button>
+                <button class="nav-btn">Login</button>
+            </div>
+        </div>
+
+        <!-- 본문 영역 -->
+       
+
+        <div class="signup">
+            <div class="signup-body">
+                <div class="signup-titlebox">
+                    <div class="signup-titlebox-title">추가 정보 입력</div>
+                    <div class="signup-titlebox-subtitle">재즈바바 서비스 이용을 위해서는 추가 정보 입력이 필요합니다</div>
+                </div>
+
+                <div class="signup-formwrapper">
+                    <div class="signup-form">
+                        <div class="signup-form-label">닉네임</div>
+                        <input class="signup-form-input-text" type="text" placeholder="닉네임을 입력하세요" required/>
+                    </div>
+
+                    <div class="signup-form">
+                        <div class="signup-form-label">연락처</div>
+                        <input class="signup-form-input-phone" type="tel" maxlength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" required/>                 
+                    </div>
+
+                    <div class="signup-form">
+                        <div class="signup-form-label">회원유형</div>
+                        <select class='signup-form-usertype'>
+                            <option value='customer'>일반회원</option>
+                            <option value='boss'>업체회원</option>
+                        </select>
+                    </div>
+
+                    <button class="signup-btn">입력완료</button>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 <!-- 푸터 영역 -->
+                 <div class="footer">
+                    <div class="footer-logoarea">
+                        <img id="footer-logo" src="./resource/footer.png" alt="footerlogo" />
+                    </div>
+    
+                    <div class="footer-infoarea">
+                        <div class="footer-infoarea-infolabel">
+                            Copyright © Team DDH. All rights reserved.
+                        </div>
+    
+    
+                        <div class="footer-infoarea-buttonsarea">
+                            <a class="footer-infoarea-buttonsarea-buttons" href="/company">회사소개</a>
+                            <a class="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">제휴문의</a>
+                            <a class="footer-infoarea-buttonsarea-buttons" href="/terms">이용약관</a>
+                            <a class="footer-infoarea-buttonsarea-buttons" href="/terms_pi">개인정보처리방침</a>
+                            <a class="footer-infoarea-buttonsarea-buttons" href="/bankid">청소년보호정책</a>
+                            <a class="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">고객센터</a>
+                        </div>
+    
+                        <div class="footer-infoarea-infobody">
+                            (주) 디디에이치 | 13487 경기도 성남시 분당구 대왕판교로 645번길 16 플레이뮤지엄 | 고객센터 : help@teamddh.com / 1566-4882 (유료) <br />
+                            사업자등록번호 : 211-87-15555 | 통신판매업 신고번호 : 제 2021-경기성남-9999호 | 대표이사 : 서지민
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+    </div>
+</body>
+</html>

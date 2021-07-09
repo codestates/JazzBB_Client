@@ -11,10 +11,16 @@ import axios from "axios";
 import Nav from "./Components/Nav";
 import Dummy from "./Pages/dummy";
 import BossMainPage from "./Pages/BossMainPage"
-import RvManage from "./Components/Boss/RvManage";
-import ShowManage from "./Components/Boss/ShowManage";
-import PhotoManage from "./Components/Boss/PhotoManage";
-import InfoManage from "./Components/Boss/InfoManage";
+import BreservationPage from "./Components/Boss/Reservation/BreservationPage";
+import BshowPage from "./Components/Boss/ShowManage/BshowPage";
+import PhotoManage from "./Components/Boss/Photo/PhotoManage";
+import BInfoManagePage from "./Components/Boss/InfoManage/BInfoManagePage";
+import JazzBarPage from './Pages/JazzBarPage'
+import Mypage from "./Pages/MyPage"
+import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
+import Terms from './Pages/footer-terms'
+
+
 import { setToken } from './Components/redux/new/action';
 dotenv.config();
 
@@ -50,10 +56,14 @@ function App() {
           {/* <Route path="/login" render={() => <LoginPage></LoginPage>} /> */}
           <Route path="/login" render={() => <Dummy></Dummy>} />
           <Route path="/boss/main" render={() => <BossMainPage></BossMainPage>} />
-          <Route path="/boss/reservation" render={() => <RvManage></RvManage>} />
-          <Route path="/boss/show" render={() => <ShowManage></ShowManage> } />
+          <Route path="/boss/reservation" render={() => <BreservationPage></BreservationPage>} />
+          <Route path="/boss/show" render={() => <BshowPage></BshowPage> } />
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
-          <Route path="/boss/infoedit" render={() => <InfoManage></InfoManage>} />
+          <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
+          <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
+          <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
+          <Route path="/mypage" render={() => <Mypage></Mypage>} />
+          <Route path="/footer/terms" render={() => <Terms></Terms>} />
         </Switch>
       </div>
     </div>

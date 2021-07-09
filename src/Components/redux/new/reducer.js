@@ -1,4 +1,4 @@
-import { SET_TOKEN, SET_BOSS_DATE, SET_LIST, TYPE_TEXT, MODIFY_SWITCH, SAVE_MY_ID, SET_PEOPLE, SET_SHOW } from "./action";
+import { SET_TOKEN, SET_BOSS_DATE, SET_LIST, TYPE_TEXT, MODIFY_SWITCH, SAVE_MY_ID, SET_PEOPLE, SET_SHOW, SET_BOARD, SET_USER, MODIFY_USER, MODIFY_FINISH, DELETE_STATE } from "./action";
 import initialState from "./initialState";
 
 const reducer = (state = initialState, action) => {
@@ -14,10 +14,10 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { [payload.verify]: payload.list });
 
     case TYPE_TEXT:
-        return Object.assign({}, state, { review: { ...state.review, [payload.veriety]:payload.text} });
+        return Object.assign({}, state, { review: { ...state.review, [payload.variety]:payload.text} });
         
     case MODIFY_SWITCH:
-        return Object.assign({}, state, { togle: { ...state.togle, [payload.veriety]: !state.togle[payload.veriety]} });
+        return Object.assign({}, state, { togle: { ...state.togle, [payload.variety]: !state.togle[payload.variety]} });
     
     case SAVE_MY_ID:
         return Object.assign({}, state, { myReviewId: payload.id });
@@ -27,6 +27,21 @@ const reducer = (state = initialState, action) => {
     
     case SET_PEOPLE:
         return Object.assign({}, state, { people: payload.people });
+
+    case SET_BOARD:
+        return Object.assign({}, state, { currentBoard: payload.board });
+    
+    case SET_USER:
+        return Object.assign({}, state, { user: payload.user });
+
+    case MODIFY_USER:
+        return Object.assign({}, state, { modifyUser: {...state.modifyUser, [payload.variety]: payload.text }});
+
+    case MODIFY_FINISH:
+        return Object.assign({}, state, { user: {...state.user, ...state.modifyUser} });
+
+    case DELETE_STATE:
+        return Object.assign({}, state, { [payload.variety]: null });
 
     default:
       return state;
