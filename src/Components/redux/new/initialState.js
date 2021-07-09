@@ -412,6 +412,7 @@ const initialState = {
     reviewDelete: false,
     menuModal: false,
     boardModal: false,
+    loginModal: false,
     user: false,
     withdrawModal: false,
     withdrawConfirm: false,
