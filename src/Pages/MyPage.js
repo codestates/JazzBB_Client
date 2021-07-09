@@ -54,7 +54,6 @@ function MyPage () {
   }
 
   const withdrawUser = () => {
-    // console.log()
     axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", {authorization: state.user.token})
     .then(() => {
       dispatch(modifySwitch('withdrawModal'));
@@ -77,7 +76,7 @@ function MyPage () {
           <div class="mypage-withdraw-modal-body">
             <div class="mypage-withdraw-modal-text">탈퇴가 완료되었습니다</div>
             <div class="mypage-withdraw-modal-text">지금까지 이용해주셔서 감사합니다</div>
-            <button class="mypage-withdraw-modal-button-confirm" onClick={()=> redirectHome()}>탈퇴합니다</button>
+            <button class="mypage-withdraw-modal-button-confirm" onClick={()=> redirectHome()}>홈으로 돌아가기</button>
           </div>
             :
             <div class="mypage-withdraw-modal-body">
@@ -116,8 +115,8 @@ function MyPage () {
               :
             <div class="mypage-body-info-data">
               <div class="mypage-body-info-data-result">{state.user.userId}</div>
-              <input class="mypage-body-info-data-result" value={state.user.username} onChange={(e) => changeState(e, 'username')}></input>
-              <input class="mypage-body-info-data-result" value={state.user.mobile} onChange={(e) => changeState(e, 'mobile')}></input>
+              <input class="mypage-body-info-data-result" value={state.user.username} onChange={(e) => changeState(e, 'username')} />
+              <input class="mypage-body-info-data-result" value={state.user.mobile} onChange={(e) => changeState(e, 'mobile')} />
             </div>
             }
         </div>
