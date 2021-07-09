@@ -16,6 +16,7 @@ import BshowPage from "./Components/Boss/ShowManage/BshowPage";
 import PhotoManage from "./Components/Boss/Photo/PhotoManage";
 import BInfoManagePage from "./Components/Boss/InfoManage/BInfoManagePage";
 import JazzBarPage from './Pages/JazzBarPage'
+import Mypage from "./Pages/MyPage"
 import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
 import Terms from './Pages/footer-terms'
 
@@ -60,6 +61,7 @@ function App() {
           <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
           <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
+          <Route path="/mypage" render={() => <Mypage></Mypage>} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
         </Switch>
       </div>

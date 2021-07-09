@@ -78,8 +78,7 @@ function AddShowInput() {
               />
 
               <div className="add-subtitle">
-                사진 크기는 가로 500px, 
-                세로 500px로 조정됩니다
+                사진 크기는 (500 * 500)픽셀로 조정됩니다
               </div>
             </div>
             <button>사진등록</button>

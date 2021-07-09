@@ -199,225 +199,270 @@ input, select {
 
 
 
-  
+
+
 
 /* 본문 영역 */
 
-.infobbsdataentry {
+
+
+.mypage {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
-.infobbsdataentry-body {
+.mypage-body {
     width: 72%;
 }
 
-
-.infobbsdataentry-body-header {
-    padding: 20px;
-    border-top: none;
-    border-bottom: 1px solid gray;
-    border-left: none;
-    border-right: none;
-    margin-bottom: 20px;
+.mypage-body-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-}
-
-.infobbsdataentry-body-header-label {
-    font-size: 1.4rem;
-    font-weight: 900;
+    border-bottom: 1px solid steelblue;
     margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
-.infobbsdataentry-body-header-btnwrapper {
+
+
+.mypage-body-header-btn {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+  }
+  
+  .mypage-body-header-btn:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowingbn5 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowingbn5 {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .mypage-body-header-btn:active {
+    color: #000;
+  }
+  
+  .mypage-body-header-btn:active:after {
+    background: transparent;
+  }
+  
+  .mypage-body-header-btn:hover:before {
+    opacity: 1;
+  }
+  
+  .mypage-body-header-btn:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #191919;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+
+
+
+
+
+.mypage-body-header-accinfo {
     display: flex;
+    align-items: baseline;
+}
+
+.mypage-body-header-accinfo-name {
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.mypage-body-header-accinfo-tail {
+    font-size: 1.7rem;
+}
+
+
+
+/* 계정 정보 알려주는거 */
+.mypage-body-info {
+    display: flex;
+    height: 150px;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-}
-
-.infobbsdataentry-control-container {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.infobbsdataentry-control-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(241, 241, 241);
-    width: 41%;
-    padding: 10px;
-}
-
-.infobbsdataentry-control-icon {
-    width: 30px;
-}
-
-.infobbsdataentry-control-label {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-.infobbsdataentry-control-title {
-    padding: 10px;
-    margin-left: 10px;
-    width: 80%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.infobbsdataentry-control-btnWrapper-list {
-    width: 10%;
-    padding: 10px;
-    background-color: rgb(241, 241, 241);
-    text-align: center;
-}
-
-.infobbsdataentry-control-btnWrapper-listicon {
-    width: 30px;
-}
-
-.infobbsdataentry-control-btnWrapper-listlabel {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-.infobbsdataentry-control-btns {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.infobbsdataentry-body-data {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-header {
-    background-color: rgb(255, 239, 226);
-    padding: 25px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
- }
-
-.infobbsdataentry-body-data-header-label {
-    font-size: 1.2rem;
-    font-weight: 900;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.infobbsdataentry-body-data-header-createdAt {
-    color: gray;
-}
-
-
-.infobbsdataentry-body-data-thumbnail {
-    width: 100%;
-    height: 300px;
-    padding-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-thumbnail-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.infobbsdataentry-body-data-infobody {
-    word-break: keep-all;
-    width: 100%;
-    line-height: 1.3;
-}
-
-
-.infobbsdataentry-body-data-commentWrapper {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 25px;
-}
-
-.infobbsdataentry-body-data-comment {
-    margin-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-commentlabel {
     font-size: 1.3rem;
-    font-weight: 900;
-    margin-bottom: 30px;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.infobbsdataentry-body-data-commentcontainer {
-    width: 100%;
-    background-color: rgb(255, 239, 226);
+.mypage-body-info-title {
+    width: 45%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+    text-align: right;
+    font-weight: 900;
+    justify-content: center;
+    padding-right: 5px;
+}
+
+.mypage-body-info-data {
+    width: 45%;
+    height: 100%;
+    border-left: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+    padding-left: 5px;
+}
+
+.mypage-body-info-title-label, .mypage-body-info-data-result {
+    margin-bottom: 8px;
+}
+
+
+
+
+/* 최근 예약/최근 리뷰 */
+.mypage-body-recent {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    padding-top: 5px;
+    width: 100%;
+    height: auto;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.mypage-body-recent-reservation {
+    width: 48%;
+    height: 200px;
+    padding: 10px;
+    border-right: 1px solid gray;
+}
+
+.mypage-body-recent-review {
+    width: 48%;
+    height: 200px;
+    padding: 10px;
+}
+
+.mypage-body-recent-reservation-title, .mypage-body-recent-review-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
     padding-bottom: 5px;
 }
 
-.comment-name {
-    width: 10%;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: keep-all;
-}
 
-.comment-comment {
-    width: 85%;
-    padding-left: 10px;
-}
-
-
-.infobbsdataentry-body-data-newcomment {
-    background-color: rgb(255, 239, 226);
-    padding: 10px;
+.mypage-body-recent-reservation-labelarea, .mypage-body-recent-review-labelarea {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.newcomment-label {
+    margin-bottom: 7px;
     font-weight: 900;
-    text-align: center;
-    word-break: keep-all;
-    width: 10%;
 }
 
-.newcomment-comment {
-    width: 80%;
+.recentreservation-body, .recentreview-body {
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
     height: 1rem;
 }
 
-.newcomment-submitbtn {
-    width: 8%;
-    height: 22px;
+.recentreservation-body-date, .recentreservation-label-date {
+    width: 70px;
 }
+
+.recentreservation-body-name, .recentreservation-label-name {
+    width: 140px;
+    height: 1rem;
+    overflow: hidden;
+}
+
+.recentreservation-body-time, .recentreservation-label-time {
+    width: 40px;
+}
+
+.recentreservation-body-person, .recentreservation-label-person {
+    width: 40px;
+}
+
+.recentreservation-body-status-ok, .recentreservation-body-status-no, .recentreservation-body-status-stby, .recentreservation-label-status {
+    width: 50px;
+}
+
+.recentreservation-body-status-ok {
+    color: seagreen;
+}
+
+.recentreservation-body-status-no {
+    color: red;
+}
+
+.recentreservation-body-status-stby {
+    color: tomato;
+}
+
+.recentreview-body-info-date, .recentreview-label-date {
+    width: 70px;
+}
+
+.recentreview-body-info-name, .recentreview-label-name {
+    width: 100px;
+}
+
+.recentreview-body-info-text, .recentreview-label-text {
+    width: auto;
+}
+
+
+
 
 
 
