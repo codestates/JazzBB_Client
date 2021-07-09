@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import LoginPage from '../Pages/LoginPage'
+import './Nav.css'
 
 // function Nav (){
 //     const [isOpen, setOpenClose] =useState(false);
@@ -22,10 +23,15 @@ class Nav extends React.Component {
 
 render(){
     return(
-        <div>
-            <button onClick={this.openModal}> LogIn</button>
-            <LoginPage isOpen={this.state.isModalOpen} close={this.closeModal}></LoginPage>
-        </div>
+      <div className="navi">
+      <img id="navi-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
+      <div className="navi-btnWrapper">
+          <button className="navi-btn">Search</button>
+          <button className="navi-btn" onClick={this.openModal}>Login</button>
+          <LoginPage isOpen={this.state.isModalOpen} close={this.closeModal}></LoginPage>
+      </div>
+  </div>
+            
     )
 }
 }

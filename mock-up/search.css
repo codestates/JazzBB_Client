@@ -203,18 +203,19 @@ input, select {
 
 /* 본문 영역 */
 
-.infobbsdataentry {
+
+
+.search {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
-.infobbsdataentry-body {
+.search-body {
     width: 72%;
 }
 
 
-.infobbsdataentry-body-header {
+.search-body-header {
     padding: 20px;
     border-top: none;
     border-bottom: 1px solid gray;
@@ -226,198 +227,121 @@ input, select {
     align-items: center;
 }
 
-.infobbsdataentry-body-header-label {
+.search-body-header-label {
     font-size: 1.4rem;
     font-weight: 900;
     margin-bottom: 10px;
 }
 
-.infobbsdataentry-body-header-btnwrapper {
+.search-body-header-btnwrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.infobbsdataentry-control-container {
+.search-control-icon {
+    width: 30px;
+}
+
+.search-control-label {
+    font-weight: 900;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.search-body-searchbox {
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
+    width: 100%;
+    height: 100px;
     display: flex;
-    justify-content: space-between;
-}
-
-.infobbsdataentry-control-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(241, 241, 241);
-    width: 41%;
-    padding: 10px;
-}
-
-.infobbsdataentry-control-icon {
-    width: 30px;
-}
-
-.infobbsdataentry-control-label {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-.infobbsdataentry-control-title {
-    padding: 10px;
-    margin-left: 10px;
-    width: 80%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.infobbsdataentry-control-btnWrapper-list {
-    width: 10%;
-    padding: 10px;
-    background-color: rgb(241, 241, 241);
-    text-align: center;
-}
-
-.infobbsdataentry-control-btnWrapper-listicon {
-    width: 30px;
-}
-
-.infobbsdataentry-control-btnWrapper-listlabel {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 5px;
-}
-
-.infobbsdataentry-control-btns {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.infobbsdataentry-body-data {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-header {
-    background-color: rgb(255, 239, 226);
-    padding: 25px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
- }
-
-.infobbsdataentry-body-data-header-label {
-    font-size: 1.2rem;
-    font-weight: 900;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.infobbsdataentry-body-data-header-createdAt {
-    color: gray;
-}
-
-
-.infobbsdataentry-body-data-thumbnail {
-    width: 100%;
-    height: 300px;
-    padding-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-thumbnail-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.infobbsdataentry-body-data-infobody {
-    word-break: keep-all;
-    width: 100%;
-    line-height: 1.3;
-}
-
-
-.infobbsdataentry-body-data-commentWrapper {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 25px;
-}
-
-.infobbsdataentry-body-data-comment {
-    margin-bottom: 20px;
-}
-
-.infobbsdataentry-body-data-commentlabel {
-    font-size: 1.3rem;
-    font-weight: 900;
     margin-bottom: 30px;
 }
 
-.infobbsdataentry-body-data-commentcontainer {
-    width: 100%;
-    background-color: rgb(255, 239, 226);
-    display: flex;
-    align-items: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.search-body-search {
+    width: 70%;
+    height: 30px;
+    border: 8px solid royalblue;
+    font-size: 1.1rem;
 }
 
-.comment-name {
-    width: 10%;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: keep-all;
-}
-
-.comment-comment {
-    width: 85%;
-    padding-left: 10px;
-}
-
-
-.infobbsdataentry-body-data-newcomment {
-    background-color: rgb(255, 239, 226);
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.newcomment-label {
+.search-body-searchbtn {
+    margin-left: 20px;
+    width: 100px;
+    height: 48px;
+    background-color: royalblue;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
     font-weight: 900;
-    text-align: center;
-    word-break: keep-all;
-    width: 10%;
 }
 
-.newcomment-comment {
-    width: 80%;
-    height: 1rem;
+
+.search-body-result {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
-.newcomment-submitbtn {
-    width: 8%;
-    height: 22px;
+.search-result-box {
+    display: flex;
+    margin: 20px;
+    width: 400px;
+    min-width: 400px;
+    padding: 10px;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
+
+.search-result-thumbnail {
+    width: 47%;
+}
+
+.search-result-thumbnail-img {
+    width: 200px;
+    height: 200px;
+}
+
+.search-result-information {
+    width: 47%;
+    padding-top: 10px;
+}
+
+.search-result-info-shopname {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.search-result-info-phone {
+    margin-bottom: 10px;
+}
+
+.search-result-info-shoplocate {
+    margin-bottom: 10px;
+}
+
+.search-result-info-time {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
