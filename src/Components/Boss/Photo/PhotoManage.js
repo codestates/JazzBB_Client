@@ -9,6 +9,7 @@ const  PhotoManage = ()=> {
       <Sidebar></Sidebar>
     <div className="contentBox">
       <div className="registered-photo">
+        <div>등록한 사진</div>
         <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
         <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
         <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>

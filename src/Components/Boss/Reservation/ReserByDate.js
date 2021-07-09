@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import DatePick from "../DatePick";
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux'
 import ReserTable from './ReserTable'
+import "../../../dist/css/comm.css"
 
 function ReserByDate ({AllPage}) {
    //DatePicker로 선택하 날짜.
@@ -10,7 +10,7 @@ function ReserByDate ({AllPage}) {
    const ChangeDate = (bydate) => {
      setDate(bydate)
    }
-
+   
    // 전체 예약 리스트
     const BossState = useSelector((state) => state.reducer.reservation)
     const Bsort = BossState.sort((a, b) => a.date - b.date);
@@ -28,13 +28,11 @@ function ReserByDate ({AllPage}) {
     const ChangeReserTable = (data) =>{
       setSelect(data) 
     }
-    
-    // console.log(BossState)
-    console.log(sort)
-    // onClick={() =>AllPage === undefined ? DataPerDate.length : BossState.length}
+
+   
     return(
         <div>
-          {AllPage ? null : <DatePick ChangeDate={ChangeDate}></DatePick> }
+          {AllPage !== undefined ? null : <DatePick ChangeDate={ChangeDate}></DatePick> }
 
           <div className="status-box" > 
             <div className="status-f status" onClick={() =>AllPage === undefined ? ChangeReserTable(sort) : ChangeReserTable(Bsort)}>
@@ -53,7 +51,7 @@ function ReserByDate ({AllPage}) {
             </div>
 
             <div className="status-fourth status" onClick={()=>AllPage === undefined ? ChangeReserTable(pending) : ChangeReserTable(Bpending)}>
-              <span className="status-title">대기 </span>
+              <span className="status-title pending">대기 </span>
               <span className="status-number">{AllPage === undefined ? pending.length : Bpending.length}</span>
             </div>
           </div>
@@ -70,11 +68,11 @@ function ReserByDate ({AllPage}) {
                 <th>공연시간</th>
                 <th>승인상태</th>
               </tr>
-              {selected.length === 0 ?
-                sort.map((el)=> <ReserTable data={el}></ReserTable> ) : 
+              {selected.length===0?(
+                AllPage === true ?  BossState.map((el)=> <ReserTable data={el}></ReserTable> ) :  DataPerDate.map((el)=> <ReserTable data={el}></ReserTable> )
+               ) : 
                 selected.map(el =><ReserTable data={el}></ReserTable> )
               }
-             
             </table>
           </div>
         </div>

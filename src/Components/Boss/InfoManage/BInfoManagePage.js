@@ -88,7 +88,7 @@ function BInfoManagePage() {
 
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
-    <div>
+    <div className="infoPage">
       {JazzBarInfo.length === 0 ? (
         <div>
           {/* <Sidebar></Sidebar> */}
@@ -96,12 +96,12 @@ function BInfoManagePage() {
             <h1>정보 기입</h1>
 
             <div className="barName">
-              <div>재즈바 이름</div>
-              <input type="text" name="barName" onChange={handleInput}></input>
+              {/* <div>재즈바 이름</div> */}
+              <input placeholder="재즈바 상호명" type="text" name="barName" onChange={handleInput}></input>
             </div>
 
             <div className="area">
-              <div>가게 주소</div>
+              {/* <div>가게 주소</div> */}
               <div>
                 <select
                   className="select-search-location"
@@ -128,6 +128,7 @@ function BInfoManagePage() {
                   <option value="제주">제주특별자치도</option>
                 </select>
                 <input
+                placeholder="주소"
                   readOnly="true"
                   size="50"
                   defaultValue={
@@ -158,14 +159,14 @@ function BInfoManagePage() {
             </div>
 
             <div className="barMobile">
-              <div>가게 전화번호</div>
+              {/* <div>가게 전화번호</div> */}
               <div>숫자만 입력해주세요. 예) 01012341234</div>
-              <input type="number" name="mobile" onChange={handleInput}></input>
+              <input placeholder="재즈바 연락처" type="number" name="mobile" onChange={handleInput}></input>
             </div>
 
             <div className="defaultSeat">
-              <div>가게 좌석</div>
               <input
+              placeholder="가게 좌석 수"
                 type="number"
                 name="defaultSeat"
                 onChange={handleInput}
