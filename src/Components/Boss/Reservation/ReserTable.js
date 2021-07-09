@@ -12,7 +12,6 @@ function ReserTable({ data }) {
       <td>{time}</td>
       {data.status === "대기" ? (
         <td>
-          {" "}
           <button>승인</button>
           <button>거절</button>
         </td>

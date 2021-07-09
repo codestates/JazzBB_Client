@@ -30,6 +30,7 @@ const Sidebar = ({ yap }) => {
   return (
     <div>
       <div className="sidebar">
+        
         <div id="header">
           <ProSidebar collapsed={openClose}>
             <SidebarHeader>

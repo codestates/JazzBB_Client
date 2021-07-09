@@ -8,9 +8,13 @@ function AddShowInput() {
   const [imgBase64, setImgBase64] = useState(""); 
   const [imgFile, setImgFile] = useState(null); 
   const [imageUrl, setImageUrl] = useState(imgBase64);
+  
   const setFile = (e) => {
+    console.log('setFile')
     if (e.target.files[0]) {
       const img = new FormData();
+      console.log(img,'img')
+
       img.append("file", e.target.files[0]);
       axios
         .post(process.env.domain + "/upload", img)
@@ -25,19 +29,27 @@ function AddShowInput() {
 
   const handleChangeFile = (event) => {
     let reader = new FileReader();
-
     reader.onloadend = () => {
-      // 2. 읽기가 완료되면 아래코드가 실행.
       const base64 = reader.result;
       if (base64) {
-        setImgBase64(base64.toString()); // 파일 base64 상태 업데이트
+        setImgBase64(base64.toString()); 
       }
     };
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장
-
       setImgFile(event.target.files[0]); // 파일 상태 업데이트
     }
+    // console.log(imgFile,'imgFile')
+     // })
+     const formData = new FormData ()
+     axios
+     .post(process.env.REACT_APP_DB_HOST + "/jazzbarImg", formData, {
+       headers : {
+         'content-type' : 'multipart/form-data'
+       }
+     })
+     .then((res) => console.log(res)); //To-Do : axios.get으로 등록한 사진 불러서 refresh (방금 등록한 사진 보이게끔.)
+
   };
   return (
     <div className="add-body">
@@ -69,6 +81,7 @@ function AddShowInput() {
                 사진 크기는 (500 * 500)픽셀로 조정됩니다
               </div>
             </div>
+            <button>사진등록</button>
           </div>
         </div>
       </div>

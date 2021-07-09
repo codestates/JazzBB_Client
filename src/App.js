@@ -20,7 +20,6 @@ import Mypage from "./Pages/MyPage"
 import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
 import Terms from './Pages/footer-terms'
 
-
 import { setToken } from './Components/redux/new/action';
 dotenv.config();
 

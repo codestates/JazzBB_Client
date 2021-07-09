@@ -40,11 +40,11 @@ function DatePick({ChangeDate}) {
     <div className="date-box">
       <div className="date">
         <div>
-          <span className="arrow">
+          <span className="arrow back">
             <BiLeftArrow />
           </span>
           <span>{date}</span> 
-          <span className="arrow">
+          <span className="arrow front">
             <BiRightArrow />
           </span>
         </div>
