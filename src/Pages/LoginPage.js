@@ -1,42 +1,37 @@
-import React, { Component } from "react";
+import axios from "axios";
+import React from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from "react-router-dom";
+import { modifySwitch, modifyUser } from "../Components/redux/new/action";
 import "../css/LoginPage.css";
-import Dummy from "../Pages/dummy";
-import '../css/LoginPage.css'
-// import "../env";
-// import{ OAUTH_URI, REACT_APP_KAKAO, REACT_APP_DB_HOST } from "../env";
-// const { Kakao} = window;
 
-function LoginPage (props) {
-    // console.log(process.env.REACT_APP_DB_HOST)
-    const { isOpen, close } = props; 
+
+function LoginPage () {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.reducer);  
      
-    return (<div>
-        {isOpen ? (
-          <div className="modal">
-            <div onClick={close}>
-              <div className="loginModal">
-                <span className="close" onClick={close}>
-                  &times;
-                </span>
-                <div className="modalContents" onClick={isOpen}>
-                  <div className="socialBox">
-                    <div className="kakao">
-                      <Dummy></Dummy>
-                    </div>
-                  </div>
-                  <div className="loginEnd">
-                    {/* <div className="loginLine">
-                      회원이 아니신가요? <Link to="/signup">회원가입</Link>
-                    </div> */}
-                    <div className="noUser">비회원으로 계속하기</div>
+  return (
+    <div>
+      {/* {isOpen ? ( */}
+        <div className="modal">
+          <div onClick={'fill me in'}>
+            <div className="loginModal">
+              <span className="close" onClick={'fill me in'}>
+                &times;
+              </span>
+              <div className="modalContents" onClick={'fill me in'}>
+                <div className="socialBox">
+                  <div className="kakao">
+                    {'fill me in 버튼 만들기'}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        ) : null}
-      </div>
-    );
+        </div>
+      {/* ) : null} */}
+    </div>
+  )
 }
 
 export default LoginPage;
