@@ -1,4 +1,4 @@
-import { SET_TOKEN, SET_BOSS_DATE, SET_LIST, TYPE_TEXT, MODIFY_SWITCH, SAVE_MY_ID, SET_PEOPLE, SET_SHOW, SET_BOARD, SET_USER, MODIFY_USER, MODIFY_FINISH, DELETE_STATE } from "./action";
+import { SET_RESER_BOSS, SET_TOKEN, SET_BOSS_DATE, SET_LIST, TYPE_TEXT, MODIFY_SWITCH, SAVE_MY_ID, SET_PEOPLE, SET_SHOW, SET_BOARD, SET_USER, MODIFY_USER, MODIFY_FINISH, DELETE_STATE } from "./action";
 import initialState from "./initialState";
 
 const reducer = (state = initialState, action) => {
@@ -9,6 +9,9 @@ const reducer = (state = initialState, action) => {
 
     case SET_BOSS_DATE:
       return Object.assign({}, state, { boss: {date : payload.newDate }});
+
+      case SET_RESER_BOSS:
+      return Object.assign({}, state, { reservation: payload.list});
 
     case SET_LIST:
       return Object.assign({}, state, { [payload.verify]: payload.list });
