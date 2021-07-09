@@ -11,6 +11,7 @@ export const SET_USER = "SET_USER"
 export const MODIFY_USER = "MODIFY_USER"
 export const MODIFY_FINISH = "MODIFY_FINISH"
 export const DELETE_STATE = "DELETE_STATE"
+export const SET_RESER_BOSS = "SET_RESER_BOSS"
 
 
 export const setToken = (token) => {
@@ -27,6 +28,15 @@ export const setBossDate = (newDate) =>{
     type : SET_BOSS_DATE,
     payload : {
       newDate
+    }
+  }
+}
+
+export const setBossReservationList = (list) =>{
+  return{
+    type : SET_RESER_BOSS,
+    payload : {
+      list
     }
   }
 }

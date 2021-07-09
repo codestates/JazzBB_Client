@@ -14,15 +14,15 @@ function ReserByDate ({AllPage}) {
    // 전체 예약 리스트
     const BossState = useSelector((state) => state.reducer.reservation)
     const Bsort = BossState.sort((a, b) => a.date - b.date);
-    const Bconfirm = Bsort.filter((el) => el.status ==="승인")
-    const Bdenied = Bsort.filter((el) => el.status ==="거절")
-    const Bpending = Bsort.filter((el) => el.status ==="대기")
+    const Bconfirm = Bsort.filter((el) => el.confirm ==="confirm")
+    const Bdenied = Bsort.filter((el) => el.confirm ==="denied")
+    const Bpending = Bsort.filter((el) => el.confirm ==="pending")
     //선택된 날짜 예약 리스트
-    const DataPerDate = BossState.filter((el)=>el.date === date) //날짜별 필터 필요
+    const DataPerDate = BossState.filter((el)=>el.show.date === date) //날짜별 필터 필요
     const sort = DataPerDate.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
-    const confirm = sort.filter((el) => el.status ==="승인")
-    const denied = sort.filter((el) => el.status ==="거절")
-    const pending = sort.filter((el) => el.status ==="대기")
+    const confirm = sort.filter((el) => el.confirm ==="confirm")
+    const denied = sort.filter((el) => el.confirm ==="denied")
+    const pending = sort.filter((el) => el.confirm ==="pending")
   
     const [selected, setSelect] = useState(DataPerDate) //승인 상태 클릭했을 때 나오는 예약 리스트 데이터
     const ChangeReserTable = (data) =>{

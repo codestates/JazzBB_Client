@@ -66,22 +66,4 @@ function DatePick({ChangeDate}) {
 }
 export default DatePick;
 
-// const mapStateToProps =(state) =>{
-//   return{
-//     clickedDate : state.boss
-//   }
-// }
 
-// const mapDispatchToProps = (dispatch) =>{
-//   return{
-//     setBossDate : () =>dispatch(setBossDate())
-//     //onclickbutton props.changedate() 실행
-//   }
-// }
-
-// const mapDispatchToProps = {
-//   // ChangeDate : ChangeDate
-//   ChangeDate
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(DatePick);
