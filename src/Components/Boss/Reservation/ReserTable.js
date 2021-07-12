@@ -1,28 +1,63 @@
 import React from "react";
 
-function ReserTable({ data }) {
-  const time = data.show.time.substring(0,5)
-  return (
-    <tr>
-      <td>{data.num}</td>
-      <td>{data.name}</td>
-      <td>{data.mobile}</td>
-      <td>{data.people}</td>
-      <td>{data.show.date}</td>
-      <td>{time}</td>
-      {data.confirm === "pending" ? (
-        <td className='resconfirm'>
-          <button className='res-ok res'>승인</button>
-          <button className='res-no res'>거절</button>
+function ReserTable({ data, alert }) {
+  if(data.length === 0){
+    return (
+      <tr>
+      <td>""</td>
+      <td>""</td>
+      <td></td>
+       <td>""</td>
+      <td>""</td>
+      <td>""</td>
+      <td>""</td>
+      {/* {data.confirm === "pending" ? (
+        <td>
+          <button  name="confirmed" onClick={alert}>승인</button>
+          <button  name="denied" onClick={alert}>거절</button>
         </td>
       ) : (
-        (data.confirm === 'confirm'? <td className='confirm-ok'>승인됨</td>
-        :(<td className='confirm-no'>거절됨</td>)
+        (data.confirm === 'confirm'? <td> 승인</td>
+        :(<td>거절</td>)
         )
         
-      )}
+      )} */}
     </tr>
-  );
+
+    )
+   
+  }else{
+    let time ;
+    if(data.show.time !== undefined){
+   time = data.show.time.substring(0,5)
+    }else{
+      time = "00:00";
+    }
+    return (
+      <tr>
+        <td>{data.num}</td>
+        <td>{data.show.date}</td>
+        <td>{time}</td>
+         <td>{data.name}</td>
+        <td>{data.people}</td>
+        <td>{data.mobile}</td>
+        <td>{data.show.currentSeat}</td>
+        {data.confirm === "pending" ? (
+          <td>
+            <button value={data.num} name="confirmed" onClick={alert}>승인</button>
+            <button value={data.num} name="denied" onClick={alert}>거절</button>
+          </td>
+        ) : (
+          (data.confirm === 'confirm'? <td> 승인</td>
+          :(<td>거절</td>)
+          )
+          
+        )}
+      </tr>
+    );
+
+  }
+  
 }
 
 export default ReserTable;

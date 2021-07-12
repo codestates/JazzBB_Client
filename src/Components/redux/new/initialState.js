@@ -1,6 +1,7 @@
 // import "../../../../public/resource"
 
 const initialState = {
+  AllPage : true,
   user: {
     isLogin: false, // 로그인 상태 확인
     token: null, // 토큰 저장
@@ -96,7 +97,7 @@ const initialState = {
       id: "01",
       jazzbarId: "01",
       date: "2021-07-01",
-      time: "15:30-17:30",
+      time: "17:30-19:30",
       player: [
         {
           position : "singer",
@@ -122,8 +123,8 @@ const initialState = {
     {
       id: "02",
       jazzbarId: "01",
-      date: "2021-07-03",
-      time: "19:30-21:30",
+      date: "2021-07-01",
+      time: "20:30-21:30",
       player: [
         {
           position : "singer",
@@ -244,6 +245,7 @@ const initialState = {
       confirm: "pending",
       show: {
         date: "2021-07-01",
+        currentSeat : 3,
         time: "17:30-19:30",
         jazzbar: {
           id: 3,
@@ -269,8 +271,9 @@ const initialState = {
       people: "03",
       confirm: "denied",
       show: {
-        date: "2021-07-02",
-        time: "19:30-21:30",
+        date: "2021-07-01",
+        time: "20:30-21:30",
+        currentSeat : 3,
         jazzbar: {
           id: 3,
           barName: "개쩔껄 재즈바",
@@ -297,6 +300,7 @@ const initialState = {
       show: {
         date: "2021-07-03",
         time: "17:30-19:30",
+        currentSeat : 3,
         jazzbar: {
           id: 3,
           barName: "개쩔껄 재즈바",
@@ -323,6 +327,7 @@ const initialState = {
       show: {
         date: "2021-06-30",
         time: "19:30-21:30",
+        currentSeat : 3,
         jazzbar: {
           id: 3,
           barName: "개쩔껄 재즈바",
@@ -349,6 +354,7 @@ const initialState = {
       show: {
         date: "2021-07-01",
         time: "20:30-21:30",
+        currentSeat : 3,
         jazzbar: {
           id: 3,
           barName: "개쩔껄 재즈바",
@@ -375,6 +381,7 @@ const initialState = {
       show: {
         date: "2021-07-02",
         time: "17:30-19:30",
+        currentSeat : 3,
         jazzbar: {
           id: 3,
           barName: "개쩔껄 재즈바",
@@ -420,7 +427,8 @@ const initialState = {
     player: null,
     thumbnail: null,
     content: null,
-    showCharge: null
+    showCharge: null,
+    currentSeat : null,
   },
   people: null,
   serviceOption: [
@@ -480,7 +488,9 @@ const initialState = {
     user: false,
     withdrawModal: false,
     withdrawConfirm: false,
-  }
+  },
+
+  
   // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };
 

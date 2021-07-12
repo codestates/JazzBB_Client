@@ -12,6 +12,8 @@ export const MODIFY_USER = "MODIFY_USER"
 export const MODIFY_FINISH = "MODIFY_FINISH"
 export const DELETE_STATE = "DELETE_STATE"
 export const SET_RESER_BOSS = "SET_RESER_BOSS"
+export const SET_SHOW_BOSS = "SET_SHOW_BOSS"
+export const SET_ALLPAGE = "SET_ALLPAGE"
 
 
 export const setToken = (token) => {
@@ -35,6 +37,15 @@ export const setBossDate = (newDate) =>{
 export const setBossReservationList = (list) =>{
   return{
     type : SET_RESER_BOSS,
+    payload : {
+      list
+    }
+  }
+}
+
+export const setBossShowList = (list) =>{
+  return{
+    type : SET_SHOW_BOSS,
     payload : {
       list
     }
@@ -140,3 +151,13 @@ export const deleteState = (variety) => {
       },
   }
 }
+
+export const setAllPage = (data) => {
+  return {
+    type: SET_ALLPAGE,
+    payload: {
+      data
+    }
+  }
+}
+

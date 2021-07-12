@@ -17,7 +17,7 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { BsBook } from "react-icons/bs";
 import "./sidebar.css";
 import "../../../src/dist/css/comm.css"
-const Sidebar = ({ yap }) => {
+const Sidebar = ({ yap,  }) => {
   const [openClose, setOpenClose] = useState(false);
   const menuIconClick = () => {
     openClose ? setOpenClose(false) : setOpenClose(true);
@@ -51,7 +51,6 @@ const Sidebar = ({ yap }) => {
                 <MenuItem
                 className="tag"
                   icon={<BsBook />}
-                  onClick={menuActive}
                 >
                   예약관리 <Link to="/boss/reservation" />
                 </MenuItem>

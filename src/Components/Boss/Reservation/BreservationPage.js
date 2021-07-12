@@ -5,12 +5,21 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // import ReserTable from './ReserTable'
 import ReserHeader from "./ReserHeader";
-import axios from "axios";
 import { setBossReservationList } from "../../redux/new/action";
+import ReserByDate from "./ReserByDate";
 
 const BreservationPage = () => {
   const dispatch = useDispatch();
   const jazzbarId = ""; //재즈바 아이디 가져오기
+
+  const [All, SetNotAll] =React.useState(true)
+  const set = () =>{
+    SetNotAll(true)
+  }
+
+  const unset = () =>{
+    SetNotAll(false)
+  }
 
   //서버 연결 후, 주석 풀기
   // useEffect(() => {
@@ -24,14 +33,14 @@ const BreservationPage = () => {
 
   return (
     <div>
-      <Sidebar></Sidebar>
-
+      <Sidebar ></Sidebar>
       <div className="outer-box">
         {/* <div className="bossHeader"><img src="/img/tokyoJazz.jpg" alt=""/></div> */}
         <div className="content">
           <div className="content-title">예약 관리</div>
           <hr class="hrcss"></hr>
-          <ReserHeader></ReserHeader>
+          <ReserHeader set ={set} unset={unset} all={All}></ReserHeader>
+          {/* <ReserByDate set ={set} unset={unset} all={All}></ReserByDate> */}
         </div>
       </div>
     </div>
