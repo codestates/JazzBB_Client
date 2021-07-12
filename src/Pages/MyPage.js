@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
-import { setList, typeText, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState } from "../Components/redux/new/action";
+import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 

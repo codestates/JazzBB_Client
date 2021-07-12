@@ -1,5 +1,5 @@
 // import "/resource"
-
+//"/resource/"
 const initialState = {
   AllPage : true,
   user: {
@@ -407,7 +407,7 @@ const initialState = {
     moblie: '02-123-4567',
     defaultSeat: '20',
     area: '서울 서초구',
-    thumbnail: 'sdfds',
+    thumbnail: '/resource/배너교체1.png',
     address: '서울 서초구 서초동 몇번지',
     rating: '4.5',
     serviceOption: '1246',
@@ -415,10 +415,25 @@ const initialState = {
     gpsX: null,
     gpsY: null,
   }, //selected
-  barPhoto: [],
+  barPhoto: [
+    
+  ],
   reviewList: [],//{}
   myReviewId: null,
-  menu: [],
+  menu: [
+    {
+      thumbnail: '/resource/배너교체1.png'
+    },
+    {
+      thumbnail: '/resource/배너교체1.png'
+    },
+    {
+      thumbnail: '/resource/배너교체1.png'
+    },
+    {
+      thumbnail: '/resource/배너교체1.png'
+    },
+  ],
   showList: [],
   show: {
     id: null,
@@ -434,42 +449,42 @@ const initialState = {
   serviceOption: [
     {
       id: '1',
-      img: '/resource/icon/parking.png',
+      img: '/resource/parking.png',
       content: '주차가능'
     },
     {
       id: '2',
-      img: '/resource/icon/vallet.png',
+      img: '/resource/vallet.png',
       content: '발렛주차'
     },
     {
       id: '3',
-      img: '/resource/icon/group.png', //'13'
+      img: '/resource/group.png', //'13'
       content: '단체석'
     },
     {
       id: '4',
-      img: '/resource/icon/room.png',
+      img: '/resource/room.png',
       content: '개별룸'
     },
     {
       id: '5',
-      img: '/resource/icon/dinner.png',
+      img: '/resource/dinner.png',
       content: '식사가능'
     },
     {
       id: '6',
-      img: '/resource/icon/corkage.png',
+      img: '/resource/corkage.png',
       content: '콜키지가능'
     },
     {
       id: '7',
-      img: '/resource/icon/night.png',
+      img: '/resource/night.png',
       content: '심야영업'
     },
     {
       id: '8',
-      img: '/resource/icon/onlinebook.png',
+      img: '/resource/onlinebook.png',
       content: '온라인예약'
     },
   ],

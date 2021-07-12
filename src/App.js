@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 // import{ OAUTH_URI, REACT_APP_KAKAO, REACT_APP_DB_HOST } from "./environment";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Switch,
   Route,
@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios";
 // import { LoginPage } from "./Pages/LoginPage";
 import Nav from "./Components/Nav";
-import Dummy from "./Pages/dummy";
 import BossMainPage from "./Pages/BossMainPage"
 import BreservationPage from "./Components/Boss/Reservation/BreservationPage";
 import BshowPage from "./Components/Boss/ShowManage/BshowPage";
