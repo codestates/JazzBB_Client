@@ -1,5 +1,6 @@
 .tag :hover {
-  background-color: #ffeb32;
+  background-color: #3F50B5;
+  color: white;
 }
 
 .tag:after {
@@ -8,13 +9,13 @@
 }
 
 .tag:active {
-  -webkit-transform: translate(0.125em, 0.125em);
-          transform: translate(0.125em, 0.125em);
+  -webkit-transform: translate(0.3em, 0.3em);
+          transform: translate(0.3em, 0.3em);
 }
 
 .tag:active:after {
-  -webkit-transform: translate(-0.125em, -0.125em);
-          transform: translate(-0.125em, -0.125em);
+  -webkit-transform: translate(-0.3em, -0.3em);
+          transform: translate(-0.3em, -0.3em);
 }
 
 .tag {
@@ -32,4 +33,38 @@
 .tag:hover {
   color: #cd2f66;
 }
+
+.status:after {
+  border-bottom: 0em solid;
+  border-right: 0em solid;
+}
+
+.status:active {
+  -webkit-transform: translate(0.3em, 0.3em);
+          transform: translate(0.3em, 0.3em);
+}
+
+.status:active:after {
+  -webkit-transform: translate(-0.3em, -0.3em);
+          transform: translate(-0.3em, -0.3em);
+}
+
+.status {
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+
+.status:hover {
+  color: #cd2f66;
+}
+
+h2 {
+  font-family: 'Arial';
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 0.75;
+}
 /*# sourceMappingURL=comm.css.map */
+
+

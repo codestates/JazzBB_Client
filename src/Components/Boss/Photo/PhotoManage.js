@@ -1,22 +1,46 @@
 import React, {useEffect} from "react";
 import Sidebar from "../Sidebar";
 import InputFile from '../ShowManage/InputFile'
-// import '../ShowManage/RvManage.css'
+import './PhotoManage.css'
 
 const  PhotoManage = ()=> {
   return (
-    <div>
+    <div className="photocontentbody">
       <Sidebar></Sidebar>
     <div className="contentBox">
       <div className="registered-photo">
-        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
-        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
-        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
-        <img src="/img/tokyoJazz.jpg" alt="" width="250"></img>
+        <div className="registered-photo-header">
+          <div className="registered-photo-label">등록한 사진</div>
+        </div>
+
+        <div className="registered-photo-body">
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+        </div>
+        
+        <div className="register-new-photo">
+          <div className="register-header">
+            <div className="register-header-label">신규 사진 등록</div>
+          </div>
+          <InputFile></InputFile>
+        </div>
+        
+
+
+
+
+
       </div>
-      <div className="willUploaded-photo">
-      <InputFile></InputFile>
-      </div>
+     
     </div>
     </div>
   );
