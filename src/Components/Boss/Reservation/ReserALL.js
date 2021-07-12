@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
-import DatePick from "../DatePick";
-import { useSelector } from "react-redux";
+import React, { useState} from "react";
+import { useSelector} from "react-redux";
 import ReserTable from "./ReserTable";
 import axios from "axios";
 import "../../../dist/css/comm.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-function ReserByDate({ AllPage, setAll, unsetAll }) {
+function ReserAll({ AllPage, setAll, unsetAll }) {
   const BossState = useSelector((state) => state.reducer.reservation);
-  const [date, setDate] = useState("2017-01-01");
-  let DataPerDate = BossState.filter((el) => el.show.date === date);
-  const sort = DataPerDate.sort((a, b) => {
-    let x = a.show.time.toLowerCase();
-    let y = b.show.time.toLowerCase();
+  const Bsort = BossState.sort((a, b) => {
+    let x = a.show.date.toLowerCase();
+    let y = b.show.date.toLowerCase();
     if (x < y) {
       return -1;
     }
@@ -22,51 +19,22 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
     }
     return 0;
   });
-  const confirm = sort.filter((el) => el.confirm === "confirm");
-  const denied = sort.filter((el) => el.confirm === "denied");
-  const pending = sort.filter((el) => el.confirm === "pending");
-  const [selected, setSelect] = useState(DataPerDate);
+  const Bconfirm = Bsort.filter((el) => el.confirm === "confirm");
+  const Bdenied = Bsort.filter((el) => el.confirm === "denied");
+  const Bpending = Bsort.filter((el) => el.confirm === "pending");
+  
+  const [selected, setSelect] = useState(BossState);
 
-
-  const ChangeDate = (bydate) => {
-    setDate(bydate);
-  };
-
-  useEffect(() => {
-    ChangeDate(date);
-    return () => {
-    };
-  }, [date]);
-
-  let showList = useSelector((state) => state.reducer.BossShowList);
-  let showListBySelectedDate = showList.filter((el) => el.date === date);
-
-  // status박스 클릭 시, 테이블 변경되는 로직.
   const ChangeTableByStatus = (status) => {
-    const data = DataPerDate.filter((el) => el.confirm === status);
+    const data = BossState.filter((el) => el.confirm === status);
     if (status === "all") {
-      setSelect(DataPerDate);
-      console.log(selected)
+      setSelect(BossState);
     } else if (data.length === 0) {
       alert("해당 상테의 예약 리스트가 존재하지 않습니다.");
       setSelect([]);
     } else {
       setSelect(data);
     }
-  };
-
-
-  const handleListByTime = (e) => {
-    if(e.target.value === "all"){
-    setSelect(DataPerDate)
-    }else{
-      const filteredByTime = DataPerDate.filter(
-        (el) => el.show.time === e.target.value
-      );
-      filteredByTime.map((el) => setSelect(filteredByTime));
-
-    }
-   
   };
 
   const statusAlert = (e) => {
@@ -97,18 +65,13 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
 
   return (
     <div>
-      <div>
-        <DatePick ChangeDate={ChangeDate}></DatePick>
-       
-      </div>
-
       <div className="status-box">
         <div //전체 신청
           className="status-f status"
           onClick={() => ChangeTableByStatus("all")}
         >
           <span className="status-title">총 신청</span>
-          <span className="status-number">{sort.length}</span>
+          <span className="status-number">{Bsort.length}</span>
         </div>
 
         <div
@@ -116,7 +79,9 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
           onClick={() => ChangeTableByStatus("confirm")}
         >
           <span className="status-title">승인 </span>
-          <span className="status-number">{confirm.length}</span>
+          <span className="status-number">
+            {Bconfirm.length}
+          </span>
         </div>
 
         <div
@@ -124,7 +89,9 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
           onClick={() => ChangeTableByStatus("denied")}
         >
           <span className="status-title">거절 </span>
-          <span className="status-number">{denied.length}</span>
+          <span className="status-number">
+            { Bdenied.length}
+          </span>
         </div>
 
         <div
@@ -132,23 +99,14 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
           onClick={() => ChangeTableByStatus("pending")}
         >
           <span className="status-title pending">대기 </span>
-          <span className="status-number-pending-blink">{pending.length}</span>
+          <span className="status-number-pending-blink">
+            {Bpending.length}
+          </span>
         </div>
       </div>
 
-      
-
       <div className="rv-info">
         <div className="rv-info-contents">예약정보</div>
-        <select name="pets" id="pet-select" onChange={handleListByTime}>
-          <option value="">--공연 시간별 예약리스트--</option>
-          <option value="all">전체 시간</option>
-          {showListBySelectedDate.length !== 0
-            ? showListBySelectedDate.map((el) => (
-                <option value={el.time}>{el.time}</option>
-              ))
-            : null}
-        </select>
         <table id="customers">
           <tr>
             <th>예약 번호</th>
@@ -160,12 +118,13 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
             <th>남은 좌석</th>
             <th>승인상태</th>
           </tr>
+
           {selected.length === 0
-            ? sort.map((el) => (
-                <ReserTable data={el} confirmAlert={statusAlert}></ReserTable>
+            ? BossState.map((el) => (
+                <ReserTable data={el} alert={statusAlert}></ReserTable>
               ))
             : selected.map((el) => (
-                <ReserTable data={el} confirmAlert={statusAlert}></ReserTable>
+                <ReserTable data={el} alert={statusAlert}></ReserTable>
               ))}
         </table>
       </div>
@@ -173,4 +132,4 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
   );
 }
 
-export default ReserByDate;
+export default ReserAll;

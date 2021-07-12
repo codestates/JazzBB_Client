@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import DatePick from "../DatePick";
 import Sidebar from "../Sidebar";
+import axios from 'axios'
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // import ReserTable from './ReserTable'
 import ReserHeader from "./ReserHeader";
-import { setBossReservationList } from "../../redux/new/action";
+import { setBossReservationList, setBossShowList } from "../../redux/new/action";
 import ReserByDate from "./ReserByDate";
 
 const BreservationPage = () => {
@@ -28,8 +29,17 @@ const BreservationPage = () => {
   //     .then((res) => {
   //       const list = res.data.data.list;
   //       dispatch(setBossReservationList(list));
-  //     });
+  //     })
+  //     .then(
+  //       axios.get(process.env.REACT_APP_DB_HOST + "/reservationRead", jazzbarId)
+  //       .then(res => {
+  //         const showlist = res.data;
+  //         dispatch(setBossShowList(showlist))
+  //       }
+  //         )
+  //     )
   // }, []);
+
 
   return (
     <div>

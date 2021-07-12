@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 // import { connect } from "react-redux";
 import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
 
-function DatePick({ChangeDate, ShowListByDate}) {
+function DatePick({ChangeDate}) {
   const dispatch = useDispatch();
   const BossState = useSelector((state) => state.reducer.boss);
   const Boss_Date = BossState.date;
@@ -40,13 +40,13 @@ function DatePick({ChangeDate, ShowListByDate}) {
     <div className="date-box">
       <div className="date">
         <div>
-          <span className="arrow back">
+          {/* <span className="arrow back">
             <BiLeftArrow />
-          </span>
+          </span> */}
           <span>{date}</span> 
-          <span className="arrow front">
+          {/* <span className="arrow front">
             <BiRightArrow />
-          </span>
+          </span> */}
         </div>
         {/* <span> </span> */}
       </div>
@@ -61,7 +61,7 @@ function DatePick({ChangeDate, ShowListByDate}) {
           placeholderText={date}
           onChange={(e) => {
             dispatch(setBossDate(e))
-            ShowListByDate()
+            
            }} // 날짜를 선택하였을 때 실행될 함수
         />
       </div>
