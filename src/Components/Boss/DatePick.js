@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 // import { connect } from "react-redux";
 import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
 
-function DatePick({ChangeDate}) {
+function DatePick({ChangeDate, ShowListByDate}) {
   const dispatch = useDispatch();
   const BossState = useSelector((state) => state.reducer.boss);
   const Boss_Date = BossState.date;
@@ -58,7 +58,11 @@ function DatePick({ChangeDate}) {
           closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
           placeholderText="날짜 변경"
           //  selected={date}	// value
-          onChange={(e) => dispatch(setBossDate(e))} // 날짜를 선택하였을 때 실행될 함수
+          placeholderText={date}
+          onChange={(e) => {
+            dispatch(setBossDate(e))
+            ShowListByDate()
+           }} // 날짜를 선택하였을 때 실행될 함수
         />
       </div>
     </div>
