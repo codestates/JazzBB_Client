@@ -419,7 +419,7 @@ input, select {
 .mypage-body-recent-reservation-title, .mypage-body-recent-review-title {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     padding-bottom: 5px;
 }
 
@@ -438,21 +438,21 @@ input, select {
 }
 
 .recentreservation-body-date, .recentreservation-label-date {
-    width: 70px;
+    width: 90px;
 }
 
 .recentreservation-body-name, .recentreservation-label-name {
-    width: 140px;
+    width: 180px;
     height: 1rem;
     overflow: hidden;
 }
 
 .recentreservation-body-time, .recentreservation-label-time {
-    width: 40px;
+    width: 90px;
 }
 
 .recentreservation-body-person, .recentreservation-label-person {
-    width: 40px;
+    width: 60px;
 }
 
 .recentreservation-body-status-ok, .recentreservation-body-status-no, .recentreservation-body-status-stby, .recentreservation-label-status {
@@ -472,11 +472,11 @@ input, select {
 }
 
 .recentreview-body-info-date, .recentreview-label-date {
-    width: 70px;
+    width: 90px;
 }
 
 .recentreview-body-info-name, .recentreview-label-name {
-    width: 100px;
+    width: 130px;
 }
 
 .recentreview-body-info-text, .recentreview-label-text {

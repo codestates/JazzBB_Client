@@ -21,6 +21,9 @@ import Boardinfo from "./Pages/JazzInfoPosting"
 import Board from "./Pages/JazzInfoPage"
 import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
 import Terms from './Pages/footer-terms'
+import Footer from './Components/footer'
+import Termspi from './Pages/footer-terms-pi'
+import Weareddh from "./Pages/weareddh";
 
 import { setToken } from './Components/redux/new/action';
 dotenv.config();
@@ -65,8 +68,11 @@ function App() {
           <Route path="/board" render={()=> <Board></Board>} />
           <Route path="/mypage" render={() => <Mypage></Mypage>} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
+          <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
+          <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
         </Switch>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

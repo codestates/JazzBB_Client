@@ -110,10 +110,16 @@
 
 .clsbtnwrapper {
   width: 100%;
+  margin-top: 10px;
+  text-align: end;
 }
 
 .close {
-  margin: 10px;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-right: 10px;
+  border: none;
+  width: 30px;
 }
 
 .login-modal-body {

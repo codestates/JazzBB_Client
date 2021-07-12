@@ -6,39 +6,39 @@ import "../css/footer-terms.css"
 function Terms() {
     return (
 
-        <div class="footer-terms">
-            <div class="footer-terms-body">
+        <div className="footer-terms">
+            <div className="footer-terms-body">
 
-                <div class="terms-header">
-                    <div class="terms-header-labelWrapper">
-                        <div class="terms-header-label">이용약관</div>
-                        <div class="terms-header-sublabel">재즈바바 서비스를 이용하실 때 알아두어야 하는 약관입니다</div>
+                <div className="terms-header">
+                    <div className="terms-header-labelWrapper">
+                        <div className="terms-header-label">이용약관</div>
+                        <div className="terms-header-sublabel">재즈바바 서비스를 이용하실 때 알아두어야 하는 약관입니다</div>
                     </div>
 
-                    <div class="terms-header-btnWrapper">
-                        <img class="terms-header-icon" src="./resource/icons/outline_arrow_back_ios_black_24dp.png" />
-                        <div class="terms-header-btntitle">이전 페이지</div>
+                    <div className="terms-header-btnWrapper">
+                        <img className="terms-header-icon" src="/img/resource/icons/outline_arrow_back_ios_black_24dp.png" />
+                        <div className="terms-header-btntitle">이전 페이지</div>
                     </div>
                 </div>
 
 
 
-                <div class="terms-body">
+                <div className="terms-body">
 
-                    <div class="terms-body-title1">제 1장 총칙</div>
+                    <div className="terms-body-title1">제 1장 총칙</div>
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 1조 목적</div>
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 1조 목적</div>
                         이 약관은 Team DDH(팀 디디에이치. 이하 '회사')가 제공하는 Jazzbarbar(재즈바바) 서비스(이하 '서비스') 및 관련 제반 서비스의 이용과 관련하여 회사와 회원간의 권리, 의무 및 책임사항, 회원의 서비스 이용 절차에 관한 사항을 규정함을 목적으로 합니다.
                         이 약관은 회사가 제공하는 서비스 일체에 적용됩니다.
                     </div>
 
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 2조 용어의 정의</div>
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 2조 용어의 정의</div>
                         본 약관에서 사용하는 용어의 정의는 다음과 같습니다
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '서비스'란 '회사'가 제공하는 재즈바, 레스토랑, 일반음식점 등 가맹점에 대한 예약, 정보제공, 추천, 티켓 구매(이에 한정되지 않음) 등을 위한 온라인 플랫폼 서비스를 의미합니다.
                                     서비스는 구현되는 장치나 단말기와 상관없이 재즈바바 및 재즈바바 관련 웹, 앱 등의 제반 서비스를 의미하며, 회사가 공개한 API를 이용하여 제3자가 개발 또는 구축한 프로그램이나 서비스를 통하여 회원에게 제공되는 경우를 포합합니다.
@@ -66,10 +66,10 @@ function Terms() {
                     </div>
 
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 3조 약관의 게시와 개정</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 3조 약관의 게시와 개정</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     본 약관은 '회원'이 서비스 가입 및 이용 시 열람할 수 있으며, '회사'는 본 약관의 내용을 '회원'이 쉽게 열람할 수 있도록 서비스 또는 연결 매체에 게시합니다
                                 </li>
@@ -94,10 +94,10 @@ function Terms() {
                     </div>
 
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 4조 개별 서비스에 대한 약관 및 약관의 해석</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 4조 개별 서비스에 대한 약관 및 약관의 해석</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'는 필요한 경우 특정 서비스에 관하여 적용될 사항(이하 '개별약관') 및 세부적인 내용(이하 '이용정책')을 정하여 운영할 수 있으며, 해당 내용은 홈페이지 등을 통해 공지합니다.
                                 </li>
@@ -115,10 +115,10 @@ function Terms() {
                     </div>
 
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 5조 회원에 대한 통지</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 5조 회원에 대한 통지</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'가 '회원'에 대한 통지를 하는 경우 이 약관에 별도 규정이 없는 한 서면(전자문서 또는 전자우편을 포함)에 의하여 '회원'이 '회사'에 제공한 전자우편주소, 전화번호 등에 통지합니다.
                                 </li>
@@ -129,19 +129,19 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-title1">제 2장 서비스 이용계약의 체결과 해지</div>
+                    <div className="terms-body-title1">제 2장 서비스 이용계약의 체결과 해지</div>
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 7조 이용계약의 체결</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 7조 이용계약의 체결</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     이용계약은 '회원'이 되고자 하는 자(이하 '가입신청자')가 약관의 내용에 대하여 동의를 한 다음 '서비스'이용 신청을 하고, '회사'가 이러한 신청에 대하여 승낙함으로써 체결됩니다. 다만, 가입신청자(회원이 14세 미만의 아동인 경우 그 아동의 법정대리인)가 가입신청 당시 이 약관의 내용과 함께 제공한 동의 확인란에 동의를 표시한 경우, '회사'는 '가입신청자'가 이 약관의 내용을 모두 읽고 이를 충분히 이해하였으며, 이를 적용하는 것에 동의한 것으로 간주합니다.
                                 </li>
                                 <li>
                                     '회사'는 '가입신청자'의 신청에 대하여 '서비스'이용을 승낙함을 원칙으로 합니다. 다만, 회사는 다음 각 호에 해당하는 신청에 대하여는 승낙을 하지 않거나 사후에 이용계약을 해지할 수 있습니다.
                                 </li>
-                                    <ol class="terms-body-objects-list-ol">
+                                    <ol className="terms-body-objects-list-ol">
                                         <li>
                                             가입신청자가 이 약관에 의하여 이전에 회원자격을 상실한 적이 있는 경우, 단 '회사'의 회원 재가입 승낙을 얻은 경우에는 예외로 함.
                                         </li>
@@ -199,17 +199,17 @@ function Terms() {
                     </div>
 
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 8조 이용계약의 해지 및 이용제한</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 8조 이용계약의 해지 및 이용제한</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회원'은 언제든지 '회사'가 정한 절차에 따라 회원 탈퇴를 요청하여 이용계약 해지 신청을 할 수 있으며, '회사'는 관련법 등이 정하는 바에 따라 이를 즉시 처리합니다.
                                 </li>
                                 <li>
                                     '회사' 또는 '회원'이 이용계약을 해지하는 경우, 관련법 및 개인정보취급방침에 따라 회사가 회원정보를 보유하는 경우를 제외하고는 해지업무 처리 완료 즉시 회원의 데이터는 아래와 같은 절차와 방법에 따라 파기처리 됩니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         파기절차 : '회사'는 파기 사유가 발생한 개인정보를 선정하고, 개인정보보호책임자의 승인 후 개인정보를 파기합니다.
                                     </li>
@@ -220,7 +220,7 @@ function Terms() {
                                 <li>
                                     회사는 아래 각 호의 사유가 발생하는 경우 회원의 '서비스'이용을 중단하거나 경고, 일시정지, 영구이용정지 등으로 '서비스' 이용을 단계적으로 제한할 수 있습니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         부정하게 타인의 계정을 사용하여 '서비스'를 이용한 경우
                                     </li>
@@ -268,16 +268,16 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-title1">제 3장 서비스의 이용</div>
+                    <div className="terms-body-title1">제 3장 서비스의 이용</div>
                     
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 9조 서비스의 내용 및 제공</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 9조 서비스의 내용 및 제공</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'가 본 약관에 따라 '회원'에게 제공하는 '서비스'는 아래 각 호와 같습니다. 단, '회사'는 일부 '서비스'의 이용조건 및 이용범위 등을 별도로 정하여 운영할 수 있으며, 해당 사항은 '회원'에게 공지합니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         '판매자'의 사업장 정보 제공 서비스
                                     </li>
@@ -305,10 +305,10 @@ function Terms() {
                     </div>
 
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 10조 서비스의 변경, 중지 및 종료</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 10조 서비스의 변경, 중지 및 종료</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'는 상당한 이유가 있는 경우에 운영상, 기술상의 필요에 따라 제공하고 있는 전부 또는 일부 '서비스'를 변경할 수 있습니다.
                                 </li>
@@ -321,7 +321,7 @@ function Terms() {
                                 <li>
                                     '회사'는 다음 각 호에 해당하는 경우 '서비스'의 일부 또는 전부의 제공을 일시적으로 중단할 수 있습니다. 이 경우 '회사'는 '서비스' 이용의 중단 사실을 제 5조의 방법에 따라 즉시 공지합니다. 다만, '회사'가 사전에 통지할 수 없는 부득이한 사유가 있는 경우 사후에 통지할 수 있습니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         컴퓨터 등 정보통신설비의 보수점검, 교체 및 고장, 서버의 증설 및 교체, 운영자의 고의나 과실이 없는 장애 등의 부득이한 경우
                                     </li>
@@ -348,14 +348,14 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 11조 예약 서비스의 이용</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 11조 예약 서비스의 이용</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     예약 서비스는 아래의 약관에 따라 운영됩니다
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         '회원'이 '판매자'의 예약 정책에 따라 정보 입력 및 대금 결제
                                     </li>
@@ -373,14 +373,14 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 12조 구매계약의 성립</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 12조 구매계약의 성립</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '판매자'는 일부 예약에 한하여 '예약금'제도를 운영할 수 있으며, 아래의 약관에 따라 운영됩니다
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         '회원'이 '판매자'의 예약금 제도에 따라 '예약금' 결제
                                     </li>
@@ -410,10 +410,10 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 13조 포인트</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 13조 포인트</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '포인트'는 '회사'의 정책에 따라 '회원'에게 부여되며, 포인트 별 적립기준, 사용방법, 사용기한 및 제한에 관한 사항은 별도로 공지합니다. 단, 포인트 사용 기한에 대해 별도로 안내하지 않은 경우에는 1년으로 봅니다.
                                 </li>
@@ -433,10 +433,10 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 14조 정보의 제공 및 광고의 게재</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 14조 정보의 제공 및 광고의 게재</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'는 '회원'이 '서비스'이용 중 필요하다고 인정되는 다양한 정보를 다양한 방법으로 '회원'에게 제공할 수 있씁니다. 다만, '회원'은 관련법에 따른 거래관련 정보 및 고객문의 등에 대한 답변을 제외하고는 언제든지 마케팅 수신 동의를 철회하실 수 있습니다.
                                 </li>
@@ -459,10 +459,10 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 15조 게시물의 저작권 및 배타적 이용허락</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 15조 게시물의 저작권 및 배타적 이용허락</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회원'이 작성한 게시물의 저작권은 이를 작성한 '회원' 본인에게 있으며, 해당 게시물이 타인의 저작권을 침해하는 경우 그에 대한 책임은 회원 본인이 부담합니다
                                 </li>
@@ -472,7 +472,7 @@ function Terms() {
                                 <li>
                                     '회사'는 '회원'이 등록한 게시물이 다음 각 호에 해당한다고 판단되는 경우 사전 통보 없이 해당 게시물을 삭제하거나 열람을 제한할 수 있으며, '회원'의 서비스 이용을 중지 또는 해지할 수 있습니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         타인의 권리나 명예, 신용, 기타 정당한 이익을 침해하는 경우
                                     </li>
@@ -505,10 +505,10 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 16조 저작권의 귀속</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 16조 저작권의 귀속</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'가 작성한 저작물에 대한 저작권 및 기타 지적 재산권은 '회사'에 귀속됩니다
                                 </li>
@@ -522,11 +522,11 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-title1">제 4장 권리와 의무</div>
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 17조 회사의 의무</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-title1">제 4장 권리와 의무</div>
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 17조 회사의 의무</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'는 관련 법령과 이 약관이 금지하거나 공공질서, 미풍양속에 반하는 행위를 하지 않으며, 이 약관이 정하는 바에 따라 지속적이고 안정적으로 '서비스'를 제공하기 위하여 최선을 다합니다
                                 </li>
@@ -550,10 +550,10 @@ function Terms() {
                     </div>
 
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 18조 회원의 의무</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 18조 회원의 의무</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회원'은 기타 관계 법령, 본 약관의 규정, 이용안내 및 서비스상에 공지한 주의사항, '회사'가 통지하는 사항 등을 준수하여야 하며, 기타 회사의 업무에 방해되는 행위를 하여서는 아니됩니다.
                                 </li>
@@ -563,7 +563,7 @@ function Terms() {
                                 <li>
                                     '회원'은 서비스 이용과 관련하여 다음 각 호의 행위를 하여서는 안됩니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         서비스 신청 또는 변경 시 허위내용을 등록하는 행위
                                     </li>
@@ -638,11 +638,11 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-title1">제 5장 정보의 보호 및 위치정보</div>
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 19조 개인정보보호</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-title1">제 5장 정보의 보호 및 위치정보</div>
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 19조 개인정보보호</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'는 '회원'이 안전하게 '서비스'를 이용할 수 있도록 '회원'의 개인정보보호를 위하여 개인정보보호정책을 실시하며 이에 따라 '회원'의 개인정보를 최대한 보호하기 위하여 노력합니다.
                                 </li>
@@ -664,7 +664,7 @@ function Terms() {
                                 <li>
                                     '회사'는 '회원'이 제공한 정보를 '회사'의 '서비스'운영을 위한 목적 이외의 용도로 사용하거나 '회원'의 동의 없이 제3자에게 제공하지 않습니다. 단, 다음 각 호와 같은 경우에는 예외로 합니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         배송업무 등 거래 이행에 필요한 최소한의 회원정보가 배송업체에 제공되는 경우
                                     </li>
@@ -685,11 +685,11 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-title1">제 6장 기타</div>
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 20조 손해배상</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-title1">제 6장 기타</div>
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 20조 손해배상</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회원'이 본 약관의 규정을 위반함으로 인하여 '회사'에 손해가 발생하게 되는 경우, 본 약관을 위반한 회원은 회사에 발생하는 모든 손해를 배상하여야 합니다.
                                 </li>
@@ -700,10 +700,10 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 21조 회사의 책임제한</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 21조 회사의 책임제한</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'는 천재지변 또는 이에 준하는 불가항력으로 인해여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면책됩니다.
                                 </li>
@@ -722,7 +722,7 @@ function Terms() {
                                 <li>
                                     '회사'는 회사 및 회사의 임직원 그리고 회사 대리인의 고의 또는 중대한 과실이 없는 한 다음 각 호의 사항으로부터 발생하는 손해에 대해 책임을 지지 아니합니다.
                                 </li>
-                                <ol class="terms-body-objects-list-ol">
+                                <ol className="terms-body-objects-list-ol">
                                     <li>
                                         회원정보 등의 허위 또는 부정확성에 기인하는 손해
                                     </li>
@@ -749,10 +749,10 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 22조 분쟁조정</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 22조 분쟁조정</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     '회사'는 위치정보와 관련된 분쟁에 대해 당사자 간 협의가 이루어지지 아니하거나 협의를 할 수 없는 경우에는 '전기통신기본법' 제 40조의2의 규정에 의해 방송통신위원회에 제정을 신청할 수 있습니다.
                                 </li>
@@ -766,10 +766,10 @@ function Terms() {
                         </div>
                     </div>
 
-                    <div class="terms-body-objects">
-                        <div class="terms-body-title2">제 23조 준거법 및 재판관할</div>
-                        <div class="terms-body-objects-list">
-                            <ol class="terms-body-objects-list-ol">
+                    <div className="terms-body-objects">
+                        <div className="terms-body-title2">제 23조 준거법 및 재판관할</div>
+                        <div className="terms-body-objects-list">
+                            <ol className="terms-body-objects-list-ol">
                                 <li>
                                     이 약관과 관련된 사항에 대하여는 대한민국 법을 준거법으로 합니다.
                                 </li>

@@ -29,16 +29,15 @@ function Nav() {
   return(
     <div className="navi">
       <div onClick={()=> goHome()}>
-        <img id="navi-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
+        <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       </div>
-      <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       <div className="navi-btnWrapper">
         <button className="navi-btn" onClick={()=> redirectSearch()}>Search</button>
         <button className="navi-btn" onClick={()=> loginModalSwitch('loginModal')}>Login</button>
         <Modal className="navi-login-modal" isOpen={state.togle.loginModal} onRequestClose={() => loginModalSwitch('loginModal')} closeTimeoutMS={200}>
           <div className="login-modal-box">
                 <div className="clsbtnwrapper">
-                    <span className="close" onClick={() => loginModalSwitch('loginModal')}>&times;</span>
+                    <button className="close" onClick={() => loginModalSwitch('loginModal')}>X</button>
                 </div>
                 <div className="login-modal-body">
                   <img class="login-modal-logo" src='/img/resource/jazzbb_logo_black.png' />
