@@ -8,19 +8,18 @@
     width: 240px;
   }
   #header .pro-sidebar {
-    height: 100vh;
+    height: 90vh;
   }
+
+
   #header .closemenu {
     color: #000;
-    position: absolute;
     right: 0;
-    z-index: 9999;
     line-height: 20px;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 22px;
-    top: 55px;
+    font-size: 40px;
     cursor: pointer;
+    background-color: #fbf4cd;
+    padding: 10px;
   }
   #header .pro-sidebar {
     width: 100%;
@@ -38,13 +37,16 @@
     overflow-y: hidden;
   }
   #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
-    font-size: 50px;
+    font-size: 30px;
     padding: 0 40px;
     margin-top: 50px;
     margin-bottom: 50px;
     color: #000;
     font-weight: bold;
+    text-align: center;
+    word-break: break-word;
   }
+
   #header .pro-sidebar-inner .pro-sidebar-layout ul {
     padding: 0 5px;
   }

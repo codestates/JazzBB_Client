@@ -52,7 +52,8 @@ function ReserByDate ({AllPage}) {
 
             <div className="status-fourth status" onClick={()=>AllPage === undefined ? ChangeReserTable(pending) : ChangeReserTable(Bpending)}>
               <span className="status-title pending">대기 </span>
-              <span className="status-number">{AllPage === undefined ? pending.length : Bpending.length}</span>
+              {/* <span className="status-number">{AllPage === undefined ? pending.length : Bpending.length}</span> */}
+              <span className="status-number-pending-blink">{AllPage === undefined ? pending.length : Bpending.length}</span>
             </div>
           </div>
 
