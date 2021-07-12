@@ -28,13 +28,13 @@ function ReserTable({ data, confirmAlert }) {
         <td>{data.mobile}</td>
         <td>{data.show.currentSeat}</td>
         {data.confirm === "pending" ? (
-          <td>
-            <button value={data.num} name="confirmed" onClick={confirmAlert}>승인</button>
-            <button value={data.num} name="denied" onClick={confirmAlert}>거절</button>
+          <td className='resconfirm'>
+            <button className='res-ok res' value={data.num} name="confirmed" onClick={confirmAlert}>승인</button>
+            <button className='res-no res' value={data.num} name="denied" onClick={confirmAlert}>거절</button>
           </td>
         ) : (
-          (data.confirm === 'confirm'? <td> 승인</td>
-          :(<td>거절</td>)
+          (data.confirm === 'confirm'? <td className='confirm-ok'> 승인됨</td>
+          :(<td className='confirm-no'>거절됨</td>)
           )
           
         )}
