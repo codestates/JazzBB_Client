@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { modifySwitch } from "./redux/new/action"
 import Modal from "react-modal";
 import './Nav.css'
@@ -10,10 +10,6 @@ function Nav() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
 
-  const redirectSearch = () => {
-    return <Redirect to="/search" />;
-  };
-
   const loginModalSwitch = (login) => {
     dispatch(modifySwitch(login))
   }
@@ -22,18 +18,16 @@ function Nav() {
     window.location.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_OAUTH}&redirect_uri=https://localhost:3000&response_type=code`);
   }
 
-  const goHome = () => {
-    return <Redirect to='/service' />
-  }
-
   return(
     <div className="navi">
-      <div onClick={()=> goHome()}>
+      <Link to="service">
         <img id="navi-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
-      </div>
+      </Link>
       <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       <div className="navi-btnWrapper">
-        <button className="navi-btn" onClick={()=> redirectSearch()}>Search</button>
+        <Link to="/search">
+          <button className="navi-btn">Search</button>
+        </Link>
         <button className="navi-btn" onClick={()=> loginModalSwitch('loginModal')}>Login</button>
         <Modal className="navi-login-modal" isOpen={state.togle.loginModal} onRequestClose={() => loginModalSwitch('loginModal')} closeTimeoutMS={200}>
           <div className="login-modal-box">

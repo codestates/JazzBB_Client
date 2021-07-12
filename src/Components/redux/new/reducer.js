@@ -15,6 +15,7 @@ import {
   MODIFY_FINISH,
   DELETE_STATE,
   SET_ALLPAGE,
+  CHECK_FIRST,
 } from "./action";
 import initialState from "./initialState";
 
@@ -79,8 +80,11 @@ const reducer = (state = initialState, action) => {
     case SET_SHOW_BOSS:
       return Object.assign({}, state, { BossShowList: payload.list });
 
-      case SET_ALLPAGE:
+    case SET_ALLPAGE:
       return Object.assign({}, state, { AllPage: payload.data }); 
+
+    case CHECK_FIRST:
+      return Object.assign({}, state, { firstCheck: !state.firstCheck }); 
 
      
     default:

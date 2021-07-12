@@ -1,17 +1,15 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setList, typeText, modifySwitch, setToken, setBoard} from "../Components/redux/new/action";
 import "../css/JazzinfoPosting.css";
-// import "../Components/redux/new/icon"
 
 
 function BoardPostingObject () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  
-  
+
   let previousBoard = state.boardList[state.currentBoard - 1];
   let currentBoard = state.boardList[state.currentBoard];
   let nextBoard = state.boardList[state.currentBoard + 1];
@@ -68,7 +66,7 @@ function BoardPostingObject () {
           </div>
                     
           <div className="infobbsdataentry-body-header-btnwrapper">
-            <img className="infobbsdataentry-control-icon" src="../" />
+            <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
             <div className="infobbsdataentry-control-label">이전 페이지</div>
           </div>
         </div>
@@ -79,7 +77,7 @@ function BoardPostingObject () {
               previousBoard ?
               <div className="infobbsdataentry-control-wrapper" onClick={()=>changeCurrentBoard(1)}>
                 <div className="infobbsdataentry-control-btns">
-                  <img className="infobbsdataentry-control-icon" src="../Components/redux/new/icon/outline_arrow_back_ios_black_24dp.png" />
+                  <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
                   <div className="infobbsdataentry-control-label">이전글</div>    
                 </div>
 
@@ -93,8 +91,10 @@ function BoardPostingObject () {
             }
 
             <div className="infobbsdataentry-control-btnWrapper-list">
-              <img className="infobbsdataentry-control-btnWrapper-listicon" src="./resource/icons/outline_list_black_24dp.png" />
-              <div className="infobbsdataentry-control-btnWrapper-listlabel">목록보기</div>
+              <img className="infobbsdataentry-control-btnWrapper-listicon" src="/resource/outline_list_black_24dp.png" />
+              <Link to="/board">
+                <div className="infobbsdataentry-control-btnWrapper-listlabel">목록보기</div>
+              </Link>
             </div>
             {
               nextBoard ? 
@@ -102,7 +102,7 @@ function BoardPostingObject () {
                 <div className="infobbsdataentry-control-title">{nextBoard.title}</div>
 
                 <div className="infobbsdataentry-control-btns">
-                  <img className="infobbsdataentry-control-icon" src="./resource/icons/outline_arrow_forward_ios_black_24dp.png" />
+                  <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_forward_ios_black_24dp.png" />
                   <div className="infobbsdataentry-control-label">다음글</div>    
                 </div>
               </div>     

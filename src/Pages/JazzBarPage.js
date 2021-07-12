@@ -1,10 +1,11 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setList, typeText, modifySwitch, saveMyId, setShow, setToken} from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/shopinfo.css"
+import Reservation from "./ReservationPage"
 
 
 
@@ -64,7 +65,6 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
     
   const goReservation = (show) => {
     dispatch(setShow(show));
-    return <Redirect to="/reservation" />; //여기 물어보기
   }
     
   const modifyReview = () => {
@@ -163,23 +163,23 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
           <div className="shopinfo-menuarea-body">
             <div className="shopinfo-menuarea-link" onClick={()=> menuModalTogle()}>메뉴판 사진 보기</div>
-            <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={() => menuModalTogle()} closeTimeoutMS={200}>
-              <div className="shopinfo-menu-object">
-              <span className="close" onClick={() => menuModalTogle()} closeTimeoutMS={200}>X</span>
-                {
-                  state.menu.map(el => {
-                    return (
-                      <div className="shopinfo-menu-object-photobox">
-                        <img className="shopinfo-menu-object-img" src={el.thumbnail}></img>
-                      </div>
-                    )
-                  })
-                }
-              </div>
-            </Modal>
           </div>
         </div>
 
+        <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={menuModalTogle}>
+          <div className="shopinfo-menu-object">
+          <span className="close" onClick={() => menuModalTogle()}>X</span>
+            {
+              state.menu.map(el => {
+                return (
+                  <div className="shopinfo-menu-object-photobox">
+                    <img className="shopinfo-menu-object-img" src={el.thumbnail}></img>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </Modal>
 
         <div className="shopinfo-shopphoto">
           <div className="shopinfo-shopphoto-titlearea">
@@ -220,16 +220,18 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
                 <div className="shopinfo-reservation-contents">
                   {
                   state.showList.map(el => {
-                    <div className="shopinfo-reservation-object" onClick={()=> goReservation(el)}>
-                      <a className="shopinfo-reservation-object-photobox" href="#">
-                        <div className="shopinfo-reservation-object-img" style={`background-image: url(${el.thumbnail});`}></div>
-                      </a>
+                    <Link to="/reservation" onClick={()=> goReservation(el)}>
+                      <div className="shopinfo-reservation-object" >
+                        <a className="shopinfo-reservation-object-photobox" href="#">
+                          <div className="shopinfo-reservation-object-img" style={`background-image: url(${el.thumbnail});`}></div>
+                        </a>
 
-                      <div className="shopinfo-reservation-object-footer">
-                        <div className="shopinfo-reservation-object-footer-name">{`공연 시작 시간 : ${el.date} ${el.time}`}</div>
-                        <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
+                        <div className="shopinfo-reservation-object-footer">
+                          <div className="shopinfo-reservation-object-footer-name">{`공연 시작 시간 : ${el.date} ${el.time}`}</div>
+                          <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   })
                   }
                 </div>
