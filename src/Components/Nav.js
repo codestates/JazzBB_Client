@@ -1,17 +1,10 @@
-import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
 import { modifySwitch } from "./redux/new/action"
-import LoginPage from '../Pages/LoginPage'
 import Modal from "react-modal";
 import './Nav.css'
-import ModalEdit from "./Boss/ShowManage/ModalEdit";
 
-// function Nav (){
-//     const [isOpen, setOpenClose] =useState(false);
-//     const setOpen = setOpenClose(true);
-//     const setClose = setOpenClose(false);
 
 function Nav() {
   const dispatch = useDispatch();
@@ -29,8 +22,15 @@ function Nav() {
     window.location.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_OAUTH}&redirect_uri=https://localhost:3000&response_type=code`);
   }
 
+  const goHome = () => {
+    return <Redirect to='/service' />
+  }
+
   return(
     <div className="navi">
+      <div onClick={()=> goHome()}>
+        <img id="navi-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
+      </div>
       <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       <div className="navi-btnWrapper">
         <button className="navi-btn" onClick={()=> redirectSearch()}>Search</button>

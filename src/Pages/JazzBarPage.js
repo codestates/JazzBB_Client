@@ -42,13 +42,6 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
    })
    .catch(err => console.log(err))
 
-  const optionArr = state.jazzbar.serviceOption.split('').map(el => {
-    for(let ele of state.serviceOption){
-      if(el === ele.id){
-        return ele;
-      }
-    }
-  })
 
   const typingReview = (e, variety) => {
     dispatch(typeText(e.target.value, variety));
@@ -147,11 +140,17 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
         <div className="shopinfo-iconarea">
           {
-            optionArr.map(el => {
-              <span className="shopinfo-iconarea-featureitem">
-                <img className="shopinfo-iconarea-featureitem-icon" src={el.img} />
-                <span className="shopinfo-iconarea-featureitem-label">{el.content}</span>
-              </span>
+            state.jazzbar.serviceOption.split('').map(number => {
+              for(let option of state.serviceOption){
+                if(number === option.id){
+                  return (
+                    <span className="shopinfo-iconarea-featureitem">
+                      <img className="shopinfo-iconarea-featureitem-icon" src={option.img} />
+                      <span className="shopinfo-iconarea-featureitem-label">{option.content}</span>
+                    </span>
+                  )
+                }
+              }
             })
           }
         </div>
@@ -168,7 +167,13 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
               <div className="shopinfo-menu-object">
               <span className="close" onClick={() => menuModalTogle()} closeTimeoutMS={200}>X</span>
                 {
-                  state.menu.map(el => <div className="shopinfo-menu-object-photobox-img" style={`background-image: url(${el.thumbnail});`}></div>)
+                  state.menu.map(el => {
+                    return (
+                      <div className="shopinfo-menu-object-photobox">
+                        <img className="shopinfo-menu-object-img" src={el.thumbnail}></img>
+                      </div>
+                    )
+                  })
                 }
               </div>
             </Modal>
