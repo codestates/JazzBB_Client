@@ -166,6 +166,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             <div className="shopinfo-menuarea-link" onClick={()=> menuModalTogle()}>메뉴판 사진 보기</div>
             <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={() => menuModalTogle()} closeTimeoutMS={200}>
               <div className="shopinfo-menu-object">
+              <span className="close" onClick={() => menuModalTogle()} closeTimeoutMS={200}>X</span>
                 {
                   state.menu.map(el => <div className="shopinfo-menu-object-photobox-img" style={`background-image: url(${el.thumbnail});`}></div>)
                 }
