@@ -10,14 +10,14 @@ import {
   SubMenu,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { FiHome, FiLogOut } from "react-icons/fi";
+import { FiSidebar, FiHome, FiLogOut } from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { CgMusicNote } from "react-icons/cg";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { BsBook } from "react-icons/bs";
 import "./sidebar.css";
 import "../../../src/dist/css/comm.css"
-const Sidebar = ({ yap }) => {
+const Sidebar = ({ yap,  }) => {
   const [openClose, setOpenClose] = useState(false);
   const menuIconClick = () => {
     openClose ? setOpenClose(false) : setOpenClose(true);
@@ -34,11 +34,11 @@ const Sidebar = ({ yap }) => {
         <div id="header">
           <ProSidebar collapsed={openClose}>
             <SidebarHeader>
+            <div className="closemenu" onClick={menuIconClick}>
+                {openClose ? <FiSidebar /> : <FiSidebar />}
+              </div>
               <div className="logotext">
                 <p>{openClose ? "Tokyo" : "TOKYO JAZZ BAR"}</p>
-              </div>
-              <div className="closemenu" onClick={menuIconClick}>
-                {openClose ? <FiHome /> : <FiHome />}
               </div>
             </SidebarHeader>
             <SidebarContent>
@@ -51,18 +51,17 @@ const Sidebar = ({ yap }) => {
                 <MenuItem
                 className="tag"
                   icon={<BsBook />}
-                  onClick={menuActive}
                 >
-                  예약 관리 <Link to="/boss/reservation" />
+                  예약관리 <Link to="/boss/reservation" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<CgMusicNote />}>
-                  공연 관리 <Link to="/boss/show" />
+                  공연관리 <Link to="/boss/show" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<HiOutlinePhotograph />}>
                   사진관리 <Link to="/boss/photo" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<RiPencilLine />}>
-                  정보 수정 <Link to="/boss/infoedit" />
+                  정보수정 <Link to="/boss/infoedit" />
                 </MenuItem>
               </Menu>
             </SidebarContent>
