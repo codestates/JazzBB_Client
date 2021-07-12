@@ -19,7 +19,8 @@ function JazzInfo () {
 
 
   const setPosting = (posting) => {
-    dispatch(setBoard(posting));
+    let currentBoardIdx = state.boardList.indexOf(posting);
+    dispatch(setBoard(currentBoardIdx));
     dispatch(modifySwitch('boardModal'));
   }
   

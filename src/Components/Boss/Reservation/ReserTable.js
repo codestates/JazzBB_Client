@@ -26,19 +26,18 @@ function ReserTable({ data, alert }) {
 
     )
    
-
   }else{
-  //   let time ;
-  //   if(data.show.time !== undefined){
-  //  time = data.show.time.substring(0,5)
-  //   }else{
-  //     time = "00:00";
-  //   }
+    let time ;
+    if(data.show.time !== undefined){
+   time = data.show.time.substring(0,5)
+    }else{
+      time = "00:00";
+    }
     return (
       <tr>
         <td>{data.num}</td>
         <td>{data.show.date}</td>
-        {/* <td>{time}</td> */}
+        <td>{time}</td>
          <td>{data.name}</td>
         <td>{data.people}</td>
         <td>{data.mobile}</td>

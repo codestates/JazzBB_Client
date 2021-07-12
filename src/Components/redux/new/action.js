@@ -108,11 +108,11 @@ export const setPeople = (people) =>{
     }
 }
 
-export const setBoard = (board) =>{
+export const setBoard = (idx) =>{
     return {
       type : SET_BOARD,
       payload : {
-        board
+        idx
       }
     }
 }

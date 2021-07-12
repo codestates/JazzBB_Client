@@ -63,7 +63,6 @@ function Reservation(){
             <div className="reservation-details-lineup">
               <div className="reservation-details-lineup-label">공연 안내</div>
               <div className="reservation-details-lineup-text">
-                {}
                 {state.show.content}
               </div>
             </div>

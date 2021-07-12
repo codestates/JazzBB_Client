@@ -272,7 +272,7 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
           }
         >
           <span className="status-title pending">대기 </span>
-          <span className="status-number">
+          <span className="status-number-pending-blink">
             {AllPage === false
               ? pending.length
               : OriginFilteredList[2].pd.length}
@@ -304,11 +304,11 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
             : selected.map((el) => (
                 <ReserTable data={el} alert={alert}></ReserTable>
               ))} */}
-              {OriginList.length ===0 ? <ReserTable data={[""]} alert={alert}></ReserTable> :
+              {/* {OriginList.length ===0 ? <ReserTable data={[""]} alert={alert}></ReserTable> :
               selected.length ===0 ? (OriginList.map((el) => (
                 <ReserTable data={el} alert={alert}></ReserTable> ))) :selected.map((el) => (
                   <ReserTable data={el} alert={alert}></ReserTable> ))
-              }
+              } */}
          
         </table>
       </div>

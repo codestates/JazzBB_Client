@@ -58,8 +58,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { people: payload.people });
 
     case SET_BOARD:
-      return Object.assign({}, state, { currentBoard: payload.board });
-
+        return Object.assign({}, state, { currentBoard: payload.idx});
+    
     case SET_USER:
       return Object.assign({}, state, { user: payload.user });
 
