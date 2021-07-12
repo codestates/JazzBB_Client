@@ -81,7 +81,7 @@ function AddShowInput() {
                 사진 크기는 (500 * 500)픽셀로 조정됩니다
               </div>
             </div>
-            <button>사진등록</button>
+            <button className="add-photo-submit">사진 등록</button>
           </div>
         </div>
       </div>

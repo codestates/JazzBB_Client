@@ -137,6 +137,21 @@
     font-size: 14px;
 }
 
+.add-photo-submit {
+    width: 150px;
+    height: 30px;
+    margin-top: 10px;
+    background-color: #3F50B5;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+}
+
+
+
+
+
 .bottom-box{
     width: 250px;
     min-width: 100px;

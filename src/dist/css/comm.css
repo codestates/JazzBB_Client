@@ -1,5 +1,6 @@
 .tag :hover {
-  background-color: #ffeb32;
+  background-color: #3F50B5;
+  color: white;
 }
 
 .tag:after {
@@ -61,7 +62,9 @@ h2 {
   font-family: 'Arial';
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 1.2rem;
   line-height: 0.75;
 }
 /*# sourceMappingURL=comm.css.map */
+
+
