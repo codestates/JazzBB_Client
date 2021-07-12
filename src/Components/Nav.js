@@ -28,13 +28,10 @@ function Nav() {
 
   return(
     <div className="navi">
-<<<<<<< HEAD
       <div onClick={()=> goHome()}>
         <img id="navi-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       </div>
-=======
       <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
->>>>>>> 292cc750eb2561190bd04093d37bd959fa74796b
       <div className="navi-btnWrapper">
         <button className="navi-btn" onClick={()=> redirectSearch()}>Search</button>
         <button className="navi-btn" onClick={()=> loginModalSwitch('loginModal')}>Login</button>
