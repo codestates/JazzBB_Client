@@ -7,6 +7,7 @@ import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import sss from "../RvManage.css"
+import FileUpload from './FileUpload'
 const { kakao } = window;
 
 function BInfoManagePage() {
@@ -85,6 +86,35 @@ function BInfoManagePage() {
         //서버 연결 후, 페이지 이동하는 코드 작성하기 
     }
   };
+  const handleUpload = (e) =>{
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image",e.target.image.files[0])
+    formData.append("title",e.target.title.value[0])
+    axios.post('/upload', formData)
+  }
+const [detailImgs, setDetailImgs]=useState([]);
+  const handleImageUpload = (e) => {
+    const fileArr = e.target.files;
+
+    let fileURLs = [];
+   
+    let file;
+    let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
+
+    for (let i = 0; i < filesLength; i++) {
+      file = fileArr[i];
+    
+      let reader = new FileReader();
+      reader.onload = () => {
+        // console.log(reader.result);
+        fileURLs[i] = reader.result;
+        setDetailImgs([...fileURLs]);
+      };
+      reader.readAsDataURL(file);
+    }
+console.log(detailImgs,'detailImgsdetailImgs')
+  };
 
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
@@ -146,6 +176,8 @@ function BInfoManagePage() {
                         state={state}
                         setState={setState}
                       />
+                     
+                    
                     </PopupDom>
                   )}
                 </div>
@@ -187,6 +219,23 @@ function BInfoManagePage() {
                   <div>{el}</div>
                 </div>
               ))}
+            </div>
+
+            <div className="Menu">
+              <div>재즈바 메뉴판 사진</div>
+             <FileUpload></FileUpload>
+
+             <input
+   type="file"
+   multiple
+   accept="image/jpg,image/png,image/jpeg,image/gif"
+   onChange={handleImageUpload}
+ />
+             {/* <form action="/upload" method="post" encType="multipart/form-data"> 
+               <input type="file" name="image" multiple></input>
+               <input type="text" name="title" ></input>
+               <button type="submit" onClick={handleUpload}>업로드</button>
+             </form> */}
             </div>
             <button onClick={handleSubmit}>등록</button>
           </div>

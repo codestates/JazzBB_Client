@@ -8,7 +8,7 @@ import TabPanel from '@material-ui/lab/TabPanel';
 import { CgEnter } from 'react-icons/cg';
 import { BsTextCenter } from 'react-icons/bs';
 import ReserByDate from './ReserByDate'
-import ReserByShow from './ReserByShow'
+import ReserAll from './ReserALL'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,13 +32,13 @@ export default function LabTabs({unset,set, all}) {
       <TabContext value={value}>
         <AppBar position="static">
           <TabList onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="예약 관리" value="1"  />
-            {/* <Tab label="예약 리스트" value="2" /> */}
+            <Tab label="전체 예약 관리" value="1"  />
+            <Tab label="예약 리스트" value="2" />
             {/* <Tab label="날짜별 예약 보기" value="3" /> */}
           </TabList>
         </AppBar>
-        <TabPanel value="1"><ReserByDate  AllPage={all} setAll={set} unsetAll={unset}></ReserByDate></TabPanel>
-        {/* <TabPanel value="2"> <ReserByDate AllPage={all} setAll={set} unsetAll={unset}></ReserByDate></TabPanel> */}
+        <TabPanel value="2"><ReserByDate  AllPage={all} setAll={set} unsetAll={unset}></ReserByDate></TabPanel>
+        <TabPanel value="1"> <ReserAll></ReserAll></TabPanel>
         {/* <TabPanel value="3"> <ReserByShow ></ReserByShow></TabPanel> */}
       </TabContext>
     </div>
