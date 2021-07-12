@@ -84,7 +84,7 @@ function BoardPostingObject () {
                   <div className="infobbsdataentry-control-label">이전글</div>    
                 </div>
 
-                <div className="infobbsdataentry-control-title">{previousBoard.title.length >= 10 ? previousBoard.title.slice(0,9) + '...' : previousBoard.title}</div>
+                <div className="infobbsdataentry-control-title">{previousBoard.title}</div>
               </div>
               :
               <div className="infobbsdataentry-control-wrapper">
@@ -100,7 +100,7 @@ function BoardPostingObject () {
             {
               nextBoard ? 
               <div className="infobbsdataentry-control-wrapper" onClick={()=> changeCurrentBoard(2)}>
-                <div className="infobbsdataentry-control-title">{nextBoard.title.length >= 10 ? nextBoard.title.slice(0,9) + '...' : nextBoard.title}</div>
+                <div className="infobbsdataentry-control-title">{nextBoard.title}</div>
 
                 <div className="infobbsdataentry-control-btns">
                   <img className="infobbsdataentry-control-icon" src="./resource/icons/outline_arrow_forward_ios_black_24dp.png" />

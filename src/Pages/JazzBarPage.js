@@ -50,6 +50,8 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
     }
   })
 
+  console.log(optionArr)
+
   const typingReview = (e, variety) => {
     dispatch(typeText(e.target.value, variety));
   }
@@ -147,12 +149,13 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
         <div className="shopinfo-iconarea">
           {
-            optionArr.map(el => {
-              <span className="shopinfo-iconarea-featureitem">
-                <img className="shopinfo-iconarea-featureitem-icon" src={el.img} />
-                <span className="shopinfo-iconarea-featureitem-label">{el.content}</span>
-              </span>
-            })
+            console.log(optionArr)
+            // optionArr.map(el => {
+            //   <span className="shopinfo-iconarea-featureitem">
+            //     {/* <img className="shopinfo-iconarea-featureitem-icon" src={'../../../../public/resource/icon/parking.png'} /> */}
+            //     <span className="shopinfo-iconarea-featureitem-label">{el.content}</span>
+            //   </span>
+            // })
           }
         </div>
 
