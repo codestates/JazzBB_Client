@@ -64,8 +64,9 @@ function MyPage () {
 
   const redirectHome = () => {
     dispatch(modifySwitch('withdrawConfirm'));
-    return <Redirect to="/home"/>;
+    return <Redirect to="/service"/>;
   }
+
 
   return (
     <div className="mypage">

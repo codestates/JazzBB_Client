@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
-import { setPeople } from "../Components/redux/new/action";
+import { setPeople, setToken } from "../Components/redux/new/action";
 import "../css/reservation.css";
 
 
@@ -63,7 +63,6 @@ function Reservation(){
             <div className="reservation-details-lineup">
               <div className="reservation-details-lineup-label">공연 안내</div>
               <div className="reservation-details-lineup-text">
-                {}
                 {state.show.content}
               </div>
             </div>

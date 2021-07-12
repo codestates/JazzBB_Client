@@ -15,8 +15,10 @@ import BreservationPage from "./Components/Boss/Reservation/BreservationPage";
 import BshowPage from "./Components/Boss/ShowManage/BshowPage";
 import PhotoManage from "./Components/Boss/Photo/PhotoManage";
 import BInfoManagePage from "./Components/Boss/InfoManage/BInfoManagePage";
+import Reservation from "./Pages/ReservationPage";
 import JazzBarPage from './Pages/JazzBarPage'
 import Mypage from "./Pages/MyPage"
+import Boardinfo from "./Pages/JazzInfoPosting"
 import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
 import Terms from './Pages/footer-terms'
 
@@ -53,7 +55,6 @@ function App() {
         <Switch>
           {/* <Route exact path="/" render={() => (<Home></Home> )}  /> */}
           {/* <Route path="/login" render={() => <LoginPage></LoginPage>} /> */}
-          <Route path="/login" render={() => <Dummy></Dummy>} />
           <Route path="/boss/main" render={() => <BossMainPage></BossMainPage>} />
           <Route path="/boss/reservation" render={() => <BreservationPage></BreservationPage>} />
           <Route path="/boss/show" render={() => <BshowPage></BshowPage> } />
@@ -61,6 +62,8 @@ function App() {
           <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
           <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
+          <Route path="/reservation" render={() => <Reservation></Reservation>} />
+          <Route path="/boardinfo" render={()=> <Boardinfo></Boardinfo>}/>
           <Route path="/mypage" render={() => <Mypage></Mypage>} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
         </Switch>
