@@ -23,6 +23,9 @@ import Board from "./Pages/JazzInfoPage"
 import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
 import Terms from './Pages/footer-terms'
 import Moreinfo from "./Pages/MoreUserInfo"
+import Footer from './Components/footer'
+import Termspi from './Pages/footer-terms-pi'
+import Weareddh from "./Pages/weareddh";
 
 import { checkFirst, setToken, setUser } from './Components/redux/new/action';
 dotenv.config();
@@ -87,7 +90,6 @@ function App() {
             }
             }} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
-
           {
             state.firstCheck ? 
             <Redirect to="/moreinfo" />
@@ -96,8 +98,11 @@ function App() {
             <Redirect to="/service" />
             : ''
           }
+          <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
+          <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
         </Switch>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

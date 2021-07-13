@@ -121,10 +121,10 @@ function ReserAll({ AllPage, setAll, unsetAll }) {
 
           {selected.length === 0
             ? BossState.map((el) => (
-                <ReserTable data={el} alert={statusAlert}></ReserTable>
+                <ReserTable data={el} confirmAlert={statusAlert}></ReserTable>
               ))
             : selected.map((el) => (
-                <ReserTable data={el} alert={statusAlert}></ReserTable>
+                <ReserTable data={el} confirmAlert={statusAlert}></ReserTable>
               ))}
         </table>
       </div>

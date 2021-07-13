@@ -23,7 +23,6 @@ function Nav() {
       <Link to="service">
         <img id="navi-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       </Link>
-      <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       <div className="navi-btnWrapper">
         <Link to="/search">
           <button className="navi-btn">Search</button>
@@ -32,7 +31,7 @@ function Nav() {
         <Modal className="navi-login-modal" isOpen={state.togle.loginModal} onRequestClose={() => loginModalSwitch('loginModal')} closeTimeoutMS={200}>
           <div className="login-modal-box">
                 <div className="clsbtnwrapper">
-                    <span className="close" onClick={() => loginModalSwitch('loginModal')}>&times;</span>
+                    <button className="close" onClick={() => loginModalSwitch('loginModal')}>X</button>
                 </div>
                 <div className="login-modal-body">
                   <img class="login-modal-logo" src='/img/resource/jazzbb_logo_black.png' />
