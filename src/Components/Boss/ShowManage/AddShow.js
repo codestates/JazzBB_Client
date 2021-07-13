@@ -93,27 +93,17 @@ function handleThumbnail(e){
               </div>
             </div>
             <div className="show-box_input">
-              <AddShowInput
-                handleInputChange={handleInputChange}
-              ></AddShowInput>
+              <AddShowInput handleInputChange={handleInputChange}></AddShowInput>
             </div>
-
-            <div className="show-box_content">
-              <div className="show-description"></div>
-            </div>
-
-            <div className="bottom-box">
+          </div>
+        </div>
+        <div className="bottom-box">
           <Button variant="contained" color="primary" size="large" onClick={handleAddShow} 
             // className={classes.button}
             startIcon={<SaveIcon />}
           >
             등록
           </Button>
-        </div>
-
-
-
-          </div>
         </div>
       </div>
     </div>
