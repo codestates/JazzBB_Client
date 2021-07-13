@@ -66,8 +66,10 @@ function BoardPostingObject () {
           </div>
                     
           <div className="infobbsdataentry-body-header-btnwrapper">
-            <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
-            <div className="infobbsdataentry-control-label">이전 페이지</div>
+            <Link to="/board">
+              <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
+              <div className="infobbsdataentry-control-label">이전 페이지</div>
+            </Link>
           </div>
         </div>
 

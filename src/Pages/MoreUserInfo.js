@@ -31,30 +31,30 @@ function MoreInfo () {
   
 
   return (
-    <div class="signup">
-      <div class="signup-body">
-        <div class="signup-titlebox">
-          <div class="signup-titlebox-title">추가 정보 입력</div>
-          <div class="signup-titlebox-subtitle">재즈바바 서비스 이용을 위해서는 추가 정보 입력이 필요합니다</div>
+    <div className="signup">
+      <div className="signup-body">
+        <div className="signup-titlebox">
+          <div className="signup-titlebox-title">추가 정보 입력</div>
+          <div className="signup-titlebox-subtitle">재즈바바 서비스 이용을 위해서는 추가 정보 입력이 필요합니다</div>
         </div>
-        <div class="signup-formwrapper">
-          <div class="signup-form">
-            <div class="signup-form-label">닉네임</div>
-            <input class="signup-form-input-text" type="text" placeholder="닉네임을 입력하세요" onChange={(e) => modifyUserInfo(e.target.value, 'username')} required/>
+        <div className="signup-formwrapper">
+          <div className="signup-form">
+            <div className="signup-form-label">닉네임</div>
+            <input className="signup-form-input-text" type="text" placeholder="닉네임을 입력하세요" onChange={(e) => modifyUserInfo(e.target.value, 'username')} required/>
           </div>
-          <div class="signup-form">
-            <div class="signup-form-label">연락처</div>
-            <input class="signup-form-input-phone" type="tel" maxlength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" onChange={(e) => modifyUserInfo(e.target.value, 'mobile')} required/>                 
+          <div className="signup-form">
+            <div className="signup-form-label">연락처</div>
+            <input className="signup-form-input-phone" type="tel" maxlength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" onChange={(e) => modifyUserInfo(e.target.value, 'mobile')} required/>                 
           </div>
-          <div class="signup-form">
-            <div class="signup-form-label">회원유형</div>
-            <select class='signup-form-usertype' onChange={(e) => modifyUserInfo(e.target.value, 'usertype')}>
+          <div className="signup-form">
+            <div className="signup-form-label">회원유형</div>
+            <select className='signup-form-usertype' onChange={(e) => modifyUserInfo(e.target.value, 'usertype')}>
               <option value='customer'>일반회원</option>
               <option value='boss'>사업자</option>
             </select>
           </div>
-          <Link to="/service">
-            <button class="signup-btn" onClick={() => requestModifyUser()}>입력완료</button>
+          <Link to="/service" onClick={() => requestModifyUser()}>
+            <button className="signup-btn" >입력완료</button>
           </Link>
         </div>
       </div>

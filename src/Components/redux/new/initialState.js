@@ -4,7 +4,7 @@ const initialState = {
   firstCheck: true,
   AllPage : true,
   user: {
-    isLogin: false, // 로그인 상태 확인
+    isLogin: true, // 로그인 상태 확인
     token: null, // 토큰 저장
     id: null, // db식별 id
     userId: "dkrlxhRL07",
