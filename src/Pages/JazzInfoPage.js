@@ -1,9 +1,10 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect, Route } from "react-router-dom";
-import { setList, modifySwitch, setBoard} from "../Components/redux/new/action";
+import { Link } from "react-router-dom";
+import { setList, modifySwitch, setBoard } from "../Components/redux/new/action";
 import "../css/infobbs.css"
+import Posting from "./JazzInfoPosting";
 
 
 
@@ -19,17 +20,8 @@ function JazzInfo () {
 
 
   const setPosting = (posting) => {
-    // console.log(window)
     let currentBoardIdx = state.boardList.indexOf(posting);
     dispatch(setBoard(currentBoardIdx));
-    
-    // (
-    //   <Route>
-    //     <Redirect to={{
-    //       pathname: "/posting"
-    //       }} />
-    //   </Route>
-    // )
   }
   
 
@@ -48,15 +40,17 @@ function JazzInfo () {
             {
               state.boardList.map(el => {
                 return(
-                  <div className="infobbs-data-object" onClick={()=>setPosting(el)}>
-                    <div className="infobbs-data-object-thumbnail">
-                      <img className="infobbs-data-object-thumbnail-img" src={el.thumbnail} />
+                  <Link to="/posting" onClick={()=>setPosting(el)}>
+                    <div className="infobbs-data-object">
+                      <div className="infobbs-data-object-thumbnail">
+                        <img className="infobbs-data-object-thumbnail-img" src={el.thumbnail} />
+                      </div>
+                      <div className="infobbs-data-object-footer">
+                        <div className="infobbs-data-object-footer-label">{el.title.length > 10 ? `${el.title.slice(0,14)}...` : el.title}</div>
+                        <div className="infobbs-data-object-footer-info">{el.content.length > 15 ? `${el.content.slice(0,14)}...` : el.content}</div>
+                      </div>
                     </div>
-                    <div className="infobbs-data-object-footer">
-                      <div className="infobbs-data-object-footer-label">{el.title.length > 10 ? `${el.title.slice(0,14)}...` : el.title}</div>
-                      <div className="infobbs-data-object-footer-info">{el.content.length > 15 ? `${el.content.slice(0,14)}...` : el.content}</div>
-                    </div>
-                  </div>
+                  </Link>
                 )
               })
             }

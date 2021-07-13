@@ -1,6 +1,7 @@
 // import "/resource"
 //"/resource/"
 const initialState = {
+  firstCheck: true,
   AllPage : true,
   user: {
     isLogin: false, // 로그인 상태 확인
@@ -16,6 +17,7 @@ const initialState = {
   modifyUser:{
     username: null,
     mobile: null,
+    usertype: null,
   },
   boardList: [
     {

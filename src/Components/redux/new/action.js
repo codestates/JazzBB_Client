@@ -14,6 +14,7 @@ export const DELETE_STATE = "DELETE_STATE"
 export const SET_RESER_BOSS = "SET_RESER_BOSS"
 export const SET_SHOW_BOSS = "SET_SHOW_BOSS"
 export const SET_ALLPAGE = "SET_ALLPAGE"
+export const CHECK_FIRST = "CHECK_FIRST"
 
 
 export const setToken = (token) => {
@@ -160,4 +161,12 @@ export const setAllPage = (data) => {
     }
   }
 }
+
+export const checkFirst = () => {
+  return {
+    type: CHECK_FIRST,
+    payload: null
+  }
+}
+
 
