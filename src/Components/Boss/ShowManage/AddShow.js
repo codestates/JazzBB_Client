@@ -13,8 +13,30 @@ function AddShow() {
     id: "02",
     jazzbarId: "01",
     player: [],
-    thumbnail: "", //server 코드에서 thumbnail 빠져있음. 추후 논의 필요.
+    thumbnail: "", 
   });
+  const [imgFile, setImgFile] = useState([]); 
+
+function handleThumbnail(e){
+  console.log('clicked handlethumb')
+  
+  if (imgFile.length !== 0) {
+    const formData = new FormData();
+    formData.append(`imgFileImg`, imgFile[0]);
+    SetInputValue({ ...inputValue, thumbnail: formData });
+    console.log(inputValue,'dddddd')
+
+    
+
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) {
+        // console.log(base64.toString(),'!!!');
+      }
+  }
+}
+}
 
   const handleInputChange = (event) => {
     const name = event.target.name;
@@ -33,6 +55,8 @@ function AddShow() {
         {
           label: "예",
           onClick:  () => {
+          
+            
             axios
               .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
               .then((res) => (window.location.href = "/boss/show"));
@@ -55,6 +79,9 @@ function AddShow() {
     CreateShow();
   };
 
+
+ 
+
   return (
     <div>
       <div className="show-box">
@@ -62,7 +89,7 @@ function AddShow() {
           <div className="show-innerbox">
             <div className="show-box_photo">
               <div className="show-photo">
-                <InputFile></InputFile>
+                <InputFile handleThumbnail={handleThumbnail}imgFile={imgFile} setImgFile={setImgFile}></InputFile>
               </div>
             </div>
             <div className="show-box_input">

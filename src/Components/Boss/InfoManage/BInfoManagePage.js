@@ -55,20 +55,19 @@ function BInfoManagePage() {
   };
 
   const handleSubmit = () => {
-
-    if(banner.length !== 0){
+    if (banner.length !== 0) {
       const formDataBanner = new FormData();
       formDataBanner.append(`bannerImg`, banner[0]);
-      setState({...state, bannerPhoto : formDataBanner })
+      setState({ ...state, bannerPhoto: formDataBanner });
     }
-    if(targetFile.length !==0){
+    if (targetFile.length !== 0) {
       const formData = new FormData();
-      for(let i =0; i<targetFile.length; i++){
+      for (let i = 0; i < targetFile.length; i++) {
         formData.append(`image${i}`, targetFile[i]);
       }
-      setState({...state, menuPhoto : formData })
+      setState({ ...state, menuPhoto: formData });
     }
-    
+
     if (
       state.address === undefined ||
       state.barName === undefined ||
@@ -92,7 +91,7 @@ function BInfoManagePage() {
         ...state,
         serviceOption: serviceitem,
         address: state.addressFront + " " + state.addressETC,
-        thumbnail : [{menu : state.menuPhoto}, {banner :state.bannerPhoto}]
+        thumbnail: [{ menu: state.menuPhoto }, { banner: state.bannerPhoto }],
         // gpsX : result[0].x,
         // gpsY : result[0].y
       });
@@ -116,14 +115,14 @@ function BInfoManagePage() {
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
   const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
 
-  const [banner, setBanner]=useState([]);
-  const [bannerDetail, setBannerDetail]=useState([]);
+  const [banner, setBanner] = useState([]);
+  const [bannerDetail, setBannerDetail] = useState([]);
 
-const handleBannerImg = (e) => {
-  const BannerArr = e.target.files;
-  setBanner([...BannerArr]);
-  let fileURLs = [];
-  let file =BannerArr[0]
+  const handleBannerImg = (e) => {
+    const BannerArr = e.target.files;
+    setBanner([...BannerArr]);
+    let fileURLs = [];
+    let file = BannerArr[0];
 
     let reader = new FileReader();
     reader.onload = () => {
@@ -131,14 +130,12 @@ const handleBannerImg = (e) => {
       setBannerDetail([...fileURLs]);
     };
     reader.readAsDataURL(file);
-  
-  
-}
+  };
 
   const handleImageUpload = (e) => {
     const fileArr = e.target.files;
     setFile([...fileArr]);
-   
+
     if (fileArr.length > 5) {
       alert("파일은 5개까지 첨부가 가능합니다.");
     } else {
@@ -330,20 +327,20 @@ const handleBannerImg = (e) => {
             </div>
 
             <div className="banner">
-            <div>재즈바 배너 사진</div>
-            <input
+              <div>재즈바 배너 사진</div>
+              <input
                 type="file"
                 multiple
                 name="image"
                 accept="image/jpg,image/png,image/jpeg,image/gif"
                 onChange={handleBannerImg}
               />
-            <img
-                  className="add-thumbnail"
-                  src={bannerDetail}
-                  alt=""
-                  // onChange={(e) => setFile(e)}
-                ></img>
+              <img
+                className="add-thumbnail"
+                src={bannerDetail}
+                alt=""
+                // onChange={(e) => setFile(e)}
+              ></img>
             </div>
             <button onClick={handleSubmit}>등록</button>
           </div>

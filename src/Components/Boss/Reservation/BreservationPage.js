@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import ReserHeader from "./ReserHeader";
 import { setBossReservationList, setBossShowList } from "../../redux/new/action";
 import ReserByDate from "./ReserByDate";
+import '../RvManage.css'
 
 const BreservationPage = () => {
   const dispatch = useDispatch();
