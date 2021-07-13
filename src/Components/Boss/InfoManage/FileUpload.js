@@ -20,16 +20,16 @@ function FileUpload(){
         }
         formData.append("file", files[0])
 
-        axios.post('/api/product/image', formData, config)
-            // 백엔드가 file저장하고 그 결과가 reponse에 담김
-            // 백엔드는 그 결과를 프론트로 보내줌(3)
-            .then(response =>{
-                if(response.data.success){
-                    setImages([...Images, response.data.filePath])
-                }else{
-                    alert('파일 저장 실패')
-                }
-            })
+        // axios.post('/api/product/image', formData, config)
+        //     // 백엔드가 file저장하고 그 결과가 reponse에 담김
+        //     // 백엔드는 그 결과를 프론트로 보내줌(3)
+        //     .then(response =>{
+        //         if(response.data.success){
+        //             setImages([...Images, response.data.filePath])
+        //         }else{
+        //             alert('파일 저장 실패')
+        //         }
+        //     })
 
     }
 
