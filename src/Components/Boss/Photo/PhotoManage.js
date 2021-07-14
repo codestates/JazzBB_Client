@@ -4,7 +4,6 @@ import InputFile from "../ShowManage/InputFile";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setJazzBarData,
-  setBossShowList,
 } from "../../redux/new/action";
 
 import axios from "axios";
@@ -37,6 +36,17 @@ const PhotoManage = () => {
         </div>
 
         <div className="registered-photo-body">
+            {/* {jazzbar.thumbnail.menu.length !== 0
+              ? jazzbar.thumbnail.menu.map((el, index) => {
+                  <img className="registered-photo-img" src={el} key={index} />;
+                })
+              : null}
+
+            {jazzbar.thumbnail.banner.length !== 0
+              ? jazzbar.thumbnail.menu.map((el, index) => {
+                  <img className="registered-photo-img" src={el} key={index} />;
+                })
+              : null} */}
           <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
           <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
           <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
@@ -59,42 +69,7 @@ const PhotoManage = () => {
           </div>
           
         </div>
-        
 
->>>>>>> dev
-
-          <div className="registered-photo-body">
-            {/* {jazzbar.thumbnail.menu.length !== 0
-              ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} />;
-                })
-              : null}
-
-            {jazzbar.thumbnail.banner.length !== 0
-              ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} />;
-                })
-              : null} */}
-
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-            <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          </div>
-
-          <div className="register-new-photo">
-            <div className="register-header">
-              <div className="register-header-label">신규 사진 등록</div>
-            </div>
-            <InputFile></InputFile>
-          </div>
         </div>
       </div>
     </div>
