@@ -85,13 +85,13 @@ function AllShowEntry({ data }) {
           <div className="left-box">
             <div className="left-top">
               <CardHeader
-                avatar={<Avatar aria-label="recipe">Tokyo</Avatar>}
+                avatar={<Avatar aria-label="recipe"></Avatar>}
                 title={data.date}
                 subheader={data.time}
               />
             </div>
             <div className="left-middle">
-              <img src="/img/tokyoJazz.jpg" alt=""></img>
+              {data.thumbnail ? <img src={data.thumbnail} alt=""></img> : <img src="/img/tokyoJazz.jpg" alt=""></img>}
             </div>
           </div>
           <div className="right-box">

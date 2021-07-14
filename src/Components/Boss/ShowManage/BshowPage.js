@@ -32,7 +32,6 @@ function BshowPage() {
         <div className="content">
           <div className="content-title">공연 관리</div>
           <hr class="hrcss"></hr>
-
           {/* 공연리스트 */}
           <div clssName ="b-show-list">
             <ShowHeader></ShowHeader>

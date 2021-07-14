@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 export default function CustomizedSelects({handleInputChange}) {
   const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,8 @@ export default function CustomizedSelects({handleInputChange}) {
   return (
     <div className="input-outerbox">
       <div className="input-content-box inputdiv">
+      <TextareaAutosize aria-label="empty textarea" placeholder="Empty" />;
+      <TextareaAutosize aria-label="minimum height" minRows={3} placeholder="Minimum 3 rows" />
         <TextField
           id="standard-full-width"
           name="content"

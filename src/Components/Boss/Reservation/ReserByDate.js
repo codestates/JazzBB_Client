@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import DatePick from "../DatePick";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ReserTable from "./ReserTable";
 import axios from "axios";
 import "../../../dist/css/comm.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-function ReserByDate({ AllPage, setAll, unsetAll }) {
+function ReserByDate() {
+  const dispatch = useDispatch();
+
+  const userstate = useSelector((state) => state.reducer.user);
+
   const BossState = useSelector((state) => state.reducer.reservation);
   const [date, setDate] = useState("2017-01-01");
   let DataPerDate = BossState.filter((el) => el.show.date === date);
@@ -27,15 +31,13 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
   const pending = sort.filter((el) => el.confirm === "pending");
   const [selected, setSelect] = useState(DataPerDate);
 
-
   const ChangeDate = (bydate) => {
     setDate(bydate);
   };
 
   useEffect(() => {
     ChangeDate(date);
-    return () => {
-    };
+    return () => {};
   }, [date]);
 
   let showList = useSelector((state) => state.reducer.BossShowList);
@@ -46,7 +48,7 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
     const data = DataPerDate.filter((el) => el.confirm === status);
     if (status === "all") {
       setSelect(DataPerDate);
-      console.log(selected)
+      console.log(selected);
     } else if (data.length === 0) {
       alert("해당 상테의 예약 리스트가 존재하지 않습니다.");
       setSelect([]);
@@ -55,18 +57,15 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
     }
   };
 
-
   const handleListByTime = (e) => {
-    if(e.target.value === "all"){
-    setSelect(DataPerDate)
-    }else{
+    if (e.target.value === "all") {
+      setSelect(DataPerDate);
+    } else {
       const filteredByTime = DataPerDate.filter(
         (el) => el.show.time === e.target.value
       );
       filteredByTime.map((el) => setSelect(filteredByTime));
-
     }
-   
   };
 
   const statusAlert = (e) => {
@@ -80,10 +79,16 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
           label: "예",
           onClick: (e) => {
             axios
-              .get(process.env.REACT_APP_DB_HOST + "/reviewUpdate", {
-                id: id,
-                confirm: changedStatus,
-              })
+              .get(
+                process.env.REACT_APP_DB_HOST + "/reviewUpdate",
+                {
+                  authorization: userstate.token,
+                },
+                {
+                  id: id,
+                  confirm: changedStatus,
+                }
+              )
               .then((res) => (window.location.href = "/boss/reservation"))
               .catch((err) => console.log(err));
           },
@@ -99,7 +104,6 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
     <div>
       <div>
         <DatePick ChangeDate={ChangeDate}></DatePick>
-       
       </div>
 
       <div className="status-box">
@@ -135,8 +139,6 @@ function ReserByDate({ AllPage, setAll, unsetAll }) {
           <span className="status-number-pending-blink">{pending.length}</span>
         </div>
       </div>
-
-      
 
       <div className="rv-info">
         <div className="rv-info-contents">예약정보</div>

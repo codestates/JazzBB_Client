@@ -98,7 +98,11 @@ function BInfoManagePage() {
       // })
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state)
-        .then((res) => console.log(res));
+        .then((res) => {
+          console.log(res)
+          window.location.href='/boss/main'
+        })
+        
       //서버 연결 후, 페이지 이동하는 코드 작성하기
     }
   };
@@ -160,7 +164,7 @@ function BInfoManagePage() {
     <div className="infoPage">
       {JazzBarInfo.length === 0 ? (
         <div>
-          {/* <Sidebar></Sidebar> */}
+          <Sidebar></Sidebar>
           <div className="contentBox">
             <h1>정보 기입</h1>
 
