@@ -2,25 +2,25 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, typeText, modifySwitch, setToken, setBoard} from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, setToken, setBoard, saveThisHistory, dequeueHistory } from "../Components/redux/new/action";
 import "../css/JazzinfoPosting.css";
 
 
 function BoardPostingObject () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-
+  
   let previousBoard = state.boardList[state.currentBoard - 1];
   let currentBoard = state.boardList[state.currentBoard];
   let nextBoard = state.boardList[state.currentBoard + 1];
-
+  
   axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: currentBoard.id})
-   .then(res => {
+  .then(res => {
     const reviewList = res.data.data.list;
     dispatch(setList(reviewList, 'reviewList'));
-   })
-   .catch(err => console.log(err))
-
+  })
+  .catch(err => console.log(err))
+  
   const changeCurrentBoard = (type) => {
     let currentNumber = state.currentBoard;
     if(type == 1){
@@ -29,13 +29,13 @@ function BoardPostingObject () {
       dispatch(setBoard(currentNumber + 1));
     }
   }
-
+  
   const typingReview = (e, variety) => {
     dispatch(typeText(e.target.value, variety));
   }
-
+  
   const reviewPost = async () => {
-    if(!state.user.isLogin) {
+    if(!state.isLogin) {
       alert('로그인 후 리뷰 작성이 가능합니다.');
       dispatch(modifySwitch('loginModal'));
     } else {
@@ -46,14 +46,18 @@ function BoardPostingObject () {
         point: '5', 
         content: state.review.content
       })
-       .then(res => {
+      .then(res => {
         const token = res.data.data.accessToken;
         dispatch(setToken(token));
-       })
-       .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
     }
   }
-
+  
+  const history = () => {
+    dispatch(saveThisHistory("/posting"))
+    dispatch(dequeueHistory())
+  }
 
   return (
     <div className="infobbsdataentry">
@@ -66,8 +70,10 @@ function BoardPostingObject () {
           </div>
                     
           <div className="infobbsdataentry-body-header-btnwrapper">
-            <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
-            <div className="infobbsdataentry-control-label">이전 페이지</div>
+            <Link to={state.history[0]} onClick={()=> history()}>
+              <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
+              <div className="infobbsdataentry-control-label">이전 페이지</div>
+            </Link>
           </div>
         </div>
 

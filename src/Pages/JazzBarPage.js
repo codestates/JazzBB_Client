@@ -2,10 +2,9 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, typeText, modifySwitch, saveMyId, setShow, setToken} from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, dequeueHistory, saveThisHistory} from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/shopinfo.css"
-import Reservation from "./ReservationPage"
 
 
 
@@ -65,6 +64,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
     
   const goReservation = (show) => {
     dispatch(setShow(show));
+    history();
   }
     
   const modifyReview = () => {
@@ -108,6 +108,9 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
     dispatch(modifySwitch('menuModal'))
   }
 
+  const history = () => {
+    dispatch(saveThisHistory("/jazzbar"))
+  }
  
 
   return (
@@ -124,7 +127,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             <div className="shopinfo-header-infoarea-shopname">{state.jazzbar.barName}</div>
             <div className="shopinfo-header-infoarea-geo">
               <div className="shopinfo-header-infoarea-location">{state.jazzbar.area}</div>
-              <button className="shopinfo-header-infoarea-tmapbtn">Tmap 길안내</button>{/* 티맵 구현 필요 */}
+              <button className="shopinfo-header-infoarea-tmapbtn">카카오맵 길안내</button>{/* 티맵 구현 필요 */}
             </div>
 
             <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>

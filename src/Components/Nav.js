@@ -1,7 +1,8 @@
 import React from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { modifySwitch } from "./redux/new/action"
+import { modifySwitch, deleteState, isLogin } from "./redux/new/action"
 import Modal from "react-modal";
 import './Nav.css'
 
@@ -12,6 +13,15 @@ function Nav() {
 
   const loginModalSwitch = (login) => {
     dispatch(modifySwitch(login))
+  }
+
+  const logout = () => {
+    dispatch(deleteState('user'));
+    dispatch(isLogin());
+    window.location.pathname = "/service";
+    axios.post(process.env.REACT_APP_DB_HOST + "/logout", {authorization: state.user.token})
+    .then(() => {
+     })
   }
 
   const kakaoLogin = () => {
@@ -27,7 +37,15 @@ function Nav() {
         <Link to="/search">
           <button className="navi-btn">Search</button>
         </Link>
-        <button className="navi-btn" onClick={()=> loginModalSwitch('loginModal')}>Login</button>
+        <Link to="/mypage">
+          <button className="navi-btn">Mypage</button>
+        </Link>
+        {
+          !state.isLogin ? 
+          <button className="navi-btn" onClick={()=> loginModalSwitch('loginModal')}>Login</button>
+          :
+          <button className="navi-btn" onClick={()=> logout()}>Logout</button>
+        }
         <Modal className="navi-login-modal" isOpen={state.togle.loginModal} onRequestClose={() => loginModalSwitch('loginModal')} closeTimeoutMS={200}>
           <div className="login-modal-box">
                 <div className="clsbtnwrapper">

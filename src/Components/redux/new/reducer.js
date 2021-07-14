@@ -16,6 +16,14 @@ import {
   DELETE_STATE,
   SET_ALLPAGE,
   CHECK_FIRST,
+  SAVE_THIS_HISTORY,
+  DEQUEUE_HISTORY,
+  SEARCH,
+  SELECT_SEARCH_TYPE,
+  SAVE_SEARCH_DATA,
+  SET_JAZZBAR,
+  IS_LOGIN,
+  ADD_EVERY_SHOW_LIST,
 } from "./action";
 import initialState from "./initialState";
 
@@ -85,6 +93,30 @@ const reducer = (state = initialState, action) => {
 
     case CHECK_FIRST:
       return Object.assign({}, state, { firstCheck: !state.firstCheck }); 
+
+    case SAVE_THIS_HISTORY:
+      return Object.assign({}, state, { history: [...state.history,payload.history] }); 
+
+    case DEQUEUE_HISTORY:
+      return Object.assign({}, state, { history: state.history.slice(1) }); 
+
+    case SEARCH:
+      return Object.assign({}, state, { search: payload.text }); 
+
+    case SELECT_SEARCH_TYPE:
+      return Object.assign({}, state, { searchOption: payload.type }); 
+
+    case SAVE_SEARCH_DATA:
+      return Object.assign({}, state, { searchData: payload.data }); 
+
+    case SET_JAZZBAR:
+      return Object.assign({}, state, { jazzbar: payload.bar }); 
+
+    case IS_LOGIN:
+      return Object.assign({}, state, { isLogin: !state.isLogin }); 
+
+    case ADD_EVERY_SHOW_LIST:
+      return Object.assign({}, state, { everyShowList: [...state.everyShowList, ...payload.list] }); 
 
      
     default:
