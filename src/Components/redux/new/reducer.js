@@ -16,6 +16,7 @@ import {
   DELETE_STATE,
   SET_ALLPAGE,
   SET_JAZZBAR,
+  SET_BOSS_JAZZBAR,
   CHECK_FIRST,
   SAVE_THIS_HISTORY,
   DEQUEUE_HISTORY,
@@ -38,7 +39,7 @@ const reducer = (state = initialState, action) => {
     case SET_BOSS_DATE:
       return Object.assign({}, state, { boss: { date: payload.newDate } });
 
-      case SET_JAZZBAR:
+      case SET_BOSS_JAZZBAR:
         return Object.assign({}, state, { jazzbar:  payload.list  });
 
         

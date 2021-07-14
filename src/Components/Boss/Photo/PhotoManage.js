@@ -3,7 +3,7 @@ import Sidebar from "../Sidebar";
 import InputFile from "../ShowManage/InputFile";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  setJazzBarData,
+  setBossJazzBar,
 } from "../../redux/new/action";
 
 import axios from "axios";
@@ -18,7 +18,7 @@ const PhotoManage = () => {
       .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
       .then((res) => {
         const list = res.data.data;
-        dispatch(setJazzBarData(list));
+        dispatch(setBossJazzBar(list));
       });
   }, []);
 

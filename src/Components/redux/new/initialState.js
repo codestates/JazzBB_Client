@@ -237,6 +237,7 @@ const initialState = {
   boss: {
     date: new Date(),
   },
+bossJazzBar :[],
 
   reservation: [
     //boss reservation

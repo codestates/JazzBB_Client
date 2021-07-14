@@ -17,11 +17,14 @@ const PopupPostCode = (props) => {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
-    console.log(data);
-    console.log(fullAddress);
-    console.log(data.zonecode);
+    // console.log(data);
+    const ar = fullAddress.split(' ')
+    const area = `${ar[0]} ${ar[1]}`
+    // console.log(area)
+    // console.log(fullAddress);
+    // console.log(data.zonecode); 우편번호
     props.onClose();
-    props.setState({ ...props.state, addressFront: fullAddress });
+    props.setState({ ...props.state, addressFront: fullAddress, area : area});
   };
 
   const postCodeStyle = {
@@ -54,6 +57,8 @@ const PopupPostCode = (props) => {
     left : "50px"
 
   }
+
+ 
   
   return (
     <div style={div}>
@@ -68,9 +73,6 @@ const PopupPostCode = (props) => {
       </button>
       <DaumPostcode style={postCodeStyle} onComplete={handlePostCode}>
       </DaumPostcode>
-      
-     
-     
     </div>
   );
   }
