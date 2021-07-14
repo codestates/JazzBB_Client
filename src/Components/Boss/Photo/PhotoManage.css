@@ -3,6 +3,9 @@
     justify-content:space-between;
 }
 
+.sidebarspace {
+    width: 18%;
+}
 
 .contentBox {
     background-color: #EBE9E9;
@@ -62,4 +65,10 @@
     margin-bottom: 40px;
     font-size: 1.2rem;
     font-weight: 900;
+}
+
+.register-inputfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

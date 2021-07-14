@@ -236,15 +236,21 @@ input, select {
 
 
 .shopinfo-header-infoarea-shopname {
-    font-size: 2rem;
+    font-size: 5rem;
     font-weight: 900;
     margin-bottom: 10px;
+    font-family: 'East Sea Dokdo', cursive;
 }
 
 .shopinfo-header-infoarea-geo {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.shopinfo-header-infoarea-location {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
 }
 
 .shopinfo-header-infoarea-tmapbtn {
@@ -254,6 +260,7 @@ input, select {
     background-color: #ED2609;
     padding: 5px;
     margin-left: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .shopinfo-header-infoarea-tmapbtn:hover {
@@ -262,6 +269,7 @@ input, select {
 
 .shopinfo-header-infoarea-phone, .shopinfo-header-infoarea-time {
     margin-bottom: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .shopinfo-header-infoarea-ratingarea {
@@ -271,6 +279,7 @@ input, select {
 
 .shopinfo-header-infoarea-ratingarea-rate {
     margin-left: 5px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .shopinfo-iconarea, .shopinfo-menuarea, .shopinfo-shopphoto, .shopinfo-reservation, .shopinfo-review {
@@ -285,8 +294,9 @@ input, select {
 }
 
 .shopinfo-menuarea-titlearea-label, .shopinfo-shopphoto-titlearea-label, .shopinfo-reservation-label, .shopinfo-review-titlearea-label {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 900;
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 .shopinfo-reservation-sublabel {
@@ -496,6 +506,7 @@ input, select {
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 5px;
+    font-family: 'Jua', sans-serif;
 }
 
 .shopinfo-review-body-label-rate, .shopinfo-review-body-data-rate {
@@ -506,6 +517,7 @@ input, select {
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 5px;
+    font-family: 'Jua', sans-serif;
 }
 
 .shopinfo-review-body-label-review, .shopinfo-review-body-data-review {
@@ -515,6 +527,7 @@ input, select {
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 5px;
+    font-family: 'Jua', sans-serif;
 }
 
 .shopinfo-review-body-label-review {
@@ -531,8 +544,9 @@ input, select {
 }
 
 .shopinfo-review-form-label {
-    font-weight: 900;
+    font-weight: 500;
     font-size: 1.1rem;
+    font-family: 'Jua', sans-serif;
 }
 
 .shopinfo-review-form-input {
@@ -549,6 +563,8 @@ input, select {
     background-color: white;
     border: 1px solid gray;
     border-radius: 5px;
+    font-family: 'Jua', sans-serif;
+    width: 50px;
 }
 
 
@@ -568,9 +584,16 @@ input, select {
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
 }
 
+.closebutton {
+    width: 100%;
+    text-align: end;
+    margin-top: 10px;
+    padding-right: 10px;
+}
 
-
-
+.close {
+    border: none;
+}
 
 
 

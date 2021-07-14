@@ -7,6 +7,7 @@ const  PhotoManage = ()=> {
   return (
     <div className="photocontentbody">
       <Sidebar></Sidebar>
+      <div className="sidebarspace"></div>
     <div className="contentBox">
       <div className="registered-photo">
         <div className="registered-photo-header">
@@ -31,7 +32,10 @@ const  PhotoManage = ()=> {
           <div className="register-header">
             <div className="register-header-label">신규 사진 등록</div>
           </div>
-          <InputFile></InputFile>
+          <div className="register-inputfile">
+              <InputFile></InputFile>
+          </div>
+          
         </div>
         
 

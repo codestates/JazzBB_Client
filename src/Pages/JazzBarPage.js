@@ -171,7 +171,10 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
         <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={menuModalTogle}>
           <div className="shopinfo-menu-object">
-          <span className="close" onClick={() => menuModalTogle()}>X</span>
+            <div className="closebutton">
+                <button className="close" onClick={() => menuModalTogle()}>X</button>
+            </div>
+          
             {
               state.menu.map(el => {
                 return (
@@ -214,7 +217,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
                    
           <div className="shopinfo-reservation-header">
             <div className="shopinfo-reservation-label">예약</div>
-            <div className="shopinfo-reservation-sublabel">{state.showList.length != 0 ? '라이브 공연을 예약하실 수 있습니다' : '예정 공연이 없습니다'}</div>
+            <div className="shopinfo-reservation-sublabel">{state.showList.length != 0 ? '라이브 공연을 예약하실 수 있습니다' : '예정된 공연이 없습니다. 매장에 문의하여 주세요'}</div>
           </div>
 
           <div className="shopinfo-reservation-body">
@@ -315,7 +318,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             }
 
             <div className="shopinfo-review-form">
-              <div className="shopinfo-review-form-label">한줄평 작성</div>
+              <div className="shopinfo-review-form-label">작성</div>
                 <input className="shopinfo-review-form-input" type="text" placeholder="한줄평을 작성해주세요" onChange={(e)=>typingReview(e,'content')}/>
                 <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')}>
                   <option value="" disabled selected>별점 선택</option>
