@@ -119,7 +119,7 @@ function Service () {
 
             </div>
 
-            <Link to="/posting" onClick={()=> goPosting(state.boardList[0])}><img id="service-banner-middle" src={state.boardList[0].thumbnail} alt="banner(middle)" /></Link>
+            <Link to="/posting" onClick={()=> goPosting(state.boardList[0])}><img id="service-banner-middle" src="/img/resource/service-banner-middle.png" alt="banner(middle)" /></Link>
 
             <div className="service-popular">
                 <div className="service-popular-header">
