@@ -1,0 +1,531 @@
+/* CSS 초기화 코드가 99번째 줄까지 있습니다. 중간중간 글로벌 선언이 필요할 경우 수정할 수 있어요 */
+
+
+html, body, div, span, a, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, p, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    letter-spacing: -.02em;
+    white-space: normal;
+    word-break: break-all;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration: none;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;  
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 여기서부터 실제 코드 */
+
+
+
+
+
+
+  
+
+/* 본문 영역 */
+
+.service {
+    display: flex;
+    justify-content: center;
+}
+
+.service-body {
+    width: 72%;
+}
+
+.service-bannerWrapper {
+    text-align: center;
+}
+
+#service-banner-top, #service-banner-middle {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.service-location, .service-liveon, .service-popular, .service-newResOpen {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding: 20px;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+}
+
+.service-location-label, .service-liveon-label, .service-popular-label, .service-newResOpen-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 1%;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.service-location-sublabel, .service-liveon-sublabel, .service-popular-sublabel, .service-newResOpen-sublabel {
+    font-size: 1rem;
+    margin-left: 1%;
+    margin-top: 5px;
+    font-family: 'Sunflower', sans-serif;
+}
+
+#service-banner-bottom {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+
+
+/* 어디로 가시나요 */
+.service-location-label {
+    display: block;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+
+.service-location-objarea{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+
+.service-location-object {
+    display: block;
+    flex: 0 0 140px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+    position: relative;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.service-location-object::before {
+    background: #000;
+    content: "";
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.service-location-btn-label {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    width: 90%;
+    line-height: 1.25;
+    color: white;
+}
+
+
+.service-search {
+    display: flex;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    font-family: 'Sunflower', sans-serif;
+}
+
+.service-search-label {
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-right: 15px;
+    color: black;
+}
+
+.service-search-form {
+    width: 900px;
+    height: 30px;
+    margin-right: 15px;
+    font-size: 1.3rem;
+    border: 8px solid royalblue;
+}
+
+.service-search-submit {
+    width: 100px;
+    height: 48px;
+    background-color: royalblue;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+
+
+
+/* 라이브온 */
+.service-liveon-header {
+    display: block;
+}
+
+.service-liveon-container {
+    overflow-x: auto;
+    padding-bottom: 14px;
+    margin: 0 -30px -14px;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.v-scroll-inner {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.service-liveon-contents {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-top: 10px;
+    margin-top: -5px;
+}
+
+.service-liveon-object {
+    width: 200px;
+    border-radius: 12px;
+    background-color: white;
+    min-height: 200px;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    margin-right: 10px;
+}
+
+.liveon-object-header {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.liveon-object-header-label {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin-right: 10px;
+    min-width: 1px;
+}
+
+.liveon-object-header-profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: block;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+    margin-right: 6px;
+    position: relative;
+}
+
+.liveon-object-header-profile-name {
+    font-size: 13px;
+    min-width: 1px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+    box-sizing: border-box;
+    display: block;
+    font-weight: 900;
+    position: relative;
+    color: black;
+}
+
+.liveon-object-body {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.liveon-object-body-img {
+    position: relative;
+}
+
+.liveon-object-body-img-link {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.liveon-object-body-img-link::after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: linear-gradient(180deg,transparent,rgba(0,0,0,.5));
+}
+
+
+.liveon-object-footer {
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+
+.liveon-object-body-detail {
+    min-width: 1px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.liveon-object-body-detail-location {
+    font-style: 15px;
+    margin-bottom: 2px;
+    word-break: break-word;
+    line-height: normal;
+}
+
+.liveon-object-body-detail-meta {
+    margin-top: 10px;
+}
+
+
+/* 인기뮤지션 */
+.service-popular {
+    overflow: hidden;
+}
+
+.service-popular-header {
+    display: block;
+    position: relative;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.service-popular-body {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow-x: auto;
+    padding-bottom: 14px;
+    margin: 0 -30px -14px;
+}
+
+.service-popular-contents {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.service-popular-object {
+    width: 200px;
+    display: block;
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.service-popular-object-photobox {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.service-popular-object-img {
+    width: 200px;
+    height: 200px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+}
+
+.service-popular-object-footer {
+    position: relative;
+    padding-right: 50px;
+}
+
+.popular-object-footer-name {
+    word-break: break-word;
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: -.032222222222222em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 4px;
+    line-height: 25px;
+    margin-left: 10px;
+}
+
+.popular-object-footer-meta {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.popular-object-footer-tags {
+    color: #666;
+    margin-left: 10px;
+}
+
+
+
+
+
+/* 신규예약오픈 */
+.service-newResOpen {
+    overflow: hidden;
+}
+
+
+.service-newResOpen-header {
+    display: block;
+    position: relative;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.service-newResOpen-body {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow-x: auto;
+    padding-bottom: 14px;
+    margin: 0 -30px -14px;
+}
+
+.service-newResOpen-contents {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.service-newResOpen-object {
+    width: 200px;
+    display: block;
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.service-newResOpen-object-photobox {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.service-newResOpen-object-img {
+    width: 200px;
+    height: 200px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+}
+
+.service-newResOpen-object-footer {
+    position: relative;
+    padding-right: 50px;
+}
+
+.newResOpen-object-footer-name {
+    word-break: break-word;
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: -.032222222222222em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 4px;
+    line-height: 25px;
+    margin-left: 10px;
+}
+
+.newResOpen-object-footer-meta {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.newResOpen-object-footer-tags {
+    color: #666;
+    margin-left: 10px;
+}
+
+

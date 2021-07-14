@@ -5,27 +5,25 @@ import {
   Menu,
   MenuItem,
   SidebarHeader,
-  SidebarFooter,
   SidebarContent,
-  SubMenu,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { FiSidebar, FiHome, FiLogOut } from "react-icons/fi";
+import { FiSidebar, FiHome} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { CgMusicNote } from "react-icons/cg";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { BsBook } from "react-icons/bs";
 import "./sidebar.css";
 import "../../../src/dist/css/comm.css"
-const Sidebar = ({ yap,  }) => {
+const Sidebar = () => {
   const [openClose, setOpenClose] = useState(false);
   const menuIconClick = () => {
     openClose ? setOpenClose(false) : setOpenClose(true);
   };
-  const [active, setactive] = useState(false);
-  const menuActive = () => {
-    active ? setactive(false) : setactive(true);
-  };
+  // const [active, setactive] = useState(false);
+  // const menuActive = () => {
+  //   active ? setactive(false) : setactive(true);
+  // };
 
   return (
     <div>
@@ -65,11 +63,11 @@ const Sidebar = ({ yap,  }) => {
                 </MenuItem>
               </Menu>
             </SidebarContent>
-            <SidebarFooter>
+            {/* <SidebarFooter>
               <Menu iconShape="square">
                 <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
               </Menu>
-            </SidebarFooter>
+            </SidebarFooter> */}
           </ProSidebar>
         </div>
       </div>

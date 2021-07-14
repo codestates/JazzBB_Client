@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { BiWon } from "react-icons/bi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { BsMusicNoteList, BsPencil } from "react-icons/bs";
+// import { RiDeleteBin6Line } from "react-icons/ri";
+import { BsMusicNoteList } from "react-icons/bs";
 import { FaBookOpen } from "react-icons/fa";
 import { makeStyles } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
+// import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+// import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Modal from "react-modal";
 import Button from "@material-ui/core/Button";
 import ModalEdit from "./ModalEdit";
@@ -40,10 +40,10 @@ const useStyles = makeStyles((theme) => ({
 
 function AllShowEntry({ data }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const [expanded, setExpanded] = React.useState(false);
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   const content = data.content;
   const player = (el) => {
@@ -51,9 +51,9 @@ function AllShowEntry({ data }) {
   };
 
   const [edit, setEdit] = useState(false);
-  function setEditButton() {
-    setEdit(!edit);
-  }
+  // function setEditButton() {
+  //   setEdit(!edit);
+  // }
   const [isOpen, setIsOpen] = useState(false);
   function toggleModal() {
     setIsOpen(!isOpen);
@@ -85,13 +85,13 @@ function AllShowEntry({ data }) {
           <div className="left-box">
             <div className="left-top">
               <CardHeader
-                avatar={<Avatar aria-label="recipe">Tokyo</Avatar>}
+                avatar={<Avatar aria-label="recipe"></Avatar>}
                 title={data.date}
                 subheader={data.time}
               />
             </div>
             <div className="left-middle">
-              <img src="/img/tokyoJazz.jpg" alt=""></img>
+              {data.thumbnail ? <img src={data.thumbnail} alt=""></img> : <img src="/img/tokyoJazz.jpg" alt=""></img>}
             </div>
           </div>
           <div className="right-box">

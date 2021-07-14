@@ -1,6 +1,6 @@
 import React from "react";
 
-function ReserTable({ data, alert }) {
+function ReserTable({ data, confirmAlert }) {
   if(data.length === 0){
     return (
       <tr>
@@ -11,28 +11,13 @@ function ReserTable({ data, alert }) {
       <td>""</td>
       <td>""</td>
       <td>""</td>
-      {/* {data.confirm === "pending" ? (
-        <td>
-          <button  name="confirmed" onClick={alert}>승인</button>
-          <button  name="denied" onClick={alert}>거절</button>
-        </td>
-      ) : (
-        (data.confirm === 'confirm'? <td> 승인</td>
-        :(<td>거절</td>)
-        )
-        
-      )} */}
     </tr>
 
     )
    
   }else{
-    let time ;
-    if(data.show.time !== undefined){
-   time = data.show.time.substring(0,5)
-    }else{
-      time = "00:00";
-    }
+    let time = data.show.time.substring(0,5)
+    
     return (
       <tr>
         <td>{data.num}</td>
@@ -43,13 +28,13 @@ function ReserTable({ data, alert }) {
         <td>{data.mobile}</td>
         <td>{data.show.currentSeat}</td>
         {data.confirm === "pending" ? (
-          <td>
-            <button value={data.num} name="confirmed" onClick={alert}>승인</button>
-            <button value={data.num} name="denied" onClick={alert}>거절</button>
+          <td className='resconfirm'>
+            <button className='res-ok res' value={data.num} name="confirmed" onClick={confirmAlert}>승인</button>
+            <button className='res-no res' value={data.num} name="denied" onClick={confirmAlert}>거절</button>
           </td>
         ) : (
-          (data.confirm === 'confirm'? <td> 승인</td>
-          :(<td>거절</td>)
+          (data.confirm === 'confirm'? <td className='confirm-ok'> 승인됨</td>
+          :(<td className='confirm-no'>거절됨</td>)
           )
           
         )}

@@ -13,8 +13,25 @@ function AddShow() {
     id: "02",
     jazzbarId: "01",
     player: [],
-    thumbnail: "", //server 코드에서 thumbnail 빠져있음. 추후 논의 필요.
+    thumbnail: "",
   });
+  const [imgFile, setImgFile] = useState([]);
+
+  function handelSetImgFile(data) {
+    setImgFile(data)
+  }
+
+  
+  function handleThumbnail(e) {
+    console.log("clicked handlethumb");
+
+    if (imgFile.length !== 0) {
+      const formData = new FormData();
+      formData.append(`thumbnail`, imgFile[0]);
+      SetInputValue({ ...inputValue, thumbnail: formData });
+      console.log(inputValue, "dddddd");
+    }
+  }
 
   const handleInputChange = (event) => {
     const name = event.target.name;
@@ -32,7 +49,7 @@ function AddShow() {
       buttons: [
         {
           label: "예",
-          onClick:  () => {
+          onClick: () => {
             axios
               .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
               .then((res) => (window.location.href = "/boss/show"));
@@ -62,13 +79,15 @@ function AddShow() {
           <div className="show-innerbox">
             <div className="show-box_photo">
               <div className="show-photo">
-                <InputFile></InputFile>
+                <InputFile
+                  handleThumbnail={handleThumbnail}
+                  imgFile={imgFile}
+                  setImgFile={handelSetImgFile}
+                ></InputFile>
               </div>
             </div>
             <div className="show-box_input">
-              <AddShowInput
-                handleInputChange={handleInputChange}
-              ></AddShowInput>
+              <AddShowInput handleInputChange={handleInputChange}></AddShowInput>
             </div>
 
             <div className="show-box_content">
@@ -76,18 +95,20 @@ function AddShow() {
             </div>
 
             <div className="bottom-box">
-          <Button variant="contained" color="primary" size="large" onClick={handleAddShow} 
-            // className={classes.button}
-            startIcon={<SaveIcon />}
-          >
-            등록
-          </Button>
-        </div>
-
-
-
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={handleAddShow}
+                // className={classes.button}
+                startIcon={<SaveIcon />}
+              >
+                등록
+              </Button>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   );
