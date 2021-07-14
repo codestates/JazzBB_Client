@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, modifySwitch, setBoard } from "../Components/redux/new/action";
+import { setList, modifySwitch, setBoard, dequeueHistory, saveThisHistory } from "../Components/redux/new/action";
 import "../css/infobbs.css"
 import Posting from "./JazzInfoPosting";
 
@@ -22,6 +22,11 @@ function JazzInfo () {
   const setPosting = (posting) => {
     let currentBoardIdx = state.boardList.indexOf(posting);
     dispatch(setBoard(currentBoardIdx));
+    history()
+  }
+
+  const history = () => {
+    dispatch(saveThisHistory("/board"))
   }
   
 

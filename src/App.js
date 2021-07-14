@@ -23,11 +23,13 @@ import Board from "./Pages/JazzInfoPage"
 import InfoUpdate from "./Components/Boss/InfoManage/InfoUpdate"
 import Terms from './Pages/footer-terms'
 import Moreinfo from "./Pages/MoreUserInfo"
+import Search from "./Pages/Search"
 import Footer from './Components/footer'
 import Termspi from './Pages/footer-terms-pi'
 import Weareddh from "./Pages/weareddh";
+import Service from "./Pages/ServicePage";
 
-import { checkFirst, setToken, setUser } from './Components/redux/new/action';
+import { checkFirst, setToken, setUser, isLogin } from './Components/redux/new/action';
 dotenv.config();
 
 function App() {
@@ -38,7 +40,6 @@ function App() {
     console.log(state);
     axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
     .then(res => {
-      // console.log(res);
       let token = res.data.data.accessToken;
       axios.get(process.env.REACT_APP_DB_HOST+'/userinfo', {authorization: token})
        .then(resp => {
@@ -46,6 +47,7 @@ function App() {
          const userinfo = resp.data.data.userinfo;
          dispatch(setToken(token));
          dispatch(setUser(userinfo));
+         dispatch(isLogin())
          if(!!state.user.token && !state.user.mobile){
            dispatch(checkFirst());
          };
@@ -63,10 +65,7 @@ function App() {
   return (
     <div>
       {
-        !state.firstCheck ?
         <Nav></Nav>
-        :
-        ''
       }
       <div>
         <Switch>
@@ -82,22 +81,24 @@ function App() {
           <Route path="/board" render={()=> <Board></Board>} />
           <Route path="/mypage" render={() => <Mypage></Mypage>} />
           <Route path="/moreinfo" render={() => <Moreinfo></Moreinfo>} />
+          <Route path="/search" render={() => <Search></Search>} />
+          <Route path="/service" render={() => <Service></Service>} />
           <Route path="/" render={() => {
-            if(state.firstCheck){
+            if(state.firstCheck && state.isLogin){
               return <Redirect to="/moreinfo" />
             } else {
               return <Redirect to="/service" />
             }
             }} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
-          {
+          {/* {
             state.firstCheck ? 
             <Redirect to="/moreinfo" />
             :
-            state.user.isLogin ?
+            state.isLogin ?
             <Redirect to="/service" />
             : ''
-          }
+          } */}
           <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
         </Switch>

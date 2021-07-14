@@ -1,10 +1,14 @@
 // import "/resource"
 //"/resource/"
 const initialState = {
+  isLogin: false,
+  history: ["/jazzbar", "reservation"],
   firstCheck: true,
+  search: null,
+  searchOption: null,
+  searchData: null,
   AllPage : true,
   user: {
-    isLogin: true, // 로그인 상태 확인
     token: null, // 토큰 저장
     id: null, // db식별 id
     userId: "dkrlxhRL07",
@@ -19,11 +23,11 @@ const initialState = {
     mobile: null,
     usertype: null,
   },
+  everyShowList : [],
   boardList: [
     {
     id: 1,
     user: {
-      isLogin: false, // 로그인 상태 확인
       token: null, // 토큰 저장
       id: null, // db식별 id
       userId: "dkrlxhRL07",
@@ -39,7 +43,6 @@ const initialState = {
   },{
     id: 2,
     user: {
-      isLogin: false, // 로그인 상태 확인
       token: null, // 토큰 저장
       id: null, // db식별 id
       userId: "dkrlxhRL07",
@@ -56,7 +59,6 @@ const initialState = {
   {
     id: 3,
     user: {
-      isLogin: false, // 로그인 상태 확인
       token: null, // 토큰 저장
       id: null, // db식별 id
       userId: "dkrlxhRL07",
@@ -73,7 +75,6 @@ const initialState = {
   {
     id: 4,
     user: {
-      isLogin: false, // 로그인 상태 확인
       token: null, // 토큰 저장
       id: null, // db식별 id
       userId: "dkrlxhRL07",
@@ -88,7 +89,7 @@ const initialState = {
     thumbnail: "dfddsffw"
     },
   ],
-  currentBoard: 2,
+  currentBoard: null,
   review: {
     content: null, // 댓글 CRUD
     point: null, // 댓글 CRUD
@@ -402,7 +403,48 @@ const initialState = {
       }
     },
   ],
-  barList: [],
+  barList: [
+    {
+      id: 1,
+      barName: '개쩌는 쟤즈뺘',
+      moblie: '02-123-4567',
+      defaultSeat: '20',
+      area: '서울 서초구',
+      thumbnail: '/resource/배너교체1.png',
+      address: '서울 서초구 서초동 몇번지',
+      rating: '4.5',
+      serviceOption: '1246',
+      openTime: '17:00-20:00',
+      gpsX: null,
+      gpsY: null,
+    },{
+      id: 2,
+      barName: '개쩌는 쟤즈뺘',
+      moblie: '02-123-4567',
+      defaultSeat: '20',
+      area: '서울 서초구',
+      thumbnail: '/resource/배너교체1.png',
+      address: '서울 서초구 서초동 몇번지',
+      rating: '4.5',
+      serviceOption: '1246',
+      openTime: '17:00-20:00',
+      gpsX: null,
+      gpsY: null,
+    },{
+      id: 3,
+      barName: '개쩌는 쟤즈뺘',
+      moblie: '02-123-4567',
+      defaultSeat: '20',
+      area: '서울 서초구',
+      thumbnail: '/resource/배너교체1.png',
+      address: '서울 서초구 서초동 몇번지',
+      rating: '4.5',
+      serviceOption: '1246',
+      openTime: '17:00-20:00',
+      gpsX: null,
+      gpsY: null,
+    }
+  ],
   jazzbar: {
     id: 1,
     barName: '개쩌는 쟤즈뺘',
