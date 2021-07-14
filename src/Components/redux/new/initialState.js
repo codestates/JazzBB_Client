@@ -457,8 +457,8 @@ bossJazzBar :[],
     rating: '4.5',
     serviceOption: '1246',
     openTime: '17:00-20:00',
-    gpsX: null,
-    gpsY: null,
+    gpsX: 127.10676860117488,
+    gpsY: 37.365264512305174,
   }, //selected
   barPhoto: [
     

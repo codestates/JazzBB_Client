@@ -6,7 +6,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 export default function CustomizedSelects({data}) {
-  console.log(data)
+  // console.log(data)
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -45,7 +45,7 @@ export default function CustomizedSelects({data}) {
    yap()
   }, [])
   
-  console.log(state)
+  // console.log(state)
 
 
 
@@ -71,7 +71,7 @@ const handleInputChange = (event) => {
   if (name !== "player") {
     const nameValue = event.target.value;
     SetInputValue({ ...inputValue, [name]: nameValue });
-    console.log(inputValue)
+    // console.log(inputValue)
   } else {
     setPlayer({ ...player, [event.target.id]: event.target.value });
   }

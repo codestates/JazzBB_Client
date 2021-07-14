@@ -23,7 +23,7 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
     let reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
-      console.log(base64, "absfs");
+      // console.log(base64, "absfs");
       if (base64) {
         setImgBase64(base64.toString());
       }

@@ -28,10 +28,10 @@ function ModalEdit({ info }) {
       jazzbar_id: info.jazzbar_id, id : info.id 
     }).then(res => {
     console.log("deleteShowHandler success");
-    })
-    ;
-
+    });
   };
+
+ 
   return (
     <div>
       <div className="show-box">
