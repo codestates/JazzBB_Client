@@ -7,7 +7,7 @@ import "../ShowManage/ShowManage.css";
 function PhotoInputFile() {
   const [imgBase64, setImgBase64] = useState(""); 
   const [imgFile, setImgFile] = useState(null); 
-  const [imageUrl, setImageUrl] = useState(imgBase64);
+//   const [imageUrl, setImageUrl] = useState(imgBase64);
   
   const setFile = (e) => {
     console.log('setFile')
@@ -18,9 +18,9 @@ function PhotoInputFile() {
       img.append("file", e.target.files[0]);
       axios
         .post(process.env.domain + "/upload", img)
-        .then((res) => {
-          setImageUrl(res.data);
-        })
+        // .then((res) => {
+        //   setImageUrl(res.data);
+        // })
         .catch((err) => {
           console.error(err);
         });

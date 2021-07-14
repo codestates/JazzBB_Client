@@ -6,8 +6,7 @@ import "./ShowManage.css";
 
 function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
   const [imgBase64, setImgBase64] = useState("");
-  // const [imgFile, setImgFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState(imgBase64);
+
 
   const setFile = (e) => {
     console.log("setFile");

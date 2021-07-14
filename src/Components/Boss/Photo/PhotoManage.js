@@ -36,28 +36,19 @@ const PhotoManage = () => {
         </div>
 
         <div className="registered-photo-body">
-            {/* {jazzbar.thumbnail.menu.length !== 0
+            {jazzbar.thumbnail.menu !== undefined
               ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} />;
+                  <img className="registered-photo-img" src={el} key={index} alt =""/>;
                 })
               : null}
 
-            {jazzbar.thumbnail.banner.length !== 0
+            {jazzbar.thumbnail.banner !== undefined
               ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} />;
+                  <img className="registered-photo-img" src={el} key={index} alt="" />;
                 })
-              : null} */}
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+              : null}
+      
+          {/* <img className="registered-photo-img" src="/img/tokyoJazz.jpg" alt=""/> */}
         </div>
         
         <div className="register-new-photo">

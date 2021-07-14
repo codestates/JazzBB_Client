@@ -8,8 +8,7 @@ import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import './BInfoManagePage.css'
 // import sss from "../RvManage.css"
-import FileUpload from "./FileUpload";
-import PhotoInputFile from "./PhotoInputFIle";
+
 const { kakao } = window;
 
 function BInfoManagePage() {
@@ -291,7 +290,7 @@ function BInfoManagePage() {
               <div className="banner-header">
                   <div className="inputformlabel">대표이미지</div>
                   <div className="inputformsublabel">1개의 이미지만 업로드가 가능합니다</div>
-                  <input type="file" multiple name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleBannerImg} />
+                  <input type="file"  name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleBannerImg} />
               </div>
            
               <img className="add-thumbnail" src={bannerDetail} alt=""
