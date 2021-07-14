@@ -4,26 +4,18 @@ import "./ShowManage.css";
 
 //img url 생성과 state에 set해주는 기능 필요.
 
-function AddShowInput() {
-  const [imgBase64, setImgBase64] = useState(""); 
-  const [imgFile, setImgFile] = useState(null); 
-  const [imageUrl, setImageUrl] = useState(imgBase64);
-  
+function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
+  const [imgBase64, setImgBase64] = useState("");
+
+
   const setFile = (e) => {
-    console.log('setFile')
+    console.log("setFile");
     if (e.target.files[0]) {
       const img = new FormData();
-      console.log(img,'img')
-
       img.append("file", e.target.files[0]);
-      axios
-        .post(process.env.domain + "/upload", img)
-        .then((res) => {
-          setImageUrl(res.data);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      axios.post(process.env.domain + "/upload", img).catch((err) => {
+        console.error(err);
+      });
     }
   };
 
@@ -31,8 +23,9 @@ function AddShowInput() {
     let reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
+      console.log(base64, "absfs");
       if (base64) {
-        setImgBase64(base64.toString()); 
+        setImgBase64(base64.toString());
       }
     };
     if (event.target.files[0]) {
@@ -40,16 +33,15 @@ function AddShowInput() {
       setImgFile(event.target.files[0]); // 파일 상태 업데이트
     }
     // console.log(imgFile,'imgFile')
-     // })
-     const formData = new FormData ()
-     axios
-     .post(process.env.REACT_APP_DB_HOST + "/jazzbarImg", formData, {
-       headers : {
-         'content-type' : 'multipart/form-data'
-       }
-     })
-     .then((res) => console.log(res)); //To-Do : axios.get으로 등록한 사진 불러서 refresh (방금 등록한 사진 보이게끔.)
-
+    // })
+    //  const formData = new FormData ()
+    //  axios
+    //  .post(process.env.REACT_APP_DB_HOST + "/jazzbarImg", formData, {
+    //    headers : {
+    //      'content-type' : 'multipart/form-data'
+    //    }
+    //  })
+    //  .then((res) => console.log(res)); //To-Do : axios.get으로 등록한 사진 불러서 refresh (방금 등록한 사진 보이게끔.)
   };
   return (
     <div className="add-body">
@@ -61,7 +53,7 @@ function AddShowInput() {
                 <img
                   className="add-thumbnail"
                   src={imgBase64}
-                  alt={imgFile.name}
+                  alt={imgFile ? imgFile.name : ""}
                   onChange={(e) => setFile(e)}
                 ></img>
               </div>
@@ -72,7 +64,7 @@ function AddShowInput() {
               <input
                 className="add-thumbnail-upload"
                 type="file"
-                name="imgFile"
+                name="thumbnail"
                 id="imgFile"
                 onChange={handleChangeFile}
               />
@@ -81,7 +73,9 @@ function AddShowInput() {
                 사진 크기는 (500 * 500)픽셀로 조정됩니다
               </div>
             </div>
-            <button className="add-photo-submit">사진 등록</button>
+            <button className="add-photo-submit" onClick={handleThumbnail}>
+              사진 등록
+            </button>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 .navi {
     display: flex;
-    border-bottom: 2px solid #bb001f;
+    border-bottom: 2px solid royalblue;
     justify-content: space-between;
     margin-bottom: 20px;
     padding: 10px;
@@ -9,6 +9,7 @@
 
 #navi-logo{
     width: 20%;
+    min-width: 130px;
 }
 
 
@@ -22,9 +23,10 @@
     position: relative;
     z-index: 0;
     border-radius: 10px;
-    width: 100px;
+    width: 110px;
     height: 40px;
     margin-left: 5px;
+    font-family: 'Sunflower', sans-serif;
   }
   
   .navi-btn:before {
@@ -90,3 +92,111 @@
     top: 0;
     border-radius: 10px;
   }
+
+  .navi-btnWrapper {
+    width: 350px;
+    min-width: 350px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+
+
+  .navi-login-modal {
+    background-color: rgba(0, 0, 0, 0.827);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
+
+
+  .login-modal-box {
+    width: 500px;
+    height: 700px;
+    background-color: white;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.635);
+  }
+
+.clsbtnwrapper {
+  width: 100%;
+  margin-top: 10px;
+  text-align: end;
+}
+
+.close {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-right: 10px;
+  border: none;
+  width: 30px;
+}
+
+.login-modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.login-modal-logo {
+  width: 400px;
+  margin-bottom: 100px;
+}
+
+.login-modal-label {
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.login-modal-btn-kakao-login {
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropWrapper{
+  position: relative;
+  /* flex-basis: 20%; */
+  /* line-height: 50px; */
+  text-align: center;
+}
+
+.dropdown div a {
+  display: block;
+  /* width: 50px;
+  height: 20px; */
+}
+
+.dropdown>div:hover a {
+  background-color: rgb(255, 255, 255);
+}
+
+.dropdown>div:hover .sub{
+  display: block;
+}
+
+.sub{
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  border: 1px solid royalblue;
+  display: none;
+  box-sizing: border-box;
+}
+
+.sub li{
+  width: 100%;
+  line-height: 50px;
+}

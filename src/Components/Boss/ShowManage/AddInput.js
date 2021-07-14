@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+// import TextareaAutosize from '@material-ui/core/TextareaAutosize'
+
 
 export default function CustomizedSelects({handleInputChange}) {
   const useStyles = makeStyles((theme) => ({
@@ -45,6 +47,8 @@ export default function CustomizedSelects({handleInputChange}) {
           label="공연 소개"
           style={{ margin: 0 }}
           placeholder="공연의 간략한 소개"
+          multiline
+          rows={4}
           helperText=""
           fullWidth
           onChange={handleInputChange}
@@ -70,6 +74,9 @@ export default function CustomizedSelects({handleInputChange}) {
           }}
         />
       </div>
+
+      <div className='showdateinformation'>
+
 
       <div className="input-showdate inputdiv">
         <form className={classes.container} noValidate>
@@ -119,6 +126,13 @@ export default function CustomizedSelects({handleInputChange}) {
           }}
         />
       </div>
+
+
+
+
+      </div>
+
+      
 
       <div>
         <div className="checkbox-alert">* 연주자들의 포지션을 선택해주세요.</div>

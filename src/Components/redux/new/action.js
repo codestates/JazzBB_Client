@@ -14,6 +14,16 @@ export const DELETE_STATE = "DELETE_STATE"
 export const SET_RESER_BOSS = "SET_RESER_BOSS"
 export const SET_SHOW_BOSS = "SET_SHOW_BOSS"
 export const SET_ALLPAGE = "SET_ALLPAGE"
+export const SET_JAZZBAR = "SET_JAZZBAR"
+export const SET_BOSS_JAZZBAR = "SET_BOSS_JAZZBAR"
+export const CHECK_FIRST = "CHECK_FIRST"
+export const SAVE_THIS_HISTORY = "SAVE_THIS_HISTORY"
+export const DEQUEUE_HISTORY = "DEQUEUE_HISTORY"
+export const SEARCH = "SEARCH"
+export const SELECT_SEARCH_TYPE = "SELECT_SEARCH_TYPE"
+export const SAVE_SEARCH_DATA = "SAVE_SEARCH_DATA"
+export const IS_LOGIN = "IS_LOGIN"
+export const ADD_EVERY_SHOW_LIST = "ADD_EVERY_SHOW_LIST"
 
 
 export const setToken = (token) => {
@@ -30,6 +40,15 @@ export const setBossDate = (newDate) =>{
     type : SET_BOSS_DATE,
     payload : {
       newDate
+    }
+  }
+}
+
+export const setBossJazzBar = (list) =>{
+  return{
+    type : SET_BOSS_JAZZBAR,
+    payload : {
+      list
     }
   }
 }
@@ -160,4 +179,82 @@ export const setAllPage = (data) => {
     }
   }
 }
+
+export const checkFirst = () => {
+  return {
+    type: CHECK_FIRST,
+    payload: null
+  }
+}
+
+export const dequeueHistory = () => {
+  return {
+    type: DEQUEUE_HISTORY,
+    payload: null
+  }
+}
+
+
+
+export const saveThisHistory = (history) => {
+  return {
+    type: SAVE_THIS_HISTORY,
+    payload: {
+      history
+    }
+  }
+}
+
+export const search = (text) => {
+  return {
+    type: SEARCH,
+    payload: {
+      text
+    }
+  }
+}
+
+export const selectSearchType = (type) => {
+  return {
+    type: SELECT_SEARCH_TYPE,
+    payload: {
+      type
+    }
+  }
+}
+
+export const saveSearchData = (data) => {
+  return {
+    type: SAVE_SEARCH_DATA,
+    payload: {
+      data
+    }
+  }
+}
+
+export const setJazzbar = (bar) => {
+  return {
+    type: SET_JAZZBAR,
+    payload: {
+      bar
+    }
+  }
+}
+
+export const isLogin = () => {
+  return {
+    type: IS_LOGIN,
+    payload: null
+  }
+}
+
+export const addEveryShowList = (list) => {
+  return {
+    type: ADD_EVERY_SHOW_LIST,
+    payload: {
+      list
+    }
+  }
+}
+
 

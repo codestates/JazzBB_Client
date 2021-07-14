@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setPeople, setToken } from "../Components/redux/new/action";
 import "../css/reservation.css";
 
@@ -15,8 +15,8 @@ function Reservation(){
     dispatch(setPeople(e.target.value));
   }
 
-  const requestReservation = () => {
-    axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', {
+  const requestReservation = async() => {
+    await axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', {
       authorization: state.user.token
     }, {
       show_id: state.show.id,
@@ -26,7 +26,6 @@ function Reservation(){
     .then(res => {
       const token = res.data.data.accessToken;
       dispatch(setToken(token));
-      return <Redirect to="/jazzbar" />
     })
   }
 
@@ -71,13 +70,10 @@ function Reservation(){
               <div className="reservation-details-label">방문인원</div>
               <input className="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.jazzbar.defaultSeat} onChange={(number) => changePeople(number)} value="1" />
             </div>
-                              {/* <div className="reservation-details-timeWrapper">
-                                  <div className="reservation-details-label">방문일시</div>
-                                  <input className="reservation-details-date" type="datetime-local" name="reservation-date" />
-                              </div> */}
   
-  
-            <button className="reservation-details-submit" onClick={()=> requestReservation()}>예약신청</button>
+            <Link to="/jazzbar">
+              <button className="reservation-details-submit" onClick={()=> requestReservation()}>예약신청</button>
+            </Link>                  
   
           </div>
   

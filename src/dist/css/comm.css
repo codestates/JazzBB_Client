@@ -1,3 +1,5 @@
+
+
 .tag :hover {
   background-color: #3F50B5;
   color: white;
@@ -24,6 +26,7 @@
           box-shadow: inset 0 0 0 0em currentcolor;
   -webkit-transition: color 0.2s ease-out;
   transition: color 0.2s ease-out;
+  font-family: 'Sunflower', sans-serif;
 }
 
 .tag:after {
@@ -68,3 +71,10 @@ h2 {
 /*# sourceMappingURL=comm.css.map */
 
 
+.status-title {
+  font-family: 'Do Hyeon', sans-serif;
+}
+
+.status-number {
+  font-family: 'Sunflower', sans-serif;
+}
