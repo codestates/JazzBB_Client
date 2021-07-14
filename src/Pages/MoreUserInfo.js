@@ -53,7 +53,7 @@ function MoreInfo () {
               <option value='boss'>사업자</option>
             </select>
           </div>
-          <Link to="/service" onClick={() => requestModifyUser()}>
+          <Link to="/" onClick={() => requestModifyUser()}>
             <button className="signup-btn" >입력완료</button>
           </Link>
         </div>

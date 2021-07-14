@@ -16,7 +16,7 @@ const initialState = {
     mobile: '010-2733-8320', // 회원정보 수정, reservation
     thumbnail: null, // 회원정보 수정 초기 값 더미데이터 있으면 좋을듯
     usertype: null, // 사장님인지 확인
-    jazzbarId: null, // 사장님인 경우 사용 or 재즈바 선택시 사용
+    jazzbar_id: null, // 사장님인 경우 사용 or 재즈바 선택시 사용
   },
   modifyUser:{
     username: null,

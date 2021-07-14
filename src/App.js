@@ -86,19 +86,13 @@ function App() {
           <Route path="/" render={() => {
             if(state.firstCheck && state.isLogin){
               return <Redirect to="/moreinfo" />
-            } else {
+            } else if(!state.firstCheck && state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbar_id) {
+              return <Redirect to="/boss/infoedit" />
+            } else if(!state.firstCheck && state.islogin) {
               return <Redirect to="/service" />
             }
             }} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
-          {/* {
-            state.firstCheck ? 
-            <Redirect to="/moreinfo" />
-            :
-            state.isLogin ?
-            <Redirect to="/service" />
-            : ''
-          } */}
           <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
         </Switch>
