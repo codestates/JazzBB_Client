@@ -199,149 +199,158 @@ input, select {
 
 
 
-
-
   
-
-
 
 /* 본문 영역 */
 
-
-.shopinfo {
+.service {
     display: flex;
     justify-content: center;
 }
 
-.shopinfo-body {
+.service-body {
     width: 72%;
 }
 
-
-.shopinfo-header {
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    margin-bottom: 30px;
+.service-bannerWrapper {
+    text-align: center;
 }
 
-.shopinfo-header-img {
+#service-banner-top, #service-banner-middle {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    margin-bottom: 10px;
 }
 
-.shopinfo-header-infoarea {
+.service-location, .service-liveon, .service-popular, .service-newResOpen {
     margin-top: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
     padding: 20px;
-}
-
-
-.shopinfo-header-infoarea-shopname {
-    font-size: 5rem;
-    font-weight: 900;
-    margin-bottom: 10px;
-    font-family: 'East Sea Dokdo', cursive;
-}
-
-.shopinfo-header-infoarea-geo {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.shopinfo-header-infoarea-location {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 1rem;
-}
-
-.shopinfo-header-infoarea-tmapbtn {
-    color: white;
-    border: none;
-    border-radius: 10px;
-    background-color: #ED2609;
-    padding: 5px;
-    margin-left: 10px;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-.shopinfo-header-infoarea-tmapbtn:hover {
-    background-color: #44A780;
-}
-
-.shopinfo-header-infoarea-phone, .shopinfo-header-infoarea-time {
-    margin-bottom: 10px;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-.shopinfo-header-infoarea-ratingarea {
-    display: flex;
-    align-items: center;
-}
-
-.shopinfo-header-infoarea-ratingarea-rate {
-    margin-left: 5px;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-.shopinfo-iconarea, .shopinfo-menuarea, .shopinfo-shopphoto, .shopinfo-reservation, .shopinfo-review {
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
-    padding: 30px;
+}
+
+.service-location-label, .service-liveon-label, .service-popular-label, .service-newResOpen-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 1%;
+}
+
+.service-location-sublabel, .service-liveon-sublabel, .service-popular-sublabel, .service-newResOpen-sublabel {
+    font-size: 1rem;
+    margin-left: 1%;
+    margin-top: 5px;
+}
+
+#service-banner-bottom {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+
+
+/* 어디로 가시나요 */
+.service-location-label {
+    display: block;
+    position: relative;
     margin-bottom: 20px;
 }
 
-.shopinfo-menuarea-body {
-    width: 100%;
-    height: 100px;
-}
 
-.shopinfo-menuarea-titlearea-label, .shopinfo-shopphoto-titlearea-label, .shopinfo-reservation-label, .shopinfo-review-titlearea-label {
-    font-size: 1.5rem;
-    font-weight: 900;
-    font-family: 'Do Hyeon', sans-serif;
-}
-
-.shopinfo-reservation-sublabel {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.shopinfo-menuarea-body {
+.service-location-objarea{
     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+
+.service-location-object {
+    display: block;
+    flex: 0 0 140px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.service-location-object::before {
+    background: #000;
+    content: "";
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.service-location-btn-label {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 1.3rem;
+    font-weight: bold;
     text-align: center;
+    width: 90%;
+    line-height: 1.25;
+    color: white;
+}
+
+
+.service-search {
+    display: flex;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
     justify-content: center;
     align-items: center;
     height: 100px;
 }
 
-.shopinfo-menuarea-link {
+.service-search-label {
+    font-size: 1.3rem;
     font-weight: 900;
+    margin-right: 15px;
 }
 
-.shopinfo-menuarea-link:hover {
-    font-weight: 900;
-    color: red;
+.service-search-form {
+    width: 900px;
+    height: 1.3rem;
+    margin-right: 15px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid gray;
+    font-size: 1.3rem;
+}
+
+.service-search-submit {
+    width: 50px;
+    height: 25px;
+    margin-right: 15px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid gray;
 }
 
 
 
 
-.shopinfo-shopphoto {
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-.shopinfo-shopphoto-titlearea {
+/* 라이브온 */
+.service-liveon-header {
     display: block;
-    position: relative;
-    align-items: center;
-    margin-bottom: 15px;
 }
 
-.shopinfo-shopphoto-body {
-    margin-left: -20px;
-    margin-right: -20px;
-    overflow-x: scroll;
+.service-liveon-container {
+    overflow-x: auto;
     padding-bottom: 14px;
     margin: 0 -30px -14px;
+    margin-left: -20px;
+    margin-right: -20px;
 }
 
 .v-scroll-inner {
@@ -349,99 +358,146 @@ input, select {
     padding: 0 20px;
 }
 
-.shopinfo-shopphoto-contents {
+.service-liveon-contents {
     display: flex;
     flex-wrap: nowrap;
+    padding-top: 10px;
+    margin-top: -5px;
 }
 
-.shopinfo-shopphoto-object {
+.service-liveon-object {
     width: 200px;
-    display: block;
-    flex: 0 0 auto;
+    border-radius: 12px;
+    background-color: white;
+    min-height: 200px;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
     margin-right: 10px;
 }
 
-.shopinfo-shopphoto-object-photobox {
+.liveon-object-header {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.liveon-object-header-label {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin-right: 10px;
+    min-width: 1px;
+}
+
+.liveon-object-header-profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     display: block;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 8px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
+    margin-right: 6px;
     position: relative;
 }
 
-.shopinfo-shopphoto-object-photobox-img {
-    width: 200px;
-    height: 200px;
-    background: 50% 50% no-repeat;
-    background-size: cover;
-}
-
-
-.shopinfo-iconarea {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-
-.shopinfo-iconarea-featureitem {
-    width: 25%;
-    flex: 0 1 25%;
-    display: block;
-    margin: 15px 0;
-}
-
-.shopinfo-iconarea-featureitem-icon {
-    width: 30px;
-    height: 30px;
-    margin: 0 auto 12px;
-    display: block;
-}
-
-.shopinfo-iconarea-featureitem-label {
-    text-align: center;
-    font-weight: 500;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
-
-.shopinfo-reservation {
+.liveon-object-header-profile-name {
+    font-size: 13px;
+    min-width: 1px;
+    flex: 1;
     overflow: hidden;
-    margin-bottom: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+    box-sizing: border-box;
+    display: block;
+    font-weight: 900;
+    position: relative;
+    color: black;
 }
 
-.shopinfo-reservation-header {
+.liveon-object-body {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.liveon-object-body-img {
+    position: relative;
+}
+
+.liveon-object-body-img-link {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.liveon-object-body-img-link::after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: linear-gradient(180deg,transparent,rgba(0,0,0,.5));
+}
+
+
+.liveon-object-footer {
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+
+.liveon-object-body-detail {
+    min-width: 1px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.liveon-object-body-detail-location {
+    font-style: 15px;
+    margin-bottom: 2px;
+    word-break: break-word;
+    line-height: normal;
+}
+
+.liveon-object-body-detail-meta {
+    margin-top: 10px;
+}
+
+
+/* 인기뮤지션 */
+.service-popular {
+    overflow: hidden;
+}
+
+.service-popular-header {
     display: block;
     position: relative;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.shopinfo-reservation-body {
+.service-popular-body {
     margin-left: -20px;
     margin-right: -20px;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding-bottom: 14px;
     margin: 0 -30px -14px;
 }
 
-.shopinfo-reservation-contents {
+.service-popular-contents {
     display: flex;
     flex-wrap: nowrap;
 }
 
-.shopinfo-reservation-object {
+.service-popular-object {
     width: 200px;
     display: block;
     flex: 0 0 auto;
     margin-right: 10px;
 }
 
-.shopinfo-reservation-object-photobox {
+.service-popular-object-photobox {
     display: block;
     border-radius: 10px;
     overflow: hidden;
@@ -449,19 +505,19 @@ input, select {
     position: relative;
 }
 
-.shopinfo-reservation-object-img {
+.service-popular-object-img {
     width: 200px;
     height: 200px;
     background: 50% 50% no-repeat;
     background-size: cover;
 }
 
-.shopinfo-reservation-object-footer {
+.service-popular-object-footer {
     position: relative;
     padding-right: 50px;
 }
 
-.shopinfo-reservation-object-footer-name {
+.popular-object-footer-name {
     word-break: break-word;
     font-weight: bold;
     font-size: 17px;
@@ -474,138 +530,95 @@ input, select {
     margin-left: 10px;
 }
 
-.shopinfo-reservation-object-footer-text {
+.popular-object-footer-meta {
     margin-left: 10px;
     margin-top: 10px;
 }
 
-
-
-
-.shopinfo-review-body {
-    border: 1px solid gray;
-    margin-top: 15px;
-    padding: 10px;
+.popular-object-footer-tags {
+    color: #666;
+    margin-left: 10px;
 }
 
-.shopinfo-review-body-label {
-    display: flex;
-    background-color: rgb(255, 239, 226);
-    font-size: 1.1rem;
-    font-weight: 900;
-}
 
-.shopinfo-review-body-data {
-    display: flex;
-}
 
-.shopinfo-review-body-label-username, .shopinfo-review-body-data-username {
-    width: 100px;
-    text-align: center;
+
+
+/* 신규예약오픈 */
+.service-newResOpen {
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: 5px;
-    font-family: 'Jua', sans-serif;
 }
 
-.shopinfo-review-body-label-rate, .shopinfo-review-body-data-rate {
-    width: 50px;
-    text-align: center;
-    margin-left: 5px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: 5px;
-    font-family: 'Jua', sans-serif;
-}
 
-.shopinfo-review-body-label-review, .shopinfo-review-body-data-review {
-    width: 1000px;
-    margin-left: 5px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: 5px;
-    font-family: 'Jua', sans-serif;
-}
-
-.shopinfo-review-body-label-review {
-    text-align: center;
-}
-
-.shopinfo-review-form {
-    background-color: rgb(255, 239, 226);
-    margin-top: 10px;
-    display: flex;
+.service-newResOpen-header {
+    display: block;
+    position: relative;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
+    margin-bottom: 15px;
 }
 
-.shopinfo-review-form-label {
-    font-weight: 500;
-    font-size: 1.1rem;
-    font-family: 'Jua', sans-serif;
+.service-newResOpen-body {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow-x: auto;
+    padding-bottom: 14px;
+    margin: 0 -30px -14px;
 }
 
-.shopinfo-review-form-input {
-    width: 850px;
-    margin-left: 15px;
+.service-newResOpen-contents {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.service-newResOpen-object {
+    width: 200px;
+    display: block;
+    flex: 0 0 auto;
     margin-right: 10px;
 }
 
-.shopinfo-review-form-rate {
-    margin-right: 10px;
+.service-newResOpen-object-photobox {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
 }
 
-.shopinfo-review-form-submit {
-    background-color: white;
-    border: 1px solid gray;
-    border-radius: 5px;
-    font-family: 'Jua', sans-serif;
-    width: 50px;
+.service-newResOpen-object-img {
+    width: 200px;
+    height: 200px;
+    background: 50% 50% no-repeat;
+    background-size: cover;
 }
 
-
-.shopinfo-menuarea-modal {
-    background-color: rgba(0, 0, 0, 0.718);
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.service-newResOpen-object-footer {
+    position: relative;
+    padding-right: 50px;
 }
 
-.shopinfo-menu-object {
-    background-color: white;
-    width: 80%;
-    height: 80%;
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+.newResOpen-object-footer-name {
+    word-break: break-word;
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: -.032222222222222em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 4px;
+    line-height: 25px;
+    margin-left: 10px;
 }
 
-.closebutton {
-    width: 100%;
-    text-align: end;
+.newResOpen-object-footer-meta {
+    margin-left: 10px;
     margin-top: 10px;
-    padding-right: 10px;
 }
 
-.close {
-    border: none;
+.newResOpen-object-footer-tags {
+    color: #666;
+    margin-left: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

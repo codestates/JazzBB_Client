@@ -1,10 +1,11 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
-import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, setBoard} from "../Components/redux/new/action";
-import Modal from "react-modal";
+import { Link } from "react-router-dom";
+import { setList, modifySwitch, setBoard, dequeueHistory, saveThisHistory } from "../Components/redux/new/action";
 import "../css/infobbs.css"
+import Posting from "./JazzInfoPosting";
+
 
 
 
@@ -21,12 +22,13 @@ function JazzInfo () {
   const setPosting = (posting) => {
     let currentBoardIdx = state.boardList.indexOf(posting);
     dispatch(setBoard(currentBoardIdx));
-    dispatch(modifySwitch('boardModal'));
+    history()
+  }
+
+  const history = () => {
+    dispatch(saveThisHistory("/board"))
   }
   
-  const closeModal = () => {
-    dispatch(modifySwitch('boardModal'));
-  }
 
   return (
     <div className="app-body">
@@ -42,24 +44,22 @@ function JazzInfo () {
           <div className="infobbs-data">
             {
               state.boardList.map(el => {
-                <div className="infobbs-data-object" onClick={()=>setPosting(el)}>
-                  <div className="infobbs-data-object-thumbnail">
-                    <img className="infobbs-data-object-thumbnail-img" src={el.boardThumbnail} />
-                  </div>
-                  <div className="infobbs-data-object-footer">
-                    <div className="infobbs-data-object-footer-label">{el.boardTitle}</div>
-                    <div className="infobbs-data-object-footer-info">{el.boardContent.length > 15 ? `${el.boardContent.slice(0,14)}...` : el.boardContent}</div>
-                  </div>
-                </div>
+                return(
+                  <Link to="/posting" onClick={()=>setPosting(el)}>
+                    <div className="infobbs-data-object">
+                      <div className="infobbs-data-object-thumbnail">
+                        <img className="infobbs-data-object-thumbnail-img" src={el.thumbnail} />
+                      </div>
+                      <div className="infobbs-data-object-footer">
+                        <div className="infobbs-data-object-footer-label">{el.title.length > 10 ? `${el.title.slice(0,14)}...` : el.title}</div>
+                        <div className="infobbs-data-object-footer-info">{el.content.length > 15 ? `${el.content.slice(0,14)}...` : el.content}</div>
+                      </div>
+                    </div>
+                  </Link>
+                )
               })
             }
-
           </div>
-          
-          {/* <Modal isOpen={state.togle.boardModal} onRequestClose={() => closeModal()}>
-
-          </Modal> */}
-
         </div>
       </div>
     </div>

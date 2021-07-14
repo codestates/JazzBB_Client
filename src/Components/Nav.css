@@ -90,3 +90,58 @@
     top: 0;
     border-radius: 10px;
   }
+
+  .navi-login-modal {
+    background-color: rgba(0, 0, 0, 0.827);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
+
+
+  .login-modal-box {
+    width: 500px;
+    height: 700px;
+    background-color: white;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.635);
+  }
+
+.clsbtnwrapper {
+  width: 100%;
+  margin-top: 10px;
+  text-align: end;
+}
+
+.close {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-right: 10px;
+  border: none;
+  width: 30px;
+}
+
+.login-modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.login-modal-logo {
+  width: 400px;
+  margin-bottom: 100px;
+}
+
+.login-modal-label {
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.login-modal-btn-kakao-login {
+  margin-top: 100px;
+  margin-bottom: 20px;
+}

@@ -1,8 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
-import { setList, typeText, modifySwitch, saveMyId, setShow, setToken} from "../Components/redux/new/action";
+import { Link } from "react-router-dom";
+import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, dequeueHistory, saveThisHistory} from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/shopinfo.css"
 
@@ -42,13 +42,6 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
    })
    .catch(err => console.log(err))
 
-  const optionArr = state.jazzbar.serviceOption.split('').map(el => {
-    for(let ele of state.serviceOption){
-      if(el === ele.id){
-        return ele;
-      }
-    }
-  })
 
   const typingReview = (e, variety) => {
     dispatch(typeText(e.target.value, variety));
@@ -71,7 +64,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
     
   const goReservation = (show) => {
     dispatch(setShow(show));
-    return <Redirect to="/reservation" />; //여기 물어보기
+    history();
   }
     
   const modifyReview = () => {
@@ -115,6 +108,9 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
     dispatch(modifySwitch('menuModal'))
   }
 
+  const history = () => {
+    dispatch(saveThisHistory("/jazzbar"))
+  }
  
 
   return (
@@ -131,7 +127,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             <div className="shopinfo-header-infoarea-shopname">{state.jazzbar.barName}</div>
             <div className="shopinfo-header-infoarea-geo">
               <div className="shopinfo-header-infoarea-location">{state.jazzbar.area}</div>
-              <button className="shopinfo-header-infoarea-tmapbtn">Tmap 길안내</button>{/* 티맵 구현 필요 */}
+              <button className="shopinfo-header-infoarea-tmapbtn">카카오맵 길안내</button>{/* 티맵 구현 필요 */}
             </div>
 
             <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>
@@ -147,11 +143,17 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
         <div className="shopinfo-iconarea">
           {
-            optionArr.map(el => {
-              <span className="shopinfo-iconarea-featureitem">
-                <img className="shopinfo-iconarea-featureitem-icon" src={el.img} />
-                <span className="shopinfo-iconarea-featureitem-label">{el.content}</span>
-              </span>
+            state.jazzbar.serviceOption.split('').map(number => {
+              for(let option of state.serviceOption){
+                if(number === option.id){
+                  return (
+                    <span className="shopinfo-iconarea-featureitem">
+                      <img className="shopinfo-iconarea-featureitem-icon" src={option.img} />
+                      <span className="shopinfo-iconarea-featureitem-label">{option.content}</span>
+                    </span>
+                  )
+                }
+              }
             })
           }
         </div>
@@ -164,16 +166,26 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
           <div className="shopinfo-menuarea-body">
             <div className="shopinfo-menuarea-link" onClick={()=> menuModalTogle()}>메뉴판 사진 보기</div>
-            <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={() => menuModalTogle()} closeTimeoutMS={200}>
-              <div className="shopinfo-menu-object">
-                {
-                  state.menu.map(el => <div className="shopinfo-menu-object-photobox-img" style={`background-image: url(${el.thumbnail});`}></div>)
-                }
-              </div>
-            </Modal>
           </div>
         </div>
 
+        <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={menuModalTogle}>
+          <div className="shopinfo-menu-object">
+            <div className="closebutton">
+                <button className="close" onClick={() => menuModalTogle()}>X</button>
+            </div>
+          
+            {
+              state.menu.map(el => {
+                return (
+                  <div className="shopinfo-menu-object-photobox">
+                    <img className="shopinfo-menu-object-img" src={el.thumbnail}></img>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </Modal>
 
         <div className="shopinfo-shopphoto">
           <div className="shopinfo-shopphoto-titlearea">
@@ -205,7 +217,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
                    
           <div className="shopinfo-reservation-header">
             <div className="shopinfo-reservation-label">예약</div>
-            <div className="shopinfo-reservation-sublabel">{state.showList.length != 0 ? '라이브 공연을 예약하실 수 있습니다' : '예정 공연이 없습니다'}</div>
+            <div className="shopinfo-reservation-sublabel">{state.showList.length != 0 ? '라이브 공연을 예약하실 수 있습니다' : '예정된 공연이 없습니다. 매장에 문의하여 주세요'}</div>
           </div>
 
           <div className="shopinfo-reservation-body">
@@ -214,16 +226,18 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
                 <div className="shopinfo-reservation-contents">
                   {
                   state.showList.map(el => {
-                    <div className="shopinfo-reservation-object" onClick={()=> goReservation(el)}>
-                      <a className="shopinfo-reservation-object-photobox" href="#">
-                        <div className="shopinfo-reservation-object-img" style={`background-image: url(${el.thumbnail});`}></div>
-                      </a>
+                    <Link to="/reservation" onClick={()=> goReservation(el)}>
+                      <div className="shopinfo-reservation-object" >
+                        <a className="shopinfo-reservation-object-photobox" href="#">
+                          <div className="shopinfo-reservation-object-img" style={`background-image: url(${el.thumbnail});`}></div>
+                        </a>
 
-                      <div className="shopinfo-reservation-object-footer">
-                        <div className="shopinfo-reservation-object-footer-name">{`공연 시작 시간 : ${el.date} ${el.time}`}</div>
-                        <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
+                        <div className="shopinfo-reservation-object-footer">
+                          <div className="shopinfo-reservation-object-footer-name">{`공연 시작 시간 : ${el.date} ${el.time}`}</div>
+                          <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   })
                   }
                 </div>
@@ -304,7 +318,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             }
 
             <div className="shopinfo-review-form">
-              <div className="shopinfo-review-form-label">한줄평 작성</div>
+              <div className="shopinfo-review-form-label">작성</div>
                 <input className="shopinfo-review-form-input" type="text" placeholder="한줄평을 작성해주세요" onChange={(e)=>typingReview(e,'content')}/>
                 <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')}>
                   <option value="" disabled selected>별점 선택</option>

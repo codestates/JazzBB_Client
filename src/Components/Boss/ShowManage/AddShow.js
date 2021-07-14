@@ -87,9 +87,7 @@ function AddShow() {
               </div>
             </div>
             <div className="show-box_input">
-              <AddShowInput
-                handleInputChange={handleInputChange}
-              ></AddShowInput>
+              <AddShowInput handleInputChange={handleInputChange}></AddShowInput>
             </div>
 
             <div className="show-box_content">
@@ -110,6 +108,7 @@ function AddShow() {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

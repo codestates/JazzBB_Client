@@ -1,8 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
-import { setList, typeText, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState } from "../Components/redux/new/action";
+import { Link } from "react-router-dom";
+import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 
@@ -64,7 +64,6 @@ function MyPage () {
 
   const redirectHome = () => {
     dispatch(modifySwitch('withdrawConfirm'));
-    return <Redirect to="/service"/>;
   }
 
 
@@ -72,18 +71,20 @@ function MyPage () {
     <div className="mypage">
 
       <div className="mypage-body">
-        <Modal isOpen={state.togle.withdrawModal} onRequestClose={() => modifyUserTogle('withdrawModal')}>
+        <Modal className="mypage-modal" isOpen={state.togle.withdrawModal} onRequestClose={() => modifyUserTogle('withdrawModal')}>
             {state.togle.withdrawConfirm ? 
           <div className="mypage-withdraw-modal-body">
             <div className="mypage-withdraw-modal-text">탈퇴가 완료되었습니다</div>
             <div className="mypage-withdraw-modal-text">지금까지 이용해주셔서 감사합니다</div>
-            <button className="mypage-withdraw-modal-button-confirm" onClick={()=> redirectHome()}>홈으로 돌아가기</button>
+            <Link to="/service" onClick={()=> redirectHome()}>
+              <button className="mypage-withdraw-modal-button-confirm" >홈으로 돌아가기</button>
+            </Link>
           </div>
             :
             <div className="mypage-withdraw-modal-body">
               <div className="mypage-withdraw-modal-text">정말 회원을 탈퇴하시겠습니까?</div>
-              <button className="mypage-withdraw-modal-button-yes" onClick={()=> withdrawUser()}>탈퇴합니다</button>
-              <button className="mypage-withdraw-modal-button-no" onClick={()=> modifyUserTogle('withdrawModal')}>탈퇴하지 않겠습니다</button>
+              <button className="mypage-withdraw-modal-button-no" onClick={()=> modifyUserTogle('withdrawModal')}>가입을 유지하겠습니다</button>
+              <button className="mypage-withdraw-modal-button-yes" onClick={()=> withdrawUser()}>회원을 탈퇴하겠습니다</button>
             </div>
             }
             
@@ -95,7 +96,7 @@ function MyPage () {
           </div>
 
           <div className="mypage-body-header-btnarea">
-            <button className="mypage-body-header-btn" onClick={() => modifyUserTogle('user')}>회원정보 수정</button>
+          {!state.togle.user ? <button className="mypage-body-header-btn" onClick={() => modifyUserTogle('user')}>회원정보 수정</button> : <button className="mypage-body-header-btn-a" onClick={() => handleModifyUser('user')}>수정 완료</button>}
             <button className="mypage-body-header-btn" onClick={() => modifyUserTogle('withdrawModal')}>회원탈퇴</button>
           </div>
         </div>
@@ -142,7 +143,7 @@ function MyPage () {
               {state.reservation.map(el => {
                 return(
                 <div className="recentreservation-body">
-                  <div className="recentreservation-body-date">{el.show.date.replace(/-/,'.') + '.'}</div>
+                  <div className="recentreservation-body-date">{el.show.date.replace(/-/g,'.') + '.'}</div>
                   <div className="recentreservation-body-name">{el.show.jazzbar.barName}</div>
                   <div className="recentreservation-body-time">{el.show.time}</div>
                   <div className="recentreservation-body-person">{el.people}</div>
@@ -188,7 +189,6 @@ function MyPage () {
             </div>
           </div>
         </div>
-          {!state.togle.user ? <></> : <button className="review-modify-button" onClick={() => handleModifyUser('user')}>수정 완료</button>}
       </div>
     </div>
 

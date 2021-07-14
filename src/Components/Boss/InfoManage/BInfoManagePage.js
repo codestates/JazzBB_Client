@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
+import './BInfoManagePage.css'
 // import sss from "../RvManage.css"
 import FileUpload from "./FileUpload";
 import PhotoInputFile from "./PhotoInputFIle";
@@ -166,135 +167,102 @@ function BInfoManagePage() {
         <div>
           <Sidebar></Sidebar>
           <div className="contentBox">
-            <h1>정보 기입</h1>
 
-            <div className="barName">
-              {/* <div>재즈바 이름</div> */}
-              <input
-                placeholder="재즈바 상호명"
-                type="text"
-                name="barName"
-                onChange={handleInput}
-              ></input>
+            <div className="ctBoxheader">
+                <div className="ctBoxheader-title">매장 정보 입력</div>
+                <div className="ctBoxheader-subtitle">재즈바바에 가입해 주셔서 감사합니다. 가맹점 관련 메뉴는 매장 정보를 등록한 뒤 이용하실 수 있습니다</div>
             </div>
+            
+            <div className="ctBoxBody">
 
-            <div className="area">
-              {/* <div>가게 주소</div> */}
-              <div>
-                <select
-                  className="select-search-location"
-                  onChange={handleInput}
-                  name="area"
-                >
-                  <option value="" disabled selected>
-                    재즈바 지역 선택
-                  </option>
-                  <option value="서울">서울특별시</option>
-                  <option value="경기">경기도</option>
-                  <option value="강원">강원도</option>
-                  <option value="대전">대전광역시</option>
-                  <option value="충북">충청북도</option>
-                  <option value="충남">충청남도</option>
-                  <option value="광주">광주광역시</option>
-                  <option value="전북">전라북도</option>
-                  <option value="전남">전라남도</option>
-                  <option value="대구">대구광역시</option>
-                  <option value="경북">경상북도</option>
-                  <option value="경남">경상남도</option>
-                  <option value="울산">울산광역시</option>
-                  <option value="부산">부산광역시</option>
-                  <option value="제주">제주특별자치도</option>
-                </select>
-                <input
-                  placeholder="주소"
-                  readOnly="true"
-                  size="50"
-                  defaultValue={
-                    state.addressFront !== undefined ? state.addressFront : null
-                  }
-                ></input>
-                <button type="button" onClick={openPostCode}>
-                  우편번호 검색
-                </button>
-                <div id="popupDom">
-                  {isPopupOpen && (
-                    <PopupDom>
-                      <PopupPostCode
-                        onClose={closePostCode}
-                        state={state}
-                        setState={setState}
-                      />
-                    </PopupDom>
-                  )}
+                <div className="barName boxopt">
+                  <div className="inputformlabel">상호명</div>
+                  <input className="inputbarname" placeholder="매장 상호명" type="text" name="barName" onChange={handleInput}></input>
                 </div>
+
+                <div className="area boxopt">
+                <div className="inputformlabel">소재지</div>
+                <div className="barlocation">
+                    {/* <select className="select-search-location" onChange={handleInput} name="area" >
+                      <option value="" disabled selected>지역 선택</option>
+                      <option value="서울">서울특별시</option>
+                      <option value="경기">경기도</option>
+                      <option value="강원">강원도</option>
+                      <option value="대전">대전광역시</option>
+                      <option value="대전">세종특별자치시</option>
+                      <option value="충북">충청북도</option>
+                      <option value="충남">충청남도</option>
+                      <option value="광주">광주광역시</option>
+                      <option value="전북">전라북도</option>
+                      <option value="전남">전라남도</option>
+                      <option value="대구">대구광역시</option>
+                      <option value="경북">경상북도</option>
+                      <option value="경남">경상남도</option>
+                      <option value="울산">울산광역시</option>
+                      <option value="부산">부산광역시</option>
+                      <option value="제주">제주특별자치도</option>
+                    </select> */}
+                    <div className="inputbardiv">
+                        <input className="inputbarlocation" placeholder="주소" readOnly="true" size="50" defaultValue={state.addressFront !== undefined ? state.addressFront : null}></input>
+                        <input className="inputbarlocationdetail" type="select" name="addressETC" onChange={handleInput} placeholder="상세 주소"></input>
+                    </div>
+                    <button className="locationbtn" type="button" onClick={openPostCode}>우편번호 검색</button>
+                   <div id="popupDom">
+                      {isPopupOpen && (
+                        <PopupDom>
+                          <PopupPostCode onClose={closePostCode} state={state} setState={setState} />
+                        </PopupDom>
+                      )}
+                   </div>
               </div>
-              <input
-                type="select"
-                name="addressETC"
-                onChange={handleInput}
-                placeholder="상세 주소"
-              ></input>
+              
             </div>
 
-            <div className="barMobile">
-              {/* <div>가게 전화번호</div> */}
-              <div>숫자만 입력해주세요. 예) 01012341234</div>
-              <input
-                placeholder="재즈바 연락처"
-                type="number"
-                name="mobile"
-                onChange={handleInput}
-              ></input>
+
+
+            <div className="barMobile boxopt">
+            <div className="inputformlabel">연락처</div>
+              <div className="phoneWrapper">
+                 <input className="phoneform" placeholder="매장 연락처" type="number" name="mobile" onChange={handleInput}></input>
+                 <div className="phonelabel">숫자만 입력해주세요. 예) 01012341234</div>
+              </div>
             </div>
 
-            <div className="defaultSeat">
-              <input
-                placeholder="가게 좌석 수"
-                type="number"
-                name="defaultSeat"
-                onChange={handleInput}
-              ></input>
+            <div className="defaultSeat boxopt">
+            <div className="inputformlabel">좌석수</div>
+              <input className="seatform" placeholder="매장 좌석 수" type="number" name="defaultSeat" onChange={handleInput}></input>
             </div>
 
-            <div className="serviceOption">
-              <div>serviceOption</div>
+
+
+            <div className="serviceOption boxopt">
+            <div className="inputformlabel">서비스</div>
+
               {service.map((el) => (
-                <div>
-                  <input
-                    type="checkbox"
-                    name="serviceOption"
-                    checked={serviceitem.el}
-                    id={el}
-                    onChange={handleInput}
-                  />
-                  <div>{el}</div>
+                <div className="svcdiv">
+                  <input className="svcoptcheck" type="checkbox" name="serviceOption" checked={serviceitem.el} id={el} onChange={handleInput} />
+                  <div className="svcoptel">{el}</div>
                 </div>
               ))}
             </div>
 
-            <div className="Menu">
-              <div>재즈바 메뉴판 사진 (최대 5장)</div>
-              {/* <FileUpload></FileUpload>
-             <PhotoInputFile></PhotoInputFile> */}
-              <input
-                type="file"
-                multiple
-                name="image"
-                accept="image/jpg,image/png,image/jpeg,image/gif"
-                onChange={handleImageUpload}
-              />
-              <img
-                className="add-thumbnail"
-                src={detailImgs[0]}
-                alt=""
-                // onChange={(e) => setFile(e)}
+
+
+            <div className="Menu boxopt">
+              <div className="inputmenu-header">
+                  <div className="inputformlabel">메뉴</div>
+                  {/* <FileUpload></FileUpload>
+                 <PhotoInputFile></PhotoInputFile> */}
+                  <div className="inputformsublabel">최대 5개의 이미지까지 업로드가 가능합니다</div>
+                  <input className="add-file" type="file" multiple name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleImageUpload} />
+              </div>
+
+              <div className="inputmenu-body">
+
+              <img className="add-thumbnail" src={detailImgs[0]} alt="" // onChange={(e) => setFile(e)}
               ></img>
               {detailImgs[1] !== undefined ? (
-                <img
-                  className="add-thumbnail"
-                  src={detailImgs[1]}
-                  alt=""
-                  // onChange={(e) => setFile(e)}
+                <img className="add-thumbnail" src={detailImgs[1]} alt="" // onChange={(e) => setFile(e)}
                 ></img>
               ) : null}
 
@@ -328,25 +296,39 @@ function BInfoManagePage() {
                <input type="text" name="title" ></input>
                <button type="submit" onClick={handleUpload}>업로드</button>
              </form> */}
+              </div>
+
             </div>
 
-            <div className="banner">
-              <div>재즈바 배너 사진</div>
-              <input
-                type="file"
-                multiple
-                name="image"
-                accept="image/jpg,image/png,image/jpeg,image/gif"
-                onChange={handleBannerImg}
-              />
-              <img
-                className="add-thumbnail"
-                src={bannerDetail}
-                alt=""
+
+            <div className="banner boxopt">
+              <div className="banner-header">
+                  <div className="inputformlabel">대표이미지</div>
+                  <div className="inputformsublabel">1개의 이미지만 업로드가 가능합니다</div>
+                  <input type="file" multiple name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleBannerImg} />
+              </div>
+           
+              <img className="add-thumbnail" src={bannerDetail} alt=""
                 // onChange={(e) => setFile(e)}
               ></img>
             </div>
-            <button onClick={handleSubmit}>등록</button>
+
+
+            <div className="submit boxopt">
+                <button className="submitbtn" onClick={handleSubmit}>매장 등록</button>
+            </div>
+
+
+
+
+            </div>
+
+
+
+
+
+            
+            
           </div>
         </div>
       ) : (
