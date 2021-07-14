@@ -54,7 +54,7 @@ function Service () {
         <div className="service">
           <div className="service-body">
             <Link to="/posting" className="service-bannerWrapper" onClick>
-                <img id="service-banner-top" src="./resource/service-banner-top.png" alt="banner(top)"/>
+                <img id="service-banner-top" src="/img/resource/service-banner-top.png" alt="banner(top)"/>
             </Link>
             <Link to="/search" className="service-search">
                 <div className="service-search-label">search</div>
@@ -123,7 +123,7 @@ function Service () {
 
             <div className="service-popular">
                 <div className="service-popular-header">
-                    <div className="service-popular-label">인기 게시판</div>
+                    <div className="service-popular-label">인기 게시물</div>
                     <div className="service-popular-sublabel">재즈바가 처음이시라면, 재즈바바가 알려드릴게요</div>
                 </div>
                 
