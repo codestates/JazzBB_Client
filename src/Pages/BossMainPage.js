@@ -1,19 +1,15 @@
-import React, { Component, useState } from "react";
-import BreservationPage from "../Components/Boss/Reservation/BreservationPage";
+import React from "react";
 import Sidebar from "../Components/Boss/Sidebar";
 import "../css/sidebar.css";
-import "../css/BossMainPage.css"
+import "../css/BossMainPage.css";
+import JazzBarPage from "./JazzBarPage";
 
 function BossMainPage() {
-    
   return (
     <div className="App">
-      <Sidebar>
-      </Sidebar>
-      {/* <img src="/img/tokyoJazz.jpg" alt=""/> */}
-      <div className="alertBox">
-        <h2>승인 대기 중</h2>
-
+      <Sidebar></Sidebar>
+      <div className="">
+        <JazzBarPage></JazzBarPage>
       </div>
     </div>
   );

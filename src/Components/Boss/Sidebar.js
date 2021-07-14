@@ -65,11 +65,11 @@ const Sidebar = ({ yap,  }) => {
                 </MenuItem>
               </Menu>
             </SidebarContent>
-            <SidebarFooter>
+            {/* <SidebarFooter>
               <Menu iconShape="square">
                 <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
               </Menu>
-            </SidebarFooter>
+            </SidebarFooter> */}
           </ProSidebar>
         </div>
       </div>

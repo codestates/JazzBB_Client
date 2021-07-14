@@ -13,16 +13,10 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
     console.log("setFile");
     if (e.target.files[0]) {
       const img = new FormData();
-
       img.append("file", e.target.files[0]);
-      axios
-        .post(process.env.domain + "/upload", img)
-        .then((res) => {
-          setImageUrl(res.data);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      axios.post(process.env.domain + "/upload", img).catch((err) => {
+        console.error(err);
+      });
     }
   };
 
@@ -30,7 +24,7 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
     let reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
-
+      console.log(base64, "absfs");
       if (base64) {
         setImgBase64(base64.toString());
       }
@@ -60,7 +54,7 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
                 <img
                   className="add-thumbnail"
                   src={imgBase64}
-                  alt={imgFile.name}
+                  alt={imgFile ? imgFile.name : ""}
                   onChange={(e) => setFile(e)}
                 ></img>
               </div>

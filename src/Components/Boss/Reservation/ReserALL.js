@@ -1,12 +1,16 @@
-import React, { useState} from "react";
-import { useSelector} from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ReserTable from "./ReserTable";
 import axios from "axios";
 import "../../../dist/css/comm.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { setToken } from "../../redux/new/action";
 
 function ReserAll({ AllPage, setAll, unsetAll }) {
+  const dispatch = useDispatch();
+
+  const userstate = useSelector((state) => state.reducer.user);
   const BossState = useSelector((state) => state.reducer.reservation);
   const Bsort = BossState.sort((a, b) => {
     let x = a.show.date.toLowerCase();
@@ -22,7 +26,7 @@ function ReserAll({ AllPage, setAll, unsetAll }) {
   const Bconfirm = Bsort.filter((el) => el.confirm === "confirm");
   const Bdenied = Bsort.filter((el) => el.confirm === "denied");
   const Bpending = Bsort.filter((el) => el.confirm === "pending");
-  
+
   const [selected, setSelect] = useState(BossState);
 
   const ChangeTableByStatus = (status) => {
@@ -48,9 +52,19 @@ function ReserAll({ AllPage, setAll, unsetAll }) {
           label: "예",
           onClick: (e) => {
             axios
-              .get(process.env.REACT_APP_DB_HOST + "/reviewUpdate", {
-                id: id,
-                confirm: changedStatus,
+              .get(
+                process.env.REACT_APP_DB_HOST + "/reservationUpdate",
+                {
+                  authorization: userstate.token,
+                },
+                {
+                  id: id,
+                  confirm: changedStatus,
+                }
+              )
+              .then((res) => {
+                const token = res.data.data.accessToken;
+                dispatch(setToken(token));
               })
               .then((res) => (window.location.href = "/boss/reservation"))
               .catch((err) => console.log(err));
@@ -79,9 +93,7 @@ function ReserAll({ AllPage, setAll, unsetAll }) {
           onClick={() => ChangeTableByStatus("confirm")}
         >
           <span className="status-title">승인 </span>
-          <span className="status-number">
-            {Bconfirm.length}
-          </span>
+          <span className="status-number">{Bconfirm.length}</span>
         </div>
 
         <div
@@ -89,9 +101,7 @@ function ReserAll({ AllPage, setAll, unsetAll }) {
           onClick={() => ChangeTableByStatus("denied")}
         >
           <span className="status-title">거절 </span>
-          <span className="status-number">
-            { Bdenied.length}
-          </span>
+          <span className="status-number">{Bdenied.length}</span>
         </div>
 
         <div
@@ -99,9 +109,7 @@ function ReserAll({ AllPage, setAll, unsetAll }) {
           onClick={() => ChangeTableByStatus("pending")}
         >
           <span className="status-title pending">대기 </span>
-          <span className="status-number-pending-blink">
-            {Bpending.length}
-          </span>
+          <span className="status-number-pending-blink">{Bpending.length}</span>
         </div>
       </div>
 

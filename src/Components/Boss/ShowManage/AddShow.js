@@ -13,30 +13,25 @@ function AddShow() {
     id: "02",
     jazzbarId: "01",
     player: [],
-    thumbnail: "", 
+    thumbnail: "",
   });
-  const [imgFile, setImgFile] = useState([]); 
+  const [imgFile, setImgFile] = useState([]);
 
-function handleThumbnail(e){
-  console.log('clicked handlethumb')
-  
-  if (imgFile.length !== 0) {
-    const formData = new FormData();
-    formData.append(`imgFileImg`, imgFile[0]);
-    SetInputValue({ ...inputValue, thumbnail: formData });
-    console.log(inputValue,'dddddd')
-
-    
-
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        // console.log(base64.toString(),'!!!');
-      }
+  function handelSetImgFile(data) {
+    setImgFile(data)
   }
-}
-}
+
+  
+  function handleThumbnail(e) {
+    console.log("clicked handlethumb");
+
+    if (imgFile.length !== 0) {
+      const formData = new FormData();
+      formData.append(`thumbnail`, imgFile[0]);
+      SetInputValue({ ...inputValue, thumbnail: formData });
+      console.log(inputValue, "dddddd");
+    }
+  }
 
   const handleInputChange = (event) => {
     const name = event.target.name;
@@ -54,9 +49,7 @@ function handleThumbnail(e){
       buttons: [
         {
           label: "예",
-          onClick:  () => {
-          
-            
+          onClick: () => {
             axios
               .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
               .then((res) => (window.location.href = "/boss/show"));
@@ -79,9 +72,6 @@ function handleThumbnail(e){
     CreateShow();
   };
 
-
- 
-
   return (
     <div>
       <div className="show-box">
@@ -89,22 +79,36 @@ function handleThumbnail(e){
           <div className="show-innerbox">
             <div className="show-box_photo">
               <div className="show-photo">
-                <InputFile handleThumbnail={handleThumbnail}imgFile={imgFile} setImgFile={setImgFile}></InputFile>
+                <InputFile
+                  handleThumbnail={handleThumbnail}
+                  imgFile={imgFile}
+                  setImgFile={handelSetImgFile}
+                ></InputFile>
               </div>
             </div>
             <div className="show-box_input">
               <AddShowInput handleInputChange={handleInputChange}></AddShowInput>
             </div>
+
+            <div className="show-box_content">
+              <div className="show-description"></div>
+            </div>
+
+            <div className="bottom-box">
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={handleAddShow}
+                // className={classes.button}
+                startIcon={<SaveIcon />}
+              >
+                등록
+              </Button>
+            </div>
           </div>
         </div>
-        <div className="bottom-box">
-          <Button variant="contained" color="primary" size="large" onClick={handleAddShow} 
-            // className={classes.button}
-            startIcon={<SaveIcon />}
-          >
-            등록
-          </Button>
-        </div>
+
       </div>
     </div>
   );

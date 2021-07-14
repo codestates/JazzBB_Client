@@ -14,6 +14,7 @@ export const DELETE_STATE = "DELETE_STATE"
 export const SET_RESER_BOSS = "SET_RESER_BOSS"
 export const SET_SHOW_BOSS = "SET_SHOW_BOSS"
 export const SET_ALLPAGE = "SET_ALLPAGE"
+export const SET_JAZZBAR = "SET_JAZZBAR"
 export const CHECK_FIRST = "CHECK_FIRST"
 export const SAVE_THIS_HISTORY = "SAVE_THIS_HISTORY"
 export const DEQUEUE_HISTORY = "DEQUEUE_HISTORY"
@@ -39,6 +40,15 @@ export const setBossDate = (newDate) =>{
     type : SET_BOSS_DATE,
     payload : {
       newDate
+    }
+  }
+}
+
+export const setJazzBarData = (list) =>{
+  return{
+    type : SET_JAZZBAR,
+    payload : {
+      list
     }
   }
 }

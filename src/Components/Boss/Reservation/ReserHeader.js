@@ -33,7 +33,7 @@ export default function LabTabs({unset,set, all}) {
         <AppBar position="static">
           <TabList onChange={handleChange} aria-label="simple tabs example">
             <Tab label="전체 예약 관리" value="1"  />
-            <Tab label="예약 리스트" value="2" />
+            <Tab label="날짜별 예약 리스트" value="2" />
             {/* <Tab label="날짜별 예약 보기" value="3" /> */}
           </TabList>
         </AppBar>
