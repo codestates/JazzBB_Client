@@ -8,8 +8,7 @@ import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import './BInfoManagePage.css'
 // import sss from "../RvManage.css"
-import FileUpload from "./FileUpload";
-import PhotoInputFile from "./PhotoInputFIle";
+
 const { kakao } = window;
 
 function BInfoManagePage() {
@@ -52,9 +51,11 @@ function BInfoManagePage() {
       setService({ ...serviceitem, [e.target.id]: checked });
     } else {
       setState({ ...state, [targetName]: e.target.value });
+    
+
     }
   };
-
+  
   const handleSubmit = () => {
     if (banner.length !== 0) {
       const formDataBanner = new FormData();
@@ -70,15 +71,15 @@ function BInfoManagePage() {
     }
 
     if (
-      state.address === undefined ||
+      state.addressFront === undefined ||
+      state.addressETC === undefined ||
       state.barName === undefined ||
       state.defaultSeat === undefined ||
-      state.area === undefined ||
       state.mobile === undefined ||
-      state.address === "" ||
+      state.addressFront === "" ||
+      state.addressETC === "" ||
       state.barName === "" ||
       state.defaultSeat === "" ||
-      state.area === "" ||
       state.mobile === ""
     ) {
       alert("모든 항목을 입력해주세요.");
@@ -88,9 +89,12 @@ function BInfoManagePage() {
       //    if (status === kakao.maps.services.Status.OK) {
       //       var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
       //   }
+      
+
       setState({
         ...state,
         serviceOption: serviceitem,
+        // area : `${area[0]+area[1]}`,
         address: state.addressFront + " " + state.addressETC,
         thumbnail: [{ menu: state.menuPhoto }, { banner: state.bannerPhoto }],
         // gpsX : result[0].x,
@@ -104,7 +108,6 @@ function BInfoManagePage() {
           window.location.href='/boss/main'
         })
         
-      //서버 연결 후, 페이지 이동하는 코드 작성하기
     }
   };
 
@@ -287,7 +290,7 @@ function BInfoManagePage() {
               <div className="banner-header">
                   <div className="inputformlabel">대표이미지</div>
                   <div className="inputformsublabel">1개의 이미지만 업로드가 가능합니다</div>
-                  <input type="file" multiple name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleBannerImg} />
+                  <input type="file"  name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleBannerImg} />
               </div>
            
               <img className="add-thumbnail" src={bannerDetail} alt=""

@@ -3,7 +3,7 @@ import Sidebar from "../Sidebar";
 import InputFile from "../ShowManage/InputFile";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  setJazzBarData,
+  setBossJazzBar,
 } from "../../redux/new/action";
 
 import axios from "axios";
@@ -18,7 +18,7 @@ const PhotoManage = () => {
       .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
       .then((res) => {
         const list = res.data.data;
-        dispatch(setJazzBarData(list));
+        dispatch(setBossJazzBar(list));
       });
   }, []);
 
@@ -36,28 +36,19 @@ const PhotoManage = () => {
         </div>
 
         <div className="registered-photo-body">
-            {/* {jazzbar.thumbnail.menu.length !== 0
+            {jazzbar.thumbnail.menu !== undefined
               ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} />;
+                  <img className="registered-photo-img" src={el} key={index} alt =""/>;
                 })
               : null}
 
-            {jazzbar.thumbnail.banner.length !== 0
+            {jazzbar.thumbnail.banner !== undefined
               ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} />;
+                  <img className="registered-photo-img" src={el} key={index} alt="" />;
                 })
-              : null} */}
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
-          <img className="registered-photo-img" src="/img/tokyoJazz.jpg" />
+              : null}
+      
+          {/* <img className="registered-photo-img" src="/img/tokyoJazz.jpg" alt=""/> */}
         </div>
         
         <div className="register-new-photo">
