@@ -46,8 +46,8 @@ function Nav() {
           <div className="dropWrapper">
           <Link to="/mypage"><button className="navi-btn">Mypage</button></Link>
             <ul className="sub">
-              <li><a href="/mypage">마이페이지</a></li>
-              <li><a href="/boss/main">매장관리</a></li>
+              <li><Link to="/mypage">마이페이지</Link></li>
+              <li><Link to="/boss/main">매장관리</Link></li>
             </ul>
           </div>
         </div>
