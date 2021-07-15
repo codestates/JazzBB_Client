@@ -120,7 +120,7 @@ function App() {
           <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
 
-          <Route component={NotFound} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </div>
       <Footer></Footer>

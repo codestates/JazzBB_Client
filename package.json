@@ -40,7 +40,8 @@
     "scss": "^0.2.4",
     "slick-carousel": "^1.8.1",
     "styled": "^1.0.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "HTTPS=true SSL_CRT_FILE='./cert.pem' SSL_KEY_FILE='./key.pem' react-scripts start",

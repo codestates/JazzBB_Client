@@ -30,7 +30,7 @@ function Nav() {
 
   return(
     <div className="navi">
-      <Link to="service">
+      <Link to="/service">
         <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       </Link>
       <div className="navi-btnWrapper">
