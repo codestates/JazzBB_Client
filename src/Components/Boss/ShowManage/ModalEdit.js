@@ -4,6 +4,9 @@ import SaveIcon from "@material-ui/icons/Save";
 import ModalEditInfo from "./ModalInfoEdit";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import {useLocation} from "react-router-dom";
+import Sidebar from '../Sidebar'
+
 
 import axios from "axios";
 
@@ -11,7 +14,10 @@ import axios from "axios";
 //checkbox default값 수정 필요
 //thumbnail default값 수정 필요
 
-function ModalEdit({ info }) {
+function ModalEdit() {
+  const location = useLocation()
+  const { info } = location.state
+  console.log(info,'info')
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
 
@@ -34,6 +40,7 @@ function ModalEdit({ info }) {
  
   return (
     <div>
+      <Sidebar></Sidebar>
       <div className="show-box">
         <div className="top-box">
           <div className="show-innerbox modalinnerbox">

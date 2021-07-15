@@ -12,8 +12,7 @@ import { red } from "@material-ui/core/colors";
 import Modal from "react-modal";
 import Button from "@material-ui/core/Button";
 import ModalEdit from "./ModalEdit";
-
-
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,10 +58,10 @@ function AllShowEntry({ data }) {
     setIsOpen(!isOpen);
     setEdit(false);
   }
-  const info = data
+  const info = data;
   return (
     <div>
-      <Modal
+      {/* <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
         contentLabel="My dialog"
@@ -78,7 +77,7 @@ function AllShowEntry({ data }) {
           <ModalEdit info={info}></ModalEdit>
         ) : (null
         )}
-      </Modal>
+      </Modal> */}
       <div className="card-outer-box">
         <div className="card-box">
           {/* 카드왼쪽박스 */}
@@ -91,24 +90,33 @@ function AllShowEntry({ data }) {
               />
             </div>
             <div className="left-middle">
-              {data.thumbnail ? <img src={data.thumbnail} alt=""></img> : <img src="/img/tokyoJazz.jpg" alt=""></img>}
+              {data.thumbnail ? (
+                <img src={data.thumbnail} alt=""></img>
+              ) : (
+                <img src="/img/tokyoJazz.jpg" alt=""></img>
+              )}
             </div>
           </div>
           <div className="right-box">
             <div className="right-box-top">
               <div className="hamicon" onClick={toggleModal}>
-                {/* <IconButton aria-label="settings" className="hamicon">
-                  <MoreVertIcon />
-                </IconButton> */}
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="primary"
-                  className={classes.margin}
+                <Link
+                  to={{
+                    pathname: "/boss/modaledit",
+                    // search: "?sort=name",
+                    // hash: "#the-hash",
+                    state: { info : data },
+                  }}
                 >
-                  편집
-                </Button>
-                
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    className={classes.margin}
+                  >
+                    편집
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="right-box-bottom">
