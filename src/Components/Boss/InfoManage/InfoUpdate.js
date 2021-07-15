@@ -1,9 +1,14 @@
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import Sidebar from './../Sidebar'
 
-function InfoUpdate({data}){
+
+function InfoUpdate(){
     // data = jazzbar 정보 임.
+    const data = useSelector((state) => state.reducer.jazzbar);
     return(
         <div>
-          {/* <Sidebar></Sidebar>  */}
+          <Sidebar></Sidebar> 
           <div className="contentBox">
             <h1>정보 </h1>
 
@@ -29,7 +34,7 @@ function InfoUpdate({data}){
 
             <div className="serviceOption">
               <div>serviceOption</div>
-              {data.serviceOption.map(el => <div>{el}</div>)}
+              {/* {data.serviceOption.map(el => <div>{el}</div>)} */}
             </div>
             {/* <button>수정</button> */}
             {/* 수정버튼 클릭 시 회원가입 후 렌더되는 가게정보입력 페이지로 렌더링.
