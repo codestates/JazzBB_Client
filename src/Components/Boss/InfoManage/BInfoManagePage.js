@@ -17,7 +17,8 @@ function BInfoManagePage() {
   //재즈바 id 받아오기 !!!!!!!!!!!!!!!!!!!!!!
   const barList = useSelector((state) => state.reducer.barList);
   const JazzBarInfo = barList.filter((el) => el.jazzBarId === "jazzId");
- const [gps, setGps] = useState('')
+  const Jazz = useSelector((state) => state.reducer.jazzbar);
+  const [gps, setGps] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
     setIsPopupOpen(true);
@@ -309,7 +310,7 @@ function BInfoManagePage() {
           </div>
         </div>
       ) : (
-        <InfoUpdate data={JazzBarInfo}></InfoUpdate>
+        <InfoUpdate data={Jazz}></InfoUpdate>
       )}
     </div>
   );
