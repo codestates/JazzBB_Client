@@ -1,34 +1,60 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from "react-router-dom";
-import { setToken, modifyUser, checkFirst} from "../Components/redux/new/action";
+import { Link, Redirect } from "react-router-dom";
+import { setToken, modifyUser, checkFirst, setUser } from "../Components/redux/new/action";
 import "../css/signup.css";
 
-function MoreInfo () {
+function MoreInfo() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
 
-  
   const modifyUserInfo = (value, variety) => {
     dispatch(modifyUser(value, variety));
   }
 
   const requestModifyUser = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', {
-      authorization: state.user.token
-    }, {
-      mobile: state.modifyUser.mobile,
-      username: state.modifyUser.username,
-      usertype: state.modifyUser.usertype,
-    })
-     .then(res => {
-       const token = res.data.data.accessToken;
-       dispatch(setToken(token));
-       dispatch(checkFirst());
-     })
+    let usertype = state.modifyUser.usertype;
+    if (!state.modifyUser.usertype) {
+      usertype = "customer";
+    }
+    await axios.post(process.env.REACT_APP_DB_HOST + '/userinfo'
+      , {
+        mobile: state.modifyUser.mobile,
+        username: state.modifyUser.username,
+        usertype: usertype,
+      }
+      , {
+        headers: {
+          authorization: state.user.token
+        },
+        withCredentials: true
+      }
+    )
+      .then(res => {
+        const token = res.data.data.accessToken;
+        dispatch(setToken(token));
+        dispatch(checkFirst());
+
+      })
+      .catch((err) => {
+        alert("정보를 모두 채워주면 안잡아 먹지~!")
+      })
+      
+    return await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
+      .then(resp => {
+        const token = resp.data.data.accessToken;
+        const userinfo = resp.data.data.userinfo;
+        dispatch(setUser(userinfo));
+        dispatch(setToken(token));
+        if(userinfo.usertype === 'boss'){
+          return "/boss/infoedit"
+        } else if(userinfo.usertype === 'customer' ){
+          return '/service'
+        }
+      })
   }
-  
+
 
   return (
     <div className="signup">
@@ -40,21 +66,21 @@ function MoreInfo () {
         <div className="signup-formwrapper">
           <div className="signup-form">
             <div className="signup-form-label">닉네임</div>
-            <input className="signup-form-input-text" type="text" placeholder="닉네임을 입력하세요" onChange={(e) => modifyUserInfo(e.target.value, 'username')} required/>
+            <input className="signup-form-input-text" type="text" placeholder="닉네임을 입력하세요" onChange={(e) => modifyUserInfo(e.target.value, 'username')} required />
           </div>
           <div className="signup-form">
             <div className="signup-form-label">연락처</div>
-            <input className="signup-form-input-phone" type="tel" maxlength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" onChange={(e) => modifyUserInfo(e.target.value, 'mobile')} required/>                 
+            <input className="signup-form-input-phone" type="tel" maxlength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" onChange={(e) => modifyUserInfo(e.target.value, 'mobile')} required />
           </div>
           <div className="signup-form">
             <div className="signup-form-label">회원유형</div>
             <select className='signup-form-usertype' onChange={(e) => modifyUserInfo(e.target.value, 'usertype')}>
-              <option value='customer'>일반회원</option>
+              <option value='customer' selected >일반회원</option>
               <option value='boss'>사업자</option>
             </select>
           </div>
-          <Link to="/" onClick={() => requestModifyUser()}>
-            <button className="signup-btn" >입력완료</button>
+          <Link to= {() => requestModifyUser()}>
+          <button className="signup-btn" >입력완료</button>
           </Link>
         </div>
       </div>

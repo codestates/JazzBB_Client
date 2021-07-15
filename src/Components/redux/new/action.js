@@ -24,6 +24,7 @@ export const SELECT_SEARCH_TYPE = "SELECT_SEARCH_TYPE"
 export const SAVE_SEARCH_DATA = "SAVE_SEARCH_DATA"
 export const IS_LOGIN = "IS_LOGIN"
 export const ADD_EVERY_SHOW_LIST = "ADD_EVERY_SHOW_LIST"
+export const FINISH_ACTION = "FINISH_ACTION"
 
 
 export const setToken = (token) => {
@@ -257,4 +258,9 @@ export const addEveryShowList = (list) => {
   }
 }
 
-
+export const finishAction = () => {
+  return {
+    type: FINISH_ACTION,
+    payload: null,
+  }
+}

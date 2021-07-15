@@ -25,6 +25,7 @@ import {
   SAVE_SEARCH_DATA,
   IS_LOGIN,
   ADD_EVERY_SHOW_LIST,
+  FINISH_ACTION,
 } from "./action";
 import initialState from "./initialState";
 
@@ -39,10 +40,10 @@ const reducer = (state = initialState, action) => {
     case SET_BOSS_DATE:
       return Object.assign({}, state, { boss: { date: payload.newDate } });
 
-      case SET_BOSS_JAZZBAR:
-        return Object.assign({}, state, { jazzbar:  payload.list  });
+    case SET_BOSS_JAZZBAR:
+      return Object.assign({}, state, { jazzbar: payload.list });
 
-        
+
     case SET_RESER_BOSS:
       return Object.assign({}, state, { reservation: payload.list });
 
@@ -72,8 +73,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { people: payload.people });
 
     case SET_BOARD:
-        return Object.assign({}, state, { currentBoard: payload.idx});
-    
+      return Object.assign({}, state, { currentBoard: payload.idx });
+
     case SET_USER:
       return Object.assign({}, state, { user: payload.user });
 
@@ -94,36 +95,39 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { BossShowList: payload.list });
 
     case SET_ALLPAGE:
-      return Object.assign({}, state, { AllPage: payload.data }); 
+      return Object.assign({}, state, { AllPage: payload.data });
 
     case CHECK_FIRST:
-      return Object.assign({}, state, { firstCheck: !state.firstCheck }); 
+      return Object.assign({}, state, { firstCheck: !state.firstCheck });
 
     case SAVE_THIS_HISTORY:
-      return Object.assign({}, state, { history: [...state.history,payload.history] }); 
+      return Object.assign({}, state, { history: [...state.history, payload.history] });
 
     case DEQUEUE_HISTORY:
-      return Object.assign({}, state, { history: state.history.slice(1) }); 
+      return Object.assign({}, state, { history: state.history.slice(1) });
 
     case SEARCH:
-      return Object.assign({}, state, { search: payload.text }); 
+      return Object.assign({}, state, { search: payload.text });
 
     case SELECT_SEARCH_TYPE:
-      return Object.assign({}, state, { searchOption: payload.type }); 
+      return Object.assign({}, state, { searchOption: payload.type });
 
     case SAVE_SEARCH_DATA:
-      return Object.assign({}, state, { searchData: payload.data }); 
+      return Object.assign({}, state, { searchData: payload.data });
 
     case SET_JAZZBAR:
-      return Object.assign({}, state, { jazzbar: payload.bar }); 
+      return Object.assign({}, state, { jazzbar: payload.bar });
 
     case IS_LOGIN:
-      return Object.assign({}, state, { isLogin: !state.isLogin }); 
+      return Object.assign({}, state, { isLogin: !state.isLogin });
 
     case ADD_EVERY_SHOW_LIST:
-      return Object.assign({}, state, { everyShowList: [...state.everyShowList, ...payload.list] }); 
+      return Object.assign({}, state, { everyShowList: [...state.everyShowList, ...payload.list] });
 
-     
+    case FINISH_ACTION:
+      return Object.assign({}, state, { codeAction: true });
+
+
     default:
       return state;
   }
