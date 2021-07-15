@@ -45,7 +45,10 @@
 
 .weareddh-aboutus-header {
     height: 500px;
-    background: url(./cssresource/serverimg.jpg) no-repeat 90% 30%;
+    background-image: url(./cssresource/serverimg.jpg) ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     z-index: 11;
     text-align: center;
     display: flex;
@@ -81,10 +84,12 @@
     align-items: center;
     margin-top: 30px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .weareddh-aboutus-infoWrapper {
     width: 30%;
+    min-width: 300px;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -118,7 +123,10 @@
 
 .weareddh-aboutus-members-header {
     height: 400px;
-    background: url(./cssresource/teambgimg.jpg) no-repeat 90% 30%;
+    background-image: url(./cssresource/teambgimg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     z-index: 11;
     text-align: center;
     display: flex;
@@ -130,11 +138,13 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .weareddh-aboutus-membersWrapper {
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
     width: 17%;
+    min-width: 200px;
     height: 500px;
     padding: 30px;
     text-align: center;
