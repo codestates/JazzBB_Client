@@ -1,11 +1,20 @@
 import React from "react";
 import Slider from "react-slick";
- 
+import { Link } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 class SimpleSlider extends React.Component {
   render() {
     var settings = {
       dots: true,
       infinite: true,
+      arrows:true,
+      autoplay:true,
+      autoplaySpeed:4000,
+      pauseOnHover:true,
+      fade:true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1
@@ -14,23 +23,16 @@ class SimpleSlider extends React.Component {
     return (
       <Slider {...settings}>
         <div>
-          <h3>1</h3>
+            <Link to="/posting" className="service-bannerWrapper">
+                <img id="service-banner-top" src="/img/resource/service-banner-top.png" alt="banner(top)"/>
+            </Link>
         </div>
         <div>
-          <h3>2</h3>
+            <Link to="/posting" className="service-bannerWrapper">
+                <img id="service-banner-top" src="/img/resource/service-banner-top2.png" alt="banner(top)"/>
+            </Link>
         </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
+
       </Slider>
     );
   }

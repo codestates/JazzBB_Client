@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList } from "../Components/redux/new/action";
 import "../css/service.css"
+import SimpleSlider from "../Components/adbanner";
 
 function Service () {
   const dispatch = useDispatch();
@@ -77,9 +78,10 @@ function Service () {
   return (
         <div className="service">
           <div className="service-body">
-            <Link to="/posting" className="service-bannerWrapper" onClick>
+            <SimpleSlider></SimpleSlider>
+            {/* <Link to="/posting" className="service-bannerWrapper" onClick>
                 <img id="service-banner-top" src="/img/resource/service-banner-top.png" alt="banner(top)"/>
-            </Link>
+            </Link> */}
             <Link to="/search" className="service-search">
                 <div className="service-search-label">search</div>
                 <input className="service-search-form" type="text" />
