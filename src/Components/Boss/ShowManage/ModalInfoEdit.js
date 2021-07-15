@@ -134,9 +134,9 @@ export default function CustomizedSelects({ data }) {
 
   return (
     <div className="input-outerbox">
-      <div className="input-content-box">
+      <div className="input-content-box2">
         <TextField
-          id="standard-full-width"
+          className="blahblah"
           label="공연 소개"
           name="content"
           style={{ margin: 0 }}
@@ -144,6 +144,8 @@ export default function CustomizedSelects({ data }) {
           helperText=""
           defaultValue={data.content}
           onChange={handleInputChange}
+          multiline
+          rows={4}
           fullWidth
           margin="normal"
           InputLabelProps={{
@@ -238,7 +240,11 @@ export default function CustomizedSelects({ data }) {
           ))}
         </div>
       </div>
-      {state.singer === true || name.singer ? (
+        <div className="input-nametag">
+
+
+
+        {state.singer === true || name.singer ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="singer"
@@ -446,6 +452,11 @@ export default function CustomizedSelects({ data }) {
           />
         </div>
       ) : null}
+
+
+
+        </div>
+
     </div>
   );
 }
