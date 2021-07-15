@@ -6,6 +6,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import {useLocation} from "react-router-dom";
 import Sidebar from '../Sidebar'
+import './ShowManage.css'
 
 
 import axios from "axios";
@@ -41,54 +42,47 @@ function ModalEdit() {
   return (
     <div>
       <Sidebar></Sidebar>
-      <div className="show-box">
-        <div className="top-box">
-          <div className="show-innerbox modalinnerbox">
-            <div className="show-box_photo">
-              <div className="show-photo">
-                <InputFile></InputFile>
-              </div>
-            </div>
+      <div className="modify-show-box">
 
-            <div className="show-box_input">
-              <ModalEditInfo data={info}></ModalEditInfo>
-              {/* <AddShowInput data={info}></AddShowInput> */}
-            </div>
+        <div className="dummydiv"></div>
 
-            <div className="show-box_content">
-              <div className="show-description">
-                {/* <textarea rows="13" cols="27" ></textarea> */}
+        <div className="modify-top-box">
+
+              <div className="modify-show-innerbox">
+                <div className="modify-show-box_photo">
+                  <div className="modify-show-photo">
+                    <InputFile></InputFile>
+                  </div>
+                </div>
+               </div>
+
+              <div className="modify-show-infobox">
+                <div className="modify-show-box_input">
+                  <ModalEditInfo data={info}></ModalEditInfo>
+                  {/* <AddShowInput data={info}></AddShowInput> */}
+                </div>
+
+                {/* <div className="modify-show-box_content">
+                  <div className="modify-show-description">
+                  <textarea rows="13" cols="27" ></textarea>
+                  </div>
+                </div> */}
+              
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="bottom-box modal-Bottom-box">
-          <div className="modal-buttom-box-delete" onClick={deleteShowHandler}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={deleteShowHandler}
-              // className={classes.button}
-              startIcon={<RiDeleteBin5Line />}
-            >
-              삭제
-            </Button>
-          </div>
-          <div className="modal-buttom-box-save" onClick={updateShowHandler}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={updateShowHandler}
-              // className={classes.button}
-              startIcon={<SaveIcon />}
-            >
-              저장
-            </Button>
-          </div>
-        </div>
+                
+         </div>
+
       </div>
+
+        <div className="modify-bottom-box">
+          <div className="modify-delete-btn" onClick={deleteShowHandler}>
+            <Button variant="contained" color="primary" size="large" onClick={deleteShowHandler} startIcon={<RiDeleteBin5Line />}>삭제</Button>
+          </div>
+          <div className="modify-save-btn" onClick={updateShowHandler}>
+            <Button variant="contained" color="primary" size="large" onClick={updateShowHandler} startIcon={<SaveIcon />}>저장</Button>
+          </div>
+        </div>
+
     </div>
   );
 }

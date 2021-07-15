@@ -158,10 +158,11 @@ function BInfoManagePage() {
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
     <div className="infoPage">
+      <Sidebar></Sidebar>
       {JazzBarInfo.length === 0 ? (
-        <div>
-          <Sidebar></Sidebar>
-          <div className="contentBox">
+        <div className="infobody">
+          
+          <div className="BIMcontentBox">
        
 
             <div className="ctBoxheader">

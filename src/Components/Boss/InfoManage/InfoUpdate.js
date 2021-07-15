@@ -13,7 +13,7 @@ function InfoUpdate(){
           <div className="infowrapper">
             <div className="dummydiv"></div>
 
-            <div className="contentBox">
+            <div className="BIUcontentBox">
                 <div className="contentheader">
                   <div className="contentheader-label">정보수정</div>
                   <div className="contentheader-sublabel">매장 정보가 변경된 경우 직접 수정하실 수 있습니다. 서비스에 즉시 반영되는 부분이니 수정에 주의해 주세요</div>
