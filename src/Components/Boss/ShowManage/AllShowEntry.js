@@ -39,10 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AllShowEntry({ data }) {
   const classes = useStyles();
-  // const [expanded, setExpanded] = React.useState(false);
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded);
-  // };
+
 
   const content = data.content;
   const player = (el) => {
@@ -50,9 +47,6 @@ function AllShowEntry({ data }) {
   };
 
   const [edit, setEdit] = useState(false);
-  // function setEditButton() {
-  //   setEdit(!edit);
-  // }
   const [isOpen, setIsOpen] = useState(false);
   function toggleModal() {
     setIsOpen(!isOpen);
@@ -61,23 +55,6 @@ function AllShowEntry({ data }) {
   const info = data;
   return (
     <div>
-      {/* <Modal
-        isOpen={isOpen}
-        onRequestClose={toggleModal}
-        contentLabel="My dialog"
-        className="mymodal"
-        overlayClassName="myoverlay"
-        ariaHideApp={false}
-        closeTimeoutMS={100}
-      >
-        <div onClick={toggleModal} className="closeModal">
-          <Button color="primary">닫기</Button>{" "}
-        </div>
-        {!edit ? (
-          <ModalEdit info={info}></ModalEdit>
-        ) : (null
-        )}
-      </Modal> */}
       <div className="card-outer-box">
         <div className="card-box">
           {/* 카드왼쪽박스 */}

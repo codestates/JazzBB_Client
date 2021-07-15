@@ -22,7 +22,7 @@ function ModalEdit() {
   const state = useSelector((state) => state.reducer);
 
   const updateShowHandler = () => {
-      axios.post(process.env.REACT_APP_DB_HOST + "/showUpdate",{
+      axios.post(process.env.REACT_APP_DB_HOST + "/showUpdate", {
       }).then(res => {
     console.log("updateShowHandler");
     //rerender 하기
@@ -68,6 +68,7 @@ function ModalEdit() {
               variant="contained"
               color="primary"
               size="large"
+              onClick={deleteShowHandler}
               // className={classes.button}
               startIcon={<RiDeleteBin5Line />}
             >
@@ -79,6 +80,7 @@ function ModalEdit() {
               variant="contained"
               color="primary"
               size="large"
+              onClick={updateShowHandler}
               // className={classes.button}
               startIcon={<SaveIcon />}
             >

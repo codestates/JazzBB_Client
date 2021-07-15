@@ -36,18 +36,16 @@ export default function CustomizedSelects({ data }) {
   });
 
   const [name, setName] = useState({ yap: "yap" });
- 
   const playerArr = Object.keys(state);
   let checkedPosition = data.player.map((el) => el.position);
 
   let yop = {};
   useEffect(() => {
-    console.log(checkedPosition)
+    let copy = state;
     checkedPosition.map((el) => {
-      return setState({ ...state, [el]: true })
-      // console.log(state[el])
+      state[el] = true;
+      setState(copy);
     });
-    console.log(state)
     data.player.filter((el) => {
       const exist = checkedPosition.find((ele) => el.position == ele);
       yop[exist] = el.name;
@@ -61,30 +59,22 @@ export default function CustomizedSelects({ data }) {
   const end = time.substring(6, 11);
 
   const handleChange = (event) => {
-    if(name[event.target.name]){
-      console.log(state[event.target.name],'11111.state!!!!')
-
+    if (name[event.target.name]) {
       const copy = name;
-      delete copy[event.target.name]
-      console.log(state[event.target.name],'state!!!!')
-      setName(copy)
-      console.log(name,'name!!!!')
-      console.log(copy,'copy!!!!')
-       checkedPosition 
-  = checkedPosition.filter((element) => element !== event.target.name);
-  console.log(checkedPosition, "checkedPosition"); 
-
-
+      delete copy[event.target.name];
+      setName(copy);
+      checkedPosition = checkedPosition.filter(
+        (element) => element !== event.target.name
+      );
     }
     setState({ ...state, [event.target.name]: !state[event.target.name] });
   };
 
-  const [player, setPlayer] = React.useState({});
+  const [player, setPlayer] = React.useState(data.player);
   const [inputValue, SetInputValue] = useState({
     ...data,
     id: "02",
     jazzbarId: "01",
-    player: [],
     thumbnail: "", //server 코드에서 thumbnail 빠져있음. 추후 논의 필요.
   });
 
@@ -95,9 +85,23 @@ export default function CustomizedSelects({ data }) {
       SetInputValue({ ...inputValue, [name]: nameValue });
       // console.log(inputValue)
     } else {
-      setPlayer({ ...player, [event.target.id]: event.target.value });
+      let posi = player.map((el) => el.position);
+      console.log(posi, "posi");
+      let editPlayer = player;
+      editPlayer.map((el) => {
+        if (el.position == event.target.id) {
+          el.name = event.target.value;
+        }
+      });
+
+      console.log(editPlayer);
+      // setPlayer({ ...player, [event.target.id]: event.target.value });
+      // SetInputValue({ ...inputValue, player: {...player, position :{[event.target.id]: event.target.value} }});
     }
+    console.log(player);
   };
+
+  const addPosition = () => {};
 
   const CreateShow = () => {
     confirmAlert({
@@ -234,7 +238,7 @@ export default function CustomizedSelects({ data }) {
           ))}
         </div>
       </div>
-      {state.singer===true || name.singer ? (
+      {state.singer === true || name.singer ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="singer"

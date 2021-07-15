@@ -16,8 +16,8 @@ function BInfoManagePage() {
   //주석 삭제 하면 안됨 !!!!!!!!!!!!!!
   //재즈바 id 받아오기 !!!!!!!!!!!!!!!!!!!!!!
   const barList = useSelector((state) => state.reducer.barList);
-  const JazzBarInfo = barList.filter((el) => el.jazzBarId === "jazzId");
   const Jazz = useSelector((state) => state.reducer.jazzbar);
+  const JazzBarInfo = barList.filter((el) => el.jazzBarId === "jazzId");
   const [gps, setGps] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
