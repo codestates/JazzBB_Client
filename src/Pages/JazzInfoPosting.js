@@ -68,13 +68,13 @@ function BoardPostingObject () {
             <div className="infobbsdataentry-body-header-label">재즈바바가 들려주는 재즈 이야기</div>
             <div className="infobbsdataentry-body-header-sublabel">재즈가 익숙하지 않아도 걱정하지 마세요! 재즈바바가 알려드릴게요 :)</div>
           </div>
-                    
+
+            <Link to={state.history[0]} onClick={()=> history()}>        
           <div className="infobbsdataentry-body-header-btnwrapper">
-            <Link to={state.history[0]} onClick={()=> history()}>
               <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
               <div className="infobbsdataentry-control-label">이전 페이지</div>
-            </Link>
           </div>
+          </Link>
         </div>
 
         <div className="infobbsdataentry-control">
@@ -96,9 +96,10 @@ function BoardPostingObject () {
 
             }
 
+            
             <div className="infobbsdataentry-control-btnWrapper-list">
+            <Link to="/board">
               <img className="infobbsdataentry-control-btnWrapper-listicon" src="/resource/outline_list_black_24dp.png" />
-              <Link to="/board">
                 <div className="infobbsdataentry-control-btnWrapper-listlabel">목록보기</div>
               </Link>
             </div>

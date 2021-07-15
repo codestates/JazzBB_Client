@@ -31,19 +31,32 @@ function Nav() {
   return(
     <div className="navi">
       <Link to="service">
-        <img id="navi-logo" src="./resource/jazzbb_logo_black.png" alt="jazzbarbar" />
+        <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       </Link>
       <div className="navi-btnWrapper">
         <Link to="/search">
           <button className="navi-btn">Search</button>
         </Link>
-        <Link to="/mypage">
-          <button className="navi-btn">Mypage</button>
-        </Link>
+
+        {
+          !state.isLogin ? 
+          <></>
+          :  
+          <div className="dropdown">
+          <div className="dropWrapper">
+          <Link to="/mypage"><button className="navi-btn">Mypage</button></Link>
+            <ul className="sub">
+              <li><a href="/mypage">마이페이지</a></li>
+              <li><a href="/boss/main">매장관리</a></li>
+            </ul>
+          </div>
+        </div>
+        }
+
         {
           !state.isLogin ? 
           <button className="navi-btn" onClick={()=> loginModalSwitch('loginModal')}>Login</button>
-          :
+          :  
           <button className="navi-btn" onClick={()=> logout()}>Logout</button>
         }
         <Modal className="navi-login-modal" isOpen={state.togle.loginModal} onRequestClose={() => loginModalSwitch('loginModal')} closeTimeoutMS={200}>
