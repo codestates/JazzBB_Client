@@ -28,7 +28,11 @@ import Footer from './Components/footer'
 import Termspi from './Pages/footer-terms-pi'
 import Weareddh from "./Pages/weareddh";
 import Service from "./Pages/ServicePage";
+
+import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
+
 import NotFound from "./Components/notfound"
+
 
 import { checkFirst, setToken, setUser, isLogin } from './Components/redux/new/action';
 dotenv.config();
@@ -76,6 +80,7 @@ function App() {
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
           <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
+          <Route path="/boss/modaledit" render={() => <ModalEdit></ModalEdit>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
           <Route path="/reservation" render={() => <Reservation></Reservation>} />
           <Route path="/posting" render={()=> <Boardinfo></Boardinfo>}/>
