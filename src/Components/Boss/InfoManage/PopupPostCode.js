@@ -33,6 +33,7 @@ const PopupPostCode = (props) => {
     // console.log(data.zonecode); 우편번호
     props.onClose();
     props.setState({ ...props.state, addressFront: fullAddress, area: area });
+    // console.log(props.state,'state')
   };
 
   function getGps(data) {
@@ -52,8 +53,8 @@ const PopupPostCode = (props) => {
       if (status === kakao.maps.services.Status.OK) {
         let bounds = new kakao.maps.LatLngBounds();
         setGps({ gpsY: data[0].y, gpsX: data[0].x });
-        console.log(data[0].y, data[0].x,'ㅓ데러ㅐㅑ너');
-        console.log(gps, "gpsstate!!!!!");
+        // console.log(data[0].y, data[0].x,'ㅓ데러ㅐㅑ너');
+        // console.log(gps, "gpsstate!!!!!");
         map.setBounds(bounds);
         props.setGps({gpsY: data[0].y, gpsX: data[0].x, })
       }
