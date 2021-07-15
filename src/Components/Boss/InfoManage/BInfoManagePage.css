@@ -1,7 +1,11 @@
+.infobody{
+    border: 1px solid sienna;
+    display: flex;
+    justify-content: flex-end;
+}
 
-
-.contentBox {
-    width: 100%;
+.BIMcontentBox {
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;

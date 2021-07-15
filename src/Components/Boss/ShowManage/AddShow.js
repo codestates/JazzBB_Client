@@ -77,15 +77,13 @@ function AddShow() {
       <div className="show-box">
         <div className="top-box">
           <div className="show-innerbox">
+
             <div className="show-box_photo">
               <div className="show-photo">
-                <InputFile
-                  handleThumbnail={handleThumbnail}
-                  imgFile={imgFile}
-                  setImgFile={handelSetImgFile}
-                ></InputFile>
+                <InputFile handleThumbnail={handleThumbnail} imgFile={imgFile} setImgFile={handelSetImgFile}></InputFile>
               </div>
             </div>
+            
             <div className="show-box_input">
               <AddShowInput handleInputChange={handleInputChange}></AddShowInput>
             </div>
@@ -95,16 +93,7 @@ function AddShow() {
             </div>
 
             <div className="bottom-box">
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={handleAddShow}
-                // className={classes.button}
-                startIcon={<SaveIcon />}
-              >
-                등록
-              </Button>
+              <Button variant="contained" color="primary" size="large" onClick={handleAddShow} startIcon={<SaveIcon />}>등록</Button>
             </div>
           </div>
         </div>

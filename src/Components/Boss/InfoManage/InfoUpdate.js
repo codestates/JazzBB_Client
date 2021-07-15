@@ -54,9 +54,11 @@ const dispatch = useDispatch();
   console.log(data.serviceOption, "dataserviceOption");
   console.log(serviceitem, "serviceitem");
 
+
   const handleEditActive = () => {
     setEdit(true);
   };
+
 
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
   const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
@@ -173,19 +175,21 @@ const dispatch = useDispatch();
       }
 
   return (
+
+    
+    
+    
+    
     <div>
       <Sidebar></Sidebar>
       <div className="infowrapper">
         <div className="dummydiv"></div>
+                <div className="BIUcontentBox">
+                <div className="contentheader">
+                  <div className="contentheader-label">정보수정</div>
+                  <div className="contentheader-sublabel">매장 정보가 변경된 경우 직접 수정하실 수 있습니다. 서비스에 즉시 반영되는 부분이니 수정에 주의해 주세요</div>
+                </div>
 
-        <div className="contentBox">
-          <div className="contentheader">
-            <div className="contentheader-label">정보수정</div>
-            <div className="contentheader-sublabel">
-              매장 정보가 변경된 경우 직접 수정하실 수 있습니다. 서비스에 즉시
-              반영되는 부분이니 수정에 주의해 주세요
-            </div>
-          </div>
 
           <div className="barName boxop">
             <div className="barlabel">상호명</div>

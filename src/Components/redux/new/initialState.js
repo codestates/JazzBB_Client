@@ -1,15 +1,16 @@
 // import "/resource"
 //"/resource/"
 const initialState = {
+  codeAction : false,
   isLogin: false,
   history: [],
-  firstCheck: null,
+  firstCheck: false,
   search: null,
   searchOption: null,
   searchData: null,
   AllPage : true,
-  user: null,
-  modifyUser:null,
+  user: {},
+  modifyUser:{mobile : null, username: null, usertype: null},
   everyShowList : [],
   boardList: [{
     id: 4,
@@ -478,6 +479,7 @@ jazzBarId : 1,
     user: false,
     withdrawModal: false,
     withdrawConfirm: false,
+    moreInfo : false,
   },
 
   

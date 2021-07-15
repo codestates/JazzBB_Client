@@ -25,6 +25,8 @@ export const SAVE_SEARCH_DATA = "SAVE_SEARCH_DATA"
 export const IS_LOGIN = "IS_LOGIN"
 export const ADD_EVERY_SHOW_LIST = "ADD_EVERY_SHOW_LIST"
 export const SET_JAZZID_BOSS = "SET_JAZZID_BOSS"
+export const FINISH_ACTION = "FINISH_ACTION"
+
 
 export const setJazzId = (id) => {
   return {
@@ -266,4 +268,9 @@ export const addEveryShowList = (list) => {
   }
 }
 
-
+export const finishAction = () => {
+  return {
+    type: FINISH_ACTION,
+    payload: null,
+  }
+}
