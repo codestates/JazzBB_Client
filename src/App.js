@@ -31,14 +31,12 @@ import Service from "./Pages/ServicePage";
 
 import { checkFirst, setToken, setUser, isLogin, finishAction } from './Components/redux/new/action';
 dotenv.config();
-// axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
 
   const firstLogin = () => {
-    console.log("******** getToken state: ", state)
     if (state.user.token && !state.user.type) {
       dispatch(checkFirst());
     };
@@ -98,10 +96,9 @@ function App() {
           <Route path="/" render={() => {
             if ( !state.user.usertype && state.isLogin && state.codeAction) {
               return <Redirect to="/moreinfo" />
-            } else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbar_id && state.codeAction) {
+            } 
+            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbar_id && state.codeAction) {
               return <Redirect to="/boss/infoedit" />
-            } else if(state.user.usertype){
-              return <Redirect to="/service" />
             } else if (state.codeAction ) {
               return <Redirect to="/service" />
             }

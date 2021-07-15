@@ -1,13 +1,15 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { setToken, modifyUser, checkFirst, setUser } from "../Components/redux/new/action";
 import "../css/signup.css";
+
 
 function MoreInfo() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
+  let history = useHistory();
 
   const modifyUserInfo = (value, variety) => {
     dispatch(modifyUser(value, variety));
@@ -31,30 +33,28 @@ function MoreInfo() {
         withCredentials: true
       }
     )
-      .then(res => {
+      .then(async(res) => {
         const token = res.data.data.accessToken;
         dispatch(setToken(token));
         dispatch(checkFirst());
-
+        await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
+          .then(resp => {
+            const token = resp.data.data.accessToken;
+            const userinfo = resp.data.data.userinfo;
+            dispatch(setUser(userinfo));
+            dispatch(setToken(token));
+            if(userinfo.usertype === 'boss'){
+              history.push('/boss/infoedit') 
+            } else {
+              history.push('/service')
+              
+            }
+          })
       })
       .catch((err) => {
         alert("정보를 모두 채워주면 안잡아 먹지~!")
       })
-      
-    return await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
-      .then(resp => {
-        const token = resp.data.data.accessToken;
-        const userinfo = resp.data.data.userinfo;
-        dispatch(setUser(userinfo));
-        dispatch(setToken(token));
-        if(userinfo.usertype === 'boss'){
-          return "/boss/infoedit"
-        } else if(userinfo.usertype === 'customer' ){
-          return '/service'
-        }
-      })
   }
-
 
   return (
     <div className="signup">
@@ -79,9 +79,7 @@ function MoreInfo() {
               <option value='boss'>사업자</option>
             </select>
           </div>
-          <Link to= {() => requestModifyUser()}>
-          <button className="signup-btn" >입력완료</button>
-          </Link>
+          <button className="signup-btn" onClick={() => requestModifyUser()} >입력완료</button>
         </div>
       </div>
     </div>
