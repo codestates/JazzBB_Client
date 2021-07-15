@@ -24,7 +24,16 @@ export const SELECT_SEARCH_TYPE = "SELECT_SEARCH_TYPE"
 export const SAVE_SEARCH_DATA = "SAVE_SEARCH_DATA"
 export const IS_LOGIN = "IS_LOGIN"
 export const ADD_EVERY_SHOW_LIST = "ADD_EVERY_SHOW_LIST"
+export const SET_JAZZID_BOSS = "SET_JAZZID_BOSS"
 
+export const setJazzId = (id) => {
+  return {
+    type: SET_JAZZID_BOSS,
+    payload: {
+      id
+    }
+  }
+}
 
 export const setToken = (token) => {
     return {

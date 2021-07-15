@@ -34,7 +34,7 @@ import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
 import NotFound from "./Components/notfound"
 
 
-import { checkFirst, setToken, setUser, isLogin } from './Components/redux/new/action';
+import { checkFirst, setToken, setUser, isLogin, setJazzId } from './Components/redux/new/action';
 dotenv.config();
 // axios.defaults.withCredentials = true;
 
@@ -44,6 +44,12 @@ function App() {
 
   const getToken = async (authorizationCode) => {
     let token = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
+    .then(res =>{
+      if(res.data.data.jazzbar_id){
+        const jazzBarId =res.data.data.jazzbar_id
+        dispatch(setJazzId(jazzBarId))
+      }
+    })
     .then(async(res) => {
       return res.data.data.accessToken;
     })
@@ -82,7 +88,7 @@ function App() {
           <Route path="/boss/show" render={() => <BshowPage></BshowPage> } />
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
-          <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
+          <Route path="/boss/infoupdate" render={() => <InfoUpdate></InfoUpdate>} />
           <Route path="/boss/modaledit" render={() => <ModalEdit></ModalEdit>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
           <Route path="/reservation" render={() => <Reservation></Reservation>} />
