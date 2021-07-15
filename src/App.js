@@ -29,6 +29,11 @@ import Termspi from './Pages/footer-terms-pi'
 import Weareddh from "./Pages/weareddh";
 import Service from "./Pages/ServicePage";
 
+import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
+
+import NotFound from "./Components/notfound"
+
+
 import { checkFirst, setToken, setUser, isLogin } from './Components/redux/new/action';
 dotenv.config();
 // axios.defaults.withCredentials = true;
@@ -78,6 +83,7 @@ function App() {
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
           <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
+          <Route path="/boss/modaledit" render={() => <ModalEdit></ModalEdit>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
           <Route path="/reservation" render={() => <Reservation></Reservation>} />
           <Route path="/posting" render={()=> <Boardinfo></Boardinfo>}/>
@@ -91,13 +97,17 @@ function App() {
               return <Redirect to="/moreinfo" />
             } else if(!state.firstCheck && state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbar_id) {
               return <Redirect to="/boss/infoedit" />
-            } else {
+
+            } else  {
+
               return <Redirect to="/service" />
             }
             }} /> */}
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
           <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
+
+          <Route component={NotFound} />
         </Switch>
       </div>
       <Footer></Footer>

@@ -8,8 +8,12 @@ function BossMainPage() {
   return (
     <div className="App">
       <Sidebar></Sidebar>
-      <div className="">
-        <JazzBarPage></JazzBarPage>
+      <div className="contentsWrapper">
+        <div className="dummydiv"></div>
+        <div className="jbpage">
+            <JazzBarPage></JazzBarPage>
+        </div>
+        
       </div>
     </div>
   );

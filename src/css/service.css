@@ -225,6 +225,8 @@ input, select {
     font-weight: 900;
     margin-right: 15px;
     color: black;
+    width: 56px;
+    min-width: 56px;
 }
 
 .service-search-form {
@@ -243,6 +245,7 @@ input, select {
     border: none;
     font-size: 1.2rem;
     font-weight: 900;
+    min-width: 56px;
 }
 
 
