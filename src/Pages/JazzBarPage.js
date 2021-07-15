@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, dequeueHistory, saveThisHistory} from "../Components/redux/new/action";
@@ -8,9 +8,9 @@ import "../css/shopinfo.css"
 
 
 
-
 function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOption, rating, openTime, gpsX, gpsY }
-  const dispatch = useDispatch();
+const { kakao } = window; 
+const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
   const [openTime, closeTime] = state.jazzbar.openTime.split('-');//'17:00-20:00'
 
@@ -111,6 +111,35 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   const history = () => {
     dispatch(saveThisHistory("/jazzbar"))
   }
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(!modalIsOpen);
+  }
+
+  useEffect(()=>{
+    var container = document.getElementById('map');
+    let gpsY = state.jazzbar.gpsY
+    let gpsX = state.jazzbar.gpsX
+    var options = {
+      center: new kakao.maps.LatLng(gpsY, gpsX),
+      level: 3
+    };
+
+    var map = new kakao.maps.Map(container, options);
+    var markerPosition  = new kakao.maps.LatLng(gpsY, gpsX); 
+    var marker = new kakao.maps.Marker({
+      position: markerPosition
+  });
+  marker.setMap(map);
+    }, [modalIsOpen])
+ 
+ 
+
+  function closeModal() {
+    setIsOpen(false);
+  }
  
 
   return (
@@ -127,8 +156,11 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             <div className="shopinfo-header-infoarea-shopname">{state.jazzbar.barName}</div>
             <div className="shopinfo-header-infoarea-geo">
               <div className="shopinfo-header-infoarea-location">{state.jazzbar.area}</div>
-              <button className="shopinfo-header-infoarea-tmapbtn">카카오맵 길안내</button>{/* 티맵 구현 필요 */}
+              <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>카카오맵 길안내</button>{/* 티맵 구현 필요 */}
             </div>
+
+      {!modalIsOpen  ? ( <div id="map" onClick={closeModal} style={{width:"500px", height:"400px", display:"none"}}></div> ) : <div id="map"onClick={closeModal} style={{width:"500px", height:"400px"}}></div>}
+      {/* <div id="map" style={{width:"500px", height:"400px"}}></div>  */}
 
             <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>
             <div className="shopinfo-header-infoarea-time">{`${openTime} ~ ${closeTime}`}</div>

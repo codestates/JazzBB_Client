@@ -373,7 +373,22 @@ bossJazzBar :[],
       gpsY: null,
     }
   ],
-  jazzbar: null, //selected
+
+  jazzbar: {
+    id: 1,
+    barName: '개쩌는 쟤즈뺘',
+    moblie: '02-123-4567',
+    defaultSeat: '20',
+    area: '서울 서초구',
+    thumbnail: '/resource/배너교체1.png',
+    address: '서울 서초구 서초동 몇번지',
+    rating: '4.5',
+    serviceOption: '1246',
+    openTime: '17:00-20:00',
+    gpsX: 127.10676860117488,
+    gpsY: 37.365264512305174,
+  }, //selected
+
   barPhoto: [
     
   ],

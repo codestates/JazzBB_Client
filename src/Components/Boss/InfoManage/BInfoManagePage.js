@@ -1,4 +1,5 @@
 /*global kakao */
+
 import React, { useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
@@ -15,12 +16,9 @@ function BInfoManagePage() {
   //주석 삭제 하면 안됨 !!!!!!!!!!!!!!
   //재즈바 id 받아오기 !!!!!!!!!!!!!!!!!!!!!!
   const barList = useSelector((state) => state.reducer.barList);
+  const Jazz = useSelector((state) => state.reducer.jazzbar);
   const JazzBarInfo = barList.filter((el) => el.jazzBarId === "jazzId");
-
-  //좌표 변경하는 코드. (서버 연결 후 주석 해제 필요)
-  // let container = document.getElementById("map");
-  // var geocoder = new kakao.maps.services.Geocoder();
-
+  const [gps, setGps] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
     setIsPopupOpen(true);
@@ -84,27 +82,21 @@ function BInfoManagePage() {
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
-      // geocoder.addressSearch(state.addressFront, function(result, status) {
-      //   // 정상적으로 검색이 완료됐으면
-      //    if (status === kakao.maps.services.Status.OK) {
-      //       var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-      //   }
-      
-
+      console.log(gps.gpsX)
       setState({
         ...state,
         serviceOption: serviceitem,
         // area : `${area[0]+area[1]}`,
         address: state.addressFront + " " + state.addressETC,
         thumbnail: [{ menu: state.menuPhoto }, { banner: state.bannerPhoto }],
-        // gpsX : result[0].x,
-        // gpsY : result[0].y
+        gpsX : gps.gpsX,
+        gpsY : gps.gpsY,
       });
       // })
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state)
         .then((res) => {
-          console.log(res)
+          console.log(state,'2')
           window.location.href='/boss/main'
         })
         
@@ -166,10 +158,12 @@ function BInfoManagePage() {
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
     <div className="infoPage">
+      <Sidebar></Sidebar>
       {JazzBarInfo.length === 0 ? (
-        <div>
-          <Sidebar></Sidebar>
-          <div className="contentBox">
+        <div className="infobody">
+          
+          <div className="BIMcontentBox">
+       
 
             <div className="ctBoxheader">
                 <div className="ctBoxheader-title">매장 정보 입력</div>
@@ -195,7 +189,7 @@ function BInfoManagePage() {
                    <div id="popupDom">
                       {isPopupOpen && (
                         <PopupDom>
-                          <PopupPostCode onClose={closePostCode} state={state} setState={setState} />
+                          <PopupPostCode onClose={closePostCode} setGps={setGps}state={state} setState={setState} />
                         </PopupDom>
                       )}
                    </div>
@@ -317,7 +311,7 @@ function BInfoManagePage() {
           </div>
         </div>
       ) : (
-        <InfoUpdate data={JazzBarInfo}></InfoUpdate>
+        <InfoUpdate data={Jazz}></InfoUpdate>
       )}
     </div>
   );

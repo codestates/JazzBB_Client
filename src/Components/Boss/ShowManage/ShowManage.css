@@ -262,17 +262,21 @@ input, select {
     border-radius: 5px;
 }
 
+.add-photo-submit:hover {
+    background-color: #354395;
+}
 
 
 
 
 .bottom-box{
-    width: 250px;
+    width: 100%;
     min-width: 100px;
     height: 100%;
     display: flex;
     align-items:flex-end;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .bottom-box > button{
@@ -467,4 +471,78 @@ input, select {
 .modal-buttom-box-save{
     width: 150px;
     height: 50px;
+}
+
+
+/* ModalEdit.js */
+.modify-show-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.modify-top-box{
+    /* border: 1px solid blue; */
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.modify-show-innerbox{
+    /* border: 1px solid sienna; */
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    min-width: 500px;
+}
+
+.modify-show-infobox {
+    /* border: 1px solid violet; */
+    width: 800px;
+    min-width: 500px;
+    margin-left: 10px;
+    display: flex;
+}
+
+.modify-show-box_input {
+    /* border: 1px solid green; */
+    width: 100%;
+}
+
+/* .modify-show-box_content {
+    border: 1px solid royalblue;
+} */
+
+.modify-bottom-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.modify-save-btn {
+    margin-left: 10px;
+}
+
+.checkBox {
+    /* border: 1px solid royalblue; */
+    width: 65%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.input-nametag {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.input-content-box2 {
+    width: 550px;
+    margin-bottom: 20px;
+    padding-left: 8px;
 }
