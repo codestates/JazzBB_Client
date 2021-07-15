@@ -18,7 +18,7 @@ function BInfoManagePage() {
   const barList = useSelector((state) => state.reducer.barList);
   const Jazz = useSelector((state) => state.reducer.jazzbar);
   const JazzBarInfo = barList.filter((el) => el.jazzBarId === "jazzId");
- const [gps, setGps] = useState('')
+  const [gps, setGps] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
     setIsPopupOpen(true);

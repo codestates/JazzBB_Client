@@ -101,100 +101,6 @@ input, select {
 /* 여기서부터 실제 코드 */
 
 
-/* 네비게이션 영역 */
-.nav {
-    display: flex;
-    border-bottom: 2px solid #bb001f;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding: 10px;
-    align-items: center;
-}
-
-#nav-logo{
-    width: 20%;
-}
-
-
-.nav-btn {
-    padding: 0.6em 2em;
-    border: none;
-    outline: none;
-    color: rgb(255, 255, 255);
-    background: #111;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;
-    width: 100px;
-    height: 40px;
-  }
-  
-  .nav-btn:before {
-    content: "";
-    background: linear-gradient(
-      45deg,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #ff0000
-    );
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowingbn5 20s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    border-radius: 10px;
-  }
-  
-  @keyframes glowingbn5 {
-    0% {
-      background-position: 0 0;
-    }
-    50% {
-      background-position: 400% 0;
-    }
-    100% {
-      background-position: 0 0;
-    }
-  }
-  
-  .nav-btn:active {
-    color: #000;
-  }
-  
-  .nav-btn:active:after {
-    background: transparent;
-  }
-  
-  .nav-btn:hover:before {
-    opacity: 1;
-  }
-  
-  .nav-btn:after {
-    z-index: -1;
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #191919;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-  }
-
-
 
 
 
@@ -233,12 +139,14 @@ input, select {
     font-size: 1.5rem;
     font-weight: bold;
     margin-left: 1%;
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 .service-location-sublabel, .service-liveon-sublabel, .service-popular-sublabel, .service-newResOpen-sublabel {
     font-size: 1rem;
     margin-left: 1%;
     margin-top: 5px;
+    font-family: 'Sunflower', sans-serif;
 }
 
 #service-banner-bottom {
@@ -274,6 +182,7 @@ input, select {
     background: 50% 50% no-repeat;
     background-size: cover;
     position: relative;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .service-location-object::before {
@@ -308,33 +217,35 @@ input, select {
     justify-content: center;
     align-items: center;
     height: 100px;
+    font-family: 'Sunflower', sans-serif;
 }
 
 .service-search-label {
     font-size: 1.3rem;
     font-weight: 900;
     margin-right: 15px;
+    color: black;
+    width: 56px;
+    min-width: 56px;
 }
 
 .service-search-form {
     width: 900px;
-    height: 1.3rem;
+    height: 30px;
     margin-right: 15px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 2px solid gray;
     font-size: 1.3rem;
+    border: 8px solid royalblue;
 }
 
 .service-search-submit {
-    width: 50px;
-    height: 25px;
-    margin-right: 15px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 2px solid gray;
+    width: 100px;
+    height: 48px;
+    background-color: royalblue;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 900;
+    min-width: 56px;
 }
 
 
@@ -621,52 +532,3 @@ input, select {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-/* 푸터 영역 */
-.footer {
-    border-top: 1px solid gray;
-    display: flex;
-    height: auto;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-logoarea{
-    width: 20%;
-    padding: 30px;
-}
-
-#footer-logo {
-    width: 100%;   
-}
-
-.footer-infoarea {
-    width: 75%;
-    height: auto;
-    color: gray;
-    min-width: 300px;
-    font-size: 1rem;
-    word-break: keep-all;
-}
-
-.footer-infoarea-infolabel {
-    margin-bottom: 5px;
-}
-
-.footer-infoarea-buttonsarea {
-    margin-bottom: 5px;
-    word-break: keep-all;
-}
-
-.footer-infoarea-infobody {
-    word-break: keep-all;
-}

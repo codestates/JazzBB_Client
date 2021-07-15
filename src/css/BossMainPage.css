@@ -1,0 +1,8 @@
+.contentsWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.jbpage {
+    width: 85%;
+}

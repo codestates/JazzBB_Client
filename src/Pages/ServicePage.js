@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList } from "../Components/redux/new/action";
@@ -11,23 +11,47 @@ function Service () {
 
   // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
   //  .then(res => {
-  //    const list = res.data.data.list;
+  //    console.log("******** client : ", res.data)
+  //    const list = res.data.data;
   //    dispatch(setList(list, 'barList'));
   //  })
 
   // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
   //  .then(res => {
-  //    const list = res.data.data.list;
+  //    const list = res.data.data;
   //    dispatch(setList(list, 'boardList'));
   //  })
 
   // for(let bar of state.barList){
   //   axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
   //    .then(res => {
-  //      const showList = res.data.data.list;
+  //      const showList = res.data.data;
   //      dispatch(addEveryShowList(showList));
   //    })
   // }
+  // useEffect(() => {
+  //   axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+  //    .then(res => {
+  //      const list = res.data.data;
+  //      dispatch(setList(list, 'barList'));
+  //    })
+  
+  //   axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
+  //    .then(res => {
+  //      const list = res.data.data;
+  //      dispatch(setList(list, 'boardList'));
+  //    })
+  
+  //   for(let bar of state.barList){
+  //     axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
+  //      .then(res => {
+  //        const showList = res.data.data;
+  //        dispatch(addEveryShowList(showList));
+  //        console.log("******** useEffect ", showList)
+  //      })
+  //   }
+  //   return;
+  // },[])
 
   const goJazzbar = (jazzbar) => {
     dispatch(setJazzbar(jazzbar));
@@ -54,7 +78,7 @@ function Service () {
         <div className="service">
           <div className="service-body">
             <Link to="/posting" className="service-bannerWrapper" onClick>
-                <img id="service-banner-top" src="./resource/service-banner-top.png" alt="banner(top)"/>
+                <img id="service-banner-top" src="/img/resource/service-banner-top.png" alt="banner(top)"/>
             </Link>
             <Link to="/search" className="service-search">
                 <div className="service-search-label">search</div>
@@ -64,13 +88,13 @@ function Service () {
             <div className="service-location">
                 <div className="service-location-label">어디로 가시나요?</div> 
                 <div className="service-location-objarea">
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 강남')} className="service-location-object" style={{"background-image": "url(/resource/location-apgujeong.png)"}}><span className="service-location-btn-label">강남</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 용산')} className="service-location-object" style={{"background-image": "url(/resource/location-itaewon.png)"}}><span className="service-location-btn-label">이태원/<br />한남</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 성동')} className="service-location-object" style={{"background-image": "url(/resource/location-sungsoo.png)"}}><span className="service-location-btn-label">성수</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 마포')} className="service-location-object" style={{"background-image": "url(/resource/location-hongdae.png)"}}><span className="service-location-btn-label">홍대/<br />합정</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 강남구')} className="service-location-object" style={{"background-image": "url(/resource/location-apgujeong.png)"}}><span className="service-location-btn-label">강남</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 용산구')} className="service-location-object" style={{"background-image": "url(/resource/location-itaewon.png)"}}><span className="service-location-btn-label">이태원/<br />한남</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 성동구')} className="service-location-object" style={{"background-image": "url(/resource/location-sungsoo.png)"}}><span className="service-location-btn-label">성수</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 마포구')} className="service-location-object" style={{"background-image": "url(/resource/location-hongdae.png)"}}><span className="service-location-btn-label">홍대/<br />합정</span></Link>
                     <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 중구')} className="service-location-object" style={{"background-image": "url(/resource/location-euljiro.png)"}}><span className="service-location-btn-label">을지로</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 종로')} className="service-location-object" style={{"background-image": "url(/resource/location-gwanghwamun.png)"}}><span className="service-location-btn-label">광화문/<br />종로</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 영등포')} className="service-location-object" style={{"background-image": "url(/resource/location-yeouido.png)"}}><span className="service-location-btn-label">여의도</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 종로구')} className="service-location-object" style={{"background-image": "url(/resource/location-gwanghwamun.png)"}}><span className="service-location-btn-label">광화문/<br />종로</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 영등포구')} className="service-location-object" style={{"background-image": "url(/resource/location-yeouido.png)"}}><span className="service-location-btn-label">여의도</span></Link>
                 </div>
             </div>
             <div className="service-liveon">
@@ -85,6 +109,7 @@ function Service () {
                         state.everyShowList.map(el => {
                           if(el.date === new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'')){
                             const thisBar = state.barList.find(bar => bar.id === el.jazzbar_id);
+                            console.log("******** everyShowList : ", state.everyShowList)
                             return (
                             <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(thisBar)}>
                               <a className="liveon-object-header">
@@ -119,11 +144,11 @@ function Service () {
 
             </div>
 
-            <Link to="/posting" onClick={()=> goPosting(state.boardList[0])}><img id="service-banner-middle" src={state.boardList[0].thumbnail} alt="banner(middle)" /></Link>
+            <Link to="/posting" onClick={()=> goPosting(state.boardList[0])}><img id="service-banner-middle" src="/img/resource/service-banner-middle.png" alt="banner(middle)" /></Link>
 
             <div className="service-popular">
                 <div className="service-popular-header">
-                    <div className="service-popular-label">인기 게시판</div>
+                    <div className="service-popular-label">인기 게시물</div>
                     <div className="service-popular-sublabel">재즈바가 처음이시라면, 재즈바바가 알려드릴게요</div>
                 </div>
                 

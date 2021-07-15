@@ -88,18 +88,20 @@ export default function CustomizedSelects({ data }) {
       let posi = player.map((el) => el.position);
       console.log(posi, "posi");
       let editPlayer = player;
-     editPlayer.map(el => {
-       if(el.position == event.target.id){
-        el.name = event.target.value
-       }
-     })
-   
+      editPlayer.map((el) => {
+        if (el.position == event.target.id) {
+          el.name = event.target.value;
+        }
+      });
+
       console.log(editPlayer);
       // setPlayer({ ...player, [event.target.id]: event.target.value });
       // SetInputValue({ ...inputValue, player: {...player, position :{[event.target.id]: event.target.value} }});
     }
     console.log(player);
   };
+
+  const addPosition = () => {};
 
   const CreateShow = () => {
     confirmAlert({
