@@ -55,8 +55,6 @@ function App() {
         const jazzBarId =res.data.data.jazzbar_id
         dispatch(setJazzId(jazzBarId))
       }
-    })
-    .then(async(res) => {
       return res.data.data.accessToken;
     })
     .catch(err => console.log(err))

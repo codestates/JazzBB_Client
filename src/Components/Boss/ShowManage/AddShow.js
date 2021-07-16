@@ -6,8 +6,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { setToken } from "../../redux/new/action";
+import { useSelector, useDispatch } from "react-redux";
 
 function AddShow() {
+  const dispatch = useDispatch();
+  const userstate = useSelector((state) => state.reducer.user);
   const [player, setPlayer] = React.useState({});
   const [inputValue, SetInputValue] = useState({
     id: "02",
@@ -21,13 +25,14 @@ function AddShow() {
     setImgFile(data)
   }
 
+  const formData = new FormData();
   
   function handleThumbnail(e) {
     console.log("clicked handlethumb");
 
     if (imgFile.length !== 0) {
-      const formData = new FormData();
-      formData.append(`thumbnail`, imgFile[0]);
+      console.log("******** Addshow handleThumbnail imgFile :", imgFile)
+      formData.append(`thumbnail`, imgFile);
       SetInputValue({ ...inputValue, thumbnail: formData });
       console.log(inputValue, "dddddd");
     }
@@ -50,8 +55,16 @@ function AddShow() {
         {
           label: "예",
           onClick: () => {
+            formData.append('content',inputValue.content )
+            formData.append('time',inputValue.time )
+            formData.append('date',inputValue.date )
+            formData.append('showCharge',inputValue.showCharge )
             axios
-              .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
+              .post(process.env.REACT_APP_DB_HOST + "/showCreate", formData, { headers:  { authorization: userstate.token, 'content-type': 'multipart/form-data' }, withCredentials: true })
+              .then((res) => {
+                const token = res.data.data.accessToken;
+                dispatch(setToken(token));
+              })
               .then((res) => (window.location.href = "/boss/show"));
             //server-showCreate  :jazzbar_id 빠짐....!!!
           },
