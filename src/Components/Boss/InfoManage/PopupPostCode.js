@@ -64,57 +64,38 @@ const PopupPostCode = (props) => {
 
   const postCodeStyle = {
     display: "block",
-    position: "absolute",
-    top: "10%",
-    width: "700px",
+    top: "-2%",
+    // width: "700px",
+    width: "98%",
     height: "500px",
     padding: "7px",
-    margin: "50px",
   };
 
   const style = {
-    // display: "block",
-    // position: "absolute",
-    width: "100px",
-    height: "50px",
-    // top: "10%",
-    left: "50px",
-  };
-  const div = {
-    backgroundColor: "yellow",
     display: "block",
-    position: "absolute",
+    width: "100px",
+    height: "30px",
+    margin:"5px",
+  };
+
+  const div = {
+    backgroundColor: "royalblue",
+    display: "block",
     top: "10%",
-    width: "700px",
-    height: "500px",
+    // width: "712px",
+    width: "70.5%",
+    height: "552px",
     padding: "7px",
-    margin: "50px",
-    left: "50px",
+    margin: "5px",
+    minWidth: "500px",
   };
 
   return (
     <div style={div}>
-      <button
-        style={style}
-        onClick={() => {
-          props.onClose();
-        }}
-        className="postCode_btn"
-      >
-        닫기
-      </button>
-      <div
-        id="myMap"
-        // style={{
-        //   width: '100px',
-        //   height: '100px',
-        // }}
-      ></div>
+      <button className="postCode_btn" style={style} onClick={() => {props.onClose();}} >닫기</button>
+      {/* <div id="myMap"></div> */}
 
-      <DaumPostcode
-        style={postCodeStyle}
-        onComplete={handlePostCode}
-      ></DaumPostcode>
+      <DaumPostcode style={postCodeStyle} onComplete={handlePostCode}></DaumPostcode>
     </div>
   );
 };

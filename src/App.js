@@ -55,8 +55,6 @@ function App() {
         const jazzBarId =res.data.data.jazzbar_id
         dispatch(setJazzId(jazzBarId))
       }
-    })
-    .then(async(res) => {
       return res.data.data.accessToken;
     })
     .catch(err => console.log(err))
@@ -106,6 +104,9 @@ function App() {
           <Route path="/moreinfo" render={() => <Moreinfo></Moreinfo>} />
           <Route path="/search" render={() => <Search></Search>} />
           <Route path="/service" render={() => <Service></Service>} />
+          <Route path="/footer/terms" render={() => <Terms></Terms>} />
+          <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
+          <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
           <Route path="/" render={() => {
             if ( !state.user.usertype && state.isLogin && state.codeAction) {
               return <Redirect to="/moreinfo" />
@@ -116,9 +117,7 @@ function App() {
               return <Redirect to="/service" />
             }
           }} />
-          <Route path="/footer/terms" render={() => <Terms></Terms>} />
-          <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
-          <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
+
 
           <Route path="*" component={NotFound} />
         </Switch>
