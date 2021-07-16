@@ -17,7 +17,7 @@ function AddShow() {
     id: "02",
     jazzbarId: "01",
     player: [],
-    thumbnail: "",
+    thumbnail: [],
   });
   const [imgFile, setImgFile] = useState([]);
 
@@ -33,8 +33,11 @@ function AddShow() {
 
     if (imgFile.length !== 0) {
       console.log("******** Addshow handleThumbnail imgFile :", imgFile)
-      formData.append(`thumbnail`, imgFile);
-      SetInputValue({ ...inputValue, thumbnail: formData });
+      // console.log("******** formData1 :", formData)
+      // formData.append(`thumbnail`, imgFile);
+      console.log("******** inputValue.thumbnail 1 :", inputValue.thumbnail)
+      SetInputValue({ ...inputValue, thumbnail: [...inputValue.thumbnail,imgFile] });
+      console.log("******** inputValue.thumbnail 2 :", inputValue.thumbnail)
     }
   }
 
@@ -55,12 +58,14 @@ function AddShow() {
         {
           label: "예",
           onClick: () => {
-            formData.append('content',inputValue.content )
-            formData.append('time',inputValue.time )
-            formData.append('date',inputValue.date )
-            formData.append('showCharge',inputValue.showCharge )
+            const filefile = new FormData();
+            filefile.append('thumbnail', imgFile)
+            filefile.append('content',inputValue.content )
+            filefile.append('time',inputValue.time )
+            filefile.append('date',inputValue.date )
+            filefile.append('showCharge',inputValue.showCharge )
             axios
-              .post(process.env.REACT_APP_DB_HOST + "/showCreate", formData, { headers:  { authorization: userstate.token, 'content-type': 'multipart/form-data' }, withCredentials: true })
+              .post(process.env.REACT_APP_DB_HOST + "/showCreate", filefile, { headers:  { authorization: userstate.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true })
               .then((res) => {
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
@@ -105,7 +110,6 @@ function AddShow() {
             <div className="show-box_content">
               <div className="show-description"></div>
             </div>
-
             <div className="bottom-box">
               <Button variant="contained" color="primary" size="large" onClick={handleAddShow} startIcon={<SaveIcon />}>등록</Button>
             </div>
