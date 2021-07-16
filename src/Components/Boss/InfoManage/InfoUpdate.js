@@ -46,8 +46,16 @@ const dispatch = useDispatch();
   };
   useEffect(() => {
     let copy = serviceitem;
-    data.serviceOption.map((el) => (copy[el] = true));
-    setService(copy);
+    // data.serviceOption.split('').map(number => {
+    //   for(let serviceOption of data.serviceOption){
+    //     if(number === serviceOption.id){
+    //       return (
+    //         setService({...serviceitem, serviceOption[]})
+    //       )
+    //     }
+    //   }
+    // })
+    // setService(copy);
   }, []);
 
   const serviceArray = Object.keys(serviceitem);
@@ -271,9 +279,20 @@ const dispatch = useDispatch();
                 </div>
               ) : (
                 <div className="barcontents svclist">
-                    {data.serviceOption.map((el) => (
-                      <div className="svcitem">{el}</div>
-                    ))}
+                  {
+            data.serviceOption.split('').map(number => {
+              for(let serviceOption of data.serviceOption){
+                if(number === serviceOption.id){
+                  return (
+                    <span className="shopinfo-iconarea-featureitem">
+                      <img className="shopinfo-iconarea-featureitem-icon" src={serviceOption.img} alt=""/>
+                      <span className="shopinfo-iconarea-featureitem-label">{serviceOption.content}</span>
+                    </span>
+                  )
+                }
+              }
+            })
+          }
                 </div>
                 
               )}
