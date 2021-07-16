@@ -12,10 +12,10 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
     console.log("setFile");
     if (e.target.files[0]) {
       const img = new FormData();
-      img.append("file", e.target.files[0]);
-      axios.post(process.env.domain + "/upload", img).catch((err) => {
-        console.error(err);
-      });
+      img.append("image", e.target.files[0]);
+      // axios.post(process.env.domain + "/upload", img).catch((err) => {
+      //   console.error(err);
+      // });
     }
   };
 

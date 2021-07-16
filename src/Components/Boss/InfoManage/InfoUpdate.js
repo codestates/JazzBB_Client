@@ -13,7 +13,7 @@ const dispatch = useDispatch();
   const user = useSelector((state) => state.reducer.user);
   const data = useSelector((state) => state.reducer.jazzbar);
   const jazzBarId = useSelector((state) => state.reducer.jazzBarId);
-  const banner = data.thumbnail.bannerPhoto || [];
+  const banner = data.thumbnail.bannerPhoto;
   const menu = useSelector((state) => state.reducer.menu);
   const [editActive, setEdit] = useState(false);
   const [state, setState] = useState(data);
