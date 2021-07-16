@@ -380,12 +380,12 @@ jazzBarId : 1,
     mobile: '02-123-4567',
     defaultSeat: '20',
     area: '서울 서초구',
-    thumbnail: {menu : [], bannerPhoto : [] },
+    thumbnail: 'public/img/resource/newres_vinga.jpeg',
     address: '서울 강남구 강남대로 708 (한남대교레인보우카폐) 3층',
     addressFront :'서울 강남구 강남대로 708 (한남대교레인보우카폐)',
     addressETC : '3층',
     rating: '4.5',
-    serviceOption: ["주차가능","야간영업"],
+    serviceOption: '1234',
     openTime: '17:00-20:00',
     gpsX: 127.10676860117488,
     gpsY: 37.365264512305174,
@@ -398,7 +398,7 @@ jazzBarId : 1,
   myReviewId: null,
   menu: [
     {
-      thumbnail: '/resource/배너교체1.png'
+      thumbnail: '/resource/newres_vinga.jpeg'
     },
     {
       thumbnail: '/resource/배너교체1.png'

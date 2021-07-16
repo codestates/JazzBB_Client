@@ -181,26 +181,19 @@ const dispatch = useDispatch();
     
     
     <div>
-      <Sidebar></Sidebar>
       <div className="infowrapper">
         <div className="dummydiv"></div>
                 <div className="BIUcontentBox">
-                <div className="contentheader">
-                  <div className="contentheader-label">정보수정</div>
-                  <div className="contentheader-sublabel">매장 정보가 변경된 경우 직접 수정하실 수 있습니다. 서비스에 즉시 반영되는 부분이니 수정에 주의해 주세요</div>
+                <div className="BIUcontentheader">
+                  <div className="BIUcontentheader-label">정보수정</div>
+                  <div className="BIUcontentheader-sublabel">매장 정보가 변경된 경우 직접 수정하실 수 있습니다. 서비스에 즉시 반영되는 부분이니 수정에 주의해 주세요</div>
                 </div>
 
 
           <div className="barName boxop">
             <div className="barlabel">상호명</div>
             {editActive ? (
-              <input
-                className="barcontents"
-                type="text"
-                defaultValue={data.barName}
-                onChange={handleInput}
-                name="barName"
-              ></input>
+              <input className="barcontents inputform" type="text" defaultValue={data.barName} onChange={handleInput} name="barName"></input>
             ) : (
               <div className="barcontents">{data.barName}</div>
             )}
@@ -209,36 +202,18 @@ const dispatch = useDispatch();
           <div className="barAddress boxop">
             <div className="barlabel">소재지</div>
             {editActive ? (
-              <div>
-                <input
-                  className="barcontents"
-                  type="text"
-                  defaultValue={data.address}
-                  onChange={handleInput}
-                  value={state.address}
-                  name="address"
-                  readOnly
-                ></input>
-                <button type="button" onClick={openPostCode}>
-                  우편번호 검색
-                </button>
+              <div className="barcontents">
+                <input className="adrform inputform" type="text" defaultValue={data.address} onChange={handleInput} value={state.address} name="address" readOnly></input>
+                <button className="adrbtn" type="button" onClick={openPostCode}>우편번호 검색</button>
                 <div id="popupDom">
                   {isPopupOpen && (
                     <PopupDom>
-                      <PopupPostCode
-                        onClose={closePostCode}
-                        setGps={setGps}
-                        state={state}
-                        setState={setState}
-                      />
+                      <PopupPostCode onClose={closePostCode} setGps={setGps} state={state} setState={setState}/>
                     </PopupDom>
                   )}
                 </div>
                 {!!openAddressEtc ? 
-                   <input
-                  type="text"
-                  placeholder="상세주소"
-                  name="addressETC"
+                   <input className="inputform" type="text" placeholder="상세주소" name="addressETC"
                   // defaultValue={data.addressETC}
                   onChange={handleInput}
                 ></input>
@@ -253,13 +228,7 @@ const dispatch = useDispatch();
           <div className="barMobile boxop">
             <div className="barlabel">연락처</div>
             {editActive ? (
-              <input
-                className="barcontents"
-                type="text"
-                defaultValue={data.mobile}
-                onChange={handleInput}
-                name="mobile"
-              ></input>
+              <input className="barcontents inputform" type="text" defaultValue={data.mobile} onChange={handleInput} name="mobile"></input>
             ) : (
               <div className="barcontents">{data.mobile}</div>
             )}
@@ -268,13 +237,7 @@ const dispatch = useDispatch();
           <div className="defaultSeat boxop">
             <div className="barlabel">좌석수</div>
             {editActive ? (
-              <input
-                className="barcontents"
-                type="number"
-                defaultValue={data.defaultSeat}
-                onChange={handleInput}
-                name="defaultSeat"
-              ></input>
+              <input className="barcontents inputform" type="number" defaultValue={data.defaultSeat} onChange={handleInput} name="defaultSeat"></input>
             ) : (
               <div className="barcontents">{data.defaultSeat}</div>
             )}
@@ -283,28 +246,27 @@ const dispatch = useDispatch();
           <div className="serviceOption boxop">
             <div className="barlabel">서비스</div>
             <div className="barcontents">
-              {editActive ? (
-                <div>
-                  {serviceArray.map((el) => (
-                    <div className="">
-                      <input
-                        type="checkbox"
-                        name="serviceOption"
-                        onChange={handleInput}
-                        id={el}
-                        defaultChecked={data.serviceOption.find(ele => ele === el) ? true : false
-                        }
-                      ></input>
-                      <div className="">{el}</div>
+              <div className="cbarea">
+                  {editActive ? (
+                    <div className="cbarea2">
+                      {serviceArray.map((el) => (
+                        <div className="checkboxWrapper">
+                          <input className="thisischeckbox" type="checkbox" name="serviceOption" onChange={handleInput} id={el} defaultChecked={data.serviceOption.find(ele => ele === el) ? true : false}></input>
+                          <div className="checkinfo">{el}</div>
                     </div>
                   ))}
                 </div>
               ) : (
-                data.serviceOption.map((el) => (
-                  <div className="barcontents">{el}</div>
-                ))
+                <div className="barcontents svclist">
+                    {data.serviceOption.map((el) => (
+                      <div className="svcitem">{el}</div>
+                    ))}
+                </div>
+                
               )}
               {/* {data.serviceOption.map(el => <div>{el}</div>)} */}
+              </div>
+              
             </div>
           </div>
 
@@ -313,19 +275,11 @@ const dispatch = useDispatch();
             <div className="barcontents">
               {editActive ? (
                 <div>
-                  <input
-                    className="add-file"
-                    type="file"
-                    multiple
-                    max="5"
-                    name="image"
-                    accept="image/jpg,image/png,image/jpeg,image/gif"
-                    onChange={handleImageUpload}
-                  ></input>
+                  <input className="add-file" type="file" multiple max="5" name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleImageUpload}></input>
                   <div>{alertMsg}</div>
                 </div>
               ) : menu.length !== 0 ? (
-                menu.map((el) => <img id="" src={el.thumbnail} alt="" />)
+                menu.map((el) => <img className="menuthumbnail" src={el.thumbnail} alt="" />)
               ) : (
                 <h4>등록된 이미지가 없습니다.</h4>
               )}
@@ -336,37 +290,18 @@ const dispatch = useDispatch();
             <div className="barlabel">대표이미지</div>
             <div className="barcontents">
               {editActive ? (
-                <input
-                  className="add-file"
-                  type="file"
-                  name="image"
-                  accept="image/jpg,image/png,image/jpeg,image/gif"
-                  onChange={handleBannerImg}
-                ></input>
+                <input className="add-file" type="file" name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleBannerImg}></input>
               ) : banner.length !== 0 ? (
-                banner.map((el) => <img id="" src={el.thumbnail} alt="" />)
+                banner.map((el) => <img className="bannerthumbnail" src={el.thumbnail} alt="" />)
               ) : (
                 <h4>등록된 이미지가 없습니다.</h4>
               )}
             </div>
           </div>
           {editActive ? (
-            <button
-              className="btnbtnbtn"
-              onClick={handleSubmit}
-              onSubmit={null}
-            >
-              {" "}
-              저장{" "}
-            </button>
+            <button className="btnbtnbtn" onClick={handleSubmit} onSubmit={null}>저장</button>
           ) : (
-            <button
-              className="btnbtnbtn"
-              onClick={handleEditActive}
-              info={data}
-            >
-              수정
-            </button>
+            <button className="btnbtnbtn" onClick={handleEditActive} info={data}>정보수정</button>
           )}
         </div>
       </div>
