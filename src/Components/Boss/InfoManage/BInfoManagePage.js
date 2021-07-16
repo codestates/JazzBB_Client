@@ -8,9 +8,11 @@ import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import "./BInfoManagePage.css";
 import { setBossJazzBar, setToken } from "../../redux/new/action";
-// import sss from "../RvManage.css"
 const { kakao } = window;
+
 function BInfoManagePage() {
+  const user = useSelector((state) => state.reducer.user);
+  const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const dispatch = useDispatch();
   useEffect(() => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
@@ -18,11 +20,8 @@ function BInfoManagePage() {
       dispatch(setBossJazzBar(list));
     });
   }, []);
-  //주석 삭제 하면 안됨 !!!!!!!!!!!!!!
   //재즈바 id 받아오기 !!!!!!!!!!!!!!!!!!!!!!
-  const barList = useSelector((state) => state.reducer.barList);
   const Jazz = useSelector((state) => state.reducer.jazzbar);
-  const JazzBarInfo = barList.filter((el) => el.jazzBarId === "jazzId");
   const [gps, setGps] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -70,6 +69,9 @@ function BInfoManagePage() {
         formData.append(`image${i}`, targetFile[i]);
       }
       setState({ ...state, menuPhoto: formData });
+      axios.post(process.env.REACT_APP_DB_HOST + "/menuCreate", {
+        authorization: user.token
+      }, formData).then(res => console.log(res))
     }
 
     if (
@@ -91,28 +93,23 @@ function BInfoManagePage() {
         serviceOption: serviceitem,
         // area : `${area[0]+area[1]}`,
         address: state.addressFront + " " + state.addressETC,
-        thumbnail: [{ menu: state.menuPhoto }, { banner: state.bannerPhoto }],
+        thumbnail: state.bannerPhoto,
         gpsX: gps.gpsX,
         gpsY: gps.gpsY,
       });
       // })
       axios
-        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state)
+        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state, { headers: { authorization: state.user.token }, withCredentials: true })
         .then((res) => {
           console.log(state, "2");
-          window.location.href = "/boss/main";
-        });
+          const token1 = res.data.data.token;
+          dispatch(setToken(token1));
+        }).then( window.location.href = "/boss/main")
     }
   };
 
-  // const handleUpload = (e) => {
-  //   //강의
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("image", e.target.image.files[0]);
-  //   formData.append("title", e.target.title.value[0]);
-  //   axios.post("/upload", formData);
-  // };
+
+
 
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
   const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
@@ -260,17 +257,18 @@ function BInfoManagePage() {
               <div className="serviceOption boxopt">
                 <div className="inputformlabel">서비스</div>
 
-                {service.map((el) => (
+                {serviceOption.map((el) => (
                   <div className="svcdiv">
                     <input
                       className="svcoptcheck"
                       type="checkbox"
                       name="serviceOption"
-                      checked={serviceitem.el}
-                      id={el}
+                      checked={serviceitem[el.content]}
+                      id={el.content}
                       onChange={handleInput}
                     />
-                    <div className="svcoptel">{el}</div>
+                    <div className="svcoptel">{el.content}</div>
+                    <img src={el.img} alt=""></img>
                   </div>
                 ))}
               </div>

@@ -374,6 +374,7 @@ bossJazzBar :[],
     }
   ],
 jazzBarId : 1,
+// jazzbar : [],
   jazzbar: {
     id: 1,
     barName: '개쩌는 쟤즈뺘',
@@ -391,9 +392,7 @@ jazzBarId : 1,
     gpsY: 37.365264512305174,
   }, //selected
 
-  barPhoto: [
-    
-  ],
+  barPhoto: [],
   reviewList: [],//{}
   myReviewId: null,
   menu: [

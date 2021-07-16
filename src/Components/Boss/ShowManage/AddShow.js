@@ -29,12 +29,12 @@ function AddShow() {
   
   function handleThumbnail(e) {
     console.log("clicked handlethumb");
+    console.log(inputValue, "dddddd");
 
     if (imgFile.length !== 0) {
       console.log("******** Addshow handleThumbnail imgFile :", imgFile)
       formData.append(`thumbnail`, imgFile);
       SetInputValue({ ...inputValue, thumbnail: formData });
-      console.log(inputValue, "dddddd");
     }
   }
 
@@ -65,6 +65,7 @@ function AddShow() {
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
               })
+              .then(res => console.log(res,'res'))
               .then((res) => (window.location.href = "/boss/show"));
             //server-showCreate  :jazzbar_id 빠짐....!!!
           },
