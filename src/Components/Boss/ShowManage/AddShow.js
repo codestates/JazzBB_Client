@@ -51,7 +51,7 @@ function AddShow() {
   const CreateShow = () => {
     confirmAlert({
       title: "새로운 공연을 등록하시겠습니까?",
-      buttons: [
+      buttons: 
         {
           label: "예",
           onClick: () => {
@@ -60,7 +60,7 @@ function AddShow() {
             formData.append('date',inputValue.date )
             formData.append('showCharge',inputValue.showCharge )
             axios
-              .post(process.env.REACT_APP_DB_HOST + "/showCreate", formData, { headers:  { authorization: userstate.token, 'content-type': 'multipart/form-data' }, withCredentials: true })
+              .post(process.env.REACT_APP_DB_HOST + "/showCreate", formData, { headers:  { authorization: userstate.token, "Content-Type": 'multipart/form-data' }, withCredentials: true })
               .then((res) => {
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
