@@ -12,8 +12,9 @@ function InfoUpdate() {
 const dispatch = useDispatch();
   const user = useSelector((state) => state.reducer.user);
   const data = useSelector((state) => state.reducer.jazzbar);
+  const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const jazzBarId = useSelector((state) => state.reducer.jazzBarId);
-  const banner = data.thumbnail.bannerPhoto || [];
+  const banner = data.thumbnail ;
   const menu = useSelector((state) => state.reducer.menu);
   const [editActive, setEdit] = useState(false);
   const [state, setState] = useState(data);
@@ -133,6 +134,10 @@ const dispatch = useDispatch();
           formData.append(`image${i}`, targetFile[i]);
         }
         setState({ ...state, menuPhoto: formData });
+
+        axios.post(process.env.REACT_APP_DB_HOST + "/menuCreate", {
+          authorization: user.token
+        }, {state, jazzBarId}, )
       }
       if (
         state.addressFront === undefined ||
@@ -155,7 +160,7 @@ const dispatch = useDispatch();
           serviceOption: serviceitem,
           // area : `${area[0]+area[1]}`,
           address: state.addressFront + " " + state.addressETC,
-          thumbnail: [{ menu: state.menuPhoto }, { banner: state.bannerPhoto }],
+          thumbnail:  state.bannerPhoto ,
           gpsX: gps.gpsX,
           gpsY: gps.gpsY,
         });
@@ -171,7 +176,12 @@ const dispatch = useDispatch();
           .then((res) => {
             console.log(state, "2");
             window.location.href = "/boss/main";
-          });
+          })
+          .then(
+            axios.post(process.env.REACT_APP_DB_HOST + "/menuCreate", {
+              authorization: user.token
+            }, {state, jazzBarId}, )
+          )
       }
 
   return (
@@ -285,17 +295,18 @@ const dispatch = useDispatch();
             <div className="barcontents">
               {editActive ? (
                 <div>
-                  {serviceArray.map((el) => (
+                  {serviceOption.map((el) => (
                     <div className="">
                       <input
                         type="checkbox"
                         name="serviceOption"
                         onChange={handleInput}
-                        id={el}
-                        defaultChecked={data.serviceOption.find(ele => ele === el) ? true : false
+                        id={el.content}
+                        defaultChecked={data.serviceOption.find(ele => ele.content === el) ? true : false
                         }
                       ></input>
-                      <div className="">{el}</div>
+                      <div className="">{el.content}</div>
+                      <img src ={el.img} alt={el.content}></img>
                     </div>
                   ))}
                 </div>
@@ -323,9 +334,16 @@ const dispatch = useDispatch();
                     onChange={handleImageUpload}
                   ></input>
                   <div>{alertMsg}</div>
+                  {detailImgs.map(el =>
+                      <img
+                      className="add-thumbnail"
+                      src={el}
+                      alt="" // onChange={(e) => setFile(e)}
+                    ></img>
+                    )}
                 </div>
               ) : menu.length !== 0 ? (
-                menu.map((el) => <img id="" src={el.thumbnail} alt="" />)
+                menu.map(el => <img id="" src={el.thumbnail} alt="" />)
               ) : (
                 <h4>등록된 이미지가 없습니다.</h4>
               )}
@@ -336,6 +354,7 @@ const dispatch = useDispatch();
             <div className="barlabel">대표이미지</div>
             <div className="barcontents">
               {editActive ? (
+                <div>
                 <input
                   className="add-file"
                   type="file"
@@ -343,6 +362,14 @@ const dispatch = useDispatch();
                   accept="image/jpg,image/png,image/jpeg,image/gif"
                   onChange={handleBannerImg}
                 ></input>
+
+                <img
+                className="add-thumbnail"
+                src={bannerDetail}
+                alt=""
+                // onChange={(e) => setFile(e)}
+              ></img>
+              </div>
               ) : banner.length !== 0 ? (
                 banner.map((el) => <img id="" src={el.thumbnail} alt="" />)
               ) : (

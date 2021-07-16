@@ -374,13 +374,14 @@ bossJazzBar :[],
     }
   ],
 jazzBarId : 1,
+// jazzbar : [],
   jazzbar: {
     id: 1,
     barName: '개쩌는 쟤즈뺘',
     mobile: '02-123-4567',
     defaultSeat: '20',
     area: '서울 서초구',
-    thumbnail: {},
+    thumbnail: [],
     address: '서울 강남구 강남대로 708 (한남대교레인보우카폐) 3층',
     addressFront :'서울 강남구 강남대로 708 (한남대교레인보우카폐)',
     addressETC : '3층',
@@ -391,9 +392,7 @@ jazzBarId : 1,
     gpsY: 37.365264512305174,
   }, //selected
 
-  barPhoto: [
-    
-  ],
+  barPhoto: [],
   reviewList: [],//{}
   myReviewId: null,
   menu: [
