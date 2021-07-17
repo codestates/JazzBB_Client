@@ -11,7 +11,8 @@ import { setBossJazzBar, setToken } from "../../redux/new/action";
 const { kakao } = window;
 
 function BInfoManagePage() {
-  const user = useSelector((state) => state.reducer.user);
+  const initialState =  useSelector((state) => state.reducer);
+  const jazzbar_id = useSelector((state) => state.reducer.jazzBarId);
   const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,16 +33,7 @@ function BInfoManagePage() {
     setIsPopupOpen(false);
   };
 
-  const [serviceitem, setService] = useState({
-    주차가능: false,
-    발렛주차: false,
-    단체석: false,
-    개별룸: false,
-    식사가능: false,
-    콜키지가능: false,
-    심야영업: false,
-    온라인예약가능: false,
-  });
+  const [serviceitem, setService] = useState([]);
 
   const service = Object.keys(serviceitem);
   const [state, setState] = useState({});
@@ -52,16 +44,24 @@ function BInfoManagePage() {
         target: { checked },
       } = e;
       setService({ ...serviceitem, [e.target.id]: checked });
+      console.log(serviceitem);
     } else {
       setState({ ...state, [targetName]: e.target.value });
     }
   };
 
+ 
+
   const handleSubmit = () => {
+    // if(serviceitem !== []){
+    // for(let service in serviceitem){
+    //   console.log(service)
+    // }
+
+    // }
+
     if (banner.length !== 0) {
-      const formDataBanner = new FormData();
-      formDataBanner.append(`bannerImg`, banner[0]);
-      setState({ ...state, bannerPhoto: formDataBanner });
+      setState({ ...state, thumbnail: banner[0] });
     }
     if (targetFile.length !== 0) {
       const formData = new FormData();
@@ -70,45 +70,55 @@ function BInfoManagePage() {
       }
       setState({ ...state, menuPhoto: formData });
       axios.post(process.env.REACT_APP_DB_HOST + "/menuCreate", {
-        authorization: user.token
+        authorization: initialState.user.token
       }, formData).then(res => console.log(res))
     }
-
     if (
       state.addressFront === undefined ||
       state.addressETC === undefined ||
       state.barName === undefined ||
       state.defaultSeat === undefined ||
-      state.mobile === undefined ||
-      state.addressFront === "" ||
-      state.addressETC === "" ||
-      state.barName === "" ||
-      state.defaultSeat === "" ||
-      state.mobile === ""
+      state.mobile === undefined 
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
       setState({
         ...state,
         serviceOption: serviceitem,
-        // area : `${area[0]+area[1]}`,
         address: state.addressFront + " " + state.addressETC,
         thumbnail: state.bannerPhoto,
         gpsX: gps.gpsX,
         gpsY: gps.gpsY,
       });
+console.log(state)
+      const newForm = new FormData();
+      // newForm.append('thumbnail', banner[0]) 
+      // newForm.append('barName',state.barName )
+      // newForm.append('defaultSeat',state.defaultSeat )
+      // newForm.append('area',state.area )
+      // newForm.append('gpsX',state.gpsX )
+      // newForm.append('gpsY',state.gpsY )
+      // newForm.append('address',state.address )
+      // newForm.append('serviceOption',state.serviceOption )
       // })
       axios
-        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state, { headers: { authorization: state.user.token }, withCredentials: true })
+        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, { headers: { authorization: initialState.user.token }, withCredentials: true })
         .then((res) => {
-          console.log(state, "2");
           const token1 = res.data.data.token;
           dispatch(setToken(token1));
-        }).then( window.location.href = "/boss/main")
+        })
+        .then(
+          axios.post(
+            process.env.REACT_APP_DB_HOST + "/menuCreate",
+            {
+              authorization: initialState.user.token,
+            },
+            { state, jazzbar_id }
+          )
+        );
+        // .then( window.location.href = "/boss/main")
     }
   };
-
-
 
 
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
@@ -263,8 +273,8 @@ function BInfoManagePage() {
                       className="svcoptcheck"
                       type="checkbox"
                       name="serviceOption"
-                      checked={serviceitem[el.content]}
-                      id={el.content}
+                      // checked={serviceitem[el.content]}
+                      id={el.id}
                       onChange={handleInput}
                     />
                     <div className="svcoptel">{el.content}</div>

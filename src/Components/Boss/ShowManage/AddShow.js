@@ -73,12 +73,12 @@ function AddShow() {
               .then(res => console.log(res,'res'))
               .then((res) => (window.location.href = "/boss/show"));
             //server-showCreate  :jazzbar_id 빠짐....!!!
+          }
           },
-        },
         {
           label: "아니오",
         },
-      ],
+      ]
     });
   };
   const handleAddShow = async () => {
