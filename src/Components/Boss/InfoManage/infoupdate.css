@@ -1,0 +1,197 @@
+.infowrapper {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.BIUcontentBox {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.BIUcontentheader {
+    background-color: white;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.BIUcontentheader-label{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.BIUcontentheader-sublabel {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.boxop {
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    width: 94%;
+    display: flex;
+    padding: 30px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.barlabel {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 1.3rem;
+    margin-right: 10px;
+    width: 100px;
+    min-width: 50px;
+    height: 22px;
+    text-align: end;
+}
+
+.barcontents {
+    width: 68%;
+}
+
+
+.btnbtnbtn {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    width: 110px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Sunflower', sans-serif;
+  }
+  
+  .btnbtnbtn:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowingbn5 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowingbn5 {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .btnbtnbtn:active {
+    color: #000;
+  }
+  
+  .btnbtnbtn:active:after {
+    background: transparent;
+  }
+  
+  .btnbtnbtn:hover:before {
+    opacity: 1;
+  }
+  
+  .btnbtnbtn:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #191919;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+.adrbtn {
+    width: 100px;
+    height: 26px;
+    margin-left: 10px;
+}
+
+.inputform {
+    width: 68%;
+    height: 100%;
+    padding: 3px;
+}
+
+.cbarea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.cbarea2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkboxWrapper {
+    width: 100px;
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.thisischeckbox {
+    margin-bottom: 7px;
+}
+
+.menuthumbnail, .bannerthumbnail {
+    width: 200px;
+    height: 200px;
+}
+
+.svclist {
+  display: flex;
+  width: 100%;
+}
+
+.svcitem {
+  margin-right: 20px;
+}

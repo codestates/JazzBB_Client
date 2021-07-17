@@ -217,6 +217,7 @@ input, select {
     justify-content: center;
     align-items: center;
     height: 100px;
+    margin-top: 25px;
     font-family: 'Sunflower', sans-serif;
 }
 

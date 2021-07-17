@@ -6,14 +6,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { setToken } from "../../redux/new/action";
+import { useSelector, useDispatch } from "react-redux";
 
 function AddShow() {
+  const dispatch = useDispatch();
+  const userstate = useSelector((state) => state.reducer.user);
   const [player, setPlayer] = React.useState({});
   const [inputValue, SetInputValue] = useState({
     id: "02",
     jazzbarId: "01",
     player: [],
-    thumbnail: "",
+    thumbnail: [],
   });
   const [imgFile, setImgFile] = useState([]);
 
@@ -21,15 +25,19 @@ function AddShow() {
     setImgFile(data)
   }
 
+  const formData = new FormData();
   
   function handleThumbnail(e) {
     console.log("clicked handlethumb");
+    console.log(inputValue, "dddddd");
 
     if (imgFile.length !== 0) {
-      const formData = new FormData();
-      formData.append(`thumbnail`, imgFile[0]);
-      SetInputValue({ ...inputValue, thumbnail: formData });
-      console.log(inputValue, "dddddd");
+      console.log("******** Addshow handleThumbnail imgFile :", imgFile)
+      // console.log("******** formData1 :", formData)
+      // formData.append(`thumbnail`, imgFile);
+      console.log("******** inputValue.thumbnail 1 :", inputValue.thumbnail)
+      SetInputValue({ ...inputValue, thumbnail: [...inputValue.thumbnail,imgFile] });
+      console.log("******** inputValue.thumbnail 2 :", inputValue.thumbnail)
     }
   }
 
@@ -50,8 +58,19 @@ function AddShow() {
         {
           label: "예",
           onClick: () => {
+            const filefile = new FormData();
+            filefile.append('thumbnail', imgFile)
+            filefile.append('content',inputValue.content )
+            filefile.append('time',inputValue.time )
+            filefile.append('date',inputValue.date )
+            filefile.append('showCharge',inputValue.showCharge )
             axios
-              .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
+              .post(process.env.REACT_APP_DB_HOST + "/showCreate", filefile, { headers:  { authorization: userstate.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true })
+              .then((res) => {
+                const token = res.data.data.accessToken;
+                dispatch(setToken(token));
+              })
+              .then(res => console.log(res,'res'))
               .then((res) => (window.location.href = "/boss/show"));
             //server-showCreate  :jazzbar_id 빠짐....!!!
           },
@@ -77,15 +96,13 @@ function AddShow() {
       <div className="show-box">
         <div className="top-box">
           <div className="show-innerbox">
+
             <div className="show-box_photo">
               <div className="show-photo">
-                <InputFile
-                  handleThumbnail={handleThumbnail}
-                  imgFile={imgFile}
-                  setImgFile={handelSetImgFile}
-                ></InputFile>
+                <InputFile handleThumbnail={handleThumbnail} imgFile={imgFile} setImgFile={handelSetImgFile}></InputFile>
               </div>
             </div>
+            
             <div className="show-box_input">
               <AddShowInput handleInputChange={handleInputChange}></AddShowInput>
             </div>
@@ -93,18 +110,8 @@ function AddShow() {
             <div className="show-box_content">
               <div className="show-description"></div>
             </div>
-
             <div className="bottom-box">
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={handleAddShow}
-                // className={classes.button}
-                startIcon={<SaveIcon />}
-              >
-                등록
-              </Button>
+              <Button variant="contained" color="primary" size="large" onClick={handleAddShow} startIcon={<SaveIcon />}>등록</Button>
             </div>
           </div>
         </div>

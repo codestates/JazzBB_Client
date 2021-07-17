@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.4",
+    "@material-ui/core": "^4.12.1",
     "@material-ui/data-grid": "^4.0.0-alpha.33",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
@@ -26,18 +26,22 @@
     "react-icons": "^4.2.0",
     "react-kakao-login": "^2.1.0",
     "react-kakao-maps": "^0.0.13",
+    "react-material-ui-carousel": "^2.2.7",
     "react-modal": "^3.14.3",
     "react-pro-sidebar": "^0.6.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
+    "react-slick": "^0.28.1",
     "react-table": "^7.7.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "sass": "^1.35.2",
     "scss": "^0.2.4",
+    "slick-carousel": "^1.8.1",
     "styled": "^1.0.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "HTTPS=true SSL_CRT_FILE='./cert.pem' SSL_KEY_FILE='./key.pem' react-scripts start",

@@ -1,9 +1,10 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList } from "../Components/redux/new/action";
 import "../css/service.css"
+import SimpleSlider from "../Components/adbanner";
 
 function Service () {
   const dispatch = useDispatch();
@@ -11,23 +12,47 @@ function Service () {
 
   // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
   //  .then(res => {
-  //    const list = res.data.data.list;
+  //    console.log("******** client : ", res.data)
+  //    const list = res.data.data;
   //    dispatch(setList(list, 'barList'));
   //  })
 
   // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
   //  .then(res => {
-  //    const list = res.data.data.list;
+  //    const list = res.data.data;
   //    dispatch(setList(list, 'boardList'));
   //  })
 
   // for(let bar of state.barList){
   //   axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
   //    .then(res => {
-  //      const showList = res.data.data.list;
+  //      const showList = res.data.data;
   //      dispatch(addEveryShowList(showList));
   //    })
   // }
+  // useEffect(() => {
+  //   axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+  //    .then(res => {
+  //      const list = res.data.data;
+  //      dispatch(setList(list, 'barList'));
+  //    })
+  
+  //   axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
+  //    .then(res => {
+  //      const list = res.data.data;
+  //      dispatch(setList(list, 'boardList'));
+  //    })
+  
+  //   for(let bar of state.barList){
+  //     axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
+  //      .then(res => {
+  //        const showList = res.data.data;
+  //        dispatch(addEveryShowList(showList));
+  //        console.log("******** useEffect ", showList)
+  //      })
+  //   }
+  //   return;
+  // },[])
 
   const goJazzbar = (jazzbar) => {
     dispatch(setJazzbar(jazzbar));
@@ -53,9 +78,10 @@ function Service () {
   return (
         <div className="service">
           <div className="service-body">
-            <Link to="/posting" className="service-bannerWrapper" onClick>
+            <SimpleSlider></SimpleSlider>
+            {/* <Link to="/posting" className="service-bannerWrapper" onClick>
                 <img id="service-banner-top" src="/img/resource/service-banner-top.png" alt="banner(top)"/>
-            </Link>
+            </Link> */}
             <Link to="/search" className="service-search">
                 <div className="service-search-label">search</div>
                 <input className="service-search-form" type="text" />
@@ -85,6 +111,7 @@ function Service () {
                         state.everyShowList.map(el => {
                           if(el.date === new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'')){
                             const thisBar = state.barList.find(bar => bar.id === el.jazzbar_id);
+                            console.log("******** everyShowList : ", state.everyShowList)
                             return (
                             <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(thisBar)}>
                               <a className="liveon-object-header">

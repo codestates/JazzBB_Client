@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 // import{ OAUTH_URI, REACT_APP_KAKAO, REACT_APP_DB_HOST } from "./environment";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Switch,
   Route,
@@ -28,40 +28,59 @@ import Footer from './Components/footer'
 import Termspi from './Pages/footer-terms-pi'
 import Weareddh from "./Pages/weareddh";
 import Service from "./Pages/ServicePage";
+
+
+import { checkFirst, setToken, setUser, isLogin, finishAction, setJazzId } from './Components/redux/new/action';
+import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
 import NotFound from "./Components/notfound"
 
-import { checkFirst, setToken, setUser, isLogin } from './Components/redux/new/action';
 dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
 
-  const getToken = (authorizationCode) => {
-    console.log(state);
-    axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode })
-    .then(res => {
-      let token = res.data.data.accessToken;
-      axios.get(process.env.REACT_APP_DB_HOST+'/userinfo', {authorization: token})
-       .then(resp => {
-         token = resp.data.data.accessToken;
-         const userinfo = resp.data.data.userinfo;
-         dispatch(setToken(token));
-         dispatch(setUser(userinfo));
-         dispatch(isLogin())
-         if(!!state.user.token && !state.user.mobile){
-           dispatch(checkFirst());
-         };
-       });
-    })
-    .catch(err => console.log(err))
+  const firstLogin = () => {
+    if (state.user.token && !state.user.type) {
+      dispatch(checkFirst());
+    };
+    dispatch(finishAction());
   }
 
-  const url = new URL(window.location.href);
-  const authorizationCode = url.searchParams.get('code');
-  if (authorizationCode) {
-    getToken(authorizationCode)
+  const getToken = async (authorizationCode) => {
+
+    let token = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
+    .then(res =>{
+      if(res.data.data.jazzbar_id){
+        const jazzBarId =res.data.data.jazzbar_id
+        dispatch(setJazzId(jazzBarId))
+      }
+      return res.data.data.accessToken;
+    })
+    .catch(err => console.log(err))
+
+
+    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: token }, withCredentials: true })
+      .then(resp => {
+        token = resp.data.data.accessToken;
+        const userinfo = resp.data.data.userinfo;
+        dispatch(setUser(userinfo));
+        dispatch(setToken(token));
+        dispatch(isLogin())
+        firstLogin();
+      });
   }
+
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get('code');
+    if (authorizationCode) {
+      getToken(authorizationCode)
+    } else {
+      dispatch(finishAction());
+    }
+  }, [])
 
   return (
     <div>
@@ -72,38 +91,43 @@ function App() {
         <Switch>
           <Route path="/boss/main" render={() => <BossMainPage></BossMainPage>} />
           <Route path="/boss/reservation" render={() => <BreservationPage></BreservationPage>} />
-          <Route path="/boss/show" render={() => <BshowPage></BshowPage> } />
+          <Route path="/boss/show" render={() => <BshowPage></BshowPage>} />
           <Route path="/boss/photo" render={() => <PhotoManage></PhotoManage>} />
           <Route path="/boss/infoedit" render={() => <BInfoManagePage></BInfoManagePage>} />
-          <Route path="/boss/infoUpdate" render={() => <InfoUpdate></InfoUpdate>} />
+          <Route path="/boss/infoupdate" render={() => <InfoUpdate></InfoUpdate>} />
+          <Route path="/boss/modaledit" render={() => <ModalEdit></ModalEdit>} />
           <Route path="/jazzbar" render={() => <JazzBarPage></JazzBarPage>} />
           <Route path="/reservation" render={() => <Reservation></Reservation>} />
-          <Route path="/posting" render={()=> <Boardinfo></Boardinfo>}/>
-          <Route path="/board" render={()=> <Board></Board>} />
+          <Route path="/posting" render={() => <Boardinfo></Boardinfo>} />
+          <Route path="/board" render={() => <Board></Board>} />
           <Route path="/mypage" render={() => <Mypage></Mypage>} />
           <Route path="/moreinfo" render={() => <Moreinfo></Moreinfo>} />
           <Route path="/search" render={() => <Search></Search>} />
           <Route path="/service" render={() => <Service></Service>} />
-          <Route path="/" render={() => {
-            if(state.firstCheck && state.isLogin){
-              return <Redirect to="/moreinfo" />
-            } else if(!state.firstCheck && state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbar_id) {
-              return <Redirect to="/boss/infoedit" />
-            } else  {
-              return <Redirect to="/service" />
-            }
-            }} />
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
           <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
+          <Route path="/" render={() => {
+            if ( !state.user.usertype && state.isLogin && state.codeAction) {
+              return <Redirect to="/moreinfo" />
+            } 
+            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbar_id && state.codeAction) {
+              return <Redirect to="/boss/infoedit" />
+            } else if (state.codeAction ) {
+              return <Redirect to="/service" />
+            }
+          }} />
 
-          <Route component={NotFound} />
+
+          <Route path="*" component={NotFound} />
         </Switch>
       </div>
       <Footer></Footer>
     </div>
   );
-  
+
 }
 
 export default App;
+
+
