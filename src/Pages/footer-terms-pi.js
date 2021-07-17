@@ -15,7 +15,7 @@ function Termspi() {
                 </div>
 
                 <div className="terms-header-btnWrapper">
-                    <img className="terms-header-icon" src="/img/resource/icons/outline_arrow_back_ios_black_24dp.png" />
+                    <img className="terms-header-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
                     <div className="terms-header-btntitle">이전 페이지</div>
                 </div>
             </div>
