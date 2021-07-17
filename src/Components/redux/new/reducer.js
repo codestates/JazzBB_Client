@@ -1,3 +1,4 @@
+import { Palette } from "@material-ui/icons";
 import {
   SET_SHOW_BOSS,
   SET_RESER_BOSS,
@@ -27,7 +28,7 @@ import {
   ADD_EVERY_SHOW_LIST,
   SET_JAZZID_BOSS,
   FINISH_ACTION,
-
+  SET_CURRENT_PAGE,
 } from "./action";
 import initialState from "./initialState";
 
@@ -109,7 +110,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { firstCheck: !state.firstCheck });
 
     case SAVE_THIS_HISTORY:
-      return Object.assign({}, state, { history: [...state.history, payload.history] });
+      return Object.assign({}, state, { history: [state.currentPage, ...state.history] });
 
     case DEQUEUE_HISTORY:
       return Object.assign({}, state, { history: state.history.slice(1) });
@@ -134,6 +135,9 @@ const reducer = (state = initialState, action) => {
 
     case FINISH_ACTION:
       return Object.assign({}, state, { codeAction: true });
+
+    case SET_CURRENT_PAGE:
+      return Object.assign({}, state, { currentPage: payload.page });
 
 
     default:

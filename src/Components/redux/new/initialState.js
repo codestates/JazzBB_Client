@@ -3,6 +3,7 @@
 const initialState = {
   codeAction : false,
   isLogin: false,
+  currentPage: '/service',
   history: [],
   firstCheck: false,
   search: null,
