@@ -18,7 +18,6 @@ function InfoUpdate() {
   const menu = useSelector((state) => state.reducer.menu);
   const [editActive, setEdit] = useState(false);
   const [state, setState] = useState(data);
-  console.log(data);
   const [serviceitem, setService] = useState({
     주차가능: false,
     발렛주차: false,
@@ -40,7 +39,7 @@ function InfoUpdate() {
   const closePostCode = () => {
     setIsPopupOpen(false);
   };
-  const serviceArray = Object.keys(serviceitem);
+  // const serviceArray = Object.keys(serviceitem);
 
   useEffect(() => {
     let copy = serviceitem;
@@ -174,7 +173,7 @@ function InfoUpdate() {
     }
     axios
       .post(
-        process.env.REACT_APP_DB_HOST + "/jazzbarCreate",
+        process.env.REACT_APP_DB_HOST + "/jazzbarUpdate",
         {
           authorization: user.token,
         },
@@ -183,10 +182,6 @@ function InfoUpdate() {
       .then((res) => {
         const token = res.data.data.accessToken;
         dispatch(setToken(token));
-      })
-      .then((res) => {
-        console.log(state, "2");
-        window.location.href = "/boss/main";
       })
       .then(
         axios.post(
@@ -345,27 +340,8 @@ function InfoUpdate() {
                       }
                     })}
 
-                    {/* {data.serviceOption.split("").map((number) => {
-                      for (let serviceOption of data.serviceOption) {
-                        if (number === serviceOption.id) {
-                          return (
-                            <span className="shopinfo-iconarea-featureitem">
-                              <img
-                                className="shopinfo-iconarea-featureitem-icon"
-                                src={serviceOption.img}
-                                alt=""
-                              />
-                              <span className="shopinfo-iconarea-featureitem-label">
-                                {serviceOption.content}
-                              </span>
-                            </span>
-                          );
-                        }
-                      }
-                    })} */}
                   </div>
                 )}
-                {/* {data.serviceOption.map(el => <div>{el}</div>)} */}
               </div>
             </div>
           </div>
