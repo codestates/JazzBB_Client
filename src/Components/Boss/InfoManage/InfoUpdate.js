@@ -42,6 +42,8 @@ function InfoUpdate() {
   // const serviceArray = Object.keys(serviceitem);
 
   useEffect(() => {
+    console.log("data")
+    console.log(data)
     let copy = serviceitem;
     const yap = data.serviceOption.split("");
     yap.map((number) => {
