@@ -43,9 +43,7 @@ function BoardPostingObject () {
       alert('로그인 후 리뷰 작성이 가능합니다.');
       dispatch(modifySwitch('loginModal'));
     } else {
-      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', {
-        authorization: state.user.token
-      },{
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', { headers: { authorization: state.user.token }, withCredentials: true },{
         boardId: currentBoard.id, 
         point: '5', 
         content: state.review.content

@@ -24,14 +24,14 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
      })
      .catch(err => console.log(err))
   
-    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbar_id: state.jazzbar.id})
+    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.jazzbar.id})
      .then(res => {
        const list = res.data.data.list;
        dispatch(setList(list, 'menu'));
      })
      .catch(err => console.log(err))
      
-    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbar_id: state.jazzbar.id, type: 'photo'})
+    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.jazzbar.id, type: 'photo'})
      .then(res => {
        const list = res.data.data.list;
        dispatch(setList(list, 'barPhoto'));
@@ -52,9 +52,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   }
 
   const reviewPost = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', {
-      authorization: state.user.token
-    },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', { headers: { authorization: state.user.token }, withCredentials: true },{
       jazzbarId: state.jazzbar.id, 
       point: state.review.point, 
       content: state.review.content
@@ -79,9 +77,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   }
     
   const reviewUpdate = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', {
-      authorization: state.user.token
-    },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', { headers: { authorization: state.user.token }, withCredentials: true } ,{
       jazzbarId: state.jazzbar.id, 
       point: state.review.point, 
       content: state.review.content
@@ -95,9 +91,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   }
 
   const reviewDeleteRequest = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', {
-      authorization: state.user.token
-    },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', { headers: { authorization: state.user.token }, withCredentials: true },{
       id: state.myReviewId
     })
      .then(res => {

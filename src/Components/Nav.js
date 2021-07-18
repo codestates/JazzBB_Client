@@ -19,7 +19,7 @@ function Nav() {
     dispatch(deleteState('user'));
     dispatch(isLogin());
     window.location.pathname = "/service";
-    axios.post(process.env.REACT_APP_DB_HOST + "/logout", {authorization: state.user.token})
+    axios.post(process.env.REACT_APP_DB_HOST + "/logout", { headers: { authorization: state.user.token }, withCredentials: true })
     .then(() => {
      })
   }
