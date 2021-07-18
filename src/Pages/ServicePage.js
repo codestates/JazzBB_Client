@@ -92,7 +92,7 @@ function Service () {
                         state.everyShowList.map(el => {
                           if(el.date === new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'')){
                             const thisBar = state.barList.find(bar => bar.id === el.jazzbarId);
-                            console.log("******** everyShowList : ", state.everyShowList)
+                            console.log(thisBar)
                             return (
                             <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(thisBar)}>
                               <a className="liveon-object-header">
@@ -175,9 +175,11 @@ function Service () {
                             <div className="service-newResOpen-contents">
                                 {
                                   state.barList.reverse().map(el => {
+                                    return (
+
                                     <Link to="/jazzbar" className="service-newResOpen-object" onClick={()=> goJazzbar(el)}>
                                         <a className="service-newResOpen-object-photobox">
-                                            <div className="service-newResOpen-object-img" style={{"background-image": `url(${el.thumbnail})`}}></div>
+                                            <div className="service-newResOpen-object-img" style={{"background-image" : "url("+el.thumbnail+")"}}></div>
                                         </a>
 
                                         <div className="service-newResOpen-object-footer">
@@ -189,6 +191,8 @@ function Service () {
                                             </div>
                                         </div>
                                     </Link>
+                                      
+                                    )
                                   })
                                 }
 

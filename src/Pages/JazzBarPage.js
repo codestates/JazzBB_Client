@@ -12,7 +12,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   const { kakao } = window; 
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  const [openTime, closeTime] = state.jazzbar.openTime.split('-');//'17:00-20:00'
+  const [openTime, closeTime] = state.jazzbar.openTime.split('-');
 
   useEffect(()=>{
     dispatch(saveThisHistory())
@@ -225,11 +225,16 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
                 <div className="shopinfo-shopphoto-contents">
                   {
                     state.barPhoto.map(el => {
-                      <div className="shopinfo-shopphoto-object">
-                        <a className="shopinfo-shopphoto-object-photobox" href="#">
-                            <div className="shopinfo-shopphoto-object-photobox-img" style={`background-image: url(${el});`}></div>
+                      return (
+
+                         <div className="shopinfo-shopphoto-object">
+                            <a className="shopinfo-shopphoto-object-photobox" href="#">
+                            <div className="shopinfo-shopphoto-object-photobox-img" style={{"background-image" : "url("+el+")"}}></div>
                         </a>
                       </div>
+
+                      )
+                      
                     })
                   }
                 </div>
@@ -253,18 +258,24 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
                 <div className="shopinfo-reservation-contents">
                   {
                   state.showList.map(el => {
-                    <Link to="/reservation" onClick={()=> goReservation(el)}>
+                    return (
+
+                      <Link to="/reservation" onClick={()=> goReservation(el)}>
                       <div className="shopinfo-reservation-object" >
                         <a className="shopinfo-reservation-object-photobox" href="#">
-                          <div className="shopinfo-reservation-object-img" style={`background-image: url(${el.thumbnail});`}></div>
+                          <div className="shopinfo-reservation-object-img" style={{"background-image" : "url("+el.thumbnail+")"}}></div>
                         </a>
 
                         <div className="shopinfo-reservation-object-footer">
-                          <div className="shopinfo-reservation-object-footer-name">{`공연 시작 시간 : ${el.date} ${el.time}`}</div>
+                          <div className="shopinfo-reservation-object-footer-label">{el.player}</div>
+                          <div className="shopinfo-reservation-object-footer-name">{`${el.date} ${el.time}`}</div>
                           <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
                         </div>
                       </div>
                     </Link>
+
+
+                    )
                   })
                   }
                 </div>
