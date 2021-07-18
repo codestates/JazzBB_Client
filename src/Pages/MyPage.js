@@ -22,7 +22,8 @@ function MyPage() {
     await axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { user_id: state.user.id }, { headers: { authorization: state.user.token }, withCredentials: true })
       .then(res => {
         const token2 = res.data.data.token;
-        const reservation = res.data.data.list;
+        const reservation = res.data.data;
+        console.log("******** reservation", reservation)
         dispatch(setList(reservation, 'reservation'));
         dispatch(setToken(token2));
       })
