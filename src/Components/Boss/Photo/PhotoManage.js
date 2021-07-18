@@ -12,6 +12,7 @@ import "./PhotoManage.css";
 const PhotoManage = () => {
   const dispatch = useDispatch;
   const jazzbarId = useSelector((state) => state.reducer.jazzbarId);
+  const state = useSelector((state) => state.reducer);
 
   useEffect(() => {
     axios
@@ -36,14 +37,14 @@ const PhotoManage = () => {
         </div>
 
         <div className="registered-photo-body">
-            {jazzbar.thumbnail.menu !== undefined
-              ? jazzbar.thumbnail.menu.map((el, index) => {
+            {state.menu !== undefined
+              ? state.menu.map((el, index) => {
                   <img className="registered-photo-img" src={el} key={index} alt =""/>;
                 })
               : null}
 
-            {jazzbar.thumbnail.banner !== undefined
-              ? jazzbar.thumbnail.menu.map((el, index) => {
+            {jazzbar.thumbnail !== undefined
+              ? jazzbar.thumbnail.map((el, index) => {
                   <img className="registered-photo-img" src={el} key={index} alt="" />;
                 })
               : null}
