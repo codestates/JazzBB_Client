@@ -1,9 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux'
 import "../css/footer-terms.css"
 
 
 
 function Terms() {
+    const state = useSelector(state => state.reducer);
+
     return (
 
         <div className="footer-terms">
@@ -15,10 +19,10 @@ function Terms() {
                         <div className="terms-header-sublabel">재즈바바 서비스를 이용하실 때 알아두어야 하는 약관입니다</div>
                     </div>
 
-                    <div className="terms-header-btnWrapper">
+                    <Link to={state.currentPage} className="terms-header-btnWrapper">
                         <img className="terms-header-icon" src="/img/resource/icons/outline_arrow_back_ios_black_24dp.png" />
                         <div className="terms-header-btntitle">이전 페이지</div>
-                    </div>
+                    </Link>
                 </div>
 
 

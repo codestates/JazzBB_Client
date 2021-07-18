@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard } from "../Components/redux/new/action";
+import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, setCurrentPage } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/search.css"
 
@@ -13,21 +13,22 @@ function Search () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
 
-  // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-  //  .then(res => {
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'barList'));
-  //  })
-
-  // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
-  //  .then(res => {
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'boardList'));
-  //  })
+  useEffect(()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+    //  .then(res => {
+    //    const list = res.data.data;
+    //    dispatch(setList(list, 'barList'));
+    //  })
   
-  const saveHistory = () => {
-    dispatch(saveThisHistory("/search"))
-  }
+    // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
+    //  .then(res => {
+    //    const list = res.data.data;
+    //    dispatch(setList(list, 'boardList'));
+    //  })
+  }, [])
+  
   
   const clickSearchData = (variety, id) => {
     if(variety == 'posting'){
@@ -36,14 +37,7 @@ function Search () {
       const currentBar = state.barList.find(el => el.id == id)
       dispatch(setJazzbar(currentBar))
     }
-    dispatch(saveThisHistory("/search"))
   }
-  
-  const goBack = () => {
-    dispatch(saveThisHistory("/search"))
-    dispatch(dequeueHistory())
-  }
-
 
   const searchBar = (input) => {
     dispatch(search(input));
@@ -75,7 +69,7 @@ function Search () {
           }
           <div className="search-body-header-sublabel"></div>
         </div>
-        <Link to={state.history[0]} className="search-body-header-btnwrapper" onClick={()=> goBack()}>
+        <Link to={state.history[0]} className="search-body-header-btnwrapper">
           <img className="search-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
           <div className="search-control-label">이전 페이지</div>
         </Link>

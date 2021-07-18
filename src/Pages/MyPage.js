@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState } from "../Components/redux/new/action";
+import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState, setCurrentPage, saveThisHistory } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 
@@ -11,6 +11,8 @@ function MyPage() {
   const state = useSelector(state => state.reducer);
 
   useEffect(async () => {
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
     await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
       .then(res => {
         const token1 = res.data.data.token;
