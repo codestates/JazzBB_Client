@@ -401,13 +401,15 @@ function InfoUpdate() {
                     // onChange={(e) => setFile(e)}
                   ></img>
                 </div>
-              ) : banner.length !== 0 ? (
-                banner.map((el) => (
-                  <img className="bannerthumbnail" src={el.thumbnail} alt="" />
-                ))
-              ) : (
-                <h4>등록된 이미지가 없습니다.</h4>
-              )}
+              ) : 
+              // banners.length !== 0 ? (
+                // banners.map((el) => (
+                  <img className="bannerthumbnail" src={data.thumbnail} alt="" />
+                // ))
+              // ) : (
+              //   <h4>등록된 이미지가 없습니다.</h4>
+              // )
+              }
             </div>
           </div>
           {editActive ? (

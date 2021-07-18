@@ -39,14 +39,15 @@ const PhotoManage = () => {
         <div className="registered-photo-body">
             {state.menu !== undefined
               ? state.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} alt =""/>;
+                  <img className="registered-photo-img" src={el.thumbnail} key={index} alt =""/>;
                 })
               : null}
 
             {jazzbar.thumbnail !== undefined
-              ? jazzbar.thumbnail.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} alt="" />;
-                })
+             ? 
+            //  jazzbar.thumbnail.map((el, index) => {
+                  <img className="registered-photo-img" src={jazzbar.thumbnail} alt="" />
+                // })
               : null}
       
           {/* <img className="registered-photo-img" src="/img/tokyoJazz.jpg" alt=""/> */}
