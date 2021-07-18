@@ -11,16 +11,18 @@ import { setBossJazzBar, setToken } from "../../redux/new/action";
 const { kakao } = window;
 
 function BInfoManagePage() {
-  const initialState =  useSelector((state) => state.reducer);
+  const initialState = useSelector((state) => state.reducer);
   const jazzbarId = useSelector((state) => state.reducer.jazzBarId);
   const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const dispatch = useDispatch();
+
   useEffect(() => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
       const list = res.data.data;
       dispatch(setBossJazzBar(list));
     });
   }, []);
+
   //재즈바 id 받아오기 !!!!!!!!!!!!!!!!!!!!!!
   const Jazz = useSelector((state) => state.reducer.jazzbar);
   const [gps, setGps] = useState("");
@@ -50,20 +52,18 @@ function BInfoManagePage() {
     }
   };
 
-
   const handleSubmit = () => {
-    if(serviceitem !== []){
-      let temp = '';
-    for(let service in serviceitem){
-      if(serviceitem[service] === true){
-        temp = temp + service
+    if (serviceitem !== []) {
+      let temp = "";
+      for (let service in serviceitem) {
+        if (serviceitem[service] === true) {
+          temp = temp + service;
+        }
       }
-    }
-    console.log(temp)
-    console.log(typeof temp)
-    setState({...state, serviceOption :temp})
-    console.log(state,'1.state')
-
+      console.log(temp);
+      console.log(typeof temp);
+      setState({ ...state, serviceOption: temp });
+      console.log(state, "1.state");
     }
 
     if (banner.length !== 0) {
@@ -75,16 +75,22 @@ function BInfoManagePage() {
         formData.append(`image${i}`, targetFile[i]);
       }
       setState({ ...state, menuPhoto: formData });
-      axios.post(process.env.REACT_APP_DB_HOST + "/menuCreate", {
-        authorization: initialState.user.token
-      }, formData).then(res => console.log(res))
+      axios
+        .post(
+          process.env.REACT_APP_DB_HOST + "/menuCreate",
+          {
+            authorization: initialState.user.token,
+          },
+          formData
+        )
+        .then((res) => console.log(res));
     }
     if (
       state.addressFront === undefined ||
       state.addressETC === undefined ||
       state.barName === undefined ||
       state.defaultSeat === undefined ||
-      state.mobile === undefined 
+      state.mobile === undefined
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
@@ -96,14 +102,14 @@ function BInfoManagePage() {
         gpsY: gps.gpsY,
       });
       const newForm = new FormData();
-      newForm.append('thumbnail', banner[0]) 
-      newForm.append('barName',state.barName )
-      newForm.append('defaultSeat',state.defaultSeat )
-      newForm.append('area',state.area )
-      newForm.append('gpsX',state.gpsX )
-      newForm.append('gpsY',state.gpsY )
-      newForm.append('address',state.address )
-      newForm.append('serviceOption',state.serviceOption )
+      newForm.append("thumbnail", banner[0]);
+      newForm.append("barName", state.barName);
+      newForm.append("defaultSeat", state.defaultSeat);
+      newForm.append("area", state.area);
+      newForm.append("gpsX", state.gpsX);
+      newForm.append("gpsY", state.gpsY);
+      newForm.append("address", state.address);
+      newForm.append("serviceOption", state.serviceOption);
       // })
       let formData = new FormData();
       for (let i = 0; i < targetFile.length; i++) {
@@ -111,30 +117,39 @@ function BInfoManagePage() {
       }
       formData.append(`jazzbarId`, jazzbarId);
 
-      console.log("******** BinfoManage newForm : ", newForm )
-      console.log("******** BinfoManage newForm : ", initialState.user )
+      console.log("******** BinfoManage newForm : ", newForm);
+      console.log("******** BinfoManage newForm : ", initialState.user);
 
       axios
-        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, { headers: { authorization: initialState.user.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true })
+        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, {
+          headers: {
+            authorization: initialState.user.token,
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        })
         .then((res) => {
           const token1 = res.data.data.accessToken;
           dispatch(setToken(token1));
         })
         .then(
-          axios.post(
-            process.env.REACT_APP_DB_HOST + "/menuCreate",
-            formData,
-            { headers: { authorization: initialState.user.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true }
-          )
+          axios
+            .post(process.env.REACT_APP_DB_HOST + "/menuCreate", formData, {
+              headers: {
+                authorization: initialState.user.token,
+                "Content-Type": "multipart/form-data",
+              },
+              withCredentials: true,
+            })
+            // .then((window.location.href = "/boss/main"))
+
           // .then((res) => {
           //   const token1 = res.data.data.token;
           //   dispatch(setToken(token1));
           // })
         );
-        // .then( window.location.href = "/boss/main")
     }
   };
-
 
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
   const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
@@ -182,10 +197,9 @@ function BInfoManagePage() {
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
     <div className="infoPage">
-
       <Sidebar></Sidebar>
       {Jazz.length === 0 ? (
-        <div className="infobody">         
+        <div className="infobody">
           <div className="BIMcontentBox">
             <div className="ctBoxheader">
               <div className="ctBoxheader-title">매장 정보 입력</div>
@@ -335,7 +349,6 @@ function BInfoManagePage() {
                       className="add-thumbnail"
                       src={detailImgs[2]}
                       alt=""
-                      // onChange={(e) => setFile(e)}
                     ></img>
                   ) : null}
 
@@ -344,7 +357,6 @@ function BInfoManagePage() {
                       className="add-thumbnail"
                       src={detailImgs[3]}
                       alt=""
-                      // onChange={(e) => setFile(e)}
                     ></img>
                   ) : null}
                   {detailImgs[4] !== undefined ? (
@@ -352,14 +364,8 @@ function BInfoManagePage() {
                       className="add-thumbnail"
                       src={detailImgs[4]}
                       alt=""
-                      // onChange={(e) => setFile(e)}
                     ></img>
                   ) : null}
-                  {/* <form action="/upload" method="post" encType="multipart/form-data"> 
-               <input type="file" name="image" multiple></input>
-               <input type="text" name="title" ></input>
-               <button type="submit" onClick={handleUpload}>업로드</button>
-             </form> */}
                 </div>
               </div>
 
@@ -395,7 +401,7 @@ function BInfoManagePage() {
         </div>
       ) : (
         <InfoUpdate data={Jazz}></InfoUpdate>
-      )} 
+      )}
     </div>
   );
 }
