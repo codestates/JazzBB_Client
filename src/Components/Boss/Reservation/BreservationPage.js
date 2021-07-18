@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 // import DatePick from "../DatePick";
 import Sidebar from "../Sidebar";
 import axios from "axios";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ReserHeader from "./ReserHeader";
 import {
@@ -14,8 +14,7 @@ import "../RvManage.css";
 
 const BreservationPage = () => {
   const dispatch = useDispatch();
-  const jazzbarId = ""; //재즈바 아이디 가져오기
-
+  const jazzbarId = useSelector((state) => state.reducer.jazzBarId);
   const [All, SetNotAll] = React.useState(true);
   const set = () => {
     SetNotAll(true);
@@ -27,21 +26,17 @@ const BreservationPage = () => {
 
   useEffect(() => {
     axios
-      .get(
-        process.env.REACT_APP_DB_HOST + "/reservationRead",
-        jazzbarId
-      )
+      .get(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
       .then((res) => {
-        const list = res.data.data.list;
-        dispatch(setBossReservationList(list));
+        const showlist = res.data.data;
+        dispatch(setBossShowList(showlist));
       })
-     
       .then(
         axios
-          .get(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
+          .get(process.env.REACT_APP_DB_HOST + "/reservationRead", jazzbarId)
           .then((res) => {
-            const showlist = res.data.data;
-            dispatch(setBossShowList(showlist));
+            const list = res.data.data.list;
+            dispatch(setBossReservationList(list));
           })
       );
   }, []);
