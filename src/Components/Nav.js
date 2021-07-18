@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { modifySwitch, deleteState, isLogin } from "./redux/new/action"
+import { modifySwitch, deleteState, isLogin, saveThisHistory } from "./redux/new/action"
 import Modal from "react-modal";
 import './Nav.css'
 
@@ -19,9 +19,13 @@ function Nav() {
     dispatch(deleteState('user'));
     dispatch(isLogin());
     window.location.pathname = "/service";
-    axios.post(process.env.REACT_APP_DB_HOST + "/logout", {authorization: state.user.token})
+    axios.post(process.env.REACT_APP_DB_HOST + "/logout", { headers: { authorization: state.user.token }, withCredentials: true })
     .then(() => {
      })
+  }
+
+  const goPage = () => {
+    dispatch(saveThisHistory())
   }
 
   const kakaoLogin = () => {
@@ -34,7 +38,7 @@ function Nav() {
         <img id="navi-logo" src="/img/resource/jazzbb_logo_black.png" alt="jazzbarbar" />
       </Link>
       <div className="navi-btnWrapper">
-        <Link to="/search">
+        <Link to="/search" onClick={()=> goPage()}>
           <button className="navi-btn">Search</button>
         </Link>
 
@@ -44,10 +48,10 @@ function Nav() {
           :  
           <div className="dropdown">
           <div className="dropWrapper">
-          <Link to="/mypage"><button className="navi-btn">Mypage</button></Link>
+          <Link to="/mypage" onClick={()=> goPage()}><button className="navi-btn">Mypage</button></Link>
             <ul className="sub">
-              <li><Link to="/mypage">마이페이지</Link></li>
-              <li><Link to="/boss/main">매장관리</Link></li>
+              <li><Link to="/mypage" onClick={()=> goPage()}>마이페이지</Link></li>
+              <li><Link to="/boss/main" onClick={()=> goPage()}>매장관리</Link></li>
             </ul>
           </div>
         </div>

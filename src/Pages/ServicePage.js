@@ -2,7 +2,7 @@ import axios from "axios";
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList } from "../Components/redux/new/action";
+import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList, setCurrentPage } from "../Components/redux/new/action";
 import "../css/service.css"
 import SimpleSlider from "../Components/adbanner";
 
@@ -10,49 +10,31 @@ function Service () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer)
 
-  // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-  //  .then(res => {
-  //    console.log("******** client : ", res.data)
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'barList'));
-  //  })
-
-  // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
-  //  .then(res => {
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'boardList'));
-  //  })
-
-  // for(let bar of state.barList){
-  //   axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
-  //    .then(res => {
-  //      const showList = res.data.data;
-  //      dispatch(addEveryShowList(showList));
-  //    })
-  // }
-  // useEffect(() => {
-  //   axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-  //    .then(res => {
-  //      const list = res.data.data;
-  //      dispatch(setList(list, 'barList'));
-  //    })
-  
-  //   axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
-  //    .then(res => {
-  //      const list = res.data.data;
-  //      dispatch(setList(list, 'boardList'));
-  //    })
-  
-  //   for(let bar of state.barList){
-  //     axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
-  //      .then(res => {
-  //        const showList = res.data.data;
-  //        dispatch(addEveryShowList(showList));
-  //        console.log("******** useEffect ", showList)
-  //      })
-  //   }
-  //   return;
-  // },[])
+  useEffect(()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+    //  .then(res => {
+    //    const list = res.data.data;
+    //    dispatch(setList(list, 'barList'));
+    //  })
+      
+    // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
+    //  .then(res => {
+    //    const list = res.data.data;
+    //    dispatch(setList(list, 'boardList'));
+    //  })
+      
+    // for(let bar of state.barList){
+    //   axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
+    //    .then(res => {
+    //      const showList = res.data.data;
+    //      dispatch(addEveryShowList(showList));
+    //      console.log("******** useEffect ", showList)
+    //    })
+    // }
+  }, [])
+ 
 
   const goJazzbar = (jazzbar) => {
     dispatch(setJazzbar(jazzbar));
@@ -60,7 +42,6 @@ function Service () {
 
   const goPosting = (posting) => {
     dispatch(setBoard(posting.id));
-    dispatch(saveThisHistory("/service"));
   }
 
   
@@ -110,7 +91,7 @@ function Service () {
                       {
                         state.everyShowList.map(el => {
                           if(el.date === new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'')){
-                            const thisBar = state.barList.find(bar => bar.id === el.jazzbar_id);
+                            const thisBar = state.barList.find(bar => bar.id === el.jazzbarId);
                             console.log("******** everyShowList : ", state.everyShowList)
                             return (
                             <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(thisBar)}>
