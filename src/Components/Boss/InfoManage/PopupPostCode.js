@@ -63,7 +63,7 @@ const PopupPostCode = (props) => {
 
 
   const postCodeStyle = {
-    display: "block",
+    display: "flex",
     top: "-2%",
     // width: "700px",
     width: "98%",
@@ -80,14 +80,14 @@ const PopupPostCode = (props) => {
 
   const div = {
     backgroundColor: "royalblue",
-    display: "block",
+    display: "flex",
     top: "10%",
-    // width: "712px",
     width: "70.5%",
     height: "552px",
-    padding: "7px",
+    // padding: "7px",
     margin: "5px",
     minWidth: "500px",
+    flexDirection: "column",
   };
 
   return (

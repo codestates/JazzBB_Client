@@ -1,15 +1,15 @@
 import React from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "./slick.css";
+import "./slick-theme.css";
 
 
 class SimpleSlider extends React.Component {
   render() {
     var settings = {
       dots: true,
-      infinite: true,
+      infinite: false,
       arrows:true,
       autoplay:true,
       autoplaySpeed:4000,

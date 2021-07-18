@@ -202,7 +202,7 @@ const dispatch = useDispatch();
           <div className="barAddress boxop">
             <div className="barlabel">소재지</div>
             {editActive ? (
-              <div className="barcontents">
+              <div className="barcontents adrset">
                 <input className="adrform inputform" type="text" defaultValue={data.address} onChange={handleInput} value={state.address} name="address" readOnly></input>
                 <button className="adrbtn" type="button" onClick={openPostCode}>우편번호 검색</button>
                 <div id="popupDom">

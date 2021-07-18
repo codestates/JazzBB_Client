@@ -44,17 +44,19 @@
 }
 
 .shopinfo-header-infoarea-tmapbtn {
-    color: white;
+    color: #3B1E1E;
     border: none;
     border-radius: 10px;
-    background-color: #ED2609;
+    background-color: #FEE501;
     padding: 5px;
     margin-left: 10px;
     font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 900;
 }
 
 .shopinfo-header-infoarea-tmapbtn:hover {
-    background-color: #44A780;
+    background-color: #cdb902;
 }
 
 .shopinfo-header-infoarea-phone, .shopinfo-header-infoarea-time {
@@ -348,6 +350,8 @@
     font-weight: 500;
     font-size: 1.1rem;
     font-family: 'Jua', sans-serif;
+    width: 30px;
+    min-width: 30px;
 }
 
 .shopinfo-review-form-input {
@@ -366,6 +370,7 @@
     border-radius: 2px;
     font-family: 'Jua', sans-serif;
     width: 50px;
+    min-width: 50px;
 }
 
 .shopinfo-review-form-submit:hover, .shopinfo-review-form-rate:hover {
@@ -378,8 +383,10 @@
     width: 100%;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 
 .shopinfo-menu-object {
@@ -387,13 +394,30 @@
     width: 80%;
     height: 80%;
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 10%);
+    overflow-y: scroll;
+}
+
+.shopinfo-menu-object-photobox {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 94%;
+    flex-wrap: wrap;
+
+}
+
+.shopinfo-menu-object-img {
+    width: 70%;
+    height: auto;
+    padding: 10px;
 }
 
 .closebutton {
-    width: 100%;
+    width: 81%;
     text-align: end;
-    margin-top: 10px;
-    padding-right: 10px;
+    margin-bottom: 5px;
 }
 
 .close {

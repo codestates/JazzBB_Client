@@ -47,6 +47,10 @@
     overflow: hidden;
 }
 
+.adrset {
+  border: 1px solid indigo;
+}
+
 .barlabel {
     font-family: 'Do Hyeon', sans-serif;
     font-size: 1.3rem;
