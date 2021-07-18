@@ -315,7 +315,7 @@ function InfoUpdate() {
                           id={el.content}
                         ></input>
                         <div className="checkinfo">{el.content}</div>
-                        <img src={el.img} alt={el.content}></img>
+                        <img className="checkicon" src={el.img} alt={el.content}></img>
                       </div>
                     ))}
                   </div>

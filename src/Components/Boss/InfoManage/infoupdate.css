@@ -174,16 +174,25 @@
 }
 
 .checkboxWrapper {
-    width: 100px;
-    /* border: 1px solid blue; */
     display: flex;
+    margin-right: 26px;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.thisischeckbox {
-    margin-bottom: 7px;
+.checkinfo {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+
+
+.checkicon{
+    width: 20px;
 }
 
 .menuthumbnail, .bannerthumbnail {
