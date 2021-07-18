@@ -113,7 +113,7 @@ console.log(state)
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, { headers: { authorization: initialState.user.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true })
         .then((res) => {
-          const token1 = res.data.data.token;
+          const token1 = res.data.data.accessToken;
           dispatch(setToken(token1));
         })
         .then(

@@ -26,6 +26,7 @@ export const IS_LOGIN = "IS_LOGIN"
 export const ADD_EVERY_SHOW_LIST = "ADD_EVERY_SHOW_LIST"
 export const SET_JAZZID_BOSS = "SET_JAZZID_BOSS"
 export const FINISH_ACTION = "FINISH_ACTION"
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 
 
 export const setJazzId = (id) => {
@@ -272,5 +273,14 @@ export const finishAction = () => {
   return {
     type: FINISH_ACTION,
     payload: null,
+  }
+}
+
+export const setCurrentPage = (page) => {
+  return {
+    type: SET_CURRENT_PAGE,
+    payload: {
+      page
+    },
   }
 }

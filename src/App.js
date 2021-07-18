@@ -38,7 +38,7 @@ dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
-  const jazzbarId = useSelector(state => state.reducer.jazzBarId);
+  // const jazzbarId = useSelector(state => state.reducer.jazzBarId);
   const state = useSelector(state => state.reducer);
   const firstLogin = () => {
     if (state.user.token && !state.user.type) {
@@ -51,8 +51,8 @@ function App() {
 
     let token = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
     .then(res =>{
-      if(res.data.data.jazzbar_id){
-        const jazzBarId =res.data.data.jazzbar_id
+      if(res.data.data.jazzbarId){
+        const jazzBarId =res.data.data.jazzbarId
         dispatch(setJazzId(jazzBarId))
       }
       return res.data.data.accessToken;
@@ -111,7 +111,7 @@ function App() {
             if ( !state.user.usertype && state.isLogin && state.codeAction) {
               return <Redirect to="/moreinfo" />
             } 
-            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbar_id && state.codeAction) {
+            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbarId && state.codeAction) {
               return <Redirect to="/boss/infoedit" />
             } else if (state.codeAction ) {
               return <Redirect to="/service" />
