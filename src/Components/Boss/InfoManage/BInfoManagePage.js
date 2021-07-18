@@ -12,7 +12,7 @@ const { kakao } = window;
 
 function BInfoManagePage() {
   const initialState =  useSelector((state) => state.reducer);
-  const jazzbar_id = useSelector((state) => state.reducer.jazzBarId);
+  const jazzbarId = useSelector((state) => state.reducer.jazzBarId);
   const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -92,17 +92,26 @@ function BInfoManagePage() {
       });
 console.log(state)
       const newForm = new FormData();
-      // newForm.append('thumbnail', banner[0]) 
-      // newForm.append('barName',state.barName )
-      // newForm.append('defaultSeat',state.defaultSeat )
-      // newForm.append('area',state.area )
-      // newForm.append('gpsX',state.gpsX )
-      // newForm.append('gpsY',state.gpsY )
-      // newForm.append('address',state.address )
-      // newForm.append('serviceOption',state.serviceOption )
+      newForm.append('thumbnail', banner[0]) 
+      newForm.append('barName',state.barName )
+      newForm.append('defaultSeat',state.defaultSeat )
+      newForm.append('area',state.area )
+      newForm.append('gpsX',state.gpsX )
+      newForm.append('gpsY',state.gpsY )
+      newForm.append('address',state.address )
+      newForm.append('serviceOption',state.serviceOption )
       // })
+      let formData = new FormData();
+      for (let i = 0; i < targetFile.length; i++) {
+        formData.append(`thumbnail${i}`, targetFile[i]);
+      }
+      formData.append(`jazzbarId`, jazzbarId);
+
+      console.log("******** BinfoManage newForm : ", newForm )
+      console.log("******** BinfoManage newForm : ", initialState.user )
+
       axios
-        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, { headers: { authorization: initialState.user.token }, withCredentials: true })
+        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, { headers: { authorization: initialState.user.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true })
         .then((res) => {
           const token1 = res.data.data.token;
           dispatch(setToken(token1));
@@ -110,11 +119,13 @@ console.log(state)
         .then(
           axios.post(
             process.env.REACT_APP_DB_HOST + "/menuCreate",
-            {
-              authorization: initialState.user.token,
-            },
-            { state, jazzbar_id }
+            formData,
+            { headers: { authorization: initialState.user.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true }
           )
+          // .then((res) => {
+          //   const token1 = res.data.data.token;
+          //   dispatch(setToken(token1));
+          // })
         );
         // .then( window.location.href = "/boss/main")
     }
@@ -295,7 +306,7 @@ console.log(state)
                     className="add-file"
                     type="file"
                     multiple
-                    name="image"
+                    name="thumbnail"
                     accept="image/jpg,image/png,image/jpeg,image/gif"
                     onChange={handleImageUpload}
                   />
