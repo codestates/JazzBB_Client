@@ -401,13 +401,16 @@ jazzbar : [],
       thumbnail: '/resource/newres_vinga.jpeg'
     },
     {
-      thumbnail: '/resource/배너교체1.png'
+      thumbnail: '/resource/newres_allthatjazz.jpeg'
     },
     {
-      thumbnail: '/resource/배너교체1.png'
+      thumbnail: '/resource/newres_key1.jpeg'
     },
     {
-      thumbnail: '/resource/배너교체1.png'
+      thumbnail: '/resource/newres-tokyojazz.jpeg'
+    },
+    {
+      thumbnail: '/resource/newres_allthatjazz.jpeg'
     },
   ],
   showList: [],

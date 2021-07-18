@@ -149,10 +149,10 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             <div className="shopinfo-header-infoarea-shopname">{state.jazzbar.barName}</div>
             <div className="shopinfo-header-infoarea-geo">
               <div className="shopinfo-header-infoarea-location">{state.jazzbar.area}</div>
-              <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>카카오맵 길안내</button>{/* 티맵 구현 필요 */}
+              <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>지도 위치 보기</button>{/* 티맵 구현 필요 */}
             </div>
 
-      {!modalIsOpen  ? ( <div id="map" onClick={closeModal} style={{width:"500px", height:"400px", display:"none"}}></div> ) : <div id="map"onClick={closeModal} style={{width:"500px", height:"400px"}}></div>}
+      {!modalIsOpen  ? ( <div id="map" onClick={closeModal} style={{width:"100%", height:"400px", display:"none"}}></div> ) : <div id="map"onClick={closeModal} style={{width:"100%", height:"400px"}}></div>}
       {/* <div id="map" style={{width:"500px", height:"400px"}}></div>  */}
 
             <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>
@@ -195,20 +195,22 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
         </div>
 
         <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={menuModalTogle}>
-          <div className="shopinfo-menu-object">
-            <div className="closebutton">
+          
+        <div className="closebutton">
                 <button className="close" onClick={() => menuModalTogle()}>X</button>
             </div>
           
+          <div className="shopinfo-menu-object">
+            
+            <div className="shopinfo-menu-object-photobox">
             {
               state.menu.map(el => {
                 return (
-                  <div className="shopinfo-menu-object-photobox">
                     <img className="shopinfo-menu-object-img" src={el.thumbnail}></img>
-                  </div>
                 )
               })
             }
+            </div>
           </div>
         </Modal>
 

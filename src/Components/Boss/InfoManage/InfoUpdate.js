@@ -225,7 +225,7 @@ function InfoUpdate() {
           <div className="barAddress boxop">
             <div className="barlabel">소재지</div>
             {editActive ? (
-              <div className="barcontents">
+              <div className="barcontents adrset">
                 <input
                   className="adrform inputform"
                   type="text"
@@ -315,7 +315,7 @@ function InfoUpdate() {
                           id={el.content}
                         ></input>
                         <div className="checkinfo">{el.content}</div>
-                        <img src={el.img} alt={el.content}></img>
+                        <img className="checkicon" src={el.img} alt={el.content}></img>
                       </div>
                     ))}
                   </div>

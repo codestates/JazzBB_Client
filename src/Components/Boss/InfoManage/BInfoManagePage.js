@@ -306,8 +306,11 @@ function BInfoManagePage() {
                       id={el.id}
                       onChange={handleInput}
                     />
-                    <div className="svcoptel">{el.content}</div>
-                    <img src={el.img} alt=""></img>
+                    {/* <div className="svcopWrapper"> */}
+                      <div className="svcoptel">{el.content}</div>
+                      <img className="svcopicon" src={el.img} alt=""></img>
+                    {/* </div> */}
+                    
                   </div>
                 ))}
               </div>

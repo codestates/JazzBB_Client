@@ -159,8 +159,21 @@
 
 .svcdiv {
     display: flex;
-    margin-right: 10px;
+    margin-right: 26px;
     flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.svcoptel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.svcopicon {
+    width: 20px;
 }
 
 .Menu {
