@@ -100,9 +100,9 @@ function Search () {
         {
           state.searchOption == '/searchReview' ?
           state.searchData.map(el => {
-            if(!el.board_id){
+            if(!el.boardId){
               return (
-              <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', el.jazzbar_id)}>
+              <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', el.jazzbarId)}>
                 <div className="search-result-information">
                   <div className="search-result-info-shopname">{el.point}</div>
                   <div className="search-result-info-phone"></div>
@@ -112,9 +112,9 @@ function Search () {
               </Link>
               )
             } 
-            else if(!el.jazzbar_id){
+            else if(!el.jazzbarId){
               return (
-              <Link to="/posting" className="search-result-box" onClick={()=> clickSearchData('posting', el.board_id)}>
+              <Link to="/posting" className="search-result-box" onClick={()=> clickSearchData('posting', el.boardId)}>
                 <div className="search-result-information">
                   <div className="search-result-info-shopname">{el.point}</div>
                   <div className="search-result-info-phone"></div>
@@ -160,7 +160,7 @@ function Search () {
           :
           state.searchOption == '/searchShow' ?
           state.searchData.map(async el => {
-            const jazzbar = state.barList.find(bar => bar.id == el.jazzbar_id);
+            const jazzbar = state.barList.find(bar => bar.id == el.jazzbarId);
             return (
               <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', jazzbar.id)}>
                 <div className="search-result-thumbnail">

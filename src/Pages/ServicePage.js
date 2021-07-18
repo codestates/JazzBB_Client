@@ -91,7 +91,7 @@ function Service () {
                       {
                         state.everyShowList.map(el => {
                           if(el.date === new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'')){
-                            const thisBar = state.barList.find(bar => bar.id === el.jazzbar_id);
+                            const thisBar = state.barList.find(bar => bar.id === el.jazzbarId);
                             console.log("******** everyShowList : ", state.everyShowList)
                             return (
                             <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(thisBar)}>

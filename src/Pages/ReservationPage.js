@@ -21,11 +21,9 @@ function Reservation(){
   }
 
   const requestReservation = async() => {
-    await axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', {
-      authorization: state.user.token
-    }, {
-      show_id: state.show.id,
-      user_id: state.user.dbUserId,
+    await axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', { headers: { authorization: state.user.token }, withCredentials: true }, {
+      showId: state.show.id,
+      userId: state.user.dbUserId,
       people: state.people,
     })
     .then(res => {
