@@ -50,15 +50,21 @@ function BInfoManagePage() {
     }
   };
 
- 
 
   const handleSubmit = () => {
-    // if(serviceitem !== []){
-    // for(let service in serviceitem){
-    //   console.log(service)
-    // }
+    if(serviceitem !== []){
+      let temp = '';
+    for(let service in serviceitem){
+      if(serviceitem[service] === true){
+        temp = temp + service
+      }
+    }
+    console.log(temp)
+    console.log(typeof temp)
+    setState({...state, serviceOption :temp})
+    console.log(state,'1.state')
 
-    // }
+    }
 
     if (banner.length !== 0) {
       setState({ ...state, thumbnail: banner[0] });
@@ -84,13 +90,11 @@ function BInfoManagePage() {
     } else {
       setState({
         ...state,
-        serviceOption: serviceitem,
         address: state.addressFront + " " + state.addressETC,
         thumbnail: state.bannerPhoto,
         gpsX: gps.gpsX,
         gpsY: gps.gpsY,
       });
-console.log(state)
       const newForm = new FormData();
       newForm.append('thumbnail', banner[0]) 
       newForm.append('barName',state.barName )
