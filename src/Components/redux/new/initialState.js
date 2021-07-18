@@ -3,6 +3,7 @@
 const initialState = {
   codeAction : false,
   isLogin: false,
+  currentPage: '/service',
   history: [],
   firstCheck: false,
   search: null,
@@ -374,26 +375,25 @@ bossJazzBar :[],
     }
   ],
 jazzBarId : 1,
-  jazzbar: {
-    id: 1,
-    barName: '개쩌는 쟤즈뺘',
-    mobile: '02-123-4567',
-    defaultSeat: '20',
-    area: '서울 서초구',
-    thumbnail: '/resource/newres_vinga.jpeg',
-    address: '서울 강남구 강남대로 708 (한남대교레인보우카폐) 3층',
-    addressFront :'서울 강남구 강남대로 708 (한남대교레인보우카폐)',
-    addressETC : '3층',
-    rating: '4.5',
-    serviceOption: ['주차가능', '발렛주차'],
-    openTime: '17:00-20:00',
-    gpsX: 127.10676860117488,
-    gpsY: 37.365264512305174,
-  }, //selected
+jazzbar : [],
+  // jazzbar: {
+  //   id: 1,
+  //   barName: '개쩌는 쟤즈뺘',
+  //   mobile: '02-123-4567',
+  //   defaultSeat: '20',
+  //   area: '서울 서초구',
+  //   thumbnail: ['public/img/resource/newres_vinga.jpeg'],
+  //   address: '서울 강남구 강남대로 708 (한남대교레인보우카폐) 3층',
+  //   addressFront :'서울 강남구 강남대로 708 (한남대교레인보우카폐)',
+  //   addressETC : '3층',
+  //   rating: '4.5',
+  //   serviceOption: '1234',
+  //   openTime: '17:00-20:00',
+  //   gpsX: 127.10676860117488,
+  //   gpsY: 37.365264512305174,
+  // }, //selected
 
-  barPhoto: [
-    
-  ],
+  barPhoto: [],
   reviewList: [],//{}
   myReviewId: null,
   menu: [

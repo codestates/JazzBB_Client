@@ -2,45 +2,49 @@ import axios from "axios";
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, dequeueHistory, saveThisHistory} from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, dequeueHistory, saveThisHistory, setCurrentPage} from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/shopinfo.css"
 
 
 
 function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOption, rating, openTime, gpsX, gpsY }
-const { kakao } = window; 
-const dispatch = useDispatch();
+  const { kakao } = window; 
+  const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
   const [openTime, closeTime] = state.jazzbar.openTime.split('-');//'17:00-20:00'
 
-  axios.get(process.env.REACT_APP_DB_HOST + '/showRead', {id: state.jazzbar.id})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'showList'));
-   })
-   .catch(err => console.log(err))
-
-  axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbar_id: state.jazzbar.id})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'menu'));
-   })
-   .catch(err => console.log(err))
-   
-  axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbar_id: state.jazzbar.id, type: 'photo'})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'barPhoto'));
-   })
-   .catch(err => console.log(err))
-
-  axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.jazzbar.id})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'reviewList'));
-   })
-   .catch(err => console.log(err))
+  useEffect(()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    axios.get(process.env.REACT_APP_DB_HOST + '/showRead', {id: state.jazzbar.id})
+     .then(res => {
+       const list = res.data.data.list;
+       dispatch(setList(list, 'showList'));
+     })
+     .catch(err => console.log(err))
+  
+    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.jazzbar.id})
+     .then(res => {
+       const list = res.data.data.list;
+       dispatch(setList(list, 'menu'));
+     })
+     .catch(err => console.log(err))
+     
+    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.jazzbar.id, type: 'photo'})
+     .then(res => {
+       const list = res.data.data.list;
+       dispatch(setList(list, 'barPhoto'));
+     })
+     .catch(err => console.log(err))
+  
+    axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.jazzbar.id})
+     .then(res => {
+       const list = res.data.data.list;
+       dispatch(setList(list, 'reviewList'));
+     })
+     .catch(err => console.log(err))
+  },[])
 
 
   const typingReview = (e, variety) => {
@@ -48,9 +52,7 @@ const dispatch = useDispatch();
   }
 
   const reviewPost = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', {
-      authorization: state.user.token
-    },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', { headers: { authorization: state.user.token }, withCredentials: true },{
       jazzbarId: state.jazzbar.id, 
       point: state.review.point, 
       content: state.review.content
@@ -64,7 +66,6 @@ const dispatch = useDispatch();
     
   const goReservation = (show) => {
     dispatch(setShow(show));
-    history();
   }
     
   const modifyReview = () => {
@@ -76,9 +77,7 @@ const dispatch = useDispatch();
   }
     
   const reviewUpdate = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', {
-      authorization: state.user.token
-    },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', { headers: { authorization: state.user.token }, withCredentials: true } ,{
       jazzbarId: state.jazzbar.id, 
       point: state.review.point, 
       content: state.review.content
@@ -92,9 +91,7 @@ const dispatch = useDispatch();
   }
 
   const reviewDeleteRequest = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', {
-      authorization: state.user.token
-    },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', { headers: { authorization: state.user.token }, withCredentials: true },{
       id: state.myReviewId
     })
      .then(res => {
@@ -106,10 +103,6 @@ const dispatch = useDispatch();
   }
   const menuModalTogle = () => {
     dispatch(modifySwitch('menuModal'))
-  }
-
-  const history = () => {
-    dispatch(saveThisHistory("/jazzbar"))
   }
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -163,7 +156,7 @@ const dispatch = useDispatch();
       {/* <div id="map" style={{width:"500px", height:"400px"}}></div>  */}
 
             <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>
-            <div className="shopinfo-header-infoarea-time">{`${openTime} ~ ${closeTime}`}</div>
+            <div className="shopinfo-header-infoarea-time">{`${state.jazzbar.openTime.split('-')[0]} ~ ${state.jazzbar.openTime.split('-')[1]}`}</div>
 
             <div className="shopinfo-header-infoarea-ratingarea">
               <div className="shopinfo-header-infoarea-ratingarea-star">⭐</div>

@@ -32,7 +32,7 @@ function ModalEdit() {
   };
   const deleteShowHandler = () => {
     axios.post(process.env.REACT_APP_DB_HOST + "/showDelete", {
-      jazzbar_id: info.jazzbar_id, id : info.id 
+      jazzbarId: info.jazzbar_id, id : info.id 
     }).then(res => {
     console.log("deleteShowHandler success");
     });

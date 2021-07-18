@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../Sidebar";
 import "./ShowManage.css";
 // import DatePick from "../DatePick";
@@ -10,7 +10,8 @@ import { setBossShowList } from "../../redux/new/action";
 
 function BshowPage() {
   const dispatch = useDispatch();
-  const jazzbarId = ""; //재즈바 아이디 가져오기
+  // const jazzbarId = ""; //재즈바 아이디 가져오기
+  const jazzbarId = useSelector(state => state.reducer.jazzBarId);
  //서버 연결 후, 주석 풀기
   // useEffect(() => {
   //   axios

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { setToken} from "../../redux/new/action";
+import { setToken } from "../../redux/new/action";
 
 import "./infoupdate.css";
 
 function InfoUpdate() {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.reducer.user);
   const data = useSelector((state) => state.reducer.jazzbar);
+  const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const jazzBarId = useSelector((state) => state.reducer.jazzBarId);
-  const banner = data.thumbnail.bannerPhoto || [];
+  const banner = data.thumbnail;
   const menu = useSelector((state) => state.reducer.menu);
   const [editActive, setEdit] = useState(false);
   const [state, setState] = useState(data);
-  console.log(data);
   const [serviceitem, setService] = useState({
     주차가능: false,
     발렛주차: false,
@@ -31,34 +31,37 @@ const dispatch = useDispatch();
   const [alertMsg, setalertMsg] = useState("");
   const [gps, setGps] = useState({ gpsX: data.gpsX, gpsY: data.gpsY });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [openAddressEtc, setOpenAddress]=useState(false)
+  const [openAddressEtc, setOpenAddress] = useState(false);
   const openPostCode = () => {
     setIsPopupOpen(true);
-    setOpenAddress(true)
+    setOpenAddress(true);
   };
   const closePostCode = () => {
     setIsPopupOpen(false);
   };
-  const setServiceByDefaultValue = (el) => {
-    // setService({...serviceitem, [el] : true})
-    // console.log(serviceitem)
-  };
+  // const serviceArray = Object.keys(serviceitem);
+
   useEffect(() => {
     let copy = serviceitem;
-    data.serviceOption.map((el) => (copy[el] = true));
+    const yap = data.serviceOption.split("");
+    yap.map((number) => {
+      for (let el of serviceOption) {
+        if (number == el.id) {
+          return (copy[el.content] = true);
+        }
+      }
+    });
     setService(copy);
+    copy = serviceitem;
   }, []);
 
-  const serviceArray = Object.keys(serviceitem);
-  console.log(serviceArray, "serviceArray");
-  console.log(data.serviceOption, "dataserviceOption");
-  console.log(serviceitem, "serviceitem");
-
+  // console.log(serviceArray, "serviceArray");
+  // console.log(data.serviceOption, "dataserviceOption");
+  // console.log(serviceitem, "serviceitem");
 
   const handleEditActive = () => {
     setEdit(true);
   };
-
 
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
   const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
@@ -122,78 +125,98 @@ const dispatch = useDispatch();
   };
 
   const handleSubmit = () => {
-      if (banner.length !== 0) {
-        const formDataBanner = new FormData();
-        formDataBanner.append(`bannerImg`, banner[0]);
-        setState({ ...state, bannerPhoto: formDataBanner });
+    if (banner.length !== 0) {
+      const formDataBanner = new FormData();
+      formDataBanner.append(`bannerImg`, banner[0]);
+      setState({ ...state, bannerPhoto: formDataBanner });
+    }
+    if (targetFile.length !== 0) {
+      const formData = new FormData();
+      for (let i = 0; i < targetFile.length; i++) {
+        formData.append(`image${i}`, targetFile[i]);
       }
-      if (targetFile.length !== 0) {
-        const formData = new FormData();
-        for (let i = 0; i < targetFile.length; i++) {
-          formData.append(`image${i}`, targetFile[i]);
-        }
-        setState({ ...state, menuPhoto: formData });
-      }
-      if (
-        state.addressFront === undefined ||
-        state.addressETC === undefined ||
-        state.barName === undefined ||
-        state.defaultSeat === undefined ||
-        state.mobile === undefined ||
-        state.serviceOption === undefined ||
-        state.addressFront === "" ||
-        state.addressETC === "" ||
-        state.barName === "" ||
-        state.defaultSeat === "" ||
-        state.mobile === "" ||
-        state.serviceOption === ""
-      ) {
-        alert("모든 항목을 입력해주세요.");
-      } else {
-        setState({
-          ...state,
-          serviceOption: serviceitem,
-          // area : `${area[0]+area[1]}`,
-          address: state.addressFront + " " + state.addressETC,
-          thumbnail: [{ menu: state.menuPhoto }, { banner: state.bannerPhoto }],
-          gpsX: gps.gpsX,
-          gpsY: gps.gpsY,
-        });
-        }
-        axios
-          .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", {
-            authorization: user.token
-          }, {state, jazzBarId}, )
-          .then(res =>{
-            const token = res.data.data.accessToken;
-            dispatch(setToken(token));
-          })
-          .then((res) => {
-            console.log(state, "2");
-            window.location.href = "/boss/main";
-          });
-      }
+      setState({ ...state, menuPhoto: formData });
+
+      axios.post(
+        process.env.REACT_APP_DB_HOST + "/menuCreate",
+        {
+          authorization: user.token,
+        },
+        { state, jazzBarId }
+      );
+    }
+    if (
+      state.addressFront === undefined ||
+      state.addressETC === undefined ||
+      state.barName === undefined ||
+      state.defaultSeat === undefined ||
+      state.mobile === undefined ||
+      state.serviceOption === undefined ||
+      state.addressFront === "" ||
+      state.addressETC === "" ||
+      state.barName === "" ||
+      state.defaultSeat === "" ||
+      state.mobile === "" ||
+      state.serviceOption === ""
+    ) {
+      alert("모든 항목을 입력해주세요.");
+    } else {
+      setState({
+        ...state,
+        serviceOption: serviceitem,
+        // area : `${area[0]+area[1]}`,
+        address: state.addressFront + " " + state.addressETC,
+        thumbnail: state.bannerPhoto,
+        gpsX: gps.gpsX,
+        gpsY: gps.gpsY,
+      });
+    }
+    axios
+      .post(
+        process.env.REACT_APP_DB_HOST + "/jazzbarUpdate",
+        {
+          authorization: user.token,
+        },
+        { state, jazzBarId }
+      )
+      .then((res) => {
+        const token = res.data.data.accessToken;
+        dispatch(setToken(token));
+      })
+      .then(
+        axios.post(
+          process.env.REACT_APP_DB_HOST + "/menuCreate",
+          {
+            authorization: user.token,
+          },
+          { state, jazzBarId }
+        )
+      );
+  };
 
   return (
-
-    
-    
-    
-    
     <div>
       <div className="infowrapper">
         <div className="dummydiv"></div>
-                <div className="BIUcontentBox">
-                <div className="BIUcontentheader">
-                  <div className="BIUcontentheader-label">정보수정</div>
-                  <div className="BIUcontentheader-sublabel">매장 정보가 변경된 경우 직접 수정하실 수 있습니다. 서비스에 즉시 반영되는 부분이니 수정에 주의해 주세요</div>
-                </div>
-
+        <div className="BIUcontentBox">
+          <div className="BIUcontentheader">
+            <div className="BIUcontentheader-label">정보수정</div>
+            <div className="BIUcontentheader-sublabel">
+              매장 정보가 변경된 경우 직접 수정하실 수 있습니다. 서비스에 즉시
+              반영되는 부분이니 수정에 주의해 주세요
+            </div>
+          </div>
 
           <div className="barName boxop">
             <div className="barlabel">상호명</div>
             {editActive ? (
-              <input className="barcontents inputform" type="text" defaultValue={data.barName} onChange={handleInput} name="barName"></input>
+              <input
+                className="barcontents inputform"
+                type="text"
+                defaultValue={data.barName}
+                onChange={handleInput}
+                name="barName"
+              ></input>
             ) : (
               <div className="barcontents">{data.barName}</div>
             )}
@@ -203,22 +226,40 @@ const dispatch = useDispatch();
             <div className="barlabel">소재지</div>
             {editActive ? (
               <div className="barcontents adrset">
-                <input className="adrform inputform" type="text" defaultValue={data.address} onChange={handleInput} value={state.address} name="address" readOnly></input>
-                <button className="adrbtn" type="button" onClick={openPostCode}>우편번호 검색</button>
+                <input
+                  className="adrform inputform"
+                  type="text"
+                  defaultValue={data.address}
+                  onChange={handleInput}
+                  value={state.address}
+                  name="address"
+                  readOnly
+                ></input>
+                <button className="adrbtn" type="button" onClick={openPostCode}>
+                  우편번호 검색
+                </button>
                 <div id="popupDom">
                   {isPopupOpen && (
                     <PopupDom>
-                      <PopupPostCode onClose={closePostCode} setGps={setGps} state={state} setState={setState}/>
+                      <PopupPostCode
+                        onClose={closePostCode}
+                        setGps={setGps}
+                        state={state}
+                        setState={setState}
+                      />
                     </PopupDom>
                   )}
                 </div>
-                {!!openAddressEtc ? 
-                   <input className="inputform" type="text" placeholder="상세주소" name="addressETC"
-                  // defaultValue={data.addressETC}
-                  onChange={handleInput}
-                ></input>
-                : null}
-               
+                {!!openAddressEtc ? (
+                  <input
+                    className="inputform"
+                    type="text"
+                    placeholder="상세주소"
+                    name="addressETC"
+                    // defaultValue={data.addressETC}
+                    onChange={handleInput}
+                  ></input>
+                ) : null}
               </div>
             ) : (
               <div className="barcontents">{data.address}</div>
@@ -228,7 +269,13 @@ const dispatch = useDispatch();
           <div className="barMobile boxop">
             <div className="barlabel">연락처</div>
             {editActive ? (
-              <input className="barcontents inputform" type="text" defaultValue={data.mobile} onChange={handleInput} name="mobile"></input>
+              <input
+                className="barcontents inputform"
+                type="text"
+                defaultValue={data.mobile}
+                onChange={handleInput}
+                name="mobile"
+              ></input>
             ) : (
               <div className="barcontents">{data.mobile}</div>
             )}
@@ -237,7 +284,13 @@ const dispatch = useDispatch();
           <div className="defaultSeat boxop">
             <div className="barlabel">좌석수</div>
             {editActive ? (
-              <input className="barcontents inputform" type="number" defaultValue={data.defaultSeat} onChange={handleInput} name="defaultSeat"></input>
+              <input
+                className="barcontents inputform"
+                type="number"
+                defaultValue={data.defaultSeat}
+                onChange={handleInput}
+                name="defaultSeat"
+              ></input>
             ) : (
               <div className="barcontents">{data.defaultSeat}</div>
             )}
@@ -247,26 +300,49 @@ const dispatch = useDispatch();
             <div className="barlabel">서비스</div>
             <div className="barcontents">
               <div className="cbarea">
-                  {editActive ? (
-                    <div className="cbarea2">
-                      {serviceArray.map((el) => (
-                        <div className="checkboxWrapper">
-                          <input className="thisischeckbox" type="checkbox" name="serviceOption" onChange={handleInput} id={el} defaultChecked={data.serviceOption.find(ele => ele === el) ? true : false}></input>
-                          <div className="checkinfo">{el}</div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="barcontents svclist">
-                    {data.serviceOption.map((el) => (
-                      <div className="svcitem">{el}</div>
+                {editActive ? (
+                  <div className="cbarea2">
+                    {serviceOption.map((el) => (
+                      <div className="checkboxWrapper">
+                        <input
+                          className="thisischeckbox"
+                          type="checkbox"
+                          name="serviceOption"
+                          onChange={handleInput}
+                          defaultChecked={
+                            serviceitem[el.content] === true ? true : false
+                          }
+                          id={el.content}
+                        ></input>
+                        <div className="checkinfo">{el.content}</div>
+                        <img src={el.img} alt={el.content}></img>
+                      </div>
                     ))}
-                </div>
-                
-              )}
-              {/* {data.serviceOption.map(el => <div>{el}</div>)} */}
+                  </div>
+                ) : (
+                  <div className="barcontents svclist">
+                    {data.serviceOption.split("").map((number) => {
+                      for (let el of serviceOption) {
+                        if (number == el.id) {
+                          return (
+                            <span className="shopinfo-iconarea-featureitem">
+                              <img
+                                className="shopinfo-iconarea-featureitem-icon"
+                                src={el.img}
+                                alt=""
+                              />
+                              <span className="shopinfo-iconarea-featureitem-label">
+                                {el.content}
+                              </span>
+                            </span>
+                          );
+                        }
+                      }
+                    })}
+
+                  </div>
+                )}
               </div>
-              
             </div>
           </div>
 
@@ -275,11 +351,28 @@ const dispatch = useDispatch();
             <div className="barcontents">
               {editActive ? (
                 <div>
-                  <input className="add-file" type="file" multiple max="5" name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleImageUpload}></input>
+                  <input
+                    className="add-file"
+                    type="file"
+                    multiple
+                    max="5"
+                    name="image"
+                    accept="image/jpg,image/png,image/jpeg,image/gif"
+                    onChange={handleImageUpload}
+                  ></input>
                   <div>{alertMsg}</div>
+                  {detailImgs.map((el) => (
+                    <img
+                      className="add-thumbnail"
+                      src={el}
+                      alt="" // onChange={(e) => setFile(e)}
+                    ></img>
+                  ))}
                 </div>
               ) : menu.length !== 0 ? (
-                menu.map((el) => <img className="menuthumbnail" src={el.thumbnail} alt="" />)
+                menu.map((el) => (
+                  <img className="menuthumbnail" src={el.thumbnail} alt="" />
+                ))
               ) : (
                 <h4>등록된 이미지가 없습니다.</h4>
               )}
@@ -290,18 +383,47 @@ const dispatch = useDispatch();
             <div className="barlabel">대표이미지</div>
             <div className="barcontents">
               {editActive ? (
-                <input className="add-file" type="file" name="image" accept="image/jpg,image/png,image/jpeg,image/gif" onChange={handleBannerImg}></input>
+                <div>
+                  <input
+                    className="add-file"
+                    type="file"
+                    name="image"
+                    accept="image/jpg,image/png,image/jpeg,image/gif"
+                    onChange={handleBannerImg}
+                  ></input>
+
+                  <img
+                    className="add-thumbnail"
+                    src={bannerDetail}
+                    alt=""
+                    // onChange={(e) => setFile(e)}
+                  ></img>
+                </div>
               ) : banner.length !== 0 ? (
-                banner.map((el) => <img className="bannerthumbnail" src={el.thumbnail} alt="" />)
+                banner.map((el) => (
+                  <img className="bannerthumbnail" src={el.thumbnail} alt="" />
+                ))
               ) : (
                 <h4>등록된 이미지가 없습니다.</h4>
               )}
             </div>
           </div>
           {editActive ? (
-            <button className="btnbtnbtn" onClick={handleSubmit} onSubmit={null}>저장</button>
+            <button
+              className="btnbtnbtn"
+              onClick={handleSubmit}
+              onSubmit={null}
+            >
+              저장
+            </button>
           ) : (
-            <button className="btnbtnbtn" onClick={handleEditActive} info={data}>정보수정</button>
+            <button
+              className="btnbtnbtn"
+              onClick={handleEditActive}
+              info={data}
+            >
+              정보수정
+            </button>
           )}
         </div>
       </div>

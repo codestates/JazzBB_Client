@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, typeText, modifySwitch, setToken, setBoard, saveThisHistory, dequeueHistory } from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, setToken, setBoard, saveThisHistory, dequeueHistory, setCurrentPage } from "../Components/redux/new/action";
 import "../css/JazzinfoPosting.css";
 
 
@@ -10,16 +10,20 @@ function BoardPostingObject () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
   
-  let previousBoard = state.boardList[state.currentBoard - 1];
   let currentBoard = state.boardList[state.currentBoard];
-  let nextBoard = state.boardList[state.currentBoard + 1];
+
+  useEffect(()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: currentBoard.id})
+    .then(res => {
+      const reviewList = res.data.data.list;
+      dispatch(setList(reviewList, 'reviewList'));
+    })
+    .catch(err => console.log(err))
+  }, [])
+
   
-  axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: currentBoard.id})
-  .then(res => {
-    const reviewList = res.data.data.list;
-    dispatch(setList(reviewList, 'reviewList'));
-  })
-  .catch(err => console.log(err))
   
   const changeCurrentBoard = (type) => {
     let currentNumber = state.currentBoard;
@@ -39,9 +43,7 @@ function BoardPostingObject () {
       alert('로그인 후 리뷰 작성이 가능합니다.');
       dispatch(modifySwitch('loginModal'));
     } else {
-      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', {
-        authorization: state.user.token
-      },{
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', { headers: { authorization: state.user.token }, withCredentials: true },{
         boardId: currentBoard.id, 
         point: '5', 
         content: state.review.content
@@ -52,11 +54,6 @@ function BoardPostingObject () {
       })
       .catch(err => console.log(err))
     }
-  }
-  
-  const history = () => {
-    dispatch(saveThisHistory("/posting"))
-    dispatch(dequeueHistory())
   }
 
   return (
@@ -69,7 +66,7 @@ function BoardPostingObject () {
             <div className="infobbsdataentry-body-header-sublabel">재즈가 익숙하지 않아도 걱정하지 마세요! 재즈바바가 알려드릴게요 :)</div>
           </div>
 
-            <Link to={state.history[0]} onClick={()=> history()}>        
+            <Link to={state.history[0]}>        
           <div className="infobbsdataentry-body-header-btnwrapper">
               <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
               <div className="infobbsdataentry-control-label">이전 페이지</div>
@@ -80,14 +77,14 @@ function BoardPostingObject () {
         <div className="infobbsdataentry-control">
           <div className="infobbsdataentry-control-container">
             {
-              previousBoard ?
+              state.boardList[state.currentBoard - 1] ?
               <div className="infobbsdataentry-control-wrapper" onClick={()=>changeCurrentBoard(1)}>
                 <div className="infobbsdataentry-control-btns">
                   <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
                   <div className="infobbsdataentry-control-label">이전글</div>    
                 </div>
 
-                <div className="infobbsdataentry-control-title">{previousBoard.title}</div>
+                <div className="infobbsdataentry-control-title">{state.boardList[state.currentBoard - 1].title}</div>
               </div>
               :
               <div className="infobbsdataentry-control-wrapper">
@@ -104,9 +101,9 @@ function BoardPostingObject () {
               </Link>
             </div>
             {
-              nextBoard ? 
+              state.boardList[state.currentBoard + 1] ? 
               <div className="infobbsdataentry-control-wrapper" onClick={()=> changeCurrentBoard(2)}>
-                <div className="infobbsdataentry-control-title">{nextBoard.title}</div>
+                <div className="infobbsdataentry-control-title">{state.boardList[state.currentBoard + 1].title}</div>
 
                 <div className="infobbsdataentry-control-btns">
                   <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_forward_ios_black_24dp.png" />
