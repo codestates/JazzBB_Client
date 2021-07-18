@@ -7,7 +7,7 @@ import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import "./BInfoManagePage.css";
-import { setBossJazzBar, setToken } from "../../redux/new/action";
+import { setBossJazzBar, setToken, setJazzId } from "../../redux/new/action";
 const { kakao } = window;
 
 function BInfoManagePage() {
@@ -69,28 +69,12 @@ function BInfoManagePage() {
     if (banner.length !== 0) {
       setState({ ...state, thumbnail: banner[0] });
     }
-    if (targetFile.length !== 0) {
-      const formData = new FormData();
-      for (let i = 0; i < targetFile.length; i++) {
-        formData.append(`image${i}`, targetFile[i]);
-      }
-      setState({ ...state, menuPhoto: formData });
-      axios
-        .post(
-          process.env.REACT_APP_DB_HOST + "/menuCreate",
-          {
-            authorization: initialState.user.token,
-          },
-          formData
-        )
-        .then((res) => console.log(res));
-    }
     if (
       state.addressFront === undefined ||
       state.addressETC === undefined ||
-      state.barName === undefined ||
-      state.defaultSeat === undefined ||
-      state.mobile === undefined
+      // state.barName === undefined ||
+      state.defaultSeat === undefined
+      // state.mobile === undefined
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
@@ -100,7 +84,9 @@ function BInfoManagePage() {
         thumbnail: state.bannerPhoto,
         gpsX: gps.gpsX,
         gpsY: gps.gpsY,
+        
       });
+      console.log(state, "1.state");
       const newForm = new FormData();
       newForm.append("thumbnail", banner[0]);
       newForm.append("barName", state.barName);
@@ -111,13 +97,13 @@ function BInfoManagePage() {
       newForm.append("address", state.address);
       newForm.append("serviceOption", state.serviceOption);
       // })
-      let formData = new FormData();
-      for (let i = 0; i < targetFile.length; i++) {
-        formData.append(`thumbnail${i}`, targetFile[i]);
-      }
-      formData.append(`jazzbarId`, jazzbarId);
+      // let formData = new FormData();
+      // for (let i = 0; i < targetFile.length; i++) {
+      //   formData.append(`thumbnail`, targetFile[i]);
+      // }
+      // formData.append(`jazzbarId`, jazzbarId);
 
-      console.log("******** BinfoManage newForm : ", newForm);
+      console.log("******** BinfoManage targetFile : ", targetFile);
       console.log("******** BinfoManage newForm : ", initialState.user);
 
       axios
@@ -131,8 +117,17 @@ function BInfoManagePage() {
         .then((res) => {
           const token1 = res.data.data.accessToken;
           dispatch(setToken(token1));
+          const jazzbarId = res.data.data.jazzBarId;
+          dispatch(setJazzId(jazzbarId));
+          return jazzbarId
         })
-        .then(
+        .then((id) => {
+
+          let formData = new FormData();
+          for (let i = 0; i < targetFile.length; i++) {
+            formData.append(`thumbnail`, targetFile[i]);
+          }
+          formData.append(`jazzbarId`, id);
           axios
             .post(process.env.REACT_APP_DB_HOST + "/menuCreate", formData, {
               headers: {
@@ -141,7 +136,8 @@ function BInfoManagePage() {
               },
               withCredentials: true,
             })
-            // .then((window.location.href = "/boss/main"))
+        }
+          // .then((window.location.href = "/boss/main"))
 
           // .then((res) => {
           //   const token1 = res.data.data.token;
@@ -307,10 +303,10 @@ function BInfoManagePage() {
                       onChange={handleInput}
                     />
                     {/* <div className="svcopWrapper"> */}
-                      <div className="svcoptel">{el.content}</div>
-                      <img className="svcopicon" src={el.img} alt=""></img>
+                    <div className="svcoptel">{el.content}</div>
+                    <img className="svcopicon" src={el.img} alt=""></img>
                     {/* </div> */}
-                    
+
                   </div>
                 ))}
               </div>
@@ -390,7 +386,7 @@ function BInfoManagePage() {
                   className="add-thumbnail"
                   src={bannerDetail}
                   alt=""
-                  // onChange={(e) => setFile(e)}
+                // onChange={(e) => setFile(e)}
                 ></img>
               </div>
 
