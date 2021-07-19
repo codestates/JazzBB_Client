@@ -109,6 +109,7 @@ function App() {
           <Route path="/footer/terms" render={() => <Terms></Terms>} />
           <Route path="/footer/termspi" render={() => <Termspi></Termspi>} />
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
+          <Route path="/boss" render={() => <Redirect to="/boss/main"/>} />
           <Route path="/" render={() => {
             if ( !state.user.usertype && state.isLogin && state.codeAction) {
               return <Redirect to="/moreinfo" />

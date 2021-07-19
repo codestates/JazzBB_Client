@@ -7,6 +7,7 @@ import {
   SidebarHeader,
   SidebarContent,
 } from "react-pro-sidebar";
+import { useDispatch, useSelector } from 'react-redux'
 import "react-pro-sidebar/dist/css/styles.css";
 import { FiSidebar, FiHome} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
@@ -15,7 +16,12 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { BsBook } from "react-icons/bs";
 import "./sidebar.css";
 import "../../../src/dist/css/comm.css"
+
+
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.reducer);
+  const thisBar = state.barList.find(el => el.id === state.currentJazzbar)
   const [openClose, setOpenClose] = useState(false);
   const menuIconClick = () => {
     openClose ? setOpenClose(false) : setOpenClose(true);
@@ -36,7 +42,7 @@ const Sidebar = () => {
                 {openClose ? <FiSidebar /> : <FiSidebar />}
               </div>
               <div className="logotext">
-                <p>{openClose ? "Vinga" : "뱅가(Vin-ga)"}</p>
+                <p>{thisBar ? thisBar.barName : '재즈바바'}</p>
               </div>
             </SidebarHeader>
             <SidebarContent>
