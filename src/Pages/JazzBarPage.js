@@ -2,45 +2,44 @@ import axios from "axios";
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, dequeueHistory, saveThisHistory} from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, saveThisHistory, setCurrentPage} from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/shopinfo.css"
 
 
 
-function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOption, rating, openTime, gpsX, gpsY }
-const { kakao } = window; 
-const dispatch = useDispatch();
+function JazzBar(){ 
+  const { kakao } = window; 
+  const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  const [openTime, closeTime] = state.jazzbar.openTime.split('-');//'17:00-20:00'
 
-  axios.get(process.env.REACT_APP_DB_HOST + '/showRead', {id: state.jazzbar.id})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'showList'));
-   })
-   .catch(err => console.log(err))
 
-  axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbar_id: state.jazzbar.id})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'menu'));
-   })
-   .catch(err => console.log(err))
-   
-  axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbar_id: state.jazzbar.id, type: 'photo'})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'barPhoto'));
-   })
-   .catch(err => console.log(err))
-
-  axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.jazzbar.id})
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'reviewList'));
-   })
-   .catch(err => console.log(err))
+  useEffect(async ()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    // console.log("dskvnsdovnsdklnsdlknsdvnk")
+    await axios.post(process.env.REACT_APP_DB_HOST + '/showRead', {jazzbarId: state.currentJazzbar})
+     .then(res => {
+       const list = res.data.data;
+       dispatch(setList(list, 'showList'));
+     })
+     .catch(err => console.log(err))
+  
+    await axios.post(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.currentJazzbar})
+     .then(res => {
+       const list = res.data.data.data;
+       dispatch(setList(list, 'menu'));
+     })
+     .catch(err => console.log(err))
+  
+     await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.currentJazzbar})
+     .then(res => {
+       const reviewList = res.data.data.list;
+       console.log(reviewList)
+       dispatch(setList(reviewList, 'reviewList'));
+     })
+     .catch(err => console.log(err))
+  },[])
 
 
   const typingReview = (e, variety) => {
@@ -48,23 +47,34 @@ const dispatch = useDispatch();
   }
 
   const reviewPost = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', {
-      authorization: state.user.token
-    },{
-      jazzbarId: state.jazzbar.id, 
-      point: state.review.point, 
-      content: state.review.content
-    })
-     .then(res => {
-      const token = res.data.data.accessToken;
-      dispatch(setToken(token));
-     })
-     .catch(err => console.log(err))
+    if(!state.isLogin) {
+      alert('로그인 후 리뷰 작성이 가능합니다.');
+      dispatch(modifySwitch('loginModal'));
+    } else {
+      console.log(state.user)
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate',{
+        jazzbarId: state.currentJazzbar, 
+        point: state.review.point, 
+        content: state.review.content
+      }, { headers: { authorization: state.token }, withCredentials: true })
+      .then(res => {
+        const token = res.data.data.accessToken;
+        dispatch(setToken(token));
+      })
+      .catch(err => console.log(err))
+
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.currentJazzbar})
+       .then(res => {
+         const reviewList = res.data.data;
+         dispatch(setList(reviewList, 'reviewList'));
+         typingReview({target:{value:''}}, 'content')
+       })
+       .catch(err => console.log(err))
+    }
   }
     
   const goReservation = (show) => {
     dispatch(setShow(show));
-    history();
   }
     
   const modifyReview = () => {
@@ -76,10 +86,8 @@ const dispatch = useDispatch();
   }
     
   const reviewUpdate = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', {
-      authorization: state.user.token
-    },{
-      jazzbarId: state.jazzbar.id, 
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', { headers: { authorization: state.token }, withCredentials: true } ,{
+      jazzbarId: state.currentJazzbar, 
       point: state.review.point, 
       content: state.review.content
     })
@@ -92,9 +100,7 @@ const dispatch = useDispatch();
   }
 
   const reviewDeleteRequest = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', {
-      authorization: state.user.token
-    },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', { headers: { authorization: state.token }, withCredentials: true },{
       id: state.myReviewId
     })
      .then(res => {
@@ -106,10 +112,6 @@ const dispatch = useDispatch();
   }
   const menuModalTogle = () => {
     dispatch(modifySwitch('menuModal'))
-  }
-
-  const history = () => {
-    dispatch(saveThisHistory("/jazzbar"))
   }
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -149,25 +151,24 @@ const dispatch = useDispatch();
         <div className="shopinfo-header">
 
           <div className="shopinfo-header-imgarea">
-            <img className="shopinfo-header-img" src={state.jazzbar.thumbnail} alt="headerimg" />
+            <img className="shopinfo-header-img" src={state.barList.find(el => el.id === state.currentJazzbar)? state.barList.find(el => el.id === state.currentJazzbar).thumbnail : "/resource/jazzbb_logo_black.png"} alt="headerimg" />
           </div>
 
           <div className="shopinfo-header-infoarea">
-            <div className="shopinfo-header-infoarea-shopname">{state.jazzbar.barName}</div>
+            <div className="shopinfo-header-infoarea-shopname">{state.barList.find(el => el.id === state.currentJazzbar).barName}</div>
             <div className="shopinfo-header-infoarea-geo">
-              <div className="shopinfo-header-infoarea-location">{state.jazzbar.area}</div>
-              <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>카카오맵 길안내</button>{/* 티맵 구현 필요 */}
+              <div className="shopinfo-header-infoarea-location">{state.barList.find(el => el.id === state.currentJazzbar).area}</div>
+              <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>지도 위치 보기</button>
             </div>
 
-      {!modalIsOpen  ? ( <div id="map" onClick={closeModal} style={{width:"500px", height:"400px", display:"none"}}></div> ) : <div id="map"onClick={closeModal} style={{width:"500px", height:"400px"}}></div>}
-      {/* <div id="map" style={{width:"500px", height:"400px"}}></div>  */}
+      {!modalIsOpen  ?  <div id="map" onClick={closeModal} style={{width:"100%", height:"400px", display:"none"}}></div> : <div id="map"onClick={closeModal} style={{width:"100%", height:"400px"}}></div>}
 
-            <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>
-            <div className="shopinfo-header-infoarea-time">{`${openTime} ~ ${closeTime}`}</div>
+            <div className="shopinfo-header-infoarea-phone">{state.barList.find(el => el.id === state.currentJazzbar).mobile}</div>
+            <div className="shopinfo-header-infoarea-time">{state.barList.find(el => el.id === state.currentJazzbar).openTime.replace('-','~')}</div>
 
             <div className="shopinfo-header-infoarea-ratingarea">
               <div className="shopinfo-header-infoarea-ratingarea-star">⭐</div>
-              <div className="shopinfo-header-infoarea-ratingarea-rate">{state.jazzbar.rating}</div>
+              <div className="shopinfo-header-infoarea-ratingarea-rate">{state.barList.find(el => el.id === state.currentJazzbar).rating}</div>
             </div>
 
           </div>
@@ -175,7 +176,7 @@ const dispatch = useDispatch();
 
         <div className="shopinfo-iconarea">
           {
-            state.jazzbar.serviceOption.split('').map(number => {
+            state.barList.find(el => el.id === state.currentJazzbar).serviceOption.split('').map(number => {
               for(let option of state.serviceOption){
                 if(number === option.id){
                   return (
@@ -202,47 +203,24 @@ const dispatch = useDispatch();
         </div>
 
         <Modal className="shopinfo-menuarea-modal" isOpen={state.togle.menuModal} onRequestClose={menuModalTogle}>
-          <div className="shopinfo-menu-object">
-            <div className="closebutton">
+          
+        <div className="closebutton">
                 <button className="close" onClick={() => menuModalTogle()}>X</button>
             </div>
           
+          <div className="shopinfo-menu-object">
+            
+            <div className="shopinfo-menu-object-photobox">
             {
               state.menu.map(el => {
                 return (
-                  <div className="shopinfo-menu-object-photobox">
                     <img className="shopinfo-menu-object-img" src={el.thumbnail}></img>
-                  </div>
                 )
               })
             }
-          </div>
-        </Modal>
-
-        <div className="shopinfo-shopphoto">
-          <div className="shopinfo-shopphoto-titlearea">
-            <div className="shopinfo-shopphoto-titlearea-label">사진</div>
-          </div>
-                    
-          <div className="shopinfo-shopphoto-body">
-            <div className="shopinfo-shopphoto-container">
-              <div className="v-scroll-inner">
-                <div className="shopinfo-shopphoto-contents">
-                  {
-                    state.barPhoto.map(el => {
-                      <div className="shopinfo-shopphoto-object">
-                        <a className="shopinfo-shopphoto-object-photobox" href="#">
-                            <div className="shopinfo-shopphoto-object-photobox-img" style={`background-image: url(${el});`}></div>
-                        </a>
-                      </div>
-                    })
-                  }
-                </div>
-              </div>
             </div>
           </div>
-
-        </div>
+        </Modal>
 
 
         <div className="shopinfo-reservation">
@@ -258,18 +236,24 @@ const dispatch = useDispatch();
                 <div className="shopinfo-reservation-contents">
                   {
                   state.showList.map(el => {
-                    <Link to="/reservation" onClick={()=> goReservation(el)}>
+                    return (
+
+                      <Link to="/reservation" onClick={()=> goReservation(el)}>
                       <div className="shopinfo-reservation-object" >
                         <a className="shopinfo-reservation-object-photobox" href="#">
-                          <div className="shopinfo-reservation-object-img" style={`background-image: url(${el.thumbnail});`}></div>
+                          <div className="shopinfo-reservation-object-img" style={{"background-image" : "url("+el.thumbnail+")"}}></div>
                         </a>
 
                         <div className="shopinfo-reservation-object-footer">
-                          <div className="shopinfo-reservation-object-footer-name">{`공연 시작 시간 : ${el.date} ${el.time}`}</div>
+                          <div className="shopinfo-reservation-object-footer-label">{el.player}</div>
+                          <div className="shopinfo-reservation-object-footer-name">{`${el.date} ${el.time}`}</div>
                           <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
                         </div>
                       </div>
                     </Link>
+
+
+                    )
                   })
                   }
                 </div>
@@ -296,7 +280,7 @@ const dispatch = useDispatch();
 
             {
               state.reviewList.map(el => {
-                el.username !== state.user.username ? 
+                return el.username !== state.user.username ? 
                 (
                 <div className="shopinfo-review-body-data">
                   <div className="shopinfo-review-body-data-username">{el.username}</div>
@@ -309,13 +293,13 @@ const dispatch = useDispatch();
                   {
                     state.togle.reviewModify ? (
                       <div className="shop-info-review-modify-form">
-                        <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')}>
-                          <option value="" disabled selected>별점 선택</option>
-                          <option value="5">★★★★★</option>
-                          <option value="4">★★★★</option>
-                          <option value="3">★★★</option>
-                          <option value="2">★★</option>
-                          <option value="1">★</option>
+                        <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')} defaultValue="">
+                          <option key="none" value="" disabled>별점 선택</option>
+                          <option key="5" value="5">★★★★★</option>
+                          <option key="4" value="4">★★★★</option>
+                          <option key="3" value="3">★★★</option>
+                          <option key="2" value="2">★★</option>
+                          <option key="1" value="1">★</option>
                         </select>
                         <input className="shopinfo-review-modify-imput" type="text" value={el.content} onChange={(e)=>typingReview(e,'content')}></input>
                         <button className="shopinfo-review-form-submit" onClick={()=> reviewUpdate()}>수정</button>
@@ -352,13 +336,13 @@ const dispatch = useDispatch();
             <div className="shopinfo-review-form">
               <div className="shopinfo-review-form-label">작성</div>
                 <input className="shopinfo-review-form-input" type="text" placeholder="한줄평을 작성해주세요" onChange={(e)=>typingReview(e,'content')}/>
-                <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')}>
-                  <option value="" disabled selected>별점 선택</option>
-                  <option value="5">★★★★★</option>
-                  <option value="4">★★★★</option>
-                  <option value="3">★★★</option>
-                  <option value="2">★★</option>
-                  <option value="1">★</option>
+                <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')} defaultValue="">
+                  <option key="none" value="" disabled>별점 선택</option>
+                  <option key="5" value="5">★★★★★</option>
+                  <option key="4" value="4">★★★★</option>
+                  <option key="3" value="3">★★★</option>
+                  <option key="2" value="2">★★</option>
+                  <option key="1" value="1">★</option>
                 </select>
               <button className="shopinfo-review-form-submit" onClick={()=> reviewPost()}>작성</button>
             </div>

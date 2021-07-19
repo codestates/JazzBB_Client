@@ -1,31 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
-import { modifySwitch } from "./redux/new/action"
-import Modal from "react-modal";
+import { Link } from "react-router-dom";
 import './footer.css'
 
 
 function Footer() {
-  const dispatch = useDispatch();
-  const state = useSelector(state => state.reducer);
-
-  const redirectSearch = () => {
-    return <Redirect to="/search" />;
-  };
-
-  const loginModalSwitch = (login) => {
-    dispatch(modifySwitch(login))
-  }
-
-  const kakaoLogin = () => {
-    window.location.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_OAUTH}&redirect_uri=https://localhost:3000&response_type=code`);
-  }
-
-  const goHome = () => {
-    return <Redirect to='/service' />
-  }
-
   return(
         <div className="footer">
                     <div className="footer-logoarea">
@@ -39,11 +17,11 @@ function Footer() {
     
     
                         <div className="footer-infoarea-buttonsarea">
-                            <a className="footer-infoarea-buttonsarea-buttons" href="/footer/weareddh">회사소개</a>
-                            <a class="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">제휴문의</a>
-                            <a className="footer-infoarea-buttonsarea-buttons" href="/footer/terms">이용약관</a>
-                            <a className="footer-infoarea-buttonsarea-buttons" href="/footer/termspi">개인정보처리방침</a>
-                            <a class="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">고객센터</a>
+                            <Link to="/footer/weareddh" className="footer-infoarea-buttonsarea-buttons" >회사소개</Link>
+                            <a className="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">제휴문의</a>
+                            <Link to="/footer/terms" className="footer-infoarea-buttonsarea-buttons" >이용약관</Link>
+                            <Link to="/footer/termspi" className="footer-infoarea-buttonsarea-buttons" >개인정보처리방침</Link>
+                            <a className="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">고객센터</a>
                         </div>
     
                         <div className="footer-infoarea-infobody">

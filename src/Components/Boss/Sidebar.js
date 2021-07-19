@@ -36,7 +36,7 @@ const Sidebar = () => {
                 {openClose ? <FiSidebar /> : <FiSidebar />}
               </div>
               <div className="logotext">
-                <p>{openClose ? "Tokyo" : "TOKYO JAZZ BAR"}</p>
+                <p>{openClose ? "Vinga" : "뱅가(Vin-ga)"}</p>
               </div>
             </SidebarHeader>
             <SidebarContent>

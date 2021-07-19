@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, modifySwitch, setBoard, dequeueHistory, saveThisHistory } from "../Components/redux/new/action";
+import { setList, modifySwitch, setBoard, dequeueHistory, saveThisHistory, setCurrentPage } from "../Components/redux/new/action";
 import "../css/infobbs.css"
 import Posting from "./JazzInfoPosting";
 
@@ -12,22 +12,25 @@ import Posting from "./JazzInfoPosting";
 function JazzInfo () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  axios.get(process.env.REACT_APP_DB_HOST + 'boardRead')
-   .then(res => {
-     const list = res.data.data.list;
-     dispatch(setList(list, 'boardList'));
-   });
+
+  useEffect(()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    axios.get(process.env.REACT_APP_DB_HOST + 'boardRead')
+     .then(res => {
+       const list = res.data.data.list;
+       dispatch(setList(list, 'boardList'));
+     });
+  }, [])
+
 
 
   const setPosting = (posting) => {
-    let currentBoardIdx = state.boardList.indexOf(posting);
-    dispatch(setBoard(currentBoardIdx));
-    history()
+    let currentBoardIdx = state.boardList.find(el => el.id === posting.id);
+    dispatch(setBoard(currentBoardIdx.id));
   }
 
-  const history = () => {
-    dispatch(saveThisHistory("/board"))
-  }
+
   
 
   return (

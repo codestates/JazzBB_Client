@@ -1,66 +1,68 @@
 import axios from "axios";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList } from "../Components/redux/new/action";
+import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList, setCurrentPage } from "../Components/redux/new/action";
 import "../css/service.css"
 import SimpleSlider from "../Components/adbanner";
+import { SignalCellularNullRounded } from "@material-ui/icons";
 
 function Service () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer)
+  let thisDate = new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'');
+  if(thisDate[6] === '-'){
+    let front = thisDate.slice(0,5);
+    let tail = thisDate.slice(5);
+    thisDate = front + 0 + tail;
+  }
+  if(thisDate[thisDate.length-2] === '-'){
+    let front = thisDate.slice(0,8);
+    let tail = thisDate.slice(8);
+    thisDate = front + 0 + tail;
+  }
 
-  // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-  //  .then(res => {
-  //    console.log("******** client : ", res.data)
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'barList'));
-  //  })
 
-  // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
-  //  .then(res => {
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'boardList'));
-  //  })
 
-  // for(let bar of state.barList){
-  //   axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
-  //    .then(res => {
-  //      const showList = res.data.data;
-  //      dispatch(addEveryShowList(showList));
-  //    })
-  // }
-  // useEffect(() => {
-  //   axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-  //    .then(res => {
-  //      const list = res.data.data;
-  //      dispatch(setList(list, 'barList'));
-  //    })
-  
-  //   axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
-  //    .then(res => {
-  //      const list = res.data.data;
-  //      dispatch(setList(list, 'boardList'));
-  //    })
-  
-  //   for(let bar of state.barList){
-  //     axios.get(process.env.REACT_APP_DB_HOST + "/showRead", {id: bar.id})
-  //      .then(res => {
-  //        const showList = res.data.data;
-  //        dispatch(addEveryShowList(showList));
-  //        console.log("******** useEffect ", showList)
-  //      })
-  //   }
-  //   return;
-  // },[])
+
+
+  useEffect(async()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    await axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+     .then(async res => {
+       const list = res.data.data;
+       await dispatch(setList(list, 'barList'));
+      })
+      .catch(err => console.log(err))
+      
+      await axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
+      .then(res => {
+        const list = res.data.data;
+        dispatch(setList(list, 'boardList'));
+        // console.log(list, "@@@@@@@@@@@good2")
+      })
+      .catch(err => console.log(err))
+      await axios.post(process.env.REACT_APP_DB_HOST + "/showRead")
+      .then(res => {
+        // console.log('dklnvkldsklsdnvklsdnvlskdnvsdlknvdsklnvsdlknvsdlknvslknvskdlnvklk')
+        // console.log(res)
+        const showList = res.data.data;
+        dispatch(addEveryShowList(showList));
+      })
+      .then(() => {
+      })
+      .catch(err => console.log(err))
+    }, [])
+ 
 
   const goJazzbar = (jazzbar) => {
-    dispatch(setJazzbar(jazzbar));
+    // console.log(e)
+    dispatch(setJazzbar(jazzbar.id));
   }
 
   const goPosting = (posting) => {
     dispatch(setBoard(posting.id));
-    dispatch(saveThisHistory("/service"));
   }
 
   
@@ -107,38 +109,44 @@ function Service () {
                 <div className="service-liveon-container">
                     <div className="v-scroll-inner">
                       <div className="service-liveon-contents">
+                      
+
                       {
                         state.everyShowList.map(el => {
-                          if(el.date === new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'')){
-                            const thisBar = state.barList.find(bar => bar.id === el.jazzbar_id);
-                            console.log("******** everyShowList : ", state.everyShowList)
-                            return (
-                            <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(thisBar)}>
+                          return el.date === thisDate ?
+                             (
+                            <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(state.barList.find(bar => bar.id === el.jazzbarId))}>
                               <a className="liveon-object-header">
                                 <div className="liveon-object-header-label">
-                                  <span className="liveon-object-header-profile-pic" style={{"background-image": `url(${thisBar.thumbnail})`}}></span>
-                                  <span className="liveon-object-header-profile-name">{thisBar.barName}</span>
+
+                                  <span className="liveon-object-header-profile-pic" style={state.barList.find(bar => bar.id === el.jazzbarId)? {"background-image": "url("+state.barList.find(bar => bar.id === el.jazzbarId).thumbnail+")"}: {"background-image": "url(/img/resource/jazzbb_logo_black.png)"}}></span>
+
+                                  <span className="liveon-object-header-profile-name">{state.barList.find(bar => bar.id === el.jazzbarId).barName}</span>
                                 </div>
                               </a>
                               <a className="liveon-object-body">
                                 <div className="liveon-object-body-img">
-                                  <img className="liveon-object-body-img-link" src={el.thumbnail ? el.thumbnail : thisBar.thumbnail} />
+                                  <img className="liveon-object-body-img-link" src={!!el.thumbnail ? el.thumbnail : state.barList.find(bar => bar.id === el.jazzbarId).thumbnail} />
                                 </div>
                               </a>
                               <div className="liveon-object-footer">
                                     <div className="liveon-object-body-detail">
-                                        <div className="liveon-object-body-detail-location">{thisBar.address}</div>
+                                        <div className="liveon-object-body-detail-location">{state.barList.find(bar => bar.id === el.jazzbarId).address}</div>
                                         <div className="liveon-object-body-detail-meta">
                                             <span className="liveon-object-body-detail-star">⭐</span>
-                                            <span className="liveon-object-body-detail-score">{thisBar.rating}</span>
+                                            <span className="liveon-object-body-detail-score">{state.barList.find(bar => bar.id === el.jazzbarId).rating}</span>
                                         </div>
                                     </div>
                               </div>
                             </Link>
                             )
-                          }
+                          :
+                          null
                         })
                       }
+
+
+
                         </div>
                     </div>
     
@@ -160,7 +168,7 @@ function Service () {
                             <div className="service-popular-contents">
 
                                 {
-                                  state.boardList.map(el => {
+                                  state.boardList.reverse().map(el => {
                                     return (
                                       <Link to="/posting" className="service-popular-object" onClick={()=> goPosting(el)}>
                                           <a className="service-popular-object-photobox">
@@ -193,22 +201,28 @@ function Service () {
                         <div className="v-scroll-inner">
                             <div className="service-newResOpen-contents">
                                 {
-                                  state.barList.reverse().map(el => {
-                                    <Link to="/jazzbar" className="service-newResOpen-object" onClick={()=> goJazzbar(el)}>
-                                        <a className="service-newResOpen-object-photobox">
-                                            <div className="service-newResOpen-object-img" style={{"background-image": `url(${el.thumbnail})`}}></div>
-                                        </a>
 
-                                        <div className="service-newResOpen-object-footer">
-                                            <div className="newResOpen-object-footer-name">{el.barName}</div>
-                                            <span className="newResOpen-object-footer-tags">{el.area}</span>
-                                            <div className="newResOpen-object-footer-meta">
-                                                <span className="newResOpen-object-footer-star">⭐</span>
-                                                <span className="newResOpen-object-footer-score">{el.rating}</span>
+                                  state.barList ? 
+                                  state.barList.reverse().map((el) => {
+                                    return (
+                                    <Link to="/jazzbar" key={el.id} className="service-newResOpen-object" onClick={()=> goJazzbar(el)}>
+                                        <a className="service-newResOpen-object-photobox" >
+                                            <div className="service-newResOpen-object-img"  style={{"background-image" : "url("+el.thumbnail+")"}}></div>
+                                        </a>
+                                        <div className="service-newResOpen-object-footer" >
+                                            <div className="newResOpen-object-footer-name" >{el.barName}</div>
+                                            <span className="newResOpen-object-footer-tags" >{el.area}</span>
+                                            <div className="newResOpen-object-footer-meta" >
+                                                <span className="newResOpen-object-footer-star" >⭐</span>
+                                                <span className="newResOpen-object-footer-score" >{el.rating}</span>
                                             </div>
                                         </div>
                                     </Link>
+                                      
+                                    )
                                   })
+                                  :
+                                  null
                                 }
 
                             </div>

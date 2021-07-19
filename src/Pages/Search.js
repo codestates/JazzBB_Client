@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard } from "../Components/redux/new/action";
+import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, setCurrentPage } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/search.css"
 
@@ -13,37 +13,30 @@ function Search () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
 
-  // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-  //  .then(res => {
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'barList'));
-  //  })
-
-  // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
-  //  .then(res => {
-  //    const list = res.data.data;
-  //    dispatch(setList(list, 'boardList'));
-  //  })
+  useEffect(()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+    // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+    //  .then(res => {
+    //    const list = res.data.data;
+    //    dispatch(setList(list, 'barList'));
+    //  })
   
-  const saveHistory = () => {
-    dispatch(saveThisHistory("/search"))
-  }
+    // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
+    //  .then(res => {
+    //    const list = res.data.data;
+    //    dispatch(setList(list, 'boardList'));
+    //  })
+  }, [])
+  
   
   const clickSearchData = (variety, id) => {
     if(variety == 'posting'){
       dispatch(setBoard(id));
     } else if(variety == 'jazzbar'){
-      const currentBar = state.barList.find(el => el.id == id)
-      dispatch(setJazzbar(currentBar))
+      dispatch(setJazzbar(id))
     }
-    dispatch(saveThisHistory("/search"))
   }
-  
-  const goBack = () => {
-    dispatch(saveThisHistory("/search"))
-    dispatch(dequeueHistory())
-  }
-
 
   const searchBar = (input) => {
     dispatch(search(input));
@@ -54,9 +47,10 @@ function Search () {
   }
 
   const requestSearch = () => {
-    axios.get(process.env.REACT_APP_DB_HOST + state.searchOption, { content: state.search })
+    axios.post(process.env.REACT_APP_DB_HOST + state.searchOption, { content: state.search })
      .then(res => {
-        const response = res.data.data.searchData;
+        const response = res.data.data;
+        console.log(response)
         dispatch(saveSearchData(response));
      })
   }
@@ -75,7 +69,7 @@ function Search () {
           }
           <div className="search-body-header-sublabel"></div>
         </div>
-        <Link to={state.history[0]} className="search-body-header-btnwrapper" onClick={()=> goBack()}>
+        <Link to={state.history[0]} className="search-body-header-btnwrapper">
           <img className="search-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
           <div className="search-control-label">이전 페이지</div>
         </Link>
@@ -106,9 +100,9 @@ function Search () {
         {
           state.searchOption == '/searchReview' ?
           state.searchData.map(el => {
-            if(!el.board_id){
+            if(!el.boardId){
               return (
-              <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', el.jazzbar_id)}>
+              <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', el.jazzbarId)}>
                 <div className="search-result-information">
                   <div className="search-result-info-shopname">{el.point}</div>
                   <div className="search-result-info-phone"></div>
@@ -118,9 +112,9 @@ function Search () {
               </Link>
               )
             } 
-            else if(!el.jazzbar_id){
+            else if(!el.jazzbarId){
               return (
-              <Link to="/posting" className="search-result-box" onClick={()=> clickSearchData('posting', el.board_id)}>
+              <Link to="/posting" className="search-result-box" onClick={()=> clickSearchData('posting', el.boardId)}>
                 <div className="search-result-information">
                   <div className="search-result-info-shopname">{el.point}</div>
                   <div className="search-result-info-phone"></div>
@@ -158,7 +152,7 @@ function Search () {
                   <div className="search-result-info-shopname">{el.barName}</div>
                   <div className="search-result-info-phone">{el.mobile}</div>
                   <div className="search-result-info-shoplocate">{el.area}</div>
-                  <div className="search-result-info-time">{`${el.opentime.split('-')[0]}~${el.opentime.split('-')[1]}`}</div>
+                  <div className="search-result-info-time">{el.opentime}</div>
                 </div>
               </Link>
             )
@@ -166,7 +160,7 @@ function Search () {
           :
           state.searchOption == '/searchShow' ?
           state.searchData.map(async el => {
-            const jazzbar = state.barList.find(bar => bar.id == el.jazzbar_id);
+            const jazzbar = state.barList.find(bar => bar.id == el.jazzbarId);
             return (
               <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', jazzbar.id)}>
                 <div className="search-result-thumbnail">

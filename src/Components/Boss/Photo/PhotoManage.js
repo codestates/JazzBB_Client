@@ -12,15 +12,16 @@ import "./PhotoManage.css";
 const PhotoManage = () => {
   const dispatch = useDispatch;
   const jazzbarId = useSelector((state) => state.reducer.jazzbarId);
+  const state = useSelector((state) => state.reducer);
 
-  useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
-      .then((res) => {
-        const list = res.data.data;
-        dispatch(setBossJazzBar(list));
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
+  //     .then((res) => {
+  //       const list = res.data.data;
+  //       dispatch(setBossJazzBar(list));
+  //     });
+  // }, []);
 
   const jazzbar = useSelector((state) => state.reducer.jazzbar);
 
@@ -36,16 +37,17 @@ const PhotoManage = () => {
         </div>
 
         <div className="registered-photo-body">
-            {jazzbar.thumbnail.menu !== undefined
-              ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} alt =""/>;
+            {state.menu !== undefined
+              ? state.menu.map((el, index) => {
+                  <img className="registered-photo-img" src={el.thumbnail} key={index} alt =""/>;
                 })
               : null}
 
-            {jazzbar.thumbnail.banner !== undefined
-              ? jazzbar.thumbnail.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el} key={index} alt="" />;
-                })
+            {jazzbar.thumbnail !== undefined
+             ? 
+            //  jazzbar.thumbnail.map((el, index) => {
+                  <img className="registered-photo-img" src={jazzbar.thumbnail} alt="" />
+                // })
               : null}
       
           {/* <img className="registered-photo-img" src="/img/tokyoJazz.jpg" alt=""/> */}

@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setPeople, setToken } from "../Components/redux/new/action";
+import { setPeople, setToken, setCurrentPage, saveThisHistory} from "../Components/redux/new/action";
 import "../css/reservation.css";
 
 
@@ -11,16 +11,19 @@ function Reservation(){
   const state = useSelector(state => state.reducer);
   const [openTime, closeTime] = state.jazzbar.openTime.split('-');
 
+  useEffect(()=>{
+    dispatch(saveThisHistory())
+    dispatch(setCurrentPage(window.location.pathname))
+  }, [])
+
   const changePeople = (e) => {
     dispatch(setPeople(e.target.value));
   }
 
   const requestReservation = async() => {
-    await axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', {
-      authorization: state.user.token
-    }, {
-      show_id: state.show.id,
-      user_id: state.user.dbUserId,
+    await axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', { headers: { authorization: state.token }, withCredentials: true }, {
+      showId: state.show.id,
+      userId: state.user.dbUserId,
       people: state.people,
     })
     .then(res => {

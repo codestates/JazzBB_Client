@@ -7,44 +7,33 @@ import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import "./BInfoManagePage.css";
-import { setBossJazzBar, setToken } from "../../redux/new/action";
+import { setBossJazzBar, setToken, setJazzId } from "../../redux/new/action";
 const { kakao } = window;
 
 function BInfoManagePage() {
-  const user = useSelector((state) => state.reducer.user);
-  const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const dispatch = useDispatch();
-  useEffect(() => {
-    axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
-      const list = res.data.data;
-      dispatch(setBossJazzBar(list));
-    });
-  }, []);
-  //재즈바 id 받아오기 !!!!!!!!!!!!!!!!!!!!!!
-  const Jazz = useSelector((state) => state.reducer.jazzbar);
+  const initialState = useSelector((initstate) => initstate.reducer);
+  const jazzbarId = useSelector((initstate) => initstate.reducer.jazzBarId);
+  const Jazz = useSelector((initstate) => initstate.reducer.jazzbar);
+  const serviceOption = useSelector((initstate) => initstate.reducer.serviceOption);
   const [gps, setGps] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [serviceitem, setService] = useState([]);
+  const [initstate, setInitState] = useState({});
 
-  const openPostCode = () => {
-    setIsPopupOpen(true);
-  };
-  const closePostCode = () => {
-    setIsPopupOpen(false);
-  };
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
+      const jazzbarList = res.data.data;
+      console.log(jazzbarList,'jazzbarList')
+        const jazzbardata = jazzbarList.filter(el => el.id === jazzbarId)
+console.log(jazzbardata, 'jazzbardata')
+  dispatch(setBossJazzBar(jazzbardata[0]));
+    });
+  }, []);
 
-  const [serviceitem, setService] = useState({
-    주차가능: false,
-    발렛주차: false,
-    단체석: false,
-    개별룸: false,
-    식사가능: false,
-    콜키지가능: false,
-    심야영업: false,
-    온라인예약가능: false,
-  });
+  const openPostCode = () => {setIsPopupOpen(true);};
+  const closePostCode = () => {setIsPopupOpen(false);};
 
-  const service = Object.keys(serviceitem);
-  const [state, setState] = useState({});
   const handleInput = (e) => {
     const targetName = e.target.name;
     if (targetName === "serviceOption") {
@@ -52,68 +41,102 @@ function BInfoManagePage() {
         target: { checked },
       } = e;
       setService({ ...serviceitem, [e.target.id]: checked });
+      // console.log(serviceitem);
     } else {
-      setState({ ...state, [targetName]: e.target.value });
+      setInitState({ ...initstate, [targetName]: e.target.value });
     }
   };
 
-  const handleSubmit = () => {
-    if (banner.length !== 0) {
-      const formDataBanner = new FormData();
-      formDataBanner.append(`bannerImg`, banner[0]);
-      setState({ ...state, bannerPhoto: formDataBanner });
-    }
-    if (targetFile.length !== 0) {
-      const formData = new FormData();
-      for (let i = 0; i < targetFile.length; i++) {
-        formData.append(`image${i}`, targetFile[i]);
+   const  handleSubmit = () => {
+    let temp = "";
+    if (serviceitem !== []) {
+      for (let service in serviceitem) {
+        if (serviceitem[service] === true) {
+          temp = temp + service;
+        }
       }
-      setState({ ...state, menuPhoto: formData });
-      axios.post(process.env.REACT_APP_DB_HOST + "/menuCreate", {
-        authorization: user.token
-      }, formData).then(res => console.log(res))
     }
-
+   
     if (
-      state.addressFront === undefined ||
-      state.addressETC === undefined ||
-      state.barName === undefined ||
-      state.defaultSeat === undefined ||
-      state.mobile === undefined ||
-      state.addressFront === "" ||
-      state.addressETC === "" ||
-      state.barName === "" ||
-      state.defaultSeat === "" ||
-      state.mobile === ""
+      initstate.addressFront === undefined ||
+      initstate.addressETC === undefined ||
+      initstate.barName === undefined ||
+      initstate.defaultSeat === undefined ||
+      initstate.mobile === undefined
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
-      setState({
-        ...state,
-        serviceOption: serviceitem,
-        // area : `${area[0]+area[1]}`,
-        address: state.addressFront + " " + state.addressETC,
-        thumbnail: state.bannerPhoto,
-        gpsX: gps.gpsX,
-        gpsY: gps.gpsY,
-      });
-      // })
+      const newForm = new FormData();
+      newForm.append("thumbnail", banner[0]);
+      newForm.append("barName", initstate.barName);
+      newForm.append("defaultSeat", initstate.defaultSeat);
+      newForm.append("area", initstate.area);
+      newForm.append("gpsX", gps.gpsX);
+      newForm.append("gpsY", gps.gpsY);
+      newForm.append("address", initstate.addressFront + " " + initstate.addressETC);
+      newForm.append("serviceOption", temp);
+      newForm.append("mobile", initstate.mobile);
+
+   
+
+      // for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+      // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
+
+
+
       axios
-        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state, { headers: { authorization: state.user.token }, withCredentials: true })
+        .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, {
+          headers: {
+            authorization: initialState.token,
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        })
         .then((res) => {
-          console.log(state, "2");
-          const token1 = res.data.data.token;
+          const token1 = res.data.data.accessToken;
           dispatch(setToken(token1));
-        }).then( window.location.href = "/boss/main")
+          const barId = res.data.data.jazzbarId;
+          dispatch(setJazzId(barId));
+          console.log(barId,'~~~~server : jazzbarId')
+          return barId
+        })
+        // .then((barId)=>{
+        // const menuFormData = new FormData();
+        // for (let i = 0; i < targetFile.length; i++) {
+        //   menuFormData.append(`thumbnail`, targetFile[i]);
+        // }
+        // menuFormData.append(`jazzbarId`, barId);
+        
+        //   axios
+        //     .post(process.env.REACT_APP_DB_HOST + "/menuCreate", menuFormData, {
+        //       headers: {
+
+        //         "Content-Type": "multipart/form-data",
+        //       },
+        //       withCredentials: true,
+        //     })
+        //     return barId
+        // })
+        .then((barId) =>{
+          console.log(barId,'barId')
+          axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+          .then(res => {
+            const jazzbarList = res.data.data;
+          console.log(jazzbarList,'jazzbarList')
+            const jazzbardata = jazzbarList.filter(el => el.id === barId)
+    console.log(jazzbardata, 'jazzbardata')
+      dispatch(setBossJazzBar(jazzbardata[0]));
+          // window.location.href = "/boss/infoupdate"
+          })
+         } )
+        
     }
+            // .then((window.location.href = "/boss/main"))
   };
-
-
 
 
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
   const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
-
   const [banner, setBanner] = useState([]);
   const [bannerDetail, setBannerDetail] = useState([]);
 
@@ -131,10 +154,10 @@ function BInfoManagePage() {
     reader.readAsDataURL(file);
   };
 
+ 
   const handleImageUpload = (e) => {
     const fileArr = e.target.files;
     setFile([...fileArr]);
-
     if (fileArr.length > 5) {
       alert("파일은 5개까지 첨부가 가능합니다.");
     } else {
@@ -154,13 +177,14 @@ function BInfoManagePage() {
       }
     }
   };
+
+
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
     <div className="infoPage">
-
       <Sidebar></Sidebar>
-      {Jazz.length === 0 ? (
-        <div className="infobody">         
+      {/* {Jazz=== [] ? ( */}
+        <div className="infobody">
           <div className="BIMcontentBox">
             <div className="ctBoxheader">
               <div className="ctBoxheader-title">매장 정보 입력</div>
@@ -192,8 +216,8 @@ function BInfoManagePage() {
                       readOnly="true"
                       size="50"
                       defaultValue={
-                        state.addressFront !== undefined
-                          ? state.addressFront
+                        initstate.addressFront !== undefined
+                          ? initstate.addressFront
                           : null
                       }
                     ></input>
@@ -218,8 +242,8 @@ function BInfoManagePage() {
                         <PopupPostCode
                           onClose={closePostCode}
                           setGps={setGps}
-                          state={state}
-                          setState={setState}
+                          state={initstate}
+                          setState={setInitState}
                         />
                       </PopupDom>
                     )}
@@ -236,6 +260,7 @@ function BInfoManagePage() {
                     type="number"
                     name="mobile"
                     onChange={handleInput}
+                    autocomplete="off"
                   ></input>
                   <div className="phonelabel">
                     숫자만 입력해주세요. 예) 01012341234
@@ -254,6 +279,23 @@ function BInfoManagePage() {
                 ></input>
               </div>
 
+              <div className="barMobile boxopt">
+                <div className="inputformlabel">영업 시간</div>
+                <div className="phoneWrapper">
+                  <input
+                    className="phoneform"
+                    placeholder="영업 시간"
+                    type="text"
+                    name="openTime"
+                    onChange={handleInput}
+                    autocomplete="off"
+                  ></input>
+                  <div className="phonelabel">
+                    형식에 맞게 입력해주세요. 예) 18:00-20:00
+                  </div>
+                </div>
+              </div>
+
               <div className="serviceOption boxopt">
                 <div className="inputformlabel">서비스</div>
 
@@ -263,12 +305,14 @@ function BInfoManagePage() {
                       className="svcoptcheck"
                       type="checkbox"
                       name="serviceOption"
-                      checked={serviceitem[el.content]}
-                      id={el.content}
+                      id={el.id}
                       onChange={handleInput}
                     />
+                    {/* <div className="svcopWrapper"> */}
                     <div className="svcoptel">{el.content}</div>
-                    <img src={el.img} alt=""></img>
+                    <img className="svcopicon" src={el.img} alt=""></img>
+                    {/* </div> */}
+
                   </div>
                 ))}
               </div>
@@ -276,8 +320,6 @@ function BInfoManagePage() {
               <div className="Menu boxopt">
                 <div className="inputmenu-header">
                   <div className="inputformlabel">메뉴</div>
-                  {/* <FileUpload></FileUpload>
-                 <PhotoInputFile></PhotoInputFile> */}
                   <div className="inputformsublabel">
                     최대 5개의 이미지까지 업로드가 가능합니다
                   </div>
@@ -285,7 +327,7 @@ function BInfoManagePage() {
                     className="add-file"
                     type="file"
                     multiple
-                    name="image"
+                    name="thumbnail"
                     accept="image/jpg,image/png,image/jpeg,image/gif"
                     onChange={handleImageUpload}
                   />
@@ -295,13 +337,13 @@ function BInfoManagePage() {
                   <img
                     className="add-thumbnail"
                     src={detailImgs[0]}
-                    alt="" // onChange={(e) => setFile(e)}
+                    alt="" 
                   ></img>
                   {detailImgs[1] !== undefined ? (
                     <img
                       className="add-thumbnail"
                       src={detailImgs[1]}
-                      alt="" // onChange={(e) => setFile(e)}
+                      alt="" 
                     ></img>
                   ) : null}
 
@@ -310,7 +352,6 @@ function BInfoManagePage() {
                       className="add-thumbnail"
                       src={detailImgs[2]}
                       alt=""
-                      // onChange={(e) => setFile(e)}
                     ></img>
                   ) : null}
 
@@ -319,7 +360,6 @@ function BInfoManagePage() {
                       className="add-thumbnail"
                       src={detailImgs[3]}
                       alt=""
-                      // onChange={(e) => setFile(e)}
                     ></img>
                   ) : null}
                   {detailImgs[4] !== undefined ? (
@@ -327,14 +367,8 @@ function BInfoManagePage() {
                       className="add-thumbnail"
                       src={detailImgs[4]}
                       alt=""
-                      // onChange={(e) => setFile(e)}
                     ></img>
                   ) : null}
-                  {/* <form action="/upload" method="post" encType="multipart/form-data"> 
-               <input type="file" name="image" multiple></input>
-               <input type="text" name="title" ></input>
-               <button type="submit" onClick={handleUpload}>업로드</button>
-             </form> */}
                 </div>
               </div>
 
@@ -356,7 +390,6 @@ function BInfoManagePage() {
                   className="add-thumbnail"
                   src={bannerDetail}
                   alt=""
-                  // onChange={(e) => setFile(e)}
                 ></img>
               </div>
 
@@ -368,9 +401,12 @@ function BInfoManagePage() {
             </div>
           </div>
         </div>
-      ) : (
-        <InfoUpdate data={Jazz}></InfoUpdate>
-      )} 
+      ) 
+      {/* : 
+      (
+       <InfoUpdate data={Jazz}></InfoUpdate>
+       ) 
+       }  */}
     </div>
   );
 }

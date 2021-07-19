@@ -1,9 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux'
 import "../css/weareddh.css"
 
 
 
 function Weareddh() {
+    const state = useSelector(state => state.reducer);
+
     return (
         <div className="weareddh">
         <div className="weareddh-body">
@@ -14,10 +18,10 @@ function Weareddh() {
                     <div className="weareddh-header-sublabel">Team DDH를 소개합니다</div>
                 </div>
 
-                <div className="weareddh-header-btnWrapper">
+                <Link to={state.currentPage} className="weareddh-header-btnWrapper">
                     <img className="terms-header-icon" src="/img/resource/icons/outline_arrow_back_ios_black_24dp.png" />
                     <div className="terms-header-btntitle">이전 페이지</div>
-                </div>
+                </Link>
             </div>
 
 
