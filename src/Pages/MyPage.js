@@ -17,7 +17,8 @@ import "../css/mypage.css"
   }, [])
 
   const axiosRequest = () => {
-    axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
+
+    axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
        const token1 = res.data.data.accessToken;
        const info = res.data.data.userinfo;
@@ -25,7 +26,8 @@ import "../css/mypage.css"
        dispatch(setToken(token1));
      })
      console.log("******** state", state)
-    axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { userId: state.user.id }, { headers: { authorization: state.user.token }, withCredentials: true })
+
+    axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { userId: state.user.id }, { headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
        const token2 = res.data.data.token;
        const reservation = res.data.data.list;
@@ -35,7 +37,8 @@ import "../css/mypage.css"
        
      })
  
-    axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.user.token }, withCredentials: true }, { userId: state.user.id })
+
+    axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.token }, withCredentials: true }, { userId: state.user.id })
      .then(res => {
        const token3 = res.data.data.accessToken;
        const review = res.data.data.list;
@@ -55,7 +58,7 @@ import "../css/mypage.css"
 
   const handleModifyUser = (variety) => {
     dispatch(modifyFinish());
-    axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true }, { ...state.user })
+    axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true }, { ...state.user })
       .then(res => {
         const token4 = res.data.data.accessToken;
         dispatch(setToken(token4));
@@ -64,7 +67,7 @@ import "../css/mypage.css"
   }
 
   const withdrawUser = () => {
-    axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", { headers: { authorization: state.user.token }, withCredentials: true })
+    axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", { headers: { authorization: state.token }, withCredentials: true })
       .then(() => {
         dispatch(modifySwitch('withdrawModal'));
         dispatch(modifySwitch('withdrawConfirm'));
@@ -154,7 +157,7 @@ import "../css/mypage.css"
                 return (
                   <div className="recentreservation-body">
                     <div className="recentreservation-body-date">{el.show.date.replace(/-/g, '.') + '.'}</div>
-                    <div className="recentreservation-body-name">{el.show.jazzbar.barName}</div>
+                    <div className="recentreservation-body-name">{el.jazzbar.barName}</div>
                     <div className="recentreservation-body-time">{el.show.time}</div>
                     <div className="recentreservation-body-person">{el.people}</div>
                     {el.confirm == 'pending' ?

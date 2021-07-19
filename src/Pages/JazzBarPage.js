@@ -2,46 +2,41 @@ import axios from "axios";
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, dequeueHistory, saveThisHistory, setCurrentPage} from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, saveThisHistory, setCurrentPage} from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/shopinfo.css"
 
 
 
-function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOption, rating, openTime, gpsX, gpsY }
+function JazzBar(){ 
   const { kakao } = window; 
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  const [openTime, closeTime] = state.jazzbar.openTime.split('-');
 
-  useEffect(()=>{
+
+  useEffect(async ()=>{
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    axios.get(process.env.REACT_APP_DB_HOST + '/showRead', {id: state.jazzbar.id})
+    // console.log("dskvnsdovnsdklnsdlknsdvnk")
+    await axios.post(process.env.REACT_APP_DB_HOST + '/showRead', {jazzbarId: state.currentJazzbar})
      .then(res => {
-       const list = res.data.data.list;
+       const list = res.data.data;
        dispatch(setList(list, 'showList'));
      })
      .catch(err => console.log(err))
   
-    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.jazzbar.id})
+    await axios.post(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.currentJazzbar})
      .then(res => {
-       const list = res.data.data.list;
+       const list = res.data.data.data;
        dispatch(setList(list, 'menu'));
      })
      .catch(err => console.log(err))
-     
-    axios.get(process.env.REACT_APP_DB_HOST + '/menuRead', {jazzbarId: state.jazzbar.id, type: 'photo'})
-     .then(res => {
-       const list = res.data.data.list;
-       dispatch(setList(list, 'barPhoto'));
-     })
-     .catch(err => console.log(err))
   
-    axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.jazzbar.id})
+     await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.currentJazzbar})
      .then(res => {
-       const list = res.data.data.list;
-       dispatch(setList(list, 'reviewList'));
+       const reviewList = res.data.data.list;
+       console.log(reviewList)
+       dispatch(setList(reviewList, 'reviewList'));
      })
      .catch(err => console.log(err))
   },[])
@@ -52,16 +47,30 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   }
 
   const reviewPost = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', { headers: { authorization: state.user.token }, withCredentials: true },{
-      jazzbarId: state.jazzbar.id, 
-      point: state.review.point, 
-      content: state.review.content
-    })
-     .then(res => {
-      const token = res.data.data.accessToken;
-      dispatch(setToken(token));
-     })
-     .catch(err => console.log(err))
+    if(!state.isLogin) {
+      alert('로그인 후 리뷰 작성이 가능합니다.');
+      dispatch(modifySwitch('loginModal'));
+    } else {
+      console.log(state.user)
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate',{
+        jazzbarId: state.currentJazzbar, 
+        point: state.review.point, 
+        content: state.review.content
+      }, { headers: { authorization: state.token }, withCredentials: true })
+      .then(res => {
+        const token = res.data.data.accessToken;
+        dispatch(setToken(token));
+      })
+      .catch(err => console.log(err))
+
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.currentJazzbar})
+       .then(res => {
+         const reviewList = res.data.data;
+         dispatch(setList(reviewList, 'reviewList'));
+         typingReview({target:{value:''}}, 'content')
+       })
+       .catch(err => console.log(err))
+    }
   }
     
   const goReservation = (show) => {
@@ -77,8 +86,8 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   }
     
   const reviewUpdate = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', { headers: { authorization: state.user.token }, withCredentials: true } ,{
-      jazzbarId: state.jazzbar.id, 
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewUpdate', { headers: { authorization: state.token }, withCredentials: true } ,{
+      jazzbarId: state.currentJazzbar, 
       point: state.review.point, 
       content: state.review.content
     })
@@ -91,7 +100,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
   }
 
   const reviewDeleteRequest = async () => {
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', { headers: { authorization: state.user.token }, withCredentials: true },{
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewDelete', { headers: { authorization: state.token }, withCredentials: true },{
       id: state.myReviewId
     })
      .then(res => {
@@ -142,25 +151,24 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
         <div className="shopinfo-header">
 
           <div className="shopinfo-header-imgarea">
-            <img className="shopinfo-header-img" src={state.jazzbar.thumbnail} alt="headerimg" />
+            <img className="shopinfo-header-img" src={state.barList.find(el => el.id === state.currentJazzbar)? state.barList.find(el => el.id === state.currentJazzbar).thumbnail : "/resource/jazzbb_logo_black.png"} alt="headerimg" />
           </div>
 
           <div className="shopinfo-header-infoarea">
-            <div className="shopinfo-header-infoarea-shopname">{state.jazzbar.barName}</div>
+            <div className="shopinfo-header-infoarea-shopname">{state.barList.find(el => el.id === state.currentJazzbar).barName}</div>
             <div className="shopinfo-header-infoarea-geo">
-              <div className="shopinfo-header-infoarea-location">{state.jazzbar.area}</div>
-              <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>지도 위치 보기</button>{/* 티맵 구현 필요 */}
+              <div className="shopinfo-header-infoarea-location">{state.barList.find(el => el.id === state.currentJazzbar).area}</div>
+              <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>지도 위치 보기</button>
             </div>
 
-      {!modalIsOpen  ? ( <div id="map" onClick={closeModal} style={{width:"100%", height:"400px", display:"none"}}></div> ) : <div id="map"onClick={closeModal} style={{width:"100%", height:"400px"}}></div>}
-      {/* <div id="map" style={{width:"500px", height:"400px"}}></div>  */}
+      {!modalIsOpen  ?  <div id="map" onClick={closeModal} style={{width:"100%", height:"400px", display:"none"}}></div> : <div id="map"onClick={closeModal} style={{width:"100%", height:"400px"}}></div>}
 
-            <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>
-            <div className="shopinfo-header-infoarea-time">{`${state.jazzbar.openTime.split('-')[0]} ~ ${state.jazzbar.openTime.split('-')[1]}`}</div>
+            <div className="shopinfo-header-infoarea-phone">{state.barList.find(el => el.id === state.currentJazzbar).mobile}</div>
+            <div className="shopinfo-header-infoarea-time">{state.barList.find(el => el.id === state.currentJazzbar).openTime.replace('-','~')}</div>
 
             <div className="shopinfo-header-infoarea-ratingarea">
               <div className="shopinfo-header-infoarea-ratingarea-star">⭐</div>
-              <div className="shopinfo-header-infoarea-ratingarea-rate">{state.jazzbar.rating}</div>
+              <div className="shopinfo-header-infoarea-ratingarea-rate">{state.barList.find(el => el.id === state.currentJazzbar).rating}</div>
             </div>
 
           </div>
@@ -168,7 +176,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
         <div className="shopinfo-iconarea">
           {
-            state.jazzbar.serviceOption.split('').map(number => {
+            state.barList.find(el => el.id === state.currentJazzbar).serviceOption.split('').map(number => {
               for(let option of state.serviceOption){
                 if(number === option.id){
                   return (
@@ -213,36 +221,6 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             </div>
           </div>
         </Modal>
-
-        <div className="shopinfo-shopphoto">
-          <div className="shopinfo-shopphoto-titlearea">
-            <div className="shopinfo-shopphoto-titlearea-label">사진</div>
-          </div>
-                    
-          <div className="shopinfo-shopphoto-body">
-            <div className="shopinfo-shopphoto-container">
-              <div className="v-scroll-inner">
-                <div className="shopinfo-shopphoto-contents">
-                  {
-                    state.barPhoto.map(el => {
-                      return (
-
-                         <div className="shopinfo-shopphoto-object">
-                            <a className="shopinfo-shopphoto-object-photobox" href="#">
-                            <div className="shopinfo-shopphoto-object-photobox-img" style={{"background-image" : "url("+el+")"}}></div>
-                        </a>
-                      </div>
-
-                      )
-                      
-                    })
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
 
 
         <div className="shopinfo-reservation">
@@ -302,7 +280,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
 
             {
               state.reviewList.map(el => {
-                el.username !== state.user.username ? 
+                return el.username !== state.user.username ? 
                 (
                 <div className="shopinfo-review-body-data">
                   <div className="shopinfo-review-body-data-username">{el.username}</div>
@@ -315,13 +293,13 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
                   {
                     state.togle.reviewModify ? (
                       <div className="shop-info-review-modify-form">
-                        <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')}>
-                          <option value="" disabled selected>별점 선택</option>
-                          <option value="5">★★★★★</option>
-                          <option value="4">★★★★</option>
-                          <option value="3">★★★</option>
-                          <option value="2">★★</option>
-                          <option value="1">★</option>
+                        <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')} defaultValue="">
+                          <option key="none" value="" disabled>별점 선택</option>
+                          <option key="5" value="5">★★★★★</option>
+                          <option key="4" value="4">★★★★</option>
+                          <option key="3" value="3">★★★</option>
+                          <option key="2" value="2">★★</option>
+                          <option key="1" value="1">★</option>
                         </select>
                         <input className="shopinfo-review-modify-imput" type="text" value={el.content} onChange={(e)=>typingReview(e,'content')}></input>
                         <button className="shopinfo-review-form-submit" onClick={()=> reviewUpdate()}>수정</button>
@@ -358,13 +336,13 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
             <div className="shopinfo-review-form">
               <div className="shopinfo-review-form-label">작성</div>
                 <input className="shopinfo-review-form-input" type="text" placeholder="한줄평을 작성해주세요" onChange={(e)=>typingReview(e,'content')}/>
-                <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')}>
-                  <option value="" disabled selected>별점 선택</option>
-                  <option value="5">★★★★★</option>
-                  <option value="4">★★★★</option>
-                  <option value="3">★★★</option>
-                  <option value="2">★★</option>
-                  <option value="1">★</option>
+                <select className="shopinfo-review-form-rate" onChange={(e)=>typingReview(e,'point')} defaultValue="">
+                  <option key="none" value="" disabled>별점 선택</option>
+                  <option key="5" value="5">★★★★★</option>
+                  <option key="4" value="4">★★★★</option>
+                  <option key="3" value="3">★★★</option>
+                  <option key="2" value="2">★★</option>
+                  <option key="1" value="1">★</option>
                 </select>
               <button className="shopinfo-review-form-submit" onClick={()=> reviewPost()}>작성</button>
             </div>

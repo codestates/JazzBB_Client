@@ -34,8 +34,7 @@ function Search () {
     if(variety == 'posting'){
       dispatch(setBoard(id));
     } else if(variety == 'jazzbar'){
-      const currentBar = state.barList.find(el => el.id == id)
-      dispatch(setJazzbar(currentBar))
+      dispatch(setJazzbar(id))
     }
   }
 
@@ -48,9 +47,10 @@ function Search () {
   }
 
   const requestSearch = () => {
-    axios.get(process.env.REACT_APP_DB_HOST + state.searchOption, { content: state.search })
+    axios.post(process.env.REACT_APP_DB_HOST + state.searchOption, { content: state.search })
      .then(res => {
-        const response = res.data.data.searchData;
+        const response = res.data.data;
+        console.log(response)
         dispatch(saveSearchData(response));
      })
   }
@@ -152,7 +152,7 @@ function Search () {
                   <div className="search-result-info-shopname">{el.barName}</div>
                   <div className="search-result-info-phone">{el.mobile}</div>
                   <div className="search-result-info-shoplocate">{el.area}</div>
-                  <div className="search-result-info-time">{`${el.opentime.split('-')[0]}~${el.opentime.split('-')[1]}`}</div>
+                  <div className="search-result-info-time">{el.opentime}</div>
                 </div>
               </Link>
             )

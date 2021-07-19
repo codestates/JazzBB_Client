@@ -23,12 +23,12 @@ class SimpleSlider extends React.Component {
     return (
       <Slider {...settings}>
         <div>
-            <Link to="/posting" className="service-bannerWrapper">
+            <Link to="/board" className="service-bannerWrapper">
                 <img id="service-banner-top" src="/img/resource/service-banner-top.png" alt="banner(top)"/>
             </Link>
         </div>
         <div>
-            <Link to="/posting" className="service-bannerWrapper">
+            <Link to="/board" className="service-bannerWrapper">
                 <img id="service-banner-top" src="/img/resource/service-banner-top2.png" alt="banner(top)"/>
             </Link>
         </div>

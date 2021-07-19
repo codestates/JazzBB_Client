@@ -28,7 +28,7 @@ function MoreInfo() {
       }
       , {
         headers: {
-          authorization: state.user.token
+          authorization: state.token
         },
         withCredentials: true
       }
@@ -37,7 +37,7 @@ function MoreInfo() {
         const token = res.data.data.accessToken;
         dispatch(setToken(token));
         dispatch(checkFirst());
-        await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
+        await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true })
           .then(resp => {
             const token = resp.data.data.accessToken;
             const userinfo = resp.data.data.userinfo;

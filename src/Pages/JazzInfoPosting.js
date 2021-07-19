@@ -2,26 +2,25 @@ import axios from "axios";
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { setList, typeText, modifySwitch, setToken, setBoard, saveThisHistory, dequeueHistory, setCurrentPage } from "../Components/redux/new/action";
+import { setList, typeText, modifySwitch, setToken, setBoard, saveThisHistory, setCurrentPage } from "../Components/redux/new/action";
 import "../css/JazzinfoPosting.css";
 
 
 function BoardPostingObject () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
+  const stateReviewList = useSelector(state => state.reducer.reviewList);
   
-  let currentBoard
-  useEffect(()=>{
+  useEffect(async ()=>{
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    // axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: currentBoard.id})
-    // .then(res => {
-    //   const reviewList = res.data.data.list;
-    //   dispatch(setList(reviewList, 'reviewList'));
-    // })
-    // .catch(err => console.log(err))
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: state.currentBoard})
+    .then(res => {
+      const reviewList = res.data.data;
+      dispatch(setList(reviewList, 'reviewList'));
+    })
+    .catch(err => console.log(err))
   }, [])
-
   
   
   const changeCurrentBoard = (type) => {
@@ -42,16 +41,25 @@ function BoardPostingObject () {
       alert('로그인 후 리뷰 작성이 가능합니다.');
       dispatch(modifySwitch('loginModal'));
     } else {
-      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate', { headers: { authorization: state.user.token }, withCredentials: true },{
-        boardId: currentBoard.id, 
+      console.log(state.user)
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate',{
+        boardId: state.currentBoard, 
         point: '5', 
         content: state.review.content
-      })
+      }, { headers: { authorization: state.token }, withCredentials: true })
       .then(res => {
         const token = res.data.data.accessToken;
         dispatch(setToken(token));
       })
       .catch(err => console.log(err))
+
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: state.currentBoard})
+       .then(res => {
+         const reviewList = res.data.data;
+         dispatch(setList(reviewList, 'reviewList'));
+         typingReview({target:{value:''}}, 'content')
+       })
+       .catch(err => console.log(err))
     }
   }
 
@@ -76,14 +84,14 @@ function BoardPostingObject () {
         <div className="infobbsdataentry-control">
           <div className="infobbsdataentry-control-container">
             {
-              state.boardList[state.currentBoard - 1] ?
+              state.boardList.find(el => el.id === state.currentBoard-1) ?
               <div className="infobbsdataentry-control-wrapper" onClick={()=>changeCurrentBoard(1)}>
                 <div className="infobbsdataentry-control-btns">
                   <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_back_ios_black_24dp.png" />
                   <div className="infobbsdataentry-control-label">이전글</div>    
                 </div>
 
-                <div className="infobbsdataentry-control-title">{state.boardList[state.currentBoard - 1].title}</div>
+                <div className="infobbsdataentry-control-title">{state.boardList.find(el => el.id === state.currentBoard-1).title}</div>
               </div>
               :
               <div className="infobbsdataentry-control-wrapper">
@@ -100,9 +108,9 @@ function BoardPostingObject () {
               </Link>
             </div>
             {
-              state.boardList[state.currentBoard + 1] ? 
+              state.boardList.find(el => el.id === state.currentBoard+1) ? 
               <div className="infobbsdataentry-control-wrapper" onClick={()=> changeCurrentBoard(2)}>
-                <div className="infobbsdataentry-control-title">{state.boardList[state.currentBoard + 1].title}</div>
+                <div className="infobbsdataentry-control-title">{state.boardList.find(el => el.id === state.currentBoard+1).title}</div>
 
                 <div className="infobbsdataentry-control-btns">
                   <img className="infobbsdataentry-control-icon" src="/resource/outline_arrow_forward_ios_black_24dp.png" />
@@ -144,7 +152,7 @@ function BoardPostingObject () {
             <div className="infobbsdataentry-body-data-commentlabel">댓글</div>
             <div className="infobbsdataentry-body-data-comment">
               {
-                state.reviewList.map(el => {
+                stateReviewList ? stateReviewList.map(el => {
                   return (
                     <div className="infobbsdataentry-body-data-commentcontainer">
                       <div className="comment-name">{el.user.username}</div>
@@ -152,13 +160,15 @@ function BoardPostingObject () {
                     </div>
                   )
                 })
+                :
+                null
               }
 
             </div>
 
             <div className="infobbsdataentry-body-data-newcomment">
               <div className="newcomment-label">댓글 작성</div>
-              <input className="newcomment-comment" type="text" onChange={(e)=> typingReview(e, 'content')}/>
+              <input className="newcomment-comment" type="text" onChange={(e)=> typingReview(e, 'content')} value={state.review ? state.review.content : ''}/>
               <button className="newcomment-submitbtn" onClick={()=> reviewPost()}>작성</button>
             </div>
                         

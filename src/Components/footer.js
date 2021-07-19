@@ -18,10 +18,10 @@ function Footer() {
     
                         <div className="footer-infoarea-buttonsarea">
                             <Link to="/footer/weareddh" className="footer-infoarea-buttonsarea-buttons" >회사소개</Link>
-                            <a class="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">제휴문의</a>
+                            <a className="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">제휴문의</a>
                             <Link to="/footer/terms" className="footer-infoarea-buttonsarea-buttons" >이용약관</Link>
                             <Link to="/footer/termspi" className="footer-infoarea-buttonsarea-buttons" >개인정보처리방침</Link>
-                            <a class="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">고객센터</a>
+                            <a className="footer-infoarea-buttonsarea-buttons" href="mailto:help@teamddh.com">고객센터</a>
                         </div>
     
                         <div className="footer-infoarea-infobody">
