@@ -117,7 +117,9 @@ function Service () {
                             <Link to="/jazzbar" className="service-liveon-object"  onClick={()=> goJazzbar(state.barList.find(bar => bar.id === el.jazzbarId))}>
                               <a className="liveon-object-header">
                                 <div className="liveon-object-header-label">
+
                                   <span className="liveon-object-header-profile-pic" style={state.barList.find(bar => bar.id === el.jazzbarId)? {"background-image": "url("+state.barList.find(bar => bar.id === el.jazzbarId).thumbnail+")"}: {"background-image": "url(/img/resource/jazzbb_logo_black.png)"}}></span>
+
                                   <span className="liveon-object-header-profile-name">{state.barList.find(bar => bar.id === el.jazzbarId).barName}</span>
                                 </div>
                               </a>
@@ -198,6 +200,7 @@ function Service () {
                         <div className="v-scroll-inner">
                             <div className="service-newResOpen-contents">
                                 {
+
                                   state.barList ? 
                                   state.barList.reverse().map((el) => {
                                     return (

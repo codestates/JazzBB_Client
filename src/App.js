@@ -30,7 +30,7 @@ import Weareddh from "./Pages/weareddh";
 import Service from "./Pages/ServicePage";
 
 
-import { checkFirst, setToken, setUser, isLogin, finishAction, setJazzId } from './Components/redux/new/action';
+import { checkFirst, setToken, setUser, isLogin, finishAction, setJazzId, setList } from './Components/redux/new/action';
 import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
 import NotFound from "./Components/notfound"
 
@@ -83,6 +83,31 @@ function App() {
     }
 
   }, [])
+
+  // const axiosRequest = () => {
+  //   axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
+  //    .then(res => {
+  //      const token1 = res.data.data.accessToken;
+  //      const info = res.data.data.userinfo;
+  //      dispatch(setUser(info));
+  //      dispatch(setToken(token1));
+  //    })
+  //    console.log("******** state", state)
+  //   axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { userId: state.user.id }, { headers: { authorization: state.user.token }, withCredentials: true })
+  //    .then(res => {
+  //      const token2 = res.data.data.token;
+  //      const reservation = res.data.data.list;
+  //      dispatch(setList(reservation, 'reservation'));
+  //      dispatch(setToken(token2))
+  //    })
+  //   axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', { headers: { authorization: state.user.token }, withCredentials: true }, { userId: state.user.id })
+  //    .then(res => {
+  //      const token3 = res.data.data.accessToken;
+  //      const review = res.data.data.list;
+  //      dispatch(setList(review, 'reviewList'));
+  //      dispatch(setToken(token3));
+  //    })
+  // }
 
   return (
     <div>
