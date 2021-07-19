@@ -40,7 +40,6 @@ const BreservationPage = () => {
         })
     })
     dispatch(setList(reservationList, 'showList'));
-
   }, []);
 
   return (
