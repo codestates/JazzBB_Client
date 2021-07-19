@@ -1,11 +1,10 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList, setCurrentPage } from "../Components/redux/new/action";
+import { saveThisHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList, setCurrentPage } from "../Components/redux/new/action";
 import "../css/service.css"
 import SimpleSlider from "../Components/adbanner";
-import { SignalCellularNullRounded } from "@material-ui/icons";
 
 function Service () {
   const dispatch = useDispatch();

@@ -10,7 +10,6 @@ const initialState = {
   searchData: null,
   AllPage : true,
   user: {
-
     id: '',
     userId: '',
     username: '',
@@ -442,6 +441,7 @@ jazzBarId : 1,
     withdrawModal: false,
     withdrawConfirm: false,
     moreInfo : false,
+    bossModal: false,
   },
 
   

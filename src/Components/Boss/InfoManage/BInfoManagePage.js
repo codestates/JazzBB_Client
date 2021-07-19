@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
@@ -20,6 +21,7 @@ function BInfoManagePage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [serviceitem, setService] = useState([]);
   const [initstate, setInitState] = useState({});
+  let history = useHistory();
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
@@ -127,6 +129,7 @@ console.log(jazzbardata, 'jazzbardata')
     console.log(jazzbardata, 'jazzbardata')
       dispatch(setBossJazzBar(jazzbardata[0]));
           // window.location.href = "/boss/infoupdate"
+          history.push('/boss/main')
           })
          } )
         

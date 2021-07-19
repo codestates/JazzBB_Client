@@ -2,18 +2,21 @@ import React, { useEffect } from "react";
 // import DatePick from "../DatePick";
 import Sidebar from "../Sidebar";
 import axios from "axios";
+// import { setToken } from "../../redux/new/action"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ReserHeader from "./ReserHeader";
 import {
   setBossReservationList,
   setBossShowList,
-  // setToken,
+  setToken,
+  setList
 } from "../../redux/new/action";
 import "../RvManage.css";
 
 const BreservationPage = () => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.reducer);
   const jazzbarId = useSelector((state) => state.reducer.jazzBarId);
   const [All, SetNotAll] = React.useState(true);
   const set = () => {
@@ -24,24 +27,21 @@ const BreservationPage = () => {
     SetNotAll(false);
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
-  //     .then((res) => {
-  //       const showlist = res.data.data;
-  //       dispatch(setBossShowList(showlist));
-  //       return showlist;
-  //     })
-  //     .then(
-  //       axios
-  //         .get(process.env.REACT_APP_DB_HOST + "/reservationRead", jazzbarId)
-  //         .then((res) => {
-  //           const list = res.data.data.list;
-  //          const jazzbarData =  list.filter(el => el.id === jazzbarId)
-  //           dispatch(setBossReservationList(jazzbarData));
-  //         })
-  //     );
-  // }, []);
+  
+  useEffect(async () => {
+    let reservationList = [];
+    state.showList.forEach(async (el) => {
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { showId: el.id }, { headers: { authorization: state.token }, withCredentials: true })
+        .then(res => {
+          const token = res.data.data.token;
+          const reservation = res.data.data.list;
+          reservationList = [...reservationList, ...reservation];
+          dispatch(setToken(token));
+        })
+    })
+    dispatch(setList(reservationList, 'showList'));
+
+  }, []);
 
   return (
     <div>

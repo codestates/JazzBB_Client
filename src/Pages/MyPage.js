@@ -130,8 +130,8 @@ import "../css/mypage.css"
             :
             <div className="mypage-body-info-data">
               <div className="mypage-body-info-data-result">{state.user.userId}</div>
-              <input className="mypage-body-info-data-result" value={state.user.username} onChange={(e) => changeState(e, 'username')} />
-              <input className="mypage-body-info-data-result" value={state.user.mobile} onChange={(e) => changeState(e, 'mobile')} />
+              <input className="mypage-body-info-data-result" defaultValue={state.user.username} onChange={(e) => changeState(e, 'username')} />
+              <input className="mypage-body-info-data-result" defaultValue={state.user.mobile} onChange={(e) => changeState(e, 'mobile')} />
             </div>
           }
         </div>

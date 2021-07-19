@@ -1,8 +1,25 @@
 .contentsWrapper {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .jbpage {
-    width: 85%;
+  width: 85%;
+}
+
+.boss-main-warning-Wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.boss-main-not-exist {
+  width: 86%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  padding-right: 50px;
+  align-items: center;
+  font-size: 1.5rem;
+  font-family: "Jua", sans-serif;
+  color: royalblue;
 }
