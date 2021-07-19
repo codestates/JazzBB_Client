@@ -1,6 +1,6 @@
 const initialState = {
   codeAction : false,
-  isLogin: false,
+  isLogin: true,
   currentPage: '/service',
   history: [],
   firstCheck: false,
@@ -10,6 +10,7 @@ const initialState = {
   searchData: null,
   AllPage : true,
   user: {
+
     id: '',
     userId: '',
     username: '',
@@ -21,6 +22,7 @@ const initialState = {
   ],
   boardList: [],
   currentJazzbar: "",
+
   currentBoard: "",
   review: null,
 
@@ -325,6 +327,7 @@ bossJazzBar :[],
     //       gpsX: "126.34",
     //       gpsY: "38"
     //     },
+
 
     //   }
     // },

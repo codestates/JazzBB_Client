@@ -110,7 +110,7 @@ console.log(jazzbardata, 'jazzbardata')
         //   axios
         //     .post(process.env.REACT_APP_DB_HOST + "/menuCreate", menuFormData, {
         //       headers: {
-        //         authorization: initialstate.token,
+
         //         "Content-Type": "multipart/form-data",
         //       },
         //       withCredentials: true,
