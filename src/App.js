@@ -38,7 +38,7 @@ dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
-  // const jazzbarId = useSelector(state => state.reducer.jazzBarId);
+  const jazzbarId = useSelector(state => state.reducer.jazzBarId);
   const state = useSelector(state => state.reducer);
   const firstLogin = () => {
     if (state.user.token && !state.user.type) {
