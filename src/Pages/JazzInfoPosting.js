@@ -10,17 +10,16 @@ function BoardPostingObject () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
   
-  let currentBoard = state.boardList[state.currentBoard];
-
+  let currentBoard
   useEffect(()=>{
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: currentBoard.id})
-    .then(res => {
-      const reviewList = res.data.data.list;
-      dispatch(setList(reviewList, 'reviewList'));
-    })
-    .catch(err => console.log(err))
+    // axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', {boardId: currentBoard.id})
+    // .then(res => {
+    //   const reviewList = res.data.data.list;
+    //   dispatch(setList(reviewList, 'reviewList'));
+    // })
+    // .catch(err => console.log(err))
   }, [])
 
   
@@ -122,21 +121,21 @@ function BoardPostingObject () {
 
         <div className="infobbsdataentry-body-data">
           <div className="infobbsdataentry-body-data-header">
-            <div className="infobbsdataentry-body-data-header-label">{currentBoard.title}</div>
-            <div className="infobbsdataentry-body-data-header-createdAt">{currentBoard.createdAt}</div>
+            <div className="infobbsdataentry-body-data-header-label">{state.boardList.find(el => el.id === state.currentBoard).title}</div>
+            <div className="infobbsdataentry-body-data-header-createdAt">{state.boardList.find(el => el.id === state.currentBoard).createdAt}</div>
           </div>
 
           <div className="infobbsdataentry-body-data-thumbnail">
             {
-              currentBoard.thumbnail ? 
-              <img className="infobbsdataentry-body-data-thumbnail-img" src={currentBoard.thumbnail} />
+              state.boardList.find(el => el.id === state.currentBoard).thumbnail ? 
+              <img className="infobbsdataentry-body-data-thumbnail-img" src={state.boardList.find(el => el.id === state.currentBoard).thumbnail} />
               :
               null
             }
           </div>
           <table className="infobbsdataentry-body-data-infobody">
             <tr>
-              {currentBoard.content}
+              {state.boardList.find(el => el.id === state.currentBoard).content}
             </tr>
           </table>
 
