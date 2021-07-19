@@ -26,7 +26,7 @@ function Reservation(){
       alert('로그인 후 예약이 가능합니다.');
       dispatch(modifySwitch('loginModal'));
     } else {
-      await axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', {
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reservationCreate', {
         showId: state.show.id,
         userId: state.user.id,
         people: state.people,
