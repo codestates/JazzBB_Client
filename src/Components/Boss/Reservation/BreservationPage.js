@@ -24,22 +24,24 @@ const BreservationPage = () => {
     SetNotAll(false);
   };
 
-  useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
-      .then((res) => {
-        const showlist = res.data.data;
-        dispatch(setBossShowList(showlist));
-      })
-      .then(
-        axios
-          .get(process.env.REACT_APP_DB_HOST + "/reservationRead", jazzbarId)
-          .then((res) => {
-            const list = res.data.data.list;
-            dispatch(setBossReservationList(list));
-          })
-      );
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
+  //     .then((res) => {
+  //       const showlist = res.data.data;
+  //       dispatch(setBossShowList(showlist));
+  //       return showlist;
+  //     })
+  //     .then(
+  //       axios
+  //         .get(process.env.REACT_APP_DB_HOST + "/reservationRead", jazzbarId)
+  //         .then((res) => {
+  //           const list = res.data.data.list;
+  //          const jazzbarData =  list.filter(el => el.id === jazzbarId)
+  //           dispatch(setBossReservationList(jazzbarData));
+  //         })
+  //     );
+  // }, []);
 
   return (
     <div>

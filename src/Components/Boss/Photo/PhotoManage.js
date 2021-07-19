@@ -14,14 +14,14 @@ const PhotoManage = () => {
   const jazzbarId = useSelector((state) => state.reducer.jazzbarId);
   const state = useSelector((state) => state.reducer);
 
-  useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
-      .then((res) => {
-        const list = res.data.data;
-        dispatch(setBossJazzBar(list));
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
+  //     .then((res) => {
+  //       const list = res.data.data;
+  //       dispatch(setBossJazzBar(list));
+  //     });
+  // }, []);
 
   const jazzbar = useSelector((state) => state.reducer.jazzbar);
 
