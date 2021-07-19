@@ -150,7 +150,7 @@ function MyPage() {
                 return (
                   <div className="recentreservation-body">
                     <div className="recentreservation-body-date">{el.show.date.replace(/-/g, '.') + '.'}</div>
-                    <div className="recentreservation-body-name">{el.show.jazzbar.barName}</div>
+                    <div className="recentreservation-body-name">{el.jazzbar.barName}</div>
                     <div className="recentreservation-body-time">{el.show.time}</div>
                     <div className="recentreservation-body-person">{el.people}</div>
                     {el.confirm == 'pending' ?

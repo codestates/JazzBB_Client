@@ -10,7 +10,7 @@ function BoardPostingObject () {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
   
-  let currentBoard = state.boardList[state.currentBoard];
+  let currentBoard = state.boardList.find(el => el.id === state.currentBoard);
 
   useEffect(()=>{
     dispatch(saveThisHistory())

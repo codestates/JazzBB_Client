@@ -156,7 +156,7 @@ function JazzBar(){ // { barName, mobile, area, thumbnail, address, serviceOptio
       {/* <div id="map" style={{width:"500px", height:"400px"}}></div>  */}
 
             <div className="shopinfo-header-infoarea-phone">{state.jazzbar.mobile}</div>
-            <div className="shopinfo-header-infoarea-time">{`${state.jazzbar.openTime.split('-')[0]} ~ ${state.jazzbar.openTime.split('-')[1]}`}</div>
+            <div className="shopinfo-header-infoarea-time">{state.jazzbar}</div>
 
             <div className="shopinfo-header-infoarea-ratingarea">
               <div className="shopinfo-header-infoarea-ratingarea-star">⭐</div>
