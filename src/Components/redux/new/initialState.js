@@ -161,56 +161,56 @@ const initialState = {
     {
       id: "01",
       jazzbarId: "01",
-      date: "2021-07-01",
+      date: "2021-07-23",
       time: "17:30-19:30",
       player: [
         {
           position : "singer",
-          name: "서지민",
+          name: "Bong Passelle",
         },
         {
           position : "piano",
-          name: "김수황",
+          name: "Appe Passelle",
         },
         {
           position : "base",
-          name: "rlaxots",
+          name: "Ssu Passelle",
         },
         {
           position : "trumpet",
-          name: "성준락",
+          name: "Bryan Passelle",
         },
       ],
       thumbnail: "",
-      content: "blahblahblah",
-      showCharge: "20000",
+      content: "국내 최초 !! 가족단 퀄텟이 공연하는 편안한 재즈공연입니다.",
+      showCharge: "18000",
     },
     {
       id: "02",
       jazzbarId: "01",
-      date: "2021-07-01",
+      date: "2021-07-25",
       time: "20:30-21:30",
       player: [
         {
           position : "singer",
-          name: "서지민",
+          name: "Suzy Kim",
         },
         {
           position : "piano",
-          name: "김수황",
+          name: "Kylie Kim",
         },
         {
-          position : "base",
-          name: "rlaxots",
+          position : "drum",
+          name: "Done Diselle",
         },
         {
           position : "trumpet",
-          name: "성준락",
+          name: "Shane Brook",
         },
       ],
       thumbnail: "",
-      content: "blahblahblah",
-      showCharge: "20000",
+      content: "가수출신의 Suzy님이 이끄는 경력 20년차 연주자들로 구성되어 있습니다. 아름다운 재즈의 정취를 느껴보시기 바랍니다.",
+      showCharge: "18000",
     },
     {
       id: "03",

@@ -30,13 +30,15 @@ const BreservationPage = () => {
   //     .then((res) => {
   //       const showlist = res.data.data;
   //       dispatch(setBossShowList(showlist));
+  //       return showlist;
   //     })
   //     .then(
   //       axios
   //         .get(process.env.REACT_APP_DB_HOST + "/reservationRead", jazzbarId)
   //         .then((res) => {
   //           const list = res.data.data.list;
-  //           dispatch(setBossReservationList(list));
+  //          const jazzbarData =  list.filter(el => el.id === jazzbarId)
+  //           dispatch(setBossReservationList(jazzbarData));
   //         })
   //     );
   // }, []);

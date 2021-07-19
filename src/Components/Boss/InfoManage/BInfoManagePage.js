@@ -7,7 +7,7 @@ import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import "./BInfoManagePage.css";
-import { setBossJazzBar, setToken } from "../../redux/new/action";
+import { setBossJazzBar, setToken, setJazzId } from "../../redux/new/action";
 const { kakao } = window;
 
 function BInfoManagePage() {
@@ -23,11 +23,13 @@ function BInfoManagePage() {
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
-      const list = res.data.data;
-      dispatch(setBossJazzBar(list));
+      const jazzbarList = res.data.data;
+      console.log(jazzbarList,'jazzbarList')
+        const jazzbardata = jazzbarList.filter(el => el.id === jazzbarId)
+console.log(jazzbardata, 'jazzbardata')
+  dispatch(setBossJazzBar(jazzbardata[0]));
     });
   }, []);
-
 
   const openPostCode = () => {setIsPopupOpen(true);};
   const closePostCode = () => {setIsPopupOpen(false);};
@@ -45,7 +47,7 @@ function BInfoManagePage() {
     }
   };
 
-  const handleSubmit = () => {
+   const  handleSubmit = () => {
     let temp = "";
     if (serviceitem !== []) {
       for (let service in serviceitem) {
@@ -73,12 +75,13 @@ function BInfoManagePage() {
       newForm.append("gpsY", gps.gpsY);
       newForm.append("address", initstate.addressFront + " " + initstate.addressETC);
       newForm.append("serviceOption", temp);
+      newForm.append("mobile", initstate.mobile);
 
-      const formData = new FormData();
-      for (let i = 0; i < targetFile.length; i++) {
-        formData.append(`thumbnail${i}`, targetFile[i]);
-      }
-      formData.append(`jazzbarId`, jazzbarId);
+   
+
+      // for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+      // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
+
 
 
       axios
@@ -92,19 +95,43 @@ function BInfoManagePage() {
         .then((res) => {
           const token1 = res.data.data.accessToken;
           dispatch(setToken(token1));
+          const barId = res.data.data.jazzbarId;
+          dispatch(setJazzId(barId));
+          console.log(barId,'~~~~server : jazzbarId')
+          return barId
         })
-        .then(
-          axios
-            .post(process.env.REACT_APP_DB_HOST + "/menuCreate", formData, {
-              headers: {
-                authorization: initialState.user.token,
-                "Content-Type": "multipart/form-data",
-              },
-              withCredentials: true,
-            })
-            // .then((window.location.href = "/boss/main"))
-        );
+        // .then((barId)=>{
+        // const menuFormData = new FormData();
+        // for (let i = 0; i < targetFile.length; i++) {
+        //   menuFormData.append(`thumbnail`, targetFile[i]);
+        // }
+        // menuFormData.append(`jazzbarId`, barId);
+        
+        //   axios
+        //     .post(process.env.REACT_APP_DB_HOST + "/menuCreate", menuFormData, {
+        //       headers: {
+        //         authorization: initialState.user.token,
+        //         "Content-Type": "multipart/form-data",
+        //       },
+        //       withCredentials: true,
+        //     })
+        //     return barId
+        // })
+        .then((barId) =>{
+          console.log(barId,'barId')
+          axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+          .then(res => {
+            const jazzbarList = res.data.data;
+          console.log(jazzbarList,'jazzbarList')
+            const jazzbardata = jazzbarList.filter(el => el.id === barId)
+    console.log(jazzbardata, 'jazzbardata')
+      dispatch(setBossJazzBar(jazzbardata[0]));
+          // window.location.href = "/boss/infoupdate"
+          })
+         } )
+        
     }
+            // .then((window.location.href = "/boss/main"))
   };
 
 
@@ -156,7 +183,7 @@ function BInfoManagePage() {
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
     <div className="infoPage">
       <Sidebar></Sidebar>
-      {Jazz.length === 0 ? (
+      {/* {Jazz=== [] ? ( */}
         <div className="infobody">
           <div className="BIMcontentBox">
             <div className="ctBoxheader">
@@ -257,14 +284,14 @@ function BInfoManagePage() {
                 <div className="phoneWrapper">
                   <input
                     className="phoneform"
-                    placeholder="매장 연락처"
+                    placeholder="영업 시간"
                     type="text"
                     name="openTime"
                     onChange={handleInput}
                     autocomplete="off"
                   ></input>
                   <div className="phonelabel">
-                    숫자만 입력해주세요. 예) 01012341234
+                    형식에 맞게 입력해주세요. 예) 18:00-20:00
                   </div>
                 </div>
               </div>
@@ -374,9 +401,12 @@ function BInfoManagePage() {
             </div>
           </div>
         </div>
-      ) : (
-        <InfoUpdate data={Jazz}></InfoUpdate>
-      )}
+      ) 
+      {/* : 
+      (
+       <InfoUpdate data={Jazz}></InfoUpdate>
+       ) 
+       }  */}
     </div>
   );
 }
