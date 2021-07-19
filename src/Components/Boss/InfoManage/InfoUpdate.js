@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { setToken } from "../../redux/new/action";
+import { setToken, setBossJazzBar } from "../../redux/new/action";
 
 import "./infoupdate.css";
 
@@ -40,8 +40,10 @@ function InfoUpdate() {
     setIsPopupOpen(false);
   };
   // const serviceArray = Object.keys(serviceitem);
+  console.log(data)
 
   useEffect(() => {
+       
     console.log("data")
     console.log(data)
     let copy = serviceitem;
