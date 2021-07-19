@@ -6,39 +6,43 @@ import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, del
 import Modal from "react-modal";
 import "../css/mypage.css"
 
-function MyPage() {
+ function MyPage() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
 
-  useEffect(async () => {
+  useEffect(async() => {
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
-      .then(res => {
-        const token1 = res.data.data.accessToken;
-        const info = res.data.data.userinfo;
-        dispatch(setUser(info));
-        dispatch(setToken(token1));
-      })
-     await console.log("******** state", state)
-    await axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { userId: state.user.id }, { headers: { authorization: state.user.token }, withCredentials: true })
-      .then(res => {
-        const token2 = res.data.data.token;
-        const reservation = res.data.data;
-        console.log("******** reservation", reservation)
-
-        dispatch(setList(reservation, 'reservation'));
-        dispatch(setToken(token2));
-      })
-
-    await axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', { headers: { authorization: state.user.token }, withCredentials: true }, { userId: state.user.id })
-      .then(res => {
-        const token3 = res.data.data.accessToken;
-        const review = res.data.data.list;
-        dispatch(setList(review, 'reviewList'));
-        dispatch(setToken(token3));
-      })
+    axiosRequest();
   }, [])
+
+  const axiosRequest = () => {
+    axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
+     .then(res => {
+       const token1 = res.data.data.accessToken;
+       const info = res.data.data.userinfo;
+       dispatch(setUser(info));
+       dispatch(setToken(token1));
+     })
+     console.log("******** state", state)
+    axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { userId: state.user.id }, { headers: { authorization: state.user.token }, withCredentials: true })
+     .then(res => {
+       const token2 = res.data.data.token;
+       const reservation = res.data.data.list;
+       
+       dispatch(setList(reservation, 'reservation'));
+       dispatch(setToken(token2))
+       
+     })
+ 
+    axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.user.token }, withCredentials: true }, { userId: state.user.id })
+     .then(res => {
+       const token3 = res.data.data.accessToken;
+       const review = res.data.data.list;
+       dispatch(setList(review, 'reviewList'));
+       dispatch(setToken(token3));
+     })
+  }
 
   const modifyUserTogle = (variety) => {
     dispatch(modifySwitch(variety));
@@ -73,7 +77,7 @@ function MyPage() {
   }
 
 
-  return (
+  return  (
     <div className="mypage">
 
       <div className="mypage-body">
@@ -134,7 +138,7 @@ function MyPage() {
 
 
           <div className="mypage-body-recent-reservation">
-            <div className="mypage-body-recent-reservation-title">최근 예약</div>
+            <div className="mypage-body-recent-reservation-title">나의 예약</div>
 
             <div className="mypage-body-recent-reservation-labelarea">
               <div className="recentreservation-label-date">날짜</div>
@@ -174,7 +178,7 @@ function MyPage() {
 
 
           <div className="mypage-body-recent-review">
-            <div className="mypage-body-recent-review-title">최근 리뷰</div>
+            <div className="mypage-body-recent-review-title">내 재즈바 리뷰</div>
 
             <div className="mypage-body-recent-review-labelarea">
               <div className="recentreview-label-date">날짜</div>
@@ -185,6 +189,7 @@ function MyPage() {
             <div className="mypage-body-recent-review-container">
               {state.reviewList.map(el => {
                 return (
+                !el ? null : 
                   <div className="recentreview-body">
                     <div className="recentreview-body-info-date">⭐ {el.point}</div>
                     <div className="recentreview-body-info-name">{el.jazzbar.barName ? el.jazzbar.barName : el.board.title}</div>

@@ -119,6 +119,7 @@ function BInfoManagePage() {
           dispatch(setToken(token1));
           const jazzbarId = res.data.data.jazzBarId;
           dispatch(setJazzId(jazzbarId));
+          console.log("******** : ", jazzbarId)
           return jazzbarId
         })
         .then((id) => {
