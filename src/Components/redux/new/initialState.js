@@ -2,7 +2,7 @@
 //"/resource/"
 const initialState = {
   codeAction : false,
-  isLogin: false,
+  isLogin: true,
   currentPage: '/service',
   history: [],
   firstCheck: false,
@@ -10,7 +10,13 @@ const initialState = {
   searchOption: null,
   searchData: null,
   AllPage : true,
-  user: {},
+  user: {
+    id: 1,
+    userId: 'kimcoding@codestates.com',
+    username: '김코딩',
+    mobile: '010-1234-5678',
+    usertype: 'boss'
+  },
   modifyUser:{mobile : null, username: null, usertype: null},
   everyShowList : [
 
@@ -28,7 +34,7 @@ const initialState = {
       id: 2,
       jazzbarId:5,
       time: '22:00',
-      date: '2021-07-31',
+      date: '2021-07-19',
       player: '서지민트리오',
       thumbnail: '/resource/jimin2.png',
       content: '그대의 눈동자에 cheers',
@@ -36,9 +42,9 @@ const initialState = {
       currentSeat : 15,
     }, {
       id: 3,
-      jazzbarId:5,
+      jazzbarId:2,
       time: '23:00',
-      date: '2021-07-31',
+      date: '2021-07-19',
       player: '김수황재즈듀오',
       thumbnail: '/resource/conflict.png',
       content: '마이시퀄의 따듯한 세계에서 멀터의 늪까지',
@@ -46,9 +52,9 @@ const initialState = {
       currentSeat : 33,
     }, {
       id: 4,
-      jazzbarId:5,
+      jazzbarId:1,
       time: '18:30',
-      date: '2021-08-01',
+      date: '2021-07-19',
       player: '김인기코드빅밴드',
       thumbnail: '/resource/error.png',
       content: '그 의지라면 관람할 수 있습니다',
@@ -56,9 +62,9 @@ const initialState = {
       currentSeat : 23,
     }, {
       id: 5,
-      jazzbarId:5,
+      jazzbarId:3,
       time: '20:20',
-      date: '2021-08-01',
+      date: '2021-07-19',
       player: '김홍식핑크재즈',
       thumbnail: '/resource/why500.png',
       content: '새로운 재즈의 세계에 빠져보세요',
@@ -66,9 +72,9 @@ const initialState = {
       currentSeat : 15,
     }, {
       id: 6,
-      jazzbarId:5,
+      jazzbarId:4,
       time: '21:00',
-      date: '2021-08-02',
+      date: '2021-07-19',
       player: '이호용트리오',
       thumbnail: '/resource/dead.png',
       content: '재즈 입문의 가이드가 되어 드리겠습니다',
@@ -78,7 +84,7 @@ const initialState = {
       id: 7,
       jazzbarId:5,
       time: '23:00',
-      date: '2021-08-02',
+      date: '2021-07-19',
       player: '민철재즈베이비',
       thumbnail: '/resource/rightnow.png',
       content: '떠오르는 신인',
