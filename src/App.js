@@ -38,7 +38,7 @@ dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
-  // const jazzbarId = useSelector(state => state.reducer.jazzBarId);
+  const jazzbarId = useSelector(state => state.reducer.jazzBarId);
   const state = useSelector(state => state.reducer);
   const firstLogin = () => {
     if (state.user.token && !state.user.type) {
@@ -69,18 +69,19 @@ function App() {
         dispatch(isLogin())
         firstLogin();
       });
+    // await axiosRequest();
   }
 
 
   useEffect(() => {
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
-    console.log(authorizationCode)
     if (authorizationCode) {
       getToken(authorizationCode)
     } else {
       dispatch(finishAction());
     }
+
   }, [])
 
   return (
@@ -130,5 +131,3 @@ function App() {
 }
 
 export default App;
-
-

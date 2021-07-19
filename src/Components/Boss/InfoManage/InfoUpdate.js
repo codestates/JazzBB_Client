@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { setToken } from "../../redux/new/action";
+import { setToken, setBossJazzBar } from "../../redux/new/action";
 
 import "./infoupdate.css";
 
@@ -40,8 +40,12 @@ function InfoUpdate() {
     setIsPopupOpen(false);
   };
   // const serviceArray = Object.keys(serviceitem);
+  console.log(data)
 
   useEffect(() => {
+       
+    console.log("data")
+    console.log(data)
     let copy = serviceitem;
     const yap = data.serviceOption.split("");
     yap.map((number) => {
@@ -399,13 +403,15 @@ function InfoUpdate() {
                     // onChange={(e) => setFile(e)}
                   ></img>
                 </div>
-              ) : banner.length !== 0 ? (
-                banner.map((el) => (
-                  <img className="bannerthumbnail" src={el.thumbnail} alt="" />
-                ))
-              ) : (
-                <h4>등록된 이미지가 없습니다.</h4>
-              )}
+              ) : 
+              // banners.length !== 0 ? (
+                // banners.map((el) => (
+                  <img className="bannerthumbnail" src={data.thumbnail} alt="" />
+                // ))
+              // ) : (
+              //   <h4>등록된 이미지가 없습니다.</h4>
+              // )
+              }
             </div>
           </div>
           {editActive ? (

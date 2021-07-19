@@ -16,18 +16,18 @@ function JazzInfo () {
   useEffect(()=>{
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    // axios.get(process.env.REACT_APP_DB_HOST + 'boardRead')
-    //  .then(res => {
-    //    const list = res.data.data.list;
-    //    dispatch(setList(list, 'boardList'));
-    //  });
+    axios.get(process.env.REACT_APP_DB_HOST + 'boardRead')
+     .then(res => {
+       const list = res.data.data.list;
+       dispatch(setList(list, 'boardList'));
+     });
   }, [])
 
 
 
   const setPosting = (posting) => {
-    let currentBoardIdx = state.boardList.indexOf(posting);
-    dispatch(setBoard(currentBoardIdx));
+    let currentBoardIdx = state.boardList.find(el => el.id === posting.id);
+    dispatch(setBoard(currentBoardIdx.id));
   }
 
 
