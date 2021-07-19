@@ -309,10 +309,10 @@ console.log(jazzbardata, 'jazzbardata')
                       onChange={handleInput}
                     />
                     {/* <div className="svcopWrapper"> */}
-                      <div className="svcoptel">{el.content}</div>
-                      <img className="svcopicon" src={el.img} alt=""></img>
+                    <div className="svcoptel">{el.content}</div>
+                    <img className="svcopicon" src={el.img} alt=""></img>
                     {/* </div> */}
-                    
+
                   </div>
                 ))}
               </div>
