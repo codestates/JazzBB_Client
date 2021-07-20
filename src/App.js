@@ -42,7 +42,7 @@ function App() {
   const state = useSelector(state => state.reducer);
   const oauth = useSelector(state => state.oauthReducer)
   const firstLogin = () => {
-    if (oauth.user.token && !oauth.user.type) {
+    if (oauth.token && !oauth.user.usertype) {
       dispatch(checkFirst());
     };
     dispatch(finishAction());
@@ -77,6 +77,8 @@ function App() {
   useEffect(() => {
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
+    console.log(state, "state!!!!!!!")
+    console.log(oauth, "oauth!!!!!!!")
     if (authorizationCode) {
       getToken(authorizationCode)
     } else {
@@ -137,12 +139,12 @@ function App() {
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
           <Route path="/boss" render={() => <Redirect to="/boss/main"/>} />
           <Route path="/" render={() => {
-            if ( !oauth.user.usertype && oauth.isLogin && oauth.codeAction) {
+            if ( !oauth.user.usertype && oauth.isLogin ) {
               return <Redirect to="/moreinfo" />
             } 
-            else if (oauth.isLogin && oauth.user.usertype === 'boss' && !oauth.user.jazzbarId && oauth.codeAction) {
+            else if (oauth.isLogin && oauth.user.usertype === 'boss' && !oauth.user.jazzbarId ) {
               return <Redirect to="/boss/infoedit" />
-            } else if (oauth.codeAction ) {
+            } else  {
               return <Redirect to="/service" />
             }
           }

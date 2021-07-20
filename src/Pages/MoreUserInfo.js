@@ -70,7 +70,7 @@ function MoreInfo() {
           </div>
           <div className="signup-form">
             <div className="signup-form-label">연락처</div>
-            <input className="signup-form-input-phone" type="tel" maxlength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" onChange={(e) => modifyUserInfo(e.target.value, 'mobile')} required />
+            <input className="signup-form-input-phone" type="tel" maxLength="11" placeholder="전화번호를 숫자만 입력하세요 (01012345678)" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" onChange={(e) => modifyUserInfo(e.target.value, 'mobile')} required />
           </div>
           <div className="signup-form">
             <div className="signup-form-label">회원유형</div>

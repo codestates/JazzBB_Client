@@ -17,6 +17,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { isLogin: !state.isLogin });
 
     case FINISH_ACTION:
+      console.log('finish_Action ')
       return Object.assign({}, state, { codeAction: true });
 
     default:
