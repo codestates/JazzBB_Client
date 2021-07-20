@@ -223,7 +223,6 @@ function JazzBar(){
         </Modal>
 
 
-
         <div className="shopinfo-reservation">
                    
           <div className="shopinfo-reservation-header">
