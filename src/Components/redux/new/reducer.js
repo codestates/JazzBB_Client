@@ -1,4 +1,4 @@
-import { Palette } from "@material-ui/icons";
+// import { Palette } from "@material-ui/icons";
 import {
   SET_SHOW_BOSS,
   SET_RESER_BOSS,
@@ -131,7 +131,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { isLogin: !state.isLogin });
 
     case ADD_EVERY_SHOW_LIST:
-      return Object.assign({}, state, { everyShowList: [...state.everyShowList, ...payload.list] });
+      return Object.assign({}, state, { everyShowList: [...payload.list] });
 
     case FINISH_ACTION:
       return Object.assign({}, state, { codeAction: true });

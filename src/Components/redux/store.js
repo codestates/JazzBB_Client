@@ -3,11 +3,11 @@ import {createLogger} from 'redux-logger'
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { compose, createStore, applyMiddleware } from "redux";
+import { persistStore } from "redux-persist";
 
 // const store = createStore(rootReducer, composeWithDevTools( applyMiddleware(...middleware)))
 // export default store
 
-import { persistStore } from "redux-persist";
 
 const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();

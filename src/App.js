@@ -40,8 +40,9 @@ function App() {
   const dispatch = useDispatch();
   const jazzbarId = useSelector(state => state.reducer.jazzBarId);
   const state = useSelector(state => state.reducer);
+  const oauth = useSelector(state => state.oauthReducer)
   const firstLogin = () => {
-    if (state.user.token && !state.user.type) {
+    if (oauth.user.token && !oauth.user.type) {
       dispatch(checkFirst());
     };
     dispatch(finishAction());
@@ -111,12 +112,12 @@ function App() {
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
           <Route path="/boss" render={() => <Redirect to="/boss/main"/>} />
           <Route path="/" render={() => {
-            if ( !state.user.usertype && state.isLogin && state.codeAction) {
+            if ( !oauth.user.usertype && oauth.isLogin && oauth.codeAction) {
               return <Redirect to="/moreinfo" />
             } 
-            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbarId && state.codeAction) {
+            else if (oauth.isLogin && oauth.user.usertype === 'boss' && !oauth.user.jazzbarId && oauth.codeAction) {
               return <Redirect to="/boss/infoedit" />
-            } else if (state.codeAction ) {
+            } else if (oauth.codeAction ) {
               return <Redirect to="/service" />
             }
           }} />
