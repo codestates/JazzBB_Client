@@ -7,7 +7,7 @@ import oauthReducer from "./new/oauthReducer"
 const persistConfig = {
     key: "root",
     storage: storage,
-    blacklist:["reducer"]
+    blackList:["oauthReducer"]
   };
   
 

@@ -21,10 +21,8 @@ const initialState = {
   ],
   boardList: [],
   currentJazzbar: "",
-
   currentBoard: "",
   review: null,
-
   BossShowList: [
     {
       id: "01",
@@ -164,36 +162,31 @@ const initialState = {
     date: new Date(),
   },
 bossJazzBar :[],
-
-  reservation: [
-    //boss reservation
-    // {
-    //   num: "01",
-    //   name: "김수황",
-    //   mobile: "010-000-0000",
-    //   people: "03",
-    //   confirm: "pending",
-    //   show: {
-    //     date: "2021-07-01",
-    //     currentSeat : 3,
-    //     time: "17:30-19:30",
-    //     jazzbar: {
-    //       id: 3,
-    //       barName: "개쩔껄 재즈바",
-    //       mobile: "010-4234-5312",
-    //       defaultSeat: "350",
-    //       area: "오산",
-    //       thumbnail: "saljknaslk",
-    //       address: "경기 오산시 고길동 지민로 44",
-    //       rating: "4",
-    //       serviceOption: "1456",
-    //       openTime: "17:00-17:01",
-    //       gpsX: "126.34",
-    //       gpsY: "38"
-    //     },
-
-    //   }
-    // },
+// reservation: [
+//     {
+//       num: "01",
+//       name: "김수황",
+//       mobile: "010-000-0000",
+//       people: "03",
+//       confirm: "pending",
+//       show: {
+//         date: "2021-07-01",
+//         currentSeat : 3,
+//         time: "17:30-19:30",
+//       }
+//     },
+//     {
+//       num: "01",
+//       name: "김수황",
+//       mobile: "010-000-0000",
+//       people: "03",
+//       confirm: "pending",
+//       show: {
+//         date: "2021-07-01",
+//         currentSeat : 3,
+//         time: "17:30-19:30",
+//       }
+//     },
     // {
     //   num: "02",
     //   name: "서지민",
@@ -205,7 +198,7 @@ bossJazzBar :[],
     //     time: "20:30-21:30",
     //     currentSeat : 3,
     //     jazzbar: {
-    //       id: 3,
+    //       id: 1,
     //       barName: "개쩔껄 재즈바",
     //       mobile: "010-4234-5312",
     //       defaultSeat: "350",
@@ -232,7 +225,7 @@ bossJazzBar :[],
     //     time: "17:30-19:30",
     //     currentSeat : 3,
     //     jazzbar: {
-    //       id: 3,
+    //       id: 1,
     //       barName: "개쩔껄 재즈바",
     //       mobile: "010-4234-5312",
     //       defaultSeat: "350",
@@ -245,7 +238,6 @@ bossJazzBar :[],
     //       gpsX: "126.34",
     //       gpsY: "38"
     //     },
-
     //   }
     // },
     // {
@@ -330,22 +322,22 @@ bossJazzBar :[],
 
     //   }
     // },
-  ],
+  // ],
   barList: [],
-// jazzBarId : 1,
+jazzBarId : 1,
   jazzbar: {
-          // id: 3,
-          // barName: "개쩔껄 재즈바",
-          // mobile: "010-4234-5312",
-          // defaultSeat: "350",
-          // area: "오산",
-          // thumbnail: "saljknaslk",
-          // address: "경기 오산시 고길동 지민로 44",
-          // rating: "4",
-          // serviceOption: "1456",
-          // openTime: "17:00-17:01",
-          // gpsX: "126.34",
-          // gpsY: "38"
+          id: 3,
+          barName: "개쩔껄 재즈바",
+          mobile: "010-4234-5312",
+          defaultSeat: "350",
+          area: "오산",
+          thumbnail: null,
+          address: "경기 오산시 고길동 지민로 44",
+          rating: "4",
+          serviceOption: "1456",
+          openTime: "17:00-17:01",
+          gpsX: "126.34",
+          gpsY: "38"
         },
 
   barPhoto: [],
@@ -443,6 +435,7 @@ bossJazzBar :[],
     moreInfo : false,
     bossModal: false,
   },
+  reser : 'ya'
 
   
   // 추후 추가 혹은 안쓰는 state의 경우 삭제

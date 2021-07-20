@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./ShowManage.css";
+import '../ShowManage/ShowManage.css'
+import { useSelector, useDispatch } from "react-redux";
+import { setToken } from "../../redux/new/action";
 
 //img url 생성과 state에 set해주는 기능 필요.
-
-function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
+function AddShowInput() {
+  const dispatch = useDispatch();
   const [imgBase64, setImgBase64] = useState("");
+  const user = useSelector((state) => state.reducer.user);
+  const [imgFile, setImgFile] =useState('')
 
   const setFile = (e) => {
     console.log("setFile");
     if (e.target.files[0]) {
       const img = new FormData();
       img.append("image", e.target.files[0]);
-     
     }
   };
 
@@ -31,6 +34,22 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
     }
   };
 
+  const handleThumbnail = () =>{
+      const formdata = new FormData()
+      formdata.append('thumbnail', imgFile[0])
+      axios
+      .post(process.env.REACT_APP_DB_HOST + "/menuUpdate", formdata, {
+        headers: {
+          authorization: user.token,
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        const token1 = res.data.data.accessToken;
+        dispatch(setToken(token1));
+      })
+  }
   
   return (
     <div className="add-body">
@@ -57,7 +76,6 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
                 id="imgFile"
                 onChange={handleChangeFile}
               />
-
               <div className="add-subtitle">
                 사진 크기는 (500 * 500)픽셀로 조정됩니다
               </div>

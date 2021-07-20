@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { confirmAlert } from "react-confirm-alert";
+import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { setToken } from "../../redux/new/action";
+
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-export default function CustomizedSelects({ data }) {
+export default function CustomizedSelects({ data, imgFile }) {
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -21,7 +26,8 @@ export default function CustomizedSelects({ data }) {
     },
   }));
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const initstate = useSelector((state) => state.reducer);
   const [state, setState] = useState({
     singer: false,
     piano: false,
@@ -34,12 +40,11 @@ export default function CustomizedSelects({ data }) {
     percussion: false,
     etc: false,
   });
-
   const [name, setName] = useState({ yap: "yap" });
   const playerArr = Object.keys(state);
   let checkedPosition = data.player.map((el) => el.position);
-
   let yop = {};
+  
   useEffect(() => {
     let copy = state;
     checkedPosition.map((el) => {
@@ -73,15 +78,15 @@ export default function CustomizedSelects({ data }) {
   const [player, setPlayer] = React.useState(data.player);
   const [inputValue, SetInputValue] = useState({
     ...data,
-    id: "02",
-    jazzbarId: "01",
-    thumbnail: "", //server 코드에서 thumbnail 빠져있음. 추후 논의 필요.
   });
 
   const handleInputChange = (event) => {
     const name = event.target.name;
-    if (name !== "player") {
-      const nameValue = event.target.value;
+    const nameValue = event.target.value;
+    if(name === 'endTime' || name === 'startTime'){
+      SetInputValue({ ...inputValue, [name]: nameValue });
+    }
+    else if (name !== "player") {
       SetInputValue({ ...inputValue, [name]: nameValue });
       // console.log(inputValue)
     } else {
@@ -95,41 +100,84 @@ export default function CustomizedSelects({ data }) {
       });
 
       console.log(editPlayer);
+
       // setPlayer({ ...player, [event.target.id]: event.target.value });
       // SetInputValue({ ...inputValue, player: {...player, position :{[event.target.id]: event.target.value} }});
     }
-    console.log(player);
+    console.log(player,'player');
+    console.log(inputValue,'player');
   };
 
-  const addPosition = () => {};
 
-  const CreateShow = () => {
-    confirmAlert({
-      title: "새로운 공연을 등록하시겠습니까?",
-      buttons: [
-        {
-          label: "예",
-          onClick: () => {
-            axios
-              .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
-              .then((res) => (window.location.href = "/boss/show"));
-            //server-showCreate  :jazzbar_id 빠짐....!!!
-          },
-        },
-        {
-          label: "아니오",
-        },
-      ],
-    });
-  };
+ 
   const handleAddShow = async () => {
-    const StartEndtime = `${inputValue.startTime}-${inputValue.endTime}`;
     await SetInputValue({
       ...inputValue,
-      time: StartEndtime,
       player: [player],
-    });
-    CreateShow();
+    })
+    updateShowHandler()
+  };
+
+
+  const updateShowHandler = () => {
+    if(imgFile.length === 0){
+      imgFile = data.thumbnail;
+    }
+    const filefile = new FormData();
+    filefile.append('thumbnail', imgFile)
+    filefile.append('content',inputValue.content )
+    filefile.append('time',`${inputValue.startTime}-${inputValue.endTime}` )
+    filefile.append('date',inputValue.date )
+    filefile.append('showCharge',inputValue.showCharge )
+    filefile.append('player',player )
+    filefile.append('jazzbarId', initstate.jazzbarId )
+    filefile.append('id', data.id )
+    axios
+      .post(
+        process.env.REACT_APP_DB_HOST + "/showUpdate",
+        inputValue,
+        {
+          headers: {
+            authorization: initstate.user.token,
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        const token1 = res.data.data.accessToken;
+        dispatch(setToken(token1));
+      })
+      .then((res) => {
+        console.log("updateShowHandler");
+        window.location.href='/boss/show'
+      });
+  };
+
+  const deleteShowHandler = () => {
+    axios
+      .post(
+        process.env.REACT_APP_DB_HOST + "/showDelete",
+        {
+          jazzbarId: data.jazzbarId,
+          id: data.id,
+        },
+        {
+          headers: {
+            authorization: state.user.token,
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        const token1 = res.data.data.accessToken;
+        dispatch(setToken(token1));
+      })
+      .then((res) => {
+        console.log("deleteShowHandler success");
+        window.location.href='/boss/show'
+      });
   };
 
   return (
@@ -453,7 +501,30 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-
+<div className="modify-bottom-box">
+        <div className="modify-delete-btn">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={deleteShowHandler}
+            startIcon={<RiDeleteBin5Line />}
+          >
+            삭제
+          </Button>
+        </div>
+        <div className="modify-save-btn">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={updateShowHandler}
+            startIcon={<SaveIcon />}
+          >
+            저장
+          </Button>
+        </div>
+      </div>
 
         </div>
 

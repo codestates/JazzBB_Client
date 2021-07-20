@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import ReserTable from "./ReserTable";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-
 import "../../../dist/css/comm.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { setToken } from "../../redux/new/action";
 
-function ReserAll({ AllPage, setAll, unsetAll }) {
+function ReserAll() {
   const dispatch = useDispatch();
-
-  const userstate = useSelector((state) => state.reducer.user);
+  const userstate = useSelector((state) => state.reducer);
   const BossState = useSelector((state) => state.reducer.reservation);
+  console.log(userstate,'rootReducer')
   const Bsort = BossState.sort((a, b) => {
     let x = a.show.date.toLowerCase();
     let y = b.show.date.toLowerCase();
@@ -27,9 +26,7 @@ function ReserAll({ AllPage, setAll, unsetAll }) {
   const Bconfirm = Bsort.filter((el) => el.confirm === "confirm");
   const Bdenied = Bsort.filter((el) => el.confirm === "denied");
   const Bpending = Bsort.filter((el) => el.confirm === "pending");
-
   const [selected, setSelect] = useState(BossState);
-
   const ChangeTableByStatus = (status) => {
     const data = BossState.filter((el) => el.confirm === status);
     if (status === "all") {

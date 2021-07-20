@@ -29,6 +29,7 @@ import {
   SET_JAZZID_BOSS,
   FINISH_ACTION,
   SET_CURRENT_PAGE,
+  SAVE_REDUCER,
 } from "./action";
 import initialState from "./initialState";
 
@@ -139,6 +140,11 @@ const reducer = (state = initialState, action) => {
     case SET_CURRENT_PAGE:
       return Object.assign({}, state, { currentPage: payload.page });
 
+
+    case SAVE_REDUCER:
+      return Object.assign({}, state, { isLogin: payload.login, codeAction: payload.codeAction, user: payload.user, token: payload.token });
+    
+    
 
     default:
       return state;

@@ -1,29 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import InputFile from "../ShowManage/InputFile";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setBossJazzBar,
-} from "../../redux/new/action";
-
+import {setBossJazzBar} from "../../redux/new/action";
 import axios from "axios";
 import "./PhotoManage.css";
+import PhotoInput from './PhotoInput'
 
 const PhotoManage = () => {
   const dispatch = useDispatch;
-  const jazzbarId = useSelector((state) => state.reducer.jazzbarId);
   const state = useSelector((state) => state.reducer);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
-  //     .then((res) => {
-  //       const list = res.data.data;
-  //       dispatch(setBossJazzBar(list));
-  //     });
-  // }, []);
-
   const jazzbar = useSelector((state) => state.reducer.jazzbar);
+  console.log(jazzbar,'jazzbar')
+const [img, setImg] =useState('')
+
+//   useEffect(() => {
+//     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+//     .then(res => {
+//       const jazzbarList = res.data.data;
+//       const jazzbardata = jazzbarList.filter(el => el.id === state.jazzbarId)
+// dispatch(setBossJazzBar(jazzbardata[0]));
+//       });
+//   }, []);
+
 
   return (
     <div className="photocontentbody">
@@ -37,20 +36,17 @@ const PhotoManage = () => {
         </div>
 
         <div className="registered-photo-body">
-            {state.menu !== undefined
+            {state.menu !== []
               ? state.menu.map((el, index) => {
                   <img className="registered-photo-img" src={el.thumbnail} key={index} alt =""/>;
                 })
               : null}
 
-            {jazzbar.thumbnail !== undefined
+            {/* {jazzbar.thumbnail !== null
              ? 
-            //  jazzbar.thumbnail.map((el, index) => {
                   <img className="registered-photo-img" src={jazzbar.thumbnail} alt="" />
-                // })
-              : null}
+              : null} */}
       
-          {/* <img className="registered-photo-img" src="/img/tokyoJazz.jpg" alt=""/> */}
         </div>
         
         <div className="register-new-photo">
@@ -58,7 +54,7 @@ const PhotoManage = () => {
             <div className="register-header-label">신규 사진 등록</div>
           </div>
           <div className="register-inputfile">
-              <InputFile></InputFile>
+              <PhotoInput setImgFile={setImg}></PhotoInput>
           </div>
           
         </div>
