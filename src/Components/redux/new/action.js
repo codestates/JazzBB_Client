@@ -27,6 +27,7 @@ export const ADD_EVERY_SHOW_LIST = "ADD_EVERY_SHOW_LIST"
 export const SET_JAZZID_BOSS = "SET_JAZZID_BOSS"
 export const FINISH_ACTION = "FINISH_ACTION"
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
+export const SAVE_REDUCER = "SAVE_REDUCER"
 
 
 export const setJazzId = (id) => {
@@ -281,6 +282,15 @@ export const setCurrentPage = (page) => {
     type: SET_CURRENT_PAGE,
     payload: {
       page
+    },
+  }
+}
+
+export const saveReducer = (login, user, token, codeAction) => {
+  return {
+    type: SAVE_REDUCER,
+    payload: {
+      login, user, token, codeAction
     },
   }
 }

@@ -29,8 +29,7 @@ import Termspi from './Pages/footer-terms-pi'
 import Weareddh from "./Pages/weareddh";
 import Service from "./Pages/ServicePage";
 
-
-import { checkFirst, setToken, setUser, isLogin, finishAction, setJazzId, setList } from './Components/redux/new/action';
+import { checkFirst, setToken, setUser, isLogin, finishAction, setJazzId, saveReducer } from './Components/redux/new/action';
 import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
 import NotFound from "./Components/notfound"
 
@@ -42,7 +41,7 @@ function App() {
   const state = useSelector(state => state.reducer);
   const oauth = useSelector(state => state.oauthReducer)
   const firstLogin = () => {
-    if (oauth.user.token && !oauth.user.type) {
+    if (oauth.token && !oauth.user.usertype) {
       dispatch(checkFirst());
     };
     dispatch(finishAction());
@@ -69,6 +68,7 @@ function App() {
         dispatch(setToken(token));
         dispatch(isLogin())
         firstLogin();
+        dispatch(saveReducer(oauth.isLogin, oauth.user, oauth.token, oauth.codeAction))
       });
     // await axiosRequest();
   }
