@@ -35,6 +35,7 @@ function Nav() {
   }
 
   const kakaoLogin = () => {
+    dispatch(modifySwitch('loginModal'))
     window.location.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_OAUTH}&redirect_uri=https://localhost:3000&response_type=code`);
   }
 

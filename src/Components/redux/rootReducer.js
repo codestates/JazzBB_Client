@@ -2,15 +2,18 @@ import {combineReducers} from 'redux'
 import reducer from './new/reducer'
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import oauthReducer from "./new/oauthReducer"
 
 const persistConfig = {
     key: "root",
     storage: storage,
+    whitelist:["reducer"]
   };
   
 
 const rootReducer = combineReducers({
-    reducer
+    reducer,
+    oauthReducer
 })
 
 // export function* rootSaga() {
