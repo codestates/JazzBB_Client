@@ -144,7 +144,8 @@ function App() {
             } else if (state.codeAction ) {
               return <Redirect to="/service" />
             }
-          }} />
+          }
+          } />
 
 
           <Route path="*" component={NotFound} />
