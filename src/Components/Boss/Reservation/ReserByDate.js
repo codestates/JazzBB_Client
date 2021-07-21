@@ -9,9 +9,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 function ReserByDate() {
   const dispatch = useDispatch();
-
   const userstate = useSelector((state) => state.reducer.user);
-
   const BossState = useSelector((state) => state.reducer.reservation);
   const [date, setDate] = useState("2017-01-01");
   let DataPerDate = BossState.filter((el) => el.show.date === date);

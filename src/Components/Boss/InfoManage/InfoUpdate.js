@@ -8,9 +8,11 @@ import { setToken, setBossJazzBar } from "../../redux/new/action";
 
 import "./infoupdate.css";
 
+//아래 useSelector가 안먹힘. 아마 이 페이지는 오류날듯.
+//서버 연결 제대로 되고 나서 수정해야 할 페이지 임.
 function InfoUpdate() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.reducer.user);
+  const initialState = useSelector((state) => state.reducer);
   const data = useSelector((state) => state.reducer.jazzbar);
   const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const jazzBarId = useSelector((state) => state.reducer.jazzBarId);
@@ -144,7 +146,7 @@ function InfoUpdate() {
       axios.post(
         process.env.REACT_APP_DB_HOST + "/menuCreate",
         {
-          authorization: user.token,
+          authorization: initialState.user.token,
         },
         { state, jazzBarId }
       );
@@ -176,25 +178,25 @@ function InfoUpdate() {
       });
     }
     axios
-      .post(
-        process.env.REACT_APP_DB_HOST + "/jazzbarUpdate",
-        {
-          authorization: user.token,
-        },
-        { state, jazzBarId }
-      )
-      .then((res) => {
-        const token = res.data.data.accessToken;
-        dispatch(setToken(token));
-      })
+    .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state, {
+      headers: {
+        authorization: initialState.token,
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    })
+    .then((res) => {
+      const token1 = res.data.data.accessToken;
+      dispatch(setToken(token1));
+    })
       .then(
-        axios.post(
-          process.env.REACT_APP_DB_HOST + "/menuCreate",
-          {
-            authorization: user.token,
-          },
-          { state, jazzBarId }
-        )
+        axios
+            .post(process.env.REACT_APP_DB_HOST + "/menuCreate", { state, jazzBarId }, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              withCredentials: true,
+            })
       );
   };
 

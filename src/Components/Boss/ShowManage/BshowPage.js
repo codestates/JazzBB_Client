@@ -10,14 +10,13 @@ import { setBossShowList } from "../../redux/new/action";
 
 function BshowPage() {
   const dispatch = useDispatch();
-  // const jazzbarId = ""; //재즈바 아이디 가져오기
   const jazzbarId = useSelector(state => state.reducer.jazzBarId);
- //서버 연결 후, 주석 풀기
+//  서버 연결 후, 주석 풀기
   // useEffect(() => {
   //   axios
   //     .get(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
   //     .then((res) => {
-  //       const list = res.data.data.list;
+  //       const list = res.data.data;
   //       dispatch(setBossShowList(list));
   //     });
   // }, []);

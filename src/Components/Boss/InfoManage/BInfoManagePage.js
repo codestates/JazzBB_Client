@@ -11,6 +11,8 @@ import "./BInfoManagePage.css";
 import { setBossJazzBar, setToken, setJazzId } from "../../redux/new/action";
 const { kakao } = window;
 
+
+//menu 사진 기능 테스트할 때, 105번 주석 풀어야 함.
 function BInfoManagePage() {
   const dispatch = useDispatch();
   const initialState = useSelector((initstate) => initstate.reducer);
