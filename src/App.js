@@ -1,10 +1,11 @@
 import dotenv from "dotenv";
 // import{ OAUTH_URI, REACT_APP_KAKAO, REACT_APP_DB_HOST } from "./environment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Switch,
   Route,
   Redirect,
+  useHistory
 } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios";
@@ -37,42 +38,65 @@ dotenv.config();
 
 function App() {
   const dispatch = useDispatch();
+  let history = useHistory();
   const jazzbarId = useSelector(state => state.reducer.jazzBarId);
   const state = useSelector(state => state.reducer);
   const oauth = useSelector(state => state.oauthReducer)
+  const [user, setUser] = useState({})
+  const [token, setToken] = useState('')
+  const [isLogin, setIsLogin] = useState(false)
+  const [checkFirst, setCheckFirst] = useState(false)
+  const [finishAction, setFinishAction] = useState(false)
+
+
+  const handleUser = (data) =>{
+    setUser(data)
+  }
   const firstLogin = () => {
     if (oauth.token && !oauth.user.usertype) {
-      dispatch(checkFirst());
+      // dispatch(checkFirst());
+      setCheckFirst(true)
     };
-    dispatch(finishAction());
+    setFinishAction(true)
+    // dispatch(finishAction());
   }
+  
 
   const getToken = async (authorizationCode) => {
 
-    let token = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
+    let tokenData = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
     .then(res =>{
       if(res.data.data.jazzbarId){
         const jazzBarId =res.data.data.jazzbarId
         dispatch(setJazzId(jazzBarId))
+        window.localStorage.setItem("jazzbarId", JSON.stringify(jazzBarId));
       }
       return res.data.data.accessToken;
     })
     .catch(err => console.log(err))
 
 
-    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: token }, withCredentials: true })
+    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: tokenData }, withCredentials: true })
       .then(resp => {
-        token = resp.data.data.accessToken;
+        tokenData = resp.data.data.accessToken;
         const userinfo = resp.data.data.userinfo;
-        dispatch(setUser(userinfo));
-        dispatch(setToken(token));
-        dispatch(isLogin())
+        handleUser(userinfo)
+        setToken(tokenData)
+        setIsLogin(!isLogin)
+        // dispatch(setUser(userinfo));
+        // dispatch(setToken(token));
+        // dispatch(isLogin())
         firstLogin();
-        dispatch(saveReducer(oauth.isLogin, oauth.user, oauth.token, oauth.codeAction))
+        console.log(userinfo, "useuserinfor, token, inLogin, checks")
+        console.log("@@@@@@@@")
+        history.push('/')
+        dispatch(saveReducer(isLogin, user, token, checkFirst))
+
       });
     // await axiosRequest();
   }
-
+  console.log(typeof user, "user, token, inLogin, checks")
+  console.log(user, "user, token, inLogin, checks")
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -82,7 +106,8 @@ function App() {
     if (authorizationCode) {
       getToken(authorizationCode)
     } else {
-      dispatch(finishAction());
+      setFinishAction(true)
+      // dispatch(finishAction());
     }
 
   }, [])
@@ -115,7 +140,7 @@ function App() {
   return (
     <div>
       {
-        <Nav></Nav>
+        <Nav user={user} isisLogin={isLogin} checkFirst={checkFirst}  token={token}></Nav>
       }
       <div>
         <Switch>
@@ -139,12 +164,12 @@ function App() {
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
           <Route path="/boss" render={() => <Redirect to="/boss/main"/>} />
           <Route path="/" render={() => {
-            if ( !oauth.user.usertype && oauth.isLogin ) {
+            if ( !user.usertype && isLogin && finishAction ) {
               return <Redirect to="/moreinfo" />
             } 
-            else if (oauth.isLogin && oauth.user.usertype === 'boss' && !oauth.user.jazzbarId ) {
+            else if (isLogin && user.usertype === 'boss' && !user.jazzbarId && finishAction ) {
               return <Redirect to="/boss/infoedit" />
-            } else  {
+            } else if(finishAction) {
               return <Redirect to="/service" />
             }
           }
