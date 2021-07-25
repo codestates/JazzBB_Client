@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from "react-router-dom";
@@ -11,6 +11,12 @@ function Nav() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
   let history = useHistory();
+
+
+  useEffect(()=>{
+console.log('useEffectnav')
+  },[state.token])
+
 
   const loginModalSwitch = (login) => {
     dispatch(modifySwitch(login))
