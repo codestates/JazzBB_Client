@@ -65,7 +65,7 @@ const Sidebar = () => {
                   사진관리 <Link to="/boss/photo" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<RiPencilLine />}>
-                  정보수정 <Link to="/boss/infoedit" />
+                  정보수정 <Link to="/boss/infoupdate" />
                 </MenuItem>
               </Menu>
             </SidebarContent>

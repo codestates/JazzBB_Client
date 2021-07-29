@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import InfoUpdate from "./InfoUpdate";
 import "./BInfoManagePage.css";
-import { setBossJazzBar, setToken, setJazzId } from "../../redux/new/action";
+import { setBossJazzBar, setToken, setJazzId, modifySwitch } from "../../redux/new/action";
 const { kakao } = window;
 
 
@@ -28,11 +28,16 @@ function BInfoManagePage() {
   useEffect(() => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
       const jazzbarList = res.data.data;
-      console.log(jazzbarList,'jazzbarList')
+      // console.log(jazzbarList,'jazzbarList')
         const jazzbardata = jazzbarList.filter(el => el.id === jazzbarId)
-console.log(jazzbardata, 'jazzbardata')
-  dispatch(setBossJazzBar(jazzbardata[0]));
+        if(jazzbardata.length !== 0){
+          <Redirect to='/infoupdate'></Redirect>
+        }else{
+          dispatch(setBossJazzBar(jazzbardata[0]));
+
+        }
     });
+   
   }, []);
 
   const openPostCode = () => {setIsPopupOpen(true);};
@@ -60,7 +65,7 @@ console.log(jazzbardata, 'jazzbardata')
         }
       }
     }
-   
+
     if (
       initstate.addressFront === undefined ||
       initstate.addressETC === undefined ||
@@ -70,6 +75,7 @@ console.log(jazzbardata, 'jazzbardata')
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
+
       const newForm = new FormData();
       newForm.append("thumbnail", banner[0]);
       newForm.append("barName", initstate.barName);
@@ -81,13 +87,8 @@ console.log(jazzbardata, 'jazzbardata')
       newForm.append("serviceOption", temp);
       newForm.append("mobile", initstate.mobile);
 
-   
-
       // for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
       // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
-
-
-
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, {
           headers: {
@@ -101,7 +102,7 @@ console.log(jazzbardata, 'jazzbardata')
           dispatch(setToken(token1));
           const barId = res.data.data.jazzbarId;
           dispatch(setJazzId(barId));
-          console.log(barId,'~~~~server : jazzbarId')
+          // console.log(barId,'~~~~server : jazzbarId')
           return barId
         })
         // .then((barId)=>{
@@ -187,8 +188,8 @@ console.log(jazzbardata, 'jazzbardata')
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
     <div className="infoPage">
-      <Sidebar></Sidebar>
-      {/* {Jazz=== [] ? ( */}
+      {/* <Sidebar></Sidebar> */}
+      {/* {Jazz === [] ? ( */}
         <div className="infobody">
           <div className="BIMcontentBox">
             <div className="ctBoxheader">
@@ -407,11 +408,11 @@ console.log(jazzbardata, 'jazzbardata')
           </div>
         </div>
       ) 
-      {/* : 
-      (
-       <InfoUpdate data={Jazz}></InfoUpdate>
-       ) 
-       }  */}
+       {/* : 
+       (
+        <InfoUpdate data={Jazz}></InfoUpdate>
+        ) 
+        }    */}
     </div>
   );
 }
