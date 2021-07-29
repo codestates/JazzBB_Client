@@ -1,33 +1,17 @@
 import rootReducer from './rootReducer'
-import {createLogger} from 'redux-logger'
-import createSagaMiddleware from "redux-saga";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { compose, createStore, applyMiddleware } from "redux";
-import { persistStore } from "redux-persist";
-
+import logger from 'redux-logger'
+import { persistStore } from 'redux-persist';
+// import {composeWithDevTools} from 'redux-devtools-extension'
 // const store = createStore(rootReducer, composeWithDevTools( applyMiddleware(...middleware)))
 // export default store
 
+import { compose, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
-const logger = createLogger();
-const sagaMiddleware = createSagaMiddleware();
-
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-);
-
-// sagaMiddleware.run(rootSaga);
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+  : compose;
+const middleware = [logger, thunk]
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
 export const persistor = persistStore(store);
-
 export default { store, persistor };
-
-// import thunk from "redux-thunk";
-
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-//   : compose;
-// const middleware = [logger, thunk]
-// const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
-// export default store;

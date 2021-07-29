@@ -30,8 +30,10 @@ import {
   FINISH_ACTION,
   SET_CURRENT_PAGE,
   SAVE_REDUCER,
+  RESET
 } from "./action";
 import initialState from "./initialState";
+import ResetState from './ResetState'
 
 const reducer = (state = initialState, action) => {
   const payload = action.payload;
@@ -141,9 +143,10 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { currentPage: payload.page });
 
 
-    case SAVE_REDUCER:
-      return Object.assign({}, state, { isLogin: payload.login, codeAction: payload.codeAction, user: payload.user, token: payload.token });
-    
+    // case SAVE_REDUCER:
+    //   return Object.assign({}, state, { isLogin: payload.login, codeAction: payload.codeAction, user: payload.user, token: payload.token });
+    case RESET:
+      return Object.assign({}, ResetState);
     
 
     default:

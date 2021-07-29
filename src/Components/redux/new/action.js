@@ -28,6 +28,7 @@ export const SET_JAZZID_BOSS = "SET_JAZZID_BOSS"
 export const FINISH_ACTION = "FINISH_ACTION"
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 export const SAVE_REDUCER = "SAVE_REDUCER"
+export const RESET = "RESET"
 
 
 export const setJazzId = (id) => {
@@ -254,10 +255,12 @@ export const setJazzbar = (bar) => {
   }
 }
 
-export const isLogin = () => {
+export const isLogin = (data) => {
   return {
     type: IS_LOGIN,
-    payload: null
+    payload: {
+      data
+    }
   }
 }
 
@@ -292,5 +295,12 @@ export const saveReducer = (login, user, token, codeAction) => {
     payload: {
       login, user, token, codeAction
     },
+  }
+}
+
+export const Reset = () => {
+  return {
+    type: RESET
+     
   }
 }
