@@ -1,11 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./AllShow.css";
 import AllShowEntry from "./AllShowEntry";
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import axios from 'axios'
+import {setBossShowList} from '../../redux/new/action'
+
 
 function AllShow() {
+  const dispatch = useDispatch();
   const AllShow = useSelector((state) => state.reducer.BossShowList);
-
+  const jazzbarId = useSelector((state) => state.reducer.jazzBarId);
+useEffect(()=>{
+  console.log('useEffect')
+  axios
+  .post(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
+  .then(res => {
+    let showList = res.data.data
+    showList.map(el => el.player =JSON.parse(el.player))
+    console.log(showList,'parseing 쇼리스트')
+    dispatch(setBossShowList(showList))
+  })
+},[])
   return (
     <div className="allShow-box">
       {AllShow.map((el) => {
