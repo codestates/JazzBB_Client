@@ -1,21 +1,15 @@
 const initialState = {
-  codeAction : false,
-  isLogin: true,
+
+
   currentPage: '/service',
   history: [],
-  firstCheck: false,
-  token: false,
+
+
   search: null,
   searchOption: null,
   searchData: null,
   AllPage : true,
-  user: {
-    id: '',
-    userId: '',
-    username: '',
-    mobile: '',
-    usertype: false,
-  },
+
   modifyUser:{mobile : null, username: null, usertype: null},
   everyShowList : [
   ],

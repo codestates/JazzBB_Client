@@ -30,7 +30,8 @@ import Termspi from './Pages/footer-terms-pi'
 import Weareddh from "./Pages/weareddh";
 import Service from "./Pages/ServicePage";
 
-import { checkFirst, setToken, setUser, isLogin, finishAction, setJazzId, saveReducer } from './Components/redux/new/action';
+import { setJazzId, saveReducer, checkFirst, setToken, setUser, isLogin, finishAction,} from './Components/redux/new/action';
+// 
 import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
 import NotFound from "./Components/notfound"
 
@@ -42,29 +43,29 @@ function App() {
   const jazzbarId = useSelector(state => state.reducer.jazzBarId);
   const state = useSelector(state => state.reducer);
   const oauth = useSelector(state => state.oauthReducer)
-  const [user, setUser] = useState({})
-  const [token, setToken] = useState('')
-  const [isLogin, setIsLogin] = useState(false)
-  const [checkFirst, setCheckFirst] = useState(false)
-  const [finishAction, setFinishAction] = useState(false)
+  // const [user, setUserInfo] = useState({})
+  // const [token, setStateToken] = useState('')
+  // const [loginSwitch, setIsLogin] = useState(false)
+  // const [checkFirst, setCheckFirst] = useState(false)
+  // const [finishAction, setFinishAction] = useState(false)
 
 
-  const handleUser = (data) =>{
-    setUser(data)
-  }
+  // const handleUser = (data) =>{
+  //   setUserInfo(data)
+  // }
   const firstLogin = () => {
     if (oauth.token && !oauth.user.usertype) {
-      // dispatch(checkFirst());
-      setCheckFirst(true)
+      dispatch(checkFirst());
+      // setCheckFirst(true)
     };
-    setFinishAction(true)
-    // dispatch(finishAction());
+    // setFinishAction(true)
+    dispatch(finishAction());
   }
   
 
   const getToken = async (authorizationCode) => {
 
-    let tokenData = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
+    let token = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{withCredentials : true})
     .then(res =>{
       if(res.data.data.jazzbarId){
         const jazzBarId =res.data.data.jazzbarId
@@ -76,71 +77,47 @@ function App() {
     .catch(err => console.log(err))
 
 
-    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: tokenData }, withCredentials: true })
+    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: token }, withCredentials: true })
       .then(resp => {
-        tokenData = resp.data.data.accessToken;
+        token = resp.data.data.accessToken;
         const userinfo = resp.data.data.userinfo;
-        handleUser(userinfo)
-        setToken(tokenData)
-        setIsLogin(!isLogin)
-        // dispatch(setUser(userinfo));
-        // dispatch(setToken(token));
-        // dispatch(isLogin())
-        firstLogin();
-        console.log(userinfo, "useuserinfor, token, inLogin, checks")
-        console.log("@@@@@@@@")
+        // handleUser(userinfo)
+        // setStateToken(tokenData)
+        // setIsLogin(!loginSwitch)
+        dispatch(setUser(userinfo));
+        dispatch(setToken(token));
+        dispatch(isLogin())
+        // firstLogin();
         history.push('/')
-        dispatch(saveReducer(isLogin, user, token, checkFirst))
-
+        dispatch(saveReducer(state.isLogin, state.user, state.token, state.checkFirst))
+        
       });
-    // await axiosRequest();
-  }
-  console.log(typeof user, "user, token, inLogin, checks")
-  console.log(user, "user, token, inLogin, checks")
-
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    const authorizationCode = url.searchParams.get('code');
-    console.log(state, "state!!!!!!!")
-    console.log(oauth, "oauth!!!!!!!")
-    if (authorizationCode) {
-      getToken(authorizationCode)
+    }
+    // console.log(typeof user, "user, token, inLogin, checks")
+    // console.log(user, "user, token, inLogin, checks")
+    // console.log(token, "tokeeeeeeeeeeeen")
+    
+    useEffect(async () => {
+      const url = new URL(window.location.href);
+      const authorizationCode = url.searchParams.get('code');
+      // console.log(state, "state!!!!!!!")
+      console.log(authorizationCode, "oauth!!!!!!!")
+      if (authorizationCode) {
+        await getToken(authorizationCode)
+        // await console.log(isLogin);
+        // await console.log(user);
+        // await console.log(token);
     } else {
-      setFinishAction(true)
-      // dispatch(finishAction());
+      // setFinishAction(true)
+      dispatch(finishAction());
     }
 
   }, [])
 
-  // const axiosRequest = () => {
-  //   axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.user.token }, withCredentials: true })
-  //    .then(res => {
-  //      const token1 = res.data.data.accessToken;
-  //      const info = res.data.data.userinfo;
-  //      dispatch(setUser(info));
-  //      dispatch(setToken(token1));
-  //    })
-  //    console.log("******** state", state)
-  //   axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { userId: state.user.id }, { headers: { authorization: state.user.token }, withCredentials: true })
-  //    .then(res => {
-  //      const token2 = res.data.data.token;
-  //      const reservation = res.data.data.list;
-  //      dispatch(setList(reservation, 'reservation'));
-  //      dispatch(setToken(token2))
-  //    })
-  //   axios.get(process.env.REACT_APP_DB_HOST + '/reviewRead', { headers: { authorization: state.user.token }, withCredentials: true }, { userId: state.user.id })
-  //    .then(res => {
-  //      const token3 = res.data.data.accessToken;
-  //      const review = res.data.data.list;
-  //      dispatch(setList(review, 'reviewList'));
-  //      dispatch(setToken(token3));
-  //    })
-  // }
-
   return (
     <div>
       {
-        <Nav user={user} isisLogin={isLogin} checkFirst={checkFirst}  token={token}></Nav>
+        <Nav></Nav>
       }
       <div>
         <Switch>
@@ -164,12 +141,12 @@ function App() {
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
           <Route path="/boss" render={() => <Redirect to="/boss/main"/>} />
           <Route path="/" render={() => {
-            if ( !user.usertype && isLogin && finishAction ) {
+            if ( !state.user.usertype && state.isLogin && state.finishAction ) {
               return <Redirect to="/moreinfo" />
             } 
-            else if (isLogin && user.usertype === 'boss' && !user.jazzbarId && finishAction ) {
+            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbarId && state.finishAction ) {
               return <Redirect to="/boss/infoedit" />
-            } else if(finishAction) {
+            } else {
               return <Redirect to="/service" />
             }
           }

@@ -13,11 +13,6 @@ function Nav() {
   let history = useHistory();
 
 
-  useEffect(()=>{
-console.log('useEffectnav')
-  },[state.token])
-
-
   const loginModalSwitch = (login) => {
     dispatch(modifySwitch(login))
   }
