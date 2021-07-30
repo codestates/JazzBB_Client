@@ -84,6 +84,7 @@ function App() {
   }
 
   useEffect(() => {
+    console.log(state)
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
     if (authorizationCode) {
