@@ -42,6 +42,8 @@ function ReserAll() {
   const statusAlert = (e) => {
     let id = e.target.value;
     let changedStatus = e.target.name;
+    console.log(id)
+
     confirmAlert({
       title: `${changedStatus === "confirmed" ? "승인" : "거절"} 하시겠습니까?`,
       // message: ,
@@ -53,12 +55,14 @@ function ReserAll() {
               .get(
                 process.env.REACT_APP_DB_HOST + "/reservationUpdate",
                 {
-                  authorization: userstate.token,
-                },
-                {
                   id: id,
                   confirm: changedStatus,
                 }
+                ,
+                {
+                  authorization: userstate.token,
+                },
+               
               )
               .then((res) => {
                 const token = res.data.data.accessToken;

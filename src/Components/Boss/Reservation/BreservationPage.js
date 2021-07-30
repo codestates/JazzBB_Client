@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ReserHeader from "./ReserHeader";
 import {
-  setBossJazzBar,
+  setBossJazzBar,setToken
 } from "../../redux/new/action";
 import "../RvManage.css";
 
@@ -22,13 +22,28 @@ const BreservationPage = () => {
   };
 
   useEffect(() => {
+    console.log('reservationa')
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
     .then(res => {
       const jazzbarList = res.data.data;
       const jazzbardata = jazzbarList.filter(el => el.id === state.jazzbarId)
-dispatch(setBossJazzBar(jazzbardata[0]));
-console.log(state)
+    dispatch(setBossJazzBar(jazzbardata[0]));
+    console.log(state)
     })
+    .then(
+      axios.get(process.env.REACT_APP_DB_HOST + "/reservationRead",{
+        headers: {
+          authorization: state.token,
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }) )
+      .then((res) => {
+        console.log(res)
+        // const token = res.data.data.accessToken;
+        // dispatch(setToken(token));
+      })
+    
   },[])
 
   
