@@ -29,24 +29,7 @@ const ResetState = {
         jazzbarId: "01",
         date: "2021-07-23",
         time: "17:30-19:30",
-        player: [
-          {
-            position : "singer",
-            name: "이명환",
-          },
-          {
-            position : "piano",
-            name: "노진혁",
-          },
-          {
-            position : "base",
-            name: "이현곤",
-          },
-          {
-            position : "trumpet",
-            name: "강진성",
-          },
-        ],
+        player: {"piano":"sdf","drum":"sd"},
         thumbnail: "",
         content: "보컬, 피아노, 베이스, 트럼펫으로 구성된 환상적인 쿼텟의 연주를 감상하러 오세요. 재즈 맨즈의 진수를 보여드립니다.",
         showCharge: "10000",
