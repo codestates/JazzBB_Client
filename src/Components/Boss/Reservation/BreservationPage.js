@@ -27,6 +27,7 @@ const BreservationPage = () => {
       const jazzbarList = res.data.data;
       const jazzbardata = jazzbarList.filter(el => el.id === state.jazzbarId)
 dispatch(setBossJazzBar(jazzbardata[0]));
+console.log(state)
     })
   },[])
 

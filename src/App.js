@@ -43,29 +43,21 @@ function App() {
   const jazzbarId = useSelector(state => state.reducer.jazzBarId);
   const state = useSelector(state => state.reducer);
   const oauth = useSelector(state => state.oauthReducer)
-  // const [user, setUserInfo] = useState({})
-  // const [token, setStateToken] = useState('')
-  // const [loginSwitch, setIsLogin] = useState(false)
-  // const [checkFirst, setCheckFirst] = useState(false)
-  // const [finishAction, setFinishAction] = useState(false)
 
 
   // const handleUser = (data) =>{
   //   setUserInfo(data)
   // }
   const firstLogin = () => {
-    if (oauth.token && !oauth.user.usertype) {
+    if (state.token && !state.user.usertype) {
       dispatch(checkFirst());
-      // setCheckFirst(true)
     };
-    // setFinishAction(true)
     dispatch(finishAction());
   }
   
 
   const getToken = async (authorizationCode) => {
-
-    let token = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{withCredentials : true})
+    let tokenData = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
     .then(res =>{
       if(res.data.data.jazzbarId){
         const jazzBarId =res.data.data.jazzbarId
@@ -81,34 +73,23 @@ function App() {
       .then(resp => {
         token = resp.data.data.accessToken;
         const userinfo = resp.data.data.userinfo;
-        // handleUser(userinfo)
-        // setStateToken(tokenData)
-        // setIsLogin(!loginSwitch)
         dispatch(setUser(userinfo));
-        dispatch(setToken(token));
-        dispatch(isLogin())
-        // firstLogin();
+        dispatch(setToken(tokenData));
+        dispatch(isLogin(true))
+        firstLogin();
         history.push('/')
-        dispatch(saveReducer(state.isLogin, state.user, state.token, state.checkFirst))
-        
+        // dispatch(saveReducer(isLogin, user, token, checkFirst))
+
       });
-    }
-    // console.log(typeof user, "user, token, inLogin, checks")
-    // console.log(user, "user, token, inLogin, checks")
-    // console.log(token, "tokeeeeeeeeeeeen")
-    
-    useEffect(async () => {
-      const url = new URL(window.location.href);
-      const authorizationCode = url.searchParams.get('code');
-      // console.log(state, "state!!!!!!!")
-      console.log(authorizationCode, "oauth!!!!!!!")
-      if (authorizationCode) {
-        await getToken(authorizationCode)
-        // await console.log(isLogin);
-        // await console.log(user);
-        // await console.log(token);
+    // await axiosRequest();
+  }
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get('code');
+    if (authorizationCode) {
+      getToken(authorizationCode)
     } else {
-      // setFinishAction(true)
       dispatch(finishAction());
     }
 
@@ -117,7 +98,7 @@ function App() {
   return (
     <div>
       {
-        <Nav></Nav>
+        <Nav user={state.user} isisLogin={state.isLogin} checkFirst={state.checkFirst}  token={state.token}></Nav>
       }
       <div>
         <Switch>
@@ -144,9 +125,11 @@ function App() {
             if ( !state.user.usertype && state.isLogin && state.finishAction ) {
               return <Redirect to="/moreinfo" />
             } 
-            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbarId && state.finishAction ) {
+            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbarId && finishAction ) {
               return <Redirect to="/boss/infoedit" />
-            } else {
+            } 
+            else if(state.finishAction) {
+
               return <Redirect to="/service" />
             }
           }

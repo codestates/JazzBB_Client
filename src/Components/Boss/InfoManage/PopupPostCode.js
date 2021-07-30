@@ -26,7 +26,7 @@ const PopupPostCode = (props) => {
     const area = `${ar[0]} ${ar[1]}`;
     setAddress(fullAddress);
     getGps(data);
-    console.log(typeof data.zonecode); 
+    console.log(fullAddress); 
     props.setState({ ...props.state, addressFront: fullAddress, area: area });
     props.onClose();
 

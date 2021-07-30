@@ -11,8 +11,8 @@ import { useSelector, useDispatch } from "react-redux";
 //공연 추가하는 페이지.
 function AddShow() {
   const dispatch = useDispatch();
-  const userstate = useSelector((state) => state.reducer.user);
-  const jazzbarId = useSelector((state) => state.reducer.jazzbarId);
+  const userstate = useSelector((state) => state.reducer);
+  const jazzbarId = useSelector((state) => state.reducer.jazzBarId);
   const [imgFile, setImgFile] = useState([]);
   const [players, setPlayer] = React.useState({});
   const [inputValue, SetInputValue] = useState({
@@ -22,14 +22,13 @@ function AddShow() {
   });
 
   function handelSetImgFile(data) {
-    setImgFile(data)
+    setImgFile(data);
   }
 
- 
   function handleThumbnail(e) {
     console.log(inputValue, "dddddd");
     if (imgFile.length !== 0) {
-      console.log("******** Addshow handleThumbnail imgFile :", imgFile)
+      console.log("******** Addshow handleThumbnail imgFile :", imgFile);
     }
   }
 
@@ -41,12 +40,9 @@ function AddShow() {
       SetInputValue({ ...inputValue, [name]: nameValue });
     } else {
       setPlayer({ ...players, [event.target.id]: event.target.value });
-      SetInputValue({...inputValue, player : players })
+      SetInputValue({ ...inputValue, player: players });
     }
-  console.log(inputValue,'inputValue')
-  console.log(players,'player')
   };
-
 
   //등록 버튼 눌렀을 때 불리는 함수.
   const CreateShow = () => {
@@ -57,31 +53,45 @@ function AddShow() {
           label: "예",
           onClick: () => {
             const filefile = new FormData();
-            filefile.append('thumbnail', imgFile)
-            filefile.append('content',inputValue.content )
-            filefile.append('time',`${inputValue.startTime}-${inputValue.endTime}` )
-            filefile.append('date',inputValue.date )
-            filefile.append('showCharge',inputValue.showCharge )
-            filefile.append('player',inputValue.player )
-            filefile.append('jazzbarId', jazzbarId )
-      // for (var pair of filefile.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+            filefile.append("thumbnail", imgFile);
+            filefile.append("content", inputValue.content);
+            filefile.append(
+              "time",
+              `${inputValue.startTime}-${inputValue.endTime}`
+            );
+            filefile.append("date", inputValue.date);
+            filefile.append("showCharge", inputValue.showCharge);
+            filefile.append("player", JSON.stringify(inputValue.player));
+            filefile.append("jazzbarId", jazzbarId);
+            for (var pair of filefile.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+
+           console.log(userstate.token)
+           console.log(typeof userstate.token)
             axios
-              .post(process.env.REACT_APP_DB_HOST + "/showCreate", filefile, { headers:  { authorization: userstate.token, 'Content-Type': 'multipart/form-data' }, withCredentials: true })
+              .post(process.env.REACT_APP_DB_HOST + "/showCreate", filefile, {
+                headers: {
+                  authorization: userstate.token,
+                  "Content-Type": "multipart/form-data",
+                },
+                withCredentials: true,
+              })
               .then((res) => {
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
               })
-              .then(res => console.log(res,'res'))
-              .then((res) => (window.location.href = "/boss/show"));
-          }
+              .then((res) => console.log(res, "res"))
+              .then((res) => (window.location.href = "/boss/show"))
+              .catch(function (error) {
+                console.log(error);
+              });
           },
+        },
         {
           label: "아니오",
         },
-      ]
+      ],
     });
   };
- 
 
   return (
     <div>
@@ -90,23 +100,36 @@ function AddShow() {
           <div className="show-innerbox">
             <div className="show-box_photo">
               <div className="show-photo">
-                <InputFile handleThumbnail={handleThumbnail} imgFile={imgFile} setImgFile={handelSetImgFile}></InputFile>
+                <InputFile
+                  handleThumbnail={handleThumbnail}
+                  imgFile={imgFile}
+                  setImgFile={handelSetImgFile}
+                ></InputFile>
               </div>
             </div>
-            
+
             <div className="show-box_input">
-              <AddShowInput handleInputChange={handleInputChange}></AddShowInput>
+              <AddShowInput
+                handleInputChange={handleInputChange}
+              ></AddShowInput>
             </div>
 
             <div className="show-box_content">
               <div className="show-description"></div>
             </div>
             <div className="bottom-box">
-              <Button variant="contained" color="primary" size="large" onClick={CreateShow} startIcon={<SaveIcon />}>등록</Button>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={CreateShow}
+                startIcon={<SaveIcon />}
+              >
+                등록
+              </Button>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
