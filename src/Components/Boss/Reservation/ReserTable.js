@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 
 function ReserTable({ data, confirmAlert }) {
   if(data.length === 0){
@@ -15,25 +17,25 @@ function ReserTable({ data, confirmAlert }) {
 
     )
    
-  }else{
-    let time = data.show.time.substring(0,5)
-    
+  }
+  else{
+    const [start, end] = data.show.time.split('-')
     return (
       <tr>
-        <td>{data.num}</td>
+        <td>{data.id}</td>
         <td>{data.show.date}</td>
-        <td>{time}</td>
-         <td>{data.name}</td>
+        <td>{start}</td>
+         <td>{data.user.username}</td>
         <td>{data.people}</td>
-        <td>{data.mobile}</td>
+        <td>{data.user.mobile}</td>
         <td>{data.show.currentSeat}</td>
         {data.confirm === "pending" ? (
           <td className='resconfirm'>
-            <button className='res-ok res' value={data.num} name="confirmed" onClick={confirmAlert}>승인</button>
+            <button className='res-ok res' value={data.num} name="confirmed" onClick={(e)=>confirmAlert(e, data)}>승인</button>
             <button className='res-no res' value={data.num} name="denied" onClick={confirmAlert}>거절</button>
           </td>
         ) : (
-          (data.confirm === 'confirm'? <td className='confirm-ok'> 승인됨</td>
+          (data.confirm === 'confirmed'? <td className='confirm-ok'> 승인됨</td>
           :(<td className='confirm-no'>거절됨</td>)
           )
           
