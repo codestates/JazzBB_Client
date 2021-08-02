@@ -196,7 +196,7 @@ import "../css/mypage.css"
                 !el ? null : 
                   <div className="recentreview-body">
                     <div className="recentreview-body-info-date">{el.createdAt}</div>
-                    <div className="recentreview-body-info-name">{el.jazzbar.barName}</div>
+                    {/* <div className="recentreview-body-info-name">{el.jazzbar.barName}</div> */}
                     <div className="recentreview-body-info-text">{el.content}</div>
                   </div>
                 )

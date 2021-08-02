@@ -39,6 +39,7 @@ const initialState = {
     date: new Date(),
   },
 bossJazzBar :[],
+bossReservation:[],
 reservation: [
   ],
   barList: [],
