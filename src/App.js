@@ -69,9 +69,9 @@ function App() {
     .catch(err => console.log(err))
 
 
-    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: token }, withCredentials: true })
+    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: tokenData }, withCredentials: true })
       .then(resp => {
-        token = resp.data.data.accessToken;
+        tokenData = resp.data.data.accessToken;
         const userinfo = resp.data.data.userinfo;
         dispatch(setUser(userinfo));
         dispatch(setToken(tokenData));
