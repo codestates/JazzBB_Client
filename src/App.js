@@ -85,6 +85,7 @@ function App() {
   }
 
   useEffect(() => {
+    console.log(state)
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
     if (authorizationCode) {
@@ -122,14 +123,13 @@ function App() {
           <Route path="/footer/weareddh" render={() => <Weareddh></Weareddh>} />
           <Route path="/boss" render={() => <Redirect to="/boss/main"/>} />
           <Route path="/" render={() => {
-            if ( !state.user.usertype && state.isLogin && state.finishAction ) {
+            if ( !state.user.usertype && state.isLogin ) {
               return <Redirect to="/moreinfo" />
             } 
-            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbarId && finishAction ) {
+            else if (state.isLogin && state.user.usertype === 'boss' && !state.user.jazzbarId ) {
               return <Redirect to="/boss/infoedit" />
             } 
-            else if(state.finishAction) {
-
+            else if(state.isLogin && state.user.usertype) {
               return <Redirect to="/service" />
             }
           }

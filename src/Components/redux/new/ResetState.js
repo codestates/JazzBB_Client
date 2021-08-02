@@ -40,45 +40,7 @@ const ResetState = {
     },
   bossJazzBar :[],
   reservation: [
-      {
-        num: "01",
-        name: "김수황",
-        mobile: "010-000-0000",
-        people: "03",
-        confirm: "pending",
-        show: {
-          date: "2021-07-01",
-          currentSeat : 3,
-          time: "17:30-19:30",
-        }
-      },
-      {
-        num: "02",
-        name: "서지민",
-        mobile: "010-000-0000",
-        people: "03",
-        confirm: "denied",
-        show: {
-          date: "2021-07-01",
-          time: "20:30-21:30",
-          currentSeat : 3,
-          jazzbar: {
-            id: 1,
-            barName: "개쩔껄 재즈바",
-            mobile: "010-4234-5312",
-            defaultSeat: "350",
-            area: "오산",
-            thumbnail: "saljknaslk",
-            address: "경기 오산시 고길동 지민로 44",
-            rating: "4",
-            serviceOption: "1456",
-            openTime: "17:00-17:01",
-            gpsX: "126.34",
-            gpsY: "38"
-          },
-  
-        }
-      },
+      
     ],
     barList: [],
   jazzBarId : null,
