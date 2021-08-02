@@ -32,7 +32,7 @@ function ReserTable({ data, confirmAlert }) {
         {data.confirm === "pending" ? (
           <td className='resconfirm'>
             <button className='res-ok res' value={data.num} name="confirmed" onClick={(e)=>confirmAlert(e, data)}>승인</button>
-            <button className='res-no res' value={data.num} name="denied" onClick={confirmAlert}>거절</button>
+            <button className='res-no res' value={data.num} name="denied" onClick={(e)=>confirmAlert(e, data)}>거절</button>
           </td>
         ) : (
           (data.confirm === 'confirmed'? <td className='confirm-ok'> 승인됨</td>

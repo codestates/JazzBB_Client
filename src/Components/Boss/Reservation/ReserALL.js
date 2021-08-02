@@ -10,7 +10,7 @@ import { setToken } from "../../redux/new/action";
 function ReserAll() {
   const dispatch = useDispatch();
   const userstate = useSelector((state) => state.reducer);
-  const BossState = useSelector((state) => state.reducer.reservation);
+  const BossState = useSelector((state) => state.reducer.bossReservation);
   const Bsort = BossState.sort((a, b) => {
     let x = a.show.date.toLowerCase();
     let y = b.show.date.toLowerCase();
@@ -69,7 +69,7 @@ function ReserAll() {
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
               })
-              .then((res) => (window.location.href = "/boss/reservation"))
+              .then(window.location.reload())
               .catch((err) => console.log(err));
           },
         },
