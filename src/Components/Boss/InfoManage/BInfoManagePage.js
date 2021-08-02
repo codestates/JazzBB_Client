@@ -34,7 +34,6 @@ function BInfoManagePage() {
           <Redirect to='/infoupdate'></Redirect>
         }else{
           dispatch(setBossJazzBar(jazzbardata[0]));
-
         }
     });
    
@@ -86,6 +85,7 @@ function BInfoManagePage() {
       newForm.append("address", initstate.addressFront + " " + initstate.addressETC);
       newForm.append("serviceOption", temp);
       newForm.append("mobile", initstate.mobile);
+      newForm.append("openTime", initstate.openTime);
 
       // for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
       // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }

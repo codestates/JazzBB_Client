@@ -51,6 +51,7 @@ function InfoUpdate() {
   // const serviceArray = Object.keys(serviceitem);
 
   useEffect(() => {
+    console.log(data)
     if (data.serviceOption !== null) {
       let copy = serviceitem;
       const yap = data.serviceOption.split("");
@@ -312,6 +313,21 @@ function InfoUpdate() {
                 ></input>
               ) : (
                 <div className="barcontents">{data.mobile}</div>
+              )}
+            </div>
+
+            <div className="barMobile boxop">
+              <div className="barlabel">영업시간</div>
+              {editActive ? (
+                <input
+                  className="barcontents inputform"
+                  type="text"
+                  defaultValue={data.openTime}
+                  onChange={handleInput}
+                  name="mobile"
+                ></input>
+              ) : (
+                <div className="barcontents">{data.openTime}</div>
               )}
             </div>
 

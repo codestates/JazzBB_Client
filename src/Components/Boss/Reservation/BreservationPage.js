@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ReserHeader from "./ReserHeader";
 import {
-  setBossJazzBar,setToken
+  setBossJazzBar,setToken, setBossReservationList
 } from "../../redux/new/action";
 import "../RvManage.css";
 
@@ -26,24 +26,28 @@ const BreservationPage = () => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
     .then(res => {
       const jazzbarList = res.data.data;
+      console.log(jazzbarList,'!!!!!!!')
       const jazzbardata = jazzbarList.filter(el => el.id === state.jazzbarId)
     dispatch(setBossJazzBar(jazzbardata[0]));
-    console.log(state)
     })
     .then(
-      axios.get(process.env.REACT_APP_DB_HOST + "/reservationRead",{
+      axios.post(process.env.REACT_APP_DB_HOST + "/reservationRead",{jazzbarId : state.jazzBarId}, {
         headers: {
           authorization: state.token,
-          "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
-      }) )
-      .then((res) => {
-        console.log(res)
-        // const token = res.data.data.accessToken;
-        // dispatch(setToken(token));
-      })
-    
+      }) 
+      .then(res =>{
+        console.log(res.data)
+        const list = res.data.data.list;
+        dispatch(setBossReservationList(list))
+         const token = res.data.data.accessToken;
+        dispatch(setToken(token));
+      } 
+      )
+       
+      )
+      .catch(err => console.log(err))
   },[])
 
   
