@@ -13,8 +13,11 @@ import "../css/mypage.css"
   useEffect(() => {
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
+    axiosRequest();
+  }, [])
 
-    axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', 
+  const axiosRequest = async() => {
+    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', 
     { headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
       console.log(res.data,'1data')
@@ -24,8 +27,7 @@ import "../css/mypage.css"
        console.log(token1,'1')
        dispatch(setToken(token1));
      })
-
-      axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', 
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', 
       { userId: state.user.id }, 
       { headers: { authorization: state.token }, withCredentials: true })
       .then(res => {
@@ -34,25 +36,15 @@ import "../css/mypage.css"
         const reservation = res.data.data.list;
         console.log(token2,'2')
         dispatch(setList(reservation, 'reservation'));
-        dispatch(setToken(token2))
+        // dispatch(setToken(token2))
       })
     
-    axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.token }, withCredentials: true })
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
       console.log(res.data.data,'3')
-
-       const token3 = res.data.data.accessToken;
        const review = res.data.data.list;
-       console.log(token3,'3')
-
        dispatch(setList(review, 'reviewList'));
-       dispatch(setToken(token3));
      })
-    // axiosRequest();
-  }, [])
-
-  const axiosRequest = () => {
-   
   }
 
   const modifyUserTogle = (variety) => {
@@ -68,6 +60,7 @@ import "../css/mypage.css"
     dispatch(modifyFinish());
     axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', { ...state.user }, { headers: { authorization: state.token }, withCredentials: true })
       .then(res => {
+
         const token4 = res.data.data.accessToken;
         dispatch(setToken(token4));
         dispatch(modifySwitch(variety));
@@ -165,7 +158,7 @@ import "../css/mypage.css"
                 return (
                   <div className="recentreservation-body">
                     <div className="recentreservation-body-date">{el.show.date.replace(/-/g, '.') + '.'}</div>
-                    {/* <div className="recentreservation-body-name">{el.jazzbar.barName}</div> */}
+                    <div className="recentreservation-body-name">{el.show.jazzbar.barName}</div>
                     <div className="recentreservation-body-time">{el.show.time}</div>
                     <div className="recentreservation-body-person">{el.people}</div>
                     {el.confirm == 'pending' ?
@@ -202,8 +195,8 @@ import "../css/mypage.css"
                 return (
                 !el ? null : 
                   <div className="recentreview-body">
-                    <div className="recentreview-body-info-date">⭐ {el.point}</div>
-                    {/* <div className="recentreview-body-info-name">{el.jazzbar.barName ? el.jazzbar.barName : el.board.title}</div> */}
+                    <div className="recentreview-body-info-date">{el.createdAt}</div>
+                    {/* <div className="recentreview-body-info-name">{el.jazzbar.barName}</div> */}
                     <div className="recentreview-body-info-text">{el.content}</div>
                   </div>
                 )

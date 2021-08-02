@@ -34,7 +34,6 @@ const initialState = {
       content: "보컬, 피아노, 베이스, 트럼펫으로 구성된 환상적인 쿼텟의 연주를 감상하러 오세요. 재즈 맨즈의 진수를 보여드립니다.",
       showCharge: "10000",
     },
-   
   ],
   boss: {
     date: new Date(),
@@ -47,26 +46,7 @@ jazzBarId : null,
   jazzbar: {},
 
   barPhoto: [],
-  reviewList: [{
-    boardId: 1,
-    content: "뭐야 이 병신은",
-    createdAt: "2021-07-19T00:00:00.000Z",
-    id: 1,
-    jazzbarId: null,
-    point: "5",
-    updatedAt: "2021-07-19T00:00:00.000Z",
-    user:{
-      createdAt: "2021-07-19T05:01:42.000Z",
-      id: 1,
-      jazzbarId: null,
-      mobile: "01077912745",
-      thumbnail: "http://k.kakaocdn.net/dn/iMNbx/btq4ty8czvh/3PHK4K0oyO4XBYQ35JwfN1/img_110x110.jpg",
-      updatedAt: "2021-07-19T14:24:01.000Z",
-      userId: "1811785024",
-      username: "태선",
-      usertype: "customer",
-    }
-  }],
+  reviewList: [],
   myReviewId: null,
   menu: [],
   showList: [],
@@ -142,9 +122,6 @@ jazzBarId : null,
     bossModal: false,
   },
   reser : 'ya'
-
-  
-  // 추후 추가 혹은 안쓰는 state의 경우 삭제
 };
 
 export default initialState;
