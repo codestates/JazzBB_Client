@@ -10,8 +10,7 @@ import { setToken } from "../../redux/new/action";
 function ReserAll() {
   const dispatch = useDispatch();
   const userstate = useSelector((state) => state.reducer);
-  const BossState = useSelector((state) => state.reducer.reservation);
-  console.log(userstate,'rootReducer')
+  const BossState = useSelector((state) => state.reducer.bossReservation);
   const Bsort = BossState.sort((a, b) => {
     let x = a.show.date.toLowerCase();
     let y = b.show.date.toLowerCase();
@@ -39,10 +38,10 @@ function ReserAll() {
     }
   };
 
-  const statusAlert = (e) => {
-    let id = e.target.value;
+  const statusAlert = (e, data) => {
     let changedStatus = e.target.name;
-    console.log(id)
+    console.log(e.target.name)
+
 
     confirmAlert({
       title: `${changedStatus === "confirmed" ? "승인" : "거절"} 하시겠습니까?`,
@@ -52,23 +51,25 @@ function ReserAll() {
           label: "예",
           onClick: (e) => {
             axios
-              .get(
+              .post(
                 process.env.REACT_APP_DB_HOST + "/reservationUpdate",
                 {
-                  id: id,
+                  id: data.id,
                   confirm: changedStatus,
+                  people : data.people,
+                  showId : data.show.id
                 }
                 ,
-                {
+               { headers: {
                   authorization: userstate.token,
                 },
-               
+                withCredentials: true,}
               )
               .then((res) => {
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
               })
-              .then((res) => (window.location.href = "/boss/reservation"))
+              .then(window.location.reload())
               .catch((err) => console.log(err));
           },
         },

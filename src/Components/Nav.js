@@ -25,8 +25,6 @@ function Nav() {
   };
 
   const logout = () => {
-    // dispatch(deleteState("user"));
-    dispatch(isLogin());
     dispatch(Reset())
     //token, codeaction,history, jazzBarId, jazzbar, modifyUser, reservation, serviceOption, token, user
     window.location.pathname = "/service";

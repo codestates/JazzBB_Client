@@ -39,6 +39,7 @@ const ResetState = {
       date: new Date(),
     },
   bossJazzBar :[],
+  bossReservation:[],
   reservation: [
       
     ],

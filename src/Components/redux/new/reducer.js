@@ -57,7 +57,7 @@ const reducer = (state = initialState, action) => {
 
 
     case SET_RESER_BOSS:
-      return Object.assign({}, state, { reservation: payload.list });
+      return Object.assign({}, state, { bossReservation: payload.list });
 
     case SET_LIST:
       return Object.assign({}, state, { [payload.verify]: payload.list });

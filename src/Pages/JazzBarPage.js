@@ -12,6 +12,7 @@ function JazzBar(){
   const { kakao } = window; 
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
+  const jazzbar = state.jazzbar;
 
 
   useEffect(async ()=>{
@@ -35,13 +36,19 @@ function JazzBar(){
      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.currentJazzbar})
      .then(res => {
        const reviewList = res.data.data.list;
-       console.log(reviewList)
        dispatch(setList(reviewList, 'reviewList'));
      })
      .catch(err => console.log(err))
   },[])
 
 
+  const getPlayer = (player) =>{
+   player = JSON.parse(player)
+   for (let position in player){
+     return (<div>{`${position} : ${player[position]}`}</div>)
+   }
+
+  }
   const typingReview = (e, variety) => {
     dispatch(typeText(e.target.value, variety));
   }
@@ -118,24 +125,27 @@ function JazzBar(){
 
   function openModal() {
     setIsOpen(!modalIsOpen);
+    if(modalIsOpen){
+   console.log(state.jazzbar.gpsY)
+    }
   }
 
-  useEffect(()=>{
-    var container = document.getElementById('map');
-    let gpsY = state.jazzbar.gpsY
-    let gpsX = state.jazzbar.gpsX
-    var options = {
-      center: new kakao.maps.LatLng(gpsY, gpsX),
-      level: 3
-    };
+  // useEffect(()=>{
+  //   var container = document.getElementById('map');
+  //   let gpsY = jazzbar.gpsY
+  //   let gpsX = jazzbar.gpsX
+  //   var options = {
+  //     center: new kakao.maps.LatLng(gpsY, gpsX),
+  //     level: 3
+  //   };
 
-    var map = new kakao.maps.Map(container, options);
-    var markerPosition  = new kakao.maps.LatLng(gpsY, gpsX); 
-    var marker = new kakao.maps.Marker({
-      position: markerPosition
-  });
-  marker.setMap(map);
-    }, [modalIsOpen])
+  //   var map = new kakao.maps.Map(container, options);
+  //   var markerPosition  = new kakao.maps.LatLng(gpsY, gpsX); 
+  //   var marker = new kakao.maps.Marker({
+  //     position: markerPosition
+  // });
+  // marker.setMap(map);
+  //   }, [modalIsOpen])
  
  
 
@@ -245,7 +255,7 @@ function JazzBar(){
                         </a>
 
                         <div className="shopinfo-reservation-object-footer">
-                          <div className="shopinfo-reservation-object-footer-label">{el.player}</div>
+                          <div className="shopinfo-reservation-object-footer-label">{getPlayer(el.player)}</div>
                           <div className="shopinfo-reservation-object-footer-name">{`${el.date} ${el.time}`}</div>
                           <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
                         </div>

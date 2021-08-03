@@ -51,6 +51,7 @@ function InfoUpdate() {
   // const serviceArray = Object.keys(serviceitem);
 
   useEffect(() => {
+    console.log(data)
     if (data.serviceOption !== null) {
       let copy = serviceitem;
       const yap = data.serviceOption.split("");
@@ -108,6 +109,8 @@ function InfoUpdate() {
   const [bannerDetail, setBannerDetail] = useState([]);
 
   const handleBannerImg = (e) => {
+    console.log(banners,'banners')
+    console.log(bannerDetail,'bannerDetail')
     const BannerArr = e.target.files;
     setBanner([...BannerArr]);
     let fileURLs = [];
@@ -173,18 +176,32 @@ function InfoUpdate() {
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
-      setState({
-        ...state,
-        serviceOption: serviceitem,
-        // area : `${area[0]+area[1]}`,
-        address: state.addressFront + " " + state.addressETC,
-        thumbnail: state.bannerPhoto,
-        gpsX: gps.gpsX,
-        gpsY: gps.gpsY,
-      });
-    }
+      // setState({
+      //   ...state,
+      //   serviceOption: serviceitem,
+      //   // area : `${area[0]+area[1]}`,
+      //   address: state.addressFront + " " + state.addressETC,
+      //   thumbnail: state.bannerPhoto,
+      //   gpsX: gps.gpsX,
+      //   gpsY: gps.gpsY,
+      // });
+      const newForm = new FormData();
+      newForm.append("thumbnail", banners[0]);
+      newForm.append("barName", state.barName);
+      newForm.append("defaultSeat", state.defaultSeat);
+      newForm.append("area", state.area);
+      newForm.append("gpsX", gps.gpsX);
+      newForm.append("gpsY", gps.gpsY);
+      newForm.append("address", state.addressFront + " " + state.addressETC);
+      newForm.append("serviceOption", serviceitem);
+      newForm.append("mobile", state.mobile);
+      newForm.append("openTime", state.openTime);
+      newForm.append("jazzbarId", initialState.jazzBarId);
+      for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+
+   
     axios
-      .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", state, {
+      .post(process.env.REACT_APP_DB_HOST + "/jazzbarUpdate", newForm, {
         headers: {
           authorization: initialState.token,
           "Content-Type": "multipart/form-data",
@@ -193,20 +210,23 @@ function InfoUpdate() {
       })
       .then((res) => {
         const token1 = res.data.data.accessToken;
-        dispatch(setToken(token1));
+        if(token1 !== {}){
+          dispatch(setToken(token1));
+        }
       })
-      .then(
-        axios.post(
-          process.env.REACT_APP_DB_HOST + "/menuCreate",
-          { state, jazzBarId },
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true,
-          }
-        )
-      );
+      // .then(
+      //   axios.post(
+      //     process.env.REACT_APP_DB_HOST + "/menuCreate",
+      //     { state, jazzBarId },
+      //     {
+      //       headers: {
+      //         "Content-Type": "multipart/form-data",
+      //       },
+      //       withCredentials: true,
+      //     }
+      //   )
+      // );
+    }
   };
 
   return (
@@ -312,6 +332,21 @@ function InfoUpdate() {
                 ></input>
               ) : (
                 <div className="barcontents">{data.mobile}</div>
+              )}
+            </div>
+
+            <div className="barMobile boxop">
+              <div className="barlabel">영업시간</div>
+              {editActive ? (
+                <input
+                  className="barcontents inputform"
+                  type="text"
+                  defaultValue={data.openTime}
+                  onChange={handleInput}
+                  name="mobile"
+                ></input>
+              ) : (
+                <div className="barcontents">{data.openTime}</div>
               )}
             </div>
 

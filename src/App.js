@@ -59,10 +59,10 @@ function App() {
   const getToken = async (authorizationCode) => {
     let tokenData = await axios.post(process.env.REACT_APP_DB_HOST+'/login', { authorizationCode: authorizationCode },{headers : {withCredentials : true}})
     .then(res =>{
+      console.log(res.data,'@@@@@@@@@@@@@@')
       if(res.data.data.jazzbarId){
         const jazzBarId =res.data.data.jazzbarId
         dispatch(setJazzId(jazzBarId))
-        window.localStorage.setItem("jazzbarId", JSON.stringify(jazzBarId));
       }
       return res.data.data.accessToken;
     })
