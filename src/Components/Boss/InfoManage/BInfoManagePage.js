@@ -1,15 +1,13 @@
-/*global kakao */
+// /*global kakao */
 import React, { useEffect, useState } from "react";
-import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import InfoUpdate from "./InfoUpdate";
 import "./BInfoManagePage.css";
-import { setBossJazzBar, setToken, setJazzId, modifySwitch } from "../../redux/new/action";
-const { kakao } = window;
+import { setBossJazzBar, setToken, setJazzId } from "../../redux/new/action";
+// const { kakao } = window;
 
 
 //menu 사진 기능 테스트할 때, 105번 주석 풀어야 함.
@@ -17,14 +15,12 @@ function BInfoManagePage() {
   const dispatch = useDispatch();
   const initialState = useSelector((initstate) => initstate.reducer);
   const jazzbarId = useSelector((initstate) => initstate.reducer.jazzBarId);
-  const Jazz = useSelector((initstate) => initstate.reducer.jazzbar);
   const serviceOption = useSelector((initstate) => initstate.reducer.serviceOption);
   const [gps, setGps] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [serviceitem, setService] = useState([]);
   const [initstate, setInitState] = useState({});
   let history = useHistory();
-
   useEffect(() => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
       const jazzbarList = res.data.data;
@@ -36,7 +32,6 @@ function BInfoManagePage() {
           dispatch(setBossJazzBar(jazzbardata[0]));
         }
     });
-   
   }, []);
 
   const openPostCode = () => {setIsPopupOpen(true);};

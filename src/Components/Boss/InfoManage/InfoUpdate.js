@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { setToken, setBossJazzBar } from "../../redux/new/action";
+import { setToken } from "../../redux/new/action";
 import {Link} from 'react-router-dom'
 import "./infoupdate.css";
 
@@ -69,7 +69,7 @@ function InfoUpdate() {
       const yap = data.serviceOption.split("");
       yap.map((number) => {
         for (let el of serviceOption) {
-          if (number == el.id) {
+          if (number === el.id) {
             return (copy[el.content] = true);
           }
         }
@@ -77,7 +77,6 @@ function InfoUpdate() {
       setService(copy);
       copy = serviceitem;
     }
-
   }, []);
 
   // console.log(serviceArray, "serviceArray");
@@ -173,7 +172,7 @@ console.log(state)
       for (let service in serviceitem) {
         if (serviceitem[service] === true) {
           // temp = temp + service;
-          let find = serviceOption.find(ele=> ele.content == service).id
+          let find = serviceOption.find(ele=> ele.content === service).id
           temp.push(find)
         }
       }
@@ -442,7 +441,7 @@ console.log(state)
                     <div className="barcontents svclist">
                       {data.serviceOption.split("").map((number) => {
                         for (let el of serviceOption) {
-                          if (number == el.id) {
+                          if (number === el.id) {
                             return (
                               <span className="shopinfo-iconarea-featureitem">
                                 <img

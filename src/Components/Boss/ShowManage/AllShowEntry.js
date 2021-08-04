@@ -48,11 +48,11 @@ function AllShowEntry({ data }) {
   };
  
 
-  const [edit, setEdit] = useState(false);
+  // const [edit, setEdit] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   function toggleModal() {
     setIsOpen(!isOpen);
-    setEdit(false);
+    // setEdit(false);
   }
   return (
     <div>
