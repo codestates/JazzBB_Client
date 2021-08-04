@@ -7,7 +7,7 @@ import {
   SidebarHeader,
   SidebarContent,
 } from "react-pro-sidebar";
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import "react-pro-sidebar/dist/css/styles.css";
 import { FiSidebar, FiHome} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
@@ -19,7 +19,6 @@ import "../../../src/dist/css/comm.css"
 
 
 const Sidebar = () => {
-  const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
   const thisBar = state.barList.find(el => el.id === state.currentJazzbar)
   const [openClose, setOpenClose] = useState(false);

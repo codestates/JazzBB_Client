@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../Sidebar";
-import InputFile from "../ShowManage/InputFile";
+// import InputFile from "../ShowManage/InputFile";
 import { useSelector, useDispatch } from "react-redux";
-import {setBossJazzBar} from "../../redux/new/action";
-import axios from "axios";
+// import {setBossJazzBar} from "../../redux/new/action";
+// import axios from "axios";
 import "./PhotoManage.css";
 import PhotoInput from './PhotoInput'
 
 const PhotoManage = () => {
-  const dispatch = useDispatch;
+  // const dispatch = useDispatch;
   const state = useSelector((state) => state.reducer);
   const jazzbar = useSelector((state) => state.reducer.jazzbar);
   console.log(jazzbar,'jazzbar')
