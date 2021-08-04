@@ -408,11 +408,7 @@ function BInfoManagePage() {
           </div>
         </div>
       ) 
-       {/* : 
-       (
-        <InfoUpdate data={Jazz}></InfoUpdate>
-        ) 
-        }    */}
+       
     </div>
   );
 }

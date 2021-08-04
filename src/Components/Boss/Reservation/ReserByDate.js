@@ -8,10 +8,9 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 function ReserByDate() {
-  const dispatch = useDispatch();
   const userstate = useSelector((state) => state.reducer.user);
-  const BossState = useSelector((state) => state.reducer.reservation);
-  const [date, setDate] = useState("2017-01-01");
+  const BossState = useSelector((state) => state.reducer.bossReservation);
+  const [date, setDate] = useState("2021-08-01");
   let DataPerDate = BossState.filter((el) => el.show.date === date);
   const sort = DataPerDate.sort((a, b) => {
     let x = a.show.time.toLowerCase();
@@ -29,14 +28,9 @@ function ReserByDate() {
   const pending = sort.filter((el) => el.confirm === "pending");
   const [selected, setSelect] = useState(DataPerDate);
 
-  const ChangeDate = (bydate) => {
-    setDate(bydate);
+  const ChangeDate = (e) => {
+    setDate(e.target.value);
   };
-
-  useEffect(() => {
-    ChangeDate(date);
-    return () => {};
-  }, [date]);
 
   let showList = useSelector((state) => state.reducer.BossShowList);
   let showListBySelectedDate = showList.filter((el) => el.date === date);
@@ -100,9 +94,16 @@ function ReserByDate() {
 
   return (
     <div>
-      <div>
-        <DatePick ChangeDate={ChangeDate}></DatePick>
+      <div className="date-box">
+      <div className="date">
+        <div>
+          <span>{date}</span> 
+        </div>
       </div>
+      <div className="datePicker">
+        <input type="date" min="2021-08-01"  onChange={ChangeDate}></input>
+      </div>
+    </div>
 
       <div className="status-box">
         <div //전체 신청
