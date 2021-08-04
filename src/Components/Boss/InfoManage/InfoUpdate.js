@@ -172,7 +172,7 @@ console.log(state)
       for (let service in serviceitem) {
         if (serviceitem[service] === true) {
           // temp = temp + service;
-          let find = serviceOption.find(ele=> ele.content == service).id
+          let find = serviceOption.find(ele=> ele.content === service).id
           temp.push(find)
         }
       }
