@@ -12,58 +12,57 @@ function DatePick({ChangeDate}) {
   const dispatch = useDispatch();
   const BossState = useSelector((state) => state.reducer.boss);
   const Boss_Date = BossState.date;
-
   // const week = ["일", "월", "화", "수", "목", "금", "토"];
-  // const today = new Date();
-  const dateGenerate = (today) => {
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
+  const today = new Date();
+  const dateGenerate = () => {
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
     if(month < 10){
       month = '0' + month
     }
-    let date = today.getDate();
+    var date = today.getDate();
     if(date < 10){
       date = '0'+ date
     }
-    // let day = week[Number(today.getDay())];
-    let fixedDate =
+    // var day = week[Number(today.getDay())];
+    var fixedDate =
       year + "-" + month + "-" + date ;
       // year + "-" + month + "- " + date + "- " + "(" + day + ")";
     return fixedDate;
   };
-  const date = dateGenerate(Boss_Date);
-  // console.log(date,'date')
+  let date = dateGenerate(Boss_Date);
+  console.log(date,'date')
   ChangeDate(date)
+
+  const setDate = (e) =>{
+     console.log(e.target.value)
+  ChangeDate(date)
+
+  }
 
 
   return (
     <div className="date-box">
       <div className="date">
         <div>
-          {/* <span className="arrow back">
-            <BiLeftArrow />
-          </span> */}
           <span>{date}</span> 
-          {/* <span className="arrow front">
-            <BiRightArrow />
-          </span> */}
         </div>
-        {/* <span> </span> */}
       </div>
       <div className="datePicker">
-        <DatePicker
+        <input type="date" min="2021-08-01"  onChange={setDate}></input>
+         {/* <DatePicker
           locale={ko}
           dateFormat="yyyy.MM.dd(eee)"
-          // minDate={new Date()}
           closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
           placeholderText="날짜 변경"
           //  selected={date}	// value
           // placeholderText={date}
-          onChange={(e) => {
-            dispatch(setBossDate(e))
-            
-           }} // 날짜를 선택하였을 때 실행될 함수
-        />
+          // onChange={(e) => {
+          //   // dispatch(setBossDate(e))
+          //   setDate()
+          //  }} // 날짜를 선택하였을 때 실행될 함수
+          onChange={setDate}
+        /> */}
       </div>
     </div>
   );
