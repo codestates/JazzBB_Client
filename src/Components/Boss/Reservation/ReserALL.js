@@ -119,6 +119,7 @@ function ReserAll() {
       <div className="rv-info">
         <div className="rv-info-contents">예약정보</div>
         <table id="customers">
+        <tbody>
           <tr>
             <th>예약 번호</th>
             <th>공연날짜</th>
@@ -129,13 +130,14 @@ function ReserAll() {
             <th>남은 좌석</th>
             <th>승인상태</th>
           </tr>
+          </tbody>
 
           {selected.length === 0
             ? BossState.map((el) => (
-                <ReserTable data={el} confirmAlert={statusAlert}></ReserTable>
+                <ReserTable key={el.id}data={el} confirmAlert={statusAlert}></ReserTable>
               ))
             : selected.map((el) => (
-                <ReserTable data={el} confirmAlert={statusAlert}></ReserTable>
+                <ReserTable key={el.id} data={el} confirmAlert={statusAlert}></ReserTable>
               ))}
         </table>
       </div>

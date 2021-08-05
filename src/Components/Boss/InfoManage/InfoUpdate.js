@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { setToken, setBossJazzBar } from "../../redux/new/action";
+import { setToken } from "../../redux/new/action";
 import {Link} from 'react-router-dom'
 import "./infoupdate.css";
 
@@ -16,6 +16,7 @@ function InfoUpdate() {
   const barList = useSelector((state) => state.reducer.barList);
   const jazzBarId = useSelector((state) => state.reducer.jazzBarId);
   const bardata = barList.filter((el) => el.id === initialState.jazzBarId);
+  console.log(bardata,'bardata')
   let data;
   if (bardata === []) {
     data = null;
@@ -37,6 +38,14 @@ function InfoUpdate() {
     심야영업: false,
     온라인예약가능: false,
   });
+  let searchAddress;
+  let detailAddress;
+  if(data.address){
+    let frontIndex = data.address.lastIndexOf(")")+1
+    searchAddress=data.address.substring(0,frontIndex)
+    detailAddress = data.address.substring(frontIndex, data.address.length)
+  }
+
   const [alertMsg, setalertMsg] = useState("");
   const [gps, setGps] = useState({ gpsX: data.gpsX, gpsY: data.gpsY });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -50,14 +59,17 @@ function InfoUpdate() {
   };
   // const serviceArray = Object.keys(serviceitem);
 
+  const [start, end] = data.openTime.split('-')
+
   useEffect(() => {
     console.log(data)
+  setState({...state, open : start, close: end, addressFront :searchAddress, addressETC : detailAddress})
     if (data.serviceOption !== null) {
       let copy = serviceitem;
       const yap = data.serviceOption.split("");
       yap.map((number) => {
         for (let el of serviceOption) {
-          if (number == el.id) {
+          if (number === el.id) {
             return (copy[el.content] = true);
           }
         }
@@ -74,6 +86,10 @@ function InfoUpdate() {
   const handleEditActive = () => {
     setEdit(true);
   };
+
+  const closeActive = () =>{
+    setEdit(false)
+  }
 
   const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
   const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
@@ -109,8 +125,8 @@ function InfoUpdate() {
   const [bannerDetail, setBannerDetail] = useState([]);
 
   const handleBannerImg = (e) => {
-    console.log(banners,'banners')
-    console.log(bannerDetail,'bannerDetail')
+    // console.log(banners,'banners')
+    // console.log(bannerDetail,'bannerDetail')
     const BannerArr = e.target.files;
     setBanner([...BannerArr]);
     let fileURLs = [];
@@ -125,20 +141,44 @@ function InfoUpdate() {
   };
 
   const handleInput = (e) => {
+console.log(state)
+
     const targetName = e.target.name;
+    const targetId = e.target.id;
+    // console.log(targetId)
+    // console.log(e.target.value)
     if (targetName === "serviceOption") {
       const {
         target: { checked },
       } = e;
       setService({ ...serviceitem, [e.target.id]: checked });
-      console.log(serviceitem);
-    } else {
-      setState({ ...state, [targetName]: e.target.value });
-      console.log(state);
+    } else if (targetName === "openTime") {
+      if(targetId === 'open'){
+        setState({...state, [targetId] : e.target.value})
+      }else if(targetId === 'close'){
+        setState({...state, [targetId] : e.target.value})
+      }
     }
+    else {
+      setState({ ...state, [targetName]: e.target.value });
+    }
+    // console.log(state);
+
   };
 
   const handleSubmit = () => {
+    let temp = [];
+    if (serviceitem !== []) {
+      for (let service in serviceitem) {
+        if (serviceitem[service] === true) {
+          // temp = temp + service;
+          let find = serviceOption.find(ele=> ele.content === service).id
+          temp.push(find)
+        }
+      }
+      temp = temp.join(',')
+    }
+    console.log(temp,"temp")
     console.log(state,'state')
     if (banner.length !== 0) {
       const formDataBanner = new FormData();
@@ -160,6 +200,7 @@ function InfoUpdate() {
         { state, jazzBarId }
       );
     }
+
     if (
       state.addressFront === undefined ||
       state.addressETC === undefined ||
@@ -176,15 +217,15 @@ function InfoUpdate() {
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
-      // setState({
-      //   ...state,
-      //   serviceOption: serviceitem,
-      //   // area : `${area[0]+area[1]}`,
-      //   address: state.addressFront + " " + state.addressETC,
-      //   thumbnail: state.bannerPhoto,
-      //   gpsX: gps.gpsX,
-      //   gpsY: gps.gpsY,
-      // });
+      setState({
+        ...state,
+        serviceOption: temp,
+        address: state.addressFront + " " + state.addressETC,
+        // thumbnail: state.bannerPhoto,
+        gpsX: gps.gpsX,
+        gpsY: gps.gpsY,
+        openTime : state.open + "-" + state.close,
+      });
       const newForm = new FormData();
       newForm.append("thumbnail", banners[0]);
       newForm.append("barName", state.barName);
@@ -193,13 +234,11 @@ function InfoUpdate() {
       newForm.append("gpsX", gps.gpsX);
       newForm.append("gpsY", gps.gpsY);
       newForm.append("address", state.addressFront + " " + state.addressETC);
-      newForm.append("serviceOption", serviceitem);
+      newForm.append("serviceOption", temp);
       newForm.append("mobile", state.mobile);
-      newForm.append("openTime", state.openTime);
+      newForm.append("openTime", state.open + "-" + state.close);
       newForm.append("jazzbarId", initialState.jazzBarId);
       for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
-
-   
     axios
       .post(process.env.REACT_APP_DB_HOST + "/jazzbarUpdate", newForm, {
         headers: {
@@ -226,8 +265,17 @@ function InfoUpdate() {
       //     }
       //   )
       // );
+    closeActive()
+
     }
+
+    
   };
+ 
+  
+
+
+
 
   return (
     <div>
@@ -263,12 +311,12 @@ function InfoUpdate() {
                 <input
                   className="barcontents inputform"
                   type="text"
-                  defaultValue={data.barName}
+                  defaultValue={state.barName}
                   onChange={handleInput}
                   name="barName"
                 ></input>
               ) : (
-                <div className="barcontents">{data.barName}</div>
+                <div className="barcontents">{state.barName}</div>
               )}
             </div>
 
@@ -279,12 +327,20 @@ function InfoUpdate() {
                   <input
                     className="adrform inputform"
                     type="text"
-                    defaultValue={data.address}
+                    defaultValue={state.addressFront}
                     onChange={handleInput}
                     value={state.addressFront}
                     name="address"
                     readOnly
                   ></input>
+                   <input
+                      className="inputform"
+                      type="text"
+                      placeholder="상세주소"
+                      name="addressETC"
+                      defaultValue={state.addressETC}
+                      onChange={handleInput}
+                    ></input>
                   <button
                     className="adrbtn"
                     type="button"
@@ -304,19 +360,9 @@ function InfoUpdate() {
                       </PopupDom>
                     )}
                   </div>
-                  {!!openAddressEtc ? (
-                    <input
-                      className="inputform"
-                      type="text"
-                      placeholder="상세주소"
-                      name="addressETC"
-                      // defaultValue={data.addressETC}
-                      onChange={handleInput}
-                    ></input>
-                  ) : null}
                 </div>
               ) : (
-                <div className="barcontents">{data.address}</div>
+                <div className="barcontents">{state.address}</div>
               )}
             </div>
 
@@ -326,27 +372,26 @@ function InfoUpdate() {
                 <input
                   className="barcontents inputform"
                   type="text"
-                  defaultValue={data.mobile}
+                  defaultValue={state.mobile}
                   onChange={handleInput}
                   name="mobile"
                 ></input>
               ) : (
-                <div className="barcontents">{data.mobile}</div>
+                <div className="barcontents">{state.mobile}</div>
               )}
             </div>
 
             <div className="barMobile boxop">
               <div className="barlabel">영업시간</div>
               {editActive ? (
-                <input
-                  className="barcontents inputform"
-                  type="text"
-                  defaultValue={data.openTime}
-                  onChange={handleInput}
-                  name="mobile"
-                ></input>
+                <>
+                {/* className="barcontents inputform" */}
+                <input className ="" id="open" type="time" name="openTime"  onChange={handleInput} defaultValue={start}></input>
+                ~
+                <input className ="" id="close" type="time" name="openTime"  onChange={handleInput} defaultValue={end}></input>
+                </>
               ) : (
-                <div className="barcontents">{data.openTime}</div>
+                <div className="barcontents">{state.openTime}</div>
               )}
             </div>
 
@@ -356,12 +401,12 @@ function InfoUpdate() {
                 <input
                   className="barcontents inputform"
                   type="number"
-                  defaultValue={data.defaultSeat}
+                  defaultValue={state.defaultSeat}
                   onChange={handleInput}
                   name="defaultSeat"
                 ></input>
               ) : (
-                <div className="barcontents">{data.defaultSeat}</div>
+                <div className="barcontents">{state.defaultSeat}</div>
               )}
             </div>
 
@@ -396,7 +441,7 @@ function InfoUpdate() {
                     <div className="barcontents svclist">
                       {data.serviceOption.split("").map((number) => {
                         for (let el of serviceOption) {
-                          if (number == el.id) {
+                          if (number === el.id) {
                             return (
                               <span className="shopinfo-iconarea-featureitem">
                                 <img
