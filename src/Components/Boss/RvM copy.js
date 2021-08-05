@@ -100,7 +100,7 @@ function BreservationPage() {
         <div className="content">
           <div className="content-title">예약관리</div>
 
-          <hr class="hrcss"></hr>
+          <hr className="hrcss"></hr>
 
           <div className="date-box">
             <div className="date">

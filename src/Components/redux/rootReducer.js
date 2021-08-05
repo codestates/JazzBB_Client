@@ -1,11 +1,7 @@
 import {combineReducers} from 'redux'
 import reducer from './new/reducer'
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-
-const rootReducer = combineReducers({
-    reducer
-})
+import storage from 'redux-persist/lib/storage/session';
 
 const persistConfig = {
   key: 'root',
@@ -13,6 +9,11 @@ const persistConfig = {
   whitelist: ["reducer"],
   timeout: null,
 };
+
+const rootReducer = combineReducers({
+    reducer:reducer,
+})
+
 
 export default persistReducer(persistConfig, rootReducer)
 // export default rootReducer
