@@ -476,9 +476,9 @@ function InfoUpdate() {
                     // banners.length !== 0 ? (
                     // banners.map((el) => (
                     <img
-                      className="bannerthumbnail"
+                      // className="bannerthumbnail"
                       src={data.thumbnail}
-                      alt=""
+                      alt="thumbnail"
                     />
                   )
                   // ))
