@@ -45,12 +45,11 @@ export default function CustomizedSelects({ data, imgFile }) {
   });
   const [player, setPlayer] = React.useState(data.player);
   const [inputValue, SetInputValue] = useState({...data,});
-  const [name, setName] = useState(player);
   const playerArr = Object.keys(state);
   const defaultPlayer = Object.keys(data.player)
   
   const findName = (el) =>{
-    if(defaultPlayer.find(ele => ele == el) === undefined){
+    if(defaultPlayer.find(ele => ele === el) === undefined){
         return null;
     }else{
       return data.player[el]

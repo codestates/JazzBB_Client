@@ -1,13 +1,18 @@
+
+
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import {
   modifySwitch,
-  deleteState,
   isLogin,
   saveThisHistory,
   Reset,
+  setUser,
+  setToken,
+  setJazzId,
+  modifyUser
 } from "./redux/new/action";
 import Modal from "react-modal";
 import "./Nav.css";
@@ -16,9 +21,6 @@ function Nav() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
   let history = useHistory();
-
-  useEffect(() => {
-  }, [state.token]);
 
   const loginModalSwitch = (login) => {
     dispatch(modifySwitch(login));
@@ -45,13 +47,32 @@ function Nav() {
     history.push("/service");
   };
 
-  const kakaoLogin = () => {
-    console.log('kakaoLogin')
-    dispatch(modifySwitch("loginModal"));
-    window.location.assign(
-      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_OAUTH}&redirect_uri=https://localhost:3000&response_type=code`
-    );
-  };
+  const loginWithKakao = () => {
+    window.Kakao.Auth.login({
+      success: (authObj) => {
+        const { access_token, refresh_token } = authObj;
+        axios.post(process.env.REACT_APP_DB_HOST+'/login', { access_token, refresh_token })
+         .then(res =>{
+          if(res.data.data.jazzbarId){
+            dispatch(setJazzId(res.data.data.jazzBarId));
+          };
+          const userinfo = res.data.data.userinfo;
+          dispatch(setUser(userinfo));
+          dispatch(setToken(access_token));
+          dispatch(isLogin(true));
+          dispatch(modifyUser(userinfo.username, 'username'));
+          dispatch(modifyUser(userinfo.mobile, 'mobile'));
+          dispatch(modifyUser(userinfo.usertype, 'usertype'));
+          loginModalSwitch("loginModal");
+          history.push('/')
+         })
+         .catch(err => console.log(err))
+      },
+      fail: (err) => {
+        console.log(err);
+      },
+    })
+  }
 
   return (
     <div className="navi">
@@ -122,22 +143,24 @@ function Nav() {
             </div>
             <div className="login-modal-body">
               <img
-                class="login-modal-logo"
+                className="login-modal-logo"
                 src="/img/resource/jazzbb_logo_black.png"
               />
-              <div class="login-modal-label">간편하게 로그인하고</div>
-              <div class="login-modal-label">다양한 서비스를 이용해보세요</div>
+              <div className="login-modal-label">간편하게 로그인하고</div>
+              <div className="login-modal-label">다양한 서비스를 이용해보세요</div>
 
               <img
-                class="login-modal-btn-kakao-login"
-                src="/img/resource/kakao_login.png"
-                onClick={() => kakaoLogin()}
-              />
+                className="login-modal-btn-kakao-login"
+                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+                width="222"
+                onClick={()=> loginWithKakao()}
+                />
               <img
                 class="login-modal-btn-kakao-signup"
                 src="/img/resource/kakao_start.png"
-                onClick={() => kakaoLogin()}
+                onClick={() => loginWithKakao()}
               />
+
             </div>
           </div>
         </Modal>
@@ -148,12 +171,12 @@ function Nav() {
         >
           <div className="login-modal-box">
             <div className="login-modal-body">
-              <div class="login-modal-label">잘못된 접근입니다.</div>
-              <div class="login-modal-label">
+              <div className="login-modal-label">잘못된 접근입니다.</div>
+              <div className="login-modal-label">
                 재즈바 사장님만 이용할 수 있는 페이지 입니다.
               </div>
               <img
-                class="login-modal-btn-kakao-login"
+                className="login-modal-btn-kakao-login"
                 src="/resource/goHome.png"
                 onClick={() => goHome()}
               />

@@ -8,14 +8,14 @@ function NotFound() {
 
    
 
-    <div class="mainbox">
+    <div className="mainbox">
         <div className="boxwrapper">
-            <div class="err">4</div>
-            <i class="far fa-question-circle fa-spin"></i>
-            <div class="err2">4</div>
+            <div className="err">4</div>
+            <i className="far fa-question-circle fa-spin"></i>
+            <div className="err2">4</div>
         </div>
         
-        <div class="msg">요청하신 페이지를 찾을 수 없습니다</div>
+        <div className="msg">요청하신 페이지를 찾을 수 없습니다</div>
     </div>
 
 

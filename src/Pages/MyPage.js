@@ -24,24 +24,20 @@ import "../css/mypage.css"
        const token1 = res.data.data.accessToken;
        const info = res.data.data.userinfo;
        dispatch(setUser(info));
-       console.log(token1,'1')
        dispatch(setToken(token1));
      })
       await axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', 
       { userId: state.user.id }, 
       { headers: { authorization: state.token }, withCredentials: true })
       .then(res => {
-       console.log(res.data,'res.data') //비어있음
         const token2 = res.data.data.accessToken;
         const reservation = res.data.data.list;
-        console.log(token2,'2')
         dispatch(setList(reservation, 'reservation'));
         // dispatch(setToken(token2))
       })
     
     await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
-      console.log(res.data.data,'3')
        const review = res.data.data.list;
        dispatch(setList(review, 'reviewList'));
      })
@@ -52,15 +48,14 @@ import "../css/mypage.css"
   }
 
   const changeState = (event, variety) => {
-    console.log(event.target.value)
     dispatch(modifyUser(event.target.value, variety));
   }
 
   const handleModifyUser = (variety) => {
     dispatch(modifyFinish());
-    axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', { ...state.user }, { headers: { authorization: state.token }, withCredentials: true })
+    axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', { ...state.user, ...state.modifyUser }, { headers: { authorization: state.token }, withCredentials: true })
       .then(res => {
-
+        console.log(res.data.data)
         const token4 = res.data.data.accessToken;
         dispatch(setToken(token4));
         dispatch(modifySwitch(variety));
@@ -195,8 +190,8 @@ import "../css/mypage.css"
                 return (
                 !el ? null : 
                   <div className="recentreview-body">
-                    <div className="recentreview-body-info-date">{el.createdAt}</div>
-                    {/* <div className="recentreview-body-info-name">{el.jazzbar.barName}</div> */}
+                    <div className="recentreview-body-info-date">{el.createdAt.replace(/-/g, '.').slice(0,10) + '.'}</div>
+                    <div className="recentreview-body-info-name">{el.jazzbar.barName}</div>
                     <div className="recentreview-body-info-text">{el.content}</div>
                   </div>
                 )

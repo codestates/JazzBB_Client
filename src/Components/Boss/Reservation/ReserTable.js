@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 
 function ReserTable({ data, confirmAlert }) {
@@ -19,8 +18,9 @@ function ReserTable({ data, confirmAlert }) {
    
   }
   else{
-    const [start, end] = data.show.time.split('-')
+    const [start] = data.show.time.split('-')
     return (
+      <tbody>
       <tr>
         <td>{data.id}</td>
         <td>{data.show.date}</td>
@@ -41,6 +41,7 @@ function ReserTable({ data, confirmAlert }) {
           
         )}
       </tr>
+      </tbody>
     );
 
   }

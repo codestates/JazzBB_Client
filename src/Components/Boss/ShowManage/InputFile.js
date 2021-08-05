@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import "./ShowManage.css";
 
 //img url 생성과 state에 set해주는 기능 필요.

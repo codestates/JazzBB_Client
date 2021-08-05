@@ -14,7 +14,7 @@ function BshowPage() {
       <div className="bossHeader"><img src="/img/tokyoJazz.jpg" alt=""/></div>
       <div className="content">
       <div className="content-title">공연 관리</div>
-        <hr class="hrcss"></hr>
+        <hr className="hrcss"></hr>
         <DatePick></DatePick>
 
         <div className="show-box">

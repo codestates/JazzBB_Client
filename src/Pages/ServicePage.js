@@ -31,7 +31,8 @@ function Service () {
     await axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
      .then(async res => {
        const list = res.data.data;
-       await dispatch(setList(list, 'barList'));
+       dispatch(setList(list, 'barList'));
+       console.log('dlkfnsdlcnsdknvdsnvkl')
       })
       .catch(err => console.log(err))
       
@@ -48,8 +49,6 @@ function Service () {
         // console.log(res)
         const showList = res.data.data;
         dispatch(addEveryShowList(showList));
-      })
-      .then(() => {
       })
       .catch(err => console.log(err))
     }, [])
@@ -111,6 +110,7 @@ function Service () {
                       
 
                       {
+                        state.everyShowList.length !== 0 ?
                         state.everyShowList.map(el => {
                           return el.date === thisDate ?
                              (
@@ -142,6 +142,7 @@ function Service () {
                           :
                           null
                         })
+                        : null
                       }
 
 
@@ -167,6 +168,7 @@ function Service () {
                             <div className="service-popular-contents">
 
                                 {
+                                  state.boardList.length !== 0 ?
                                   state.boardList.reverse().map(el => {
                                     return (
                                       <Link to="/posting" className="service-popular-object" onClick={()=> goPosting(el)}>
@@ -181,6 +183,7 @@ function Service () {
                                       </Link>
                                     )
                                   })
+                                  : null
                                 }
                             </div>
                         </div>
@@ -201,7 +204,7 @@ function Service () {
                             <div className="service-newResOpen-contents">
                                 {
 
-                                  state.barList ? 
+                                  state.barList.length !== 0 ? 
                                   state.barList.reverse().map((el) => {
                                     return (
                                     <Link to="/jazzbar" key={el.id} className="service-newResOpen-object" onClick={()=> goJazzbar(el)}>

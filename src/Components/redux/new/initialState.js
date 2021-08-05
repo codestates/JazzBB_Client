@@ -3,19 +3,13 @@ const initialState = {
   isLogin: false,
   currentPage: '/service',
   history: [],
-  firstCheck: false,
-  token: false,
+
+
   search: null,
   searchOption: null,
   searchData: null,
   AllPage : true,
-  user: {
-    id: '',
-    userId: '',
-    username: '',
-    mobile: '',
-    usertype: false,
-  },
+
   modifyUser:{mobile : null, username: null, usertype: null},
   everyShowList : [
   ],
@@ -81,7 +75,7 @@ jazzBarId : null,
     {
       id: '4',
       img: '/resource/room.png',
-      content: '개별룸'
+      content: '개별룸' //1234 
     },
     {
       id: '5',
