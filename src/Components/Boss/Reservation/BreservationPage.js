@@ -58,7 +58,7 @@ const BreservationPage = () => {
         {/* <div className="bossHeader"><img src="/img/tokyoJazz.jpg" alt=""/></div> */}
         <div className="content">
           <div className="content-title">예약 관리</div>
-          <hr class="hrcss"></hr>
+          <hr className="hrcss"></hr>
           <ReserHeader set={set} unset={unset} all={All}></ReserHeader>
         </div>
       </div>

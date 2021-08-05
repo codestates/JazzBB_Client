@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import { setList, typeText, modifySwitch, saveMyId, setShow, setToken, saveThisHistory, setCurrentPage} from "../Components/redux/new/action";
@@ -9,16 +9,29 @@ import "../css/shopinfo.css"
 
 
 function JazzBar(){ 
-  const { kakao } = window; 
+  const { Kakao } = window; 
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  const jazzbar = state.jazzbar;
+  const thisBar = state.barList.find(el => el.id === state.currentJazzbar);
+  let thisDate = new Date().toLocaleDateString().replace(/\. /g,'-').replace(/\./g,'');
+  if(thisDate[6] === '-'){
+    let front = thisDate.slice(0,5);
+    let tail = thisDate.slice(5);
+    thisDate = front + 0 + tail;
+  }
+  if(thisDate[thisDate.length-2] === '-'){
+    let front = thisDate.slice(0,8);
+    let tail = thisDate.slice(8);
+    thisDate = front + 0 + tail;
+  }
+  let thisTime = new Date().toTimeString().slice(0,5).replace(':','');
+  let curTime = thisDate + thisTime;
 
 
   useEffect(async ()=>{
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    // console.log("dskvnsdovnsdklnsdlknsdvnk")
+    console.log("dskvnsdovnsdklnsdlknsdvnk")
     await axios.post(process.env.REACT_APP_DB_HOST + '/showRead', {jazzbarId: state.currentJazzbar})
      .then(res => {
        const list = res.data.data;
@@ -35,6 +48,7 @@ function JazzBar(){
   
      await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.currentJazzbar})
      .then(res => {
+       console.log(res.data.data)
        const reviewList = res.data.data.list;
        dispatch(setList(reviewList, 'reviewList'));
      })
@@ -42,13 +56,13 @@ function JazzBar(){
   },[])
 
 
-  const getPlayer = (player) =>{
-   player = JSON.parse(player)
-   for (let position in player){
-     return (<div>{`${position} : ${player[position]}`}</div>)
-   }
+  // const getPlayer = (player) =>{
+  //  player = JSON.parse(player)
+  //  for (let position in player){
+  //    return (<div>{`${position} : ${player[position]}`}</div>)
+  //  }
 
-  }
+  // }
   const typingReview = (e, variety) => {
     dispatch(typeText(e.target.value, variety));
   }
@@ -57,8 +71,10 @@ function JazzBar(){
     if(!state.isLogin) {
       alert('로그인 후 리뷰 작성이 가능합니다.');
       dispatch(modifySwitch('loginModal'));
-    } else {
-      console.log(state.user)
+    } else if (!state.review.point || !state.review.content) {
+      alert('별점과 댓글을 모두 작성해주세요.');
+    }
+    else {
       await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate',{
         jazzbarId: state.currentJazzbar, 
         point: state.review.point, 
@@ -72,9 +88,9 @@ function JazzBar(){
 
       await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {jazzbarId: state.currentJazzbar})
        .then(res => {
-         const reviewList = res.data.data;
+         const reviewList = res.data.data.list;
          dispatch(setList(reviewList, 'reviewList'));
-         typingReview({target:{value:''}}, 'content')
+         dispatch(typeText('', 'content'));
        })
        .catch(err => console.log(err))
     }
@@ -121,27 +137,27 @@ function JazzBar(){
     dispatch(modifySwitch('menuModal'))
   }
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(!modalIsOpen);
     if(modalIsOpen){
-   console.log(state.jazzbar.gpsY)
+      console.log(thisBar.gpsY)
     }
   }
 
   // useEffect(()=>{
   //   var container = document.getElementById('map');
-  //   let gpsY = jazzbar.gpsY
-  //   let gpsX = jazzbar.gpsX
+  //   let gpsY = thisBar.gpsY
+  //   let gpsX = thisBar.gpsX
   //   var options = {
-  //     center: new kakao.maps.LatLng(gpsY, gpsX),
+  //     center: new Kakao.maps.LatLng(gpsY, gpsX),
   //     level: 3
   //   };
 
-  //   var map = new kakao.maps.Map(container, options);
-  //   var markerPosition  = new kakao.maps.LatLng(gpsY, gpsX); 
-  //   var marker = new kakao.maps.Marker({
+  //   var map = new Kakao.maps.Map(container, options);
+  //   var markerPosition  = new Kakao.maps.LatLng(gpsY, gpsX); 
+  //   var marker = new Kakao.maps.Marker({
   //     position: markerPosition
   // });
   // marker.setMap(map);
@@ -161,32 +177,34 @@ function JazzBar(){
         <div className="shopinfo-header">
 
           <div className="shopinfo-header-imgarea">
-            <img className="shopinfo-header-img" src={state.barList.find(el => el.id === state.currentJazzbar)? state.barList.find(el => el.id === state.currentJazzbar).thumbnail : "/resource/jazzbb_logo_black.png"} alt="headerimg" />
+            <img className="shopinfo-header-img" src={thisBar? thisBar.thumbnail : "/resource/jazzbb_logo_black.png"} alt="headerimg" />
           </div>
 
           <div className="shopinfo-header-infoarea">
-            <div className="shopinfo-header-infoarea-shopname">{state.barList.find(el => el.id === state.currentJazzbar).barName}</div>
+            <div className="shopinfo-header-infoarea-shopname">{thisBar.barName}</div>
             <div className="shopinfo-header-infoarea-geo">
-              <div className="shopinfo-header-infoarea-location">{state.barList.find(el => el.id === state.currentJazzbar).area}</div>
+              <div className="shopinfo-header-infoarea-location">{thisBar.area}</div>
               <button className="shopinfo-header-infoarea-tmapbtn" onClick={openModal}>지도 위치 보기</button>
             </div>
 
       {!modalIsOpen  ?  <div id="map" onClick={closeModal} style={{width:"100%", height:"400px", display:"none"}}></div> : <div id="map"onClick={closeModal} style={{width:"100%", height:"400px"}}></div>}
 
-            <div className="shopinfo-header-infoarea-phone">{state.barList.find(el => el.id === state.currentJazzbar).mobile}</div>
-            <div className="shopinfo-header-infoarea-time">{state.barList.find(el => el.id === state.currentJazzbar).openTime.replace('-','~')}</div>
+            <div className="shopinfo-header-infoarea-phone">{thisBar.mobile}</div>
+            <div className="shopinfo-header-infoarea-time">{thisBar.openTime.replace('-','~')}</div>
 
             <div className="shopinfo-header-infoarea-ratingarea">
               <div className="shopinfo-header-infoarea-ratingarea-star">⭐</div>
-              <div className="shopinfo-header-infoarea-ratingarea-rate">{state.barList.find(el => el.id === state.currentJazzbar).rating}</div>
+              <div className="shopinfo-header-infoarea-ratingarea-rate">{thisBar.rating}</div>
             </div>
 
           </div>
         </div>
 
-        <div className="shopinfo-iconarea">
           {
-            state.barList.find(el => el.id === state.currentJazzbar).serviceOption.split('').map(number => {
+            thisBar.serviceOption ? 
+        <div className="shopinfo-iconarea">
+            {
+            thisBar.serviceOption.split('').map(number => {
               for(let option of state.serviceOption){
                 if(number === option.id){
                   return (
@@ -198,8 +216,10 @@ function JazzBar(){
                 }
               }
             })
-          }
+            }
         </div>
+            : null
+          }
 
 
         <div className="shopinfo-menuarea">
@@ -222,11 +242,13 @@ function JazzBar(){
             
             <div className="shopinfo-menu-object-photobox">
             {
+              state.menu.length !== 0 ?
               state.menu.map(el => {
                 return (
                     <img className="shopinfo-menu-object-img" src={el.thumbnail}></img>
                 )
               })
+              : null
             }
             </div>
           </div>
@@ -245,9 +267,10 @@ function JazzBar(){
               <div className="v-scroll-inner">
                 <div className="shopinfo-reservation-contents">
                   {
+                    state.showList.length !== 0 ?
                   state.showList.map(el => {
                     return (
-
+                      Number(el.date.replace(/-/g,'') + el.time.replace(':','')) - Number(curTime) >= 0 ?
                       <Link to="/reservation" onClick={()=> goReservation(el)}>
                       <div className="shopinfo-reservation-object" >
                         <a className="shopinfo-reservation-object-photobox" href="#">
@@ -255,16 +278,16 @@ function JazzBar(){
                         </a>
 
                         <div className="shopinfo-reservation-object-footer">
-                          <div className="shopinfo-reservation-object-footer-label">{getPlayer(el.player)}</div>
+                          {/* <div className="shopinfo-reservation-object-footer-label">{getPlayer(el.player)}</div> */}
                           <div className="shopinfo-reservation-object-footer-name">{`${el.date} ${el.time}`}</div>
                           <div className="shopinfo-reservation-object-footer-text">{el.content}</div>
                         </div>
                       </div>
                     </Link>
-
-
+                    : null
                     )
                   })
+                  : null
                   }
                 </div>
               </div>
@@ -289,11 +312,12 @@ function JazzBar(){
             </div>
 
             {
+              state.reviewList.length !== 0 ?
               state.reviewList.map(el => {
-                return el.username !== state.user.username ? 
+                return !state.user || el.user.username !== state.user.username ? 
                 (
                 <div className="shopinfo-review-body-data">
-                  <div className="shopinfo-review-body-data-username">{el.username}</div>
+                  <div className="shopinfo-review-body-data-username">{el.user.username}</div>
                   <div className="shopinfo-review-body-data-rate">{el.point}</div>
                   <div className="shopinfo-review-body-data-review">{el.content}</div>
                 </div>
@@ -317,7 +341,7 @@ function JazzBar(){
                       ) : state.togle.reviewDelete ?
                     (
                     <div className="shopinfo-review-body-data">
-                      <div className="shopinfo-review-body-data-username">{el.username}</div>
+                      <div className="shopinfo-review-body-data-username">{el.user.username}</div>
                       <div className="shopinfo-review-body-data-rate">{el.point}</div>
                       <div className="shopinfo-review-body-data-review">{el.content}</div>
                       <div className="shop-info-review-modify-form">
@@ -328,7 +352,7 @@ function JazzBar(){
                     </div>
                     ) : (
                     <div className="shopinfo-review-body-data">
-                      <div className="shopinfo-review-body-data-username">{el.username}</div>
+                      <div className="shopinfo-review-body-data-username">{el.user.username}</div>
                       <div className="shopinfo-review-body-data-rate">{el.point}</div>
                       <div className="shopinfo-review-body-data-review">{el.content}</div>
                       <div className="shop-info-review-modify-form">
@@ -341,6 +365,7 @@ function JazzBar(){
                   </>
                 )
               })
+              : null
             }
 
             <div className="shopinfo-review-form">
@@ -365,3 +390,6 @@ function JazzBar(){
 }
 
 export default JazzBar;
+
+
+

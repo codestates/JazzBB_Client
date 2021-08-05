@@ -75,7 +75,7 @@ jazzBarId : null,
     {
       id: '4',
       img: '/resource/room.png',
-      content: '개별룸'
+      content: '개별룸' //1234 
     },
     {
       id: '5',
