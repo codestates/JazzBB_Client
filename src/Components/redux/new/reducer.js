@@ -40,6 +40,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
 
     case SET_JAZZID_BOSS:
+      console.log(payload.id,'payload.id')
       return Object.assign({}, state, {
         jazzBarId: payload.id },
       );

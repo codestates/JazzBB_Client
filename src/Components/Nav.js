@@ -53,8 +53,9 @@ function Nav() {
         const { access_token, refresh_token } = authObj;
         axios.post(process.env.REACT_APP_DB_HOST+'/login', { access_token, refresh_token })
          .then(res =>{
+           console.log(res.data,'nav res.data')
           if(res.data.data.jazzbarId){
-            dispatch(setJazzId(res.data.data.jazzBarId));
+            dispatch(setJazzId(res.data.data.jazzbarId));
           };
           const userinfo = res.data.data.userinfo;
           dispatch(setUser(userinfo));
