@@ -29,8 +29,8 @@ import {
   SET_JAZZID_BOSS,
   FINISH_ACTION,
   SET_CURRENT_PAGE,
-  SAVE_REDUCER,
-  RESET
+  RESET,
+  SET_BOSS_MENU
 } from "./action";
 import initialState from "./initialState";
 import ResetState from './ResetState'
@@ -40,10 +40,14 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
 
     case SET_JAZZID_BOSS:
-      console.log(payload.id,'payload.id')
       return Object.assign({}, state, {
         jazzBarId: payload.id },
       );
+
+      case SET_BOSS_MENU:
+        return Object.assign({}, state, {
+          menu: payload.id },
+        );
 
     case SET_TOKEN:
       return Object.assign({}, state, {
