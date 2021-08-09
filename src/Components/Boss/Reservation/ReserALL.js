@@ -39,48 +39,6 @@ function ReserAll() {
     }
   };
 
-  // const statusAlert = (e, data) => {
-  //   let changedStatus = e.target.name;
-  //   console.log(e.target.name)
-  //    console.log(data,'confirmAlert data')
-
-  //   confirmAlert({
-  //     title: `${changedStatus === "confirmed" ? "승인" : "거절"} 하시겠습니까?`,
-  //     // message: ,
-  //     buttons: [
-  //       {
-  //         label: "예",
-  //         onClick: (e) => {
-  //           axios
-  //             .post(
-  //               process.env.REACT_APP_DB_HOST + "/reservationUpdate",
-  //               {
-  //                 id: data.id,
-  //                 confirm: changedStatus,
-  //                 people : data.people,
-  //                 showId : data.show.id
-  //               }
-  //               ,
-  //              { headers: {
-  //                 authorization: userstate.token,
-  //               },
-  //               withCredentials: true,}
-  //             )
-  //             .then((res) => {
-  //               const token = res.data.data.accessToken;
-  //               dispatch(setToken(token));
-  //               dispatch(setBossReservationList)
-  //             })
-  //             .then(window.location.reload(true))
-  //             .catch((err) => console.log(err));
-  //         },
-  //       },
-  //       {
-  //         label: "아니요",
-  //       },
-  //     ],
-  //   });
-  // };
 
   return (
     <div>
