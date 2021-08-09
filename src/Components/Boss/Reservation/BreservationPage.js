@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -12,21 +12,10 @@ import "../RvManage.css";
 const BreservationPage = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
-  const [All, SetNotAll] = React.useState(true);
-  const set = () => {
-    SetNotAll(true);
-  };
-
-  const unset = () => {
-    SetNotAll(false);
-  };
-
   useEffect(() => {
-    console.log('reservationa')
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
     .then(res => {
       const jazzbarList = res.data.data;
-      console.log(jazzbarList,'!!!!!!!')
       const jazzbardata = jazzbarList.filter(el => el.id === state.jazzbarId)
     dispatch(setBossJazzBar(jazzbardata[0]));
     })
@@ -38,14 +27,12 @@ const BreservationPage = () => {
         withCredentials: true,
       }) 
       .then(res =>{
-        console.log(res.data)
         const list = res.data.data.list;
         dispatch(setBossReservationList(list))
          const token = res.data.data.accessToken;
         dispatch(setToken(token));
       } 
       )
-       
       )
       .catch(err => console.log(err))
   },[])
@@ -59,7 +46,7 @@ const BreservationPage = () => {
         <div className="content">
           <div className="content-title">예약 관리</div>
           <hr className="hrcss"></hr>
-          <ReserHeader set={set} unset={unset} all={All}></ReserHeader>
+          <ReserHeader ></ReserHeader>
         </div>
       </div>
     </div>

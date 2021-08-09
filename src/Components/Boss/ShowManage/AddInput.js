@@ -85,7 +85,6 @@ export default function CustomizedSelects({handleInputChange}) {
             name = "date"
             label="공연날짜"
             type="date"
-            defaultValue="2021-07-01"
             className={classes.textField}
             onChange={handleInputChange}
             InputLabelProps={{
@@ -100,7 +99,6 @@ export default function CustomizedSelects({handleInputChange}) {
           name = "startTime"
           label="공연 시작 시간"
           type="time"
-          defaultValue="19:30"
           className={classes.textField}
           onChange={handleInputChange}
           InputLabelProps={{
@@ -115,7 +113,6 @@ export default function CustomizedSelects({handleInputChange}) {
           name = "endTime"
           label="공연 종료 시간"
           type="time"
-          defaultValue="19:30"
           className={classes.textField}
           onChange={handleInputChange}
           InputLabelProps={{

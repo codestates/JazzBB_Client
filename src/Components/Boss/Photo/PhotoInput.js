@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import '../ShowManage/ShowManage.css'
 import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "../../redux/new/action";
+import { setToken, setBossMenu } from "../../redux/new/action";
 
 //img url 생성과 state에 set해주는 기능 필요.
 function AddShowInput() {
   const dispatch = useDispatch();
-  const [imgBase64, setImgBase64] = useState("");
-  const user = useSelector((state) => state.reducer.user);
+  const [menuImg, setMenuImg] = useState("");
+  const initialState = useSelector((state) => state.reducer);
   const [imgFile, setImgFile] =useState('')
 
   const setFile = (e) => {
@@ -25,7 +25,7 @@ function AddShowInput() {
       const base64 = reader.result;
       // console.log(base64, "absfs");
       if (base64) {
-        setImgBase64(base64.toString());
+        setMenuImg(base64.toString());
       }
     };
     if (event.target.files[0]) {
@@ -40,7 +40,7 @@ function AddShowInput() {
       axios
       .post(process.env.REACT_APP_DB_HOST + "/menuUpdate", formdata, {
         headers: {
-          authorization: user.token,
+          authorization: initialState.token,
           "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
@@ -51,16 +51,17 @@ function AddShowInput() {
       })
   }
   
+
   return (
     <div className="add-body">
       <div className="add-contents">
         <div className="add-left">
           <div className="add-thumbnail-Wrapper">
-            {imgBase64 ? ( // 공연 썸네일 첨부
+            {menuImg ? ( // 공연 썸네일 첨부
               <div className="add-thumbnail-preview">
                 <img
                   className="add-thumbnail"
-                  src={imgBase64}
+                  src={menuImg}
                   alt={imgFile ? imgFile.name : ""}
                   onChange={(e) => setFile(e)}
                 ></img>
@@ -68,6 +69,7 @@ function AddShowInput() {
             ) : (
               <div className="add-thumbnail-holder">사진을 업로드해주세요</div>
             )}
+
             <div className="add-thumbnail-uploadWrapper">
               <input
                 className="add-thumbnail-upload"

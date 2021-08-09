@@ -25,12 +25,6 @@ function AddShow() {
     setImgFile(data);
   }
 
-  function handleThumbnail(e) {
-    console.log(inputValue, "dddddd");
-    if (imgFile.length !== 0) {
-      console.log("******** Addshow handleThumbnail imgFile :", imgFile);
-    }
-  }
 
   //인풋 창에 입력할때마다 불리는 함수
   const handleInputChange = (event) => {
@@ -63,10 +57,8 @@ function AddShow() {
             filefile.append("showCharge", inputValue.showCharge);
             filefile.append("player", JSON.stringify(inputValue.player));
             filefile.append("jazzbarId", jazzbarId);
-            for (var pair of filefile.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+            // for (var pair of filefile.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
 
-           console.log(userstate.token)
-           console.log(typeof userstate.token)
             axios
               .post(process.env.REACT_APP_DB_HOST + "/showCreate", filefile, {
                 headers: {
@@ -79,11 +71,8 @@ function AddShow() {
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
               })
-              .then((res) => console.log(res, "res"))
               .then((res) => (window.location.href = "/boss/show"))
-              .catch(function (error) {
-                console.log(error);
-              });
+           
           },
         },
         {
@@ -101,9 +90,9 @@ function AddShow() {
             <div className="show-box_photo">
               <div className="show-photo">
                 <InputFile
-                  handleThumbnail={handleThumbnail}
                   imgFile={imgFile}
                   setImgFile={handelSetImgFile}
+                  data={null}
                 ></InputFile>
               </div>
             </div>

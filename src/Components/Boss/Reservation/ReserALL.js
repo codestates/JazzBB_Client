@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../../dist/css/comm.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { setToken } from "../../redux/new/action";
+import { setToken, setBossReservationList } from "../../redux/new/action";
 
 function ReserAll() {
   const dispatch = useDispatch();
@@ -22,9 +22,10 @@ function ReserAll() {
     }
     return 0;
   });
-  const Bconfirm = Bsort.filter((el) => el.confirm === "confirm");
+  const Bconfirm = Bsort.filter((el) => el.confirm === "confirmed");
   const Bdenied = Bsort.filter((el) => el.confirm === "denied");
   const Bpending = Bsort.filter((el) => el.confirm === "pending");
+
   const [selected, setSelect] = useState(BossState);
   const ChangeTableByStatus = (status) => {
     const data = BossState.filter((el) => el.confirm === status);
@@ -38,47 +39,48 @@ function ReserAll() {
     }
   };
 
-  const statusAlert = (e, data) => {
-    let changedStatus = e.target.name;
-    console.log(e.target.name)
+  // const statusAlert = (e, data) => {
+  //   let changedStatus = e.target.name;
+  //   console.log(e.target.name)
+  //    console.log(data,'confirmAlert data')
 
-
-    confirmAlert({
-      title: `${changedStatus === "confirmed" ? "승인" : "거절"} 하시겠습니까?`,
-      // message: ,
-      buttons: [
-        {
-          label: "예",
-          onClick: (e) => {
-            axios
-              .post(
-                process.env.REACT_APP_DB_HOST + "/reservationUpdate",
-                {
-                  id: data.id,
-                  confirm: changedStatus,
-                  people : data.people,
-                  showId : data.show.id
-                }
-                ,
-               { headers: {
-                  authorization: userstate.token,
-                },
-                withCredentials: true,}
-              )
-              .then((res) => {
-                const token = res.data.data.accessToken;
-                dispatch(setToken(token));
-              })
-              .then(window.location.reload())
-              .catch((err) => console.log(err));
-          },
-        },
-        {
-          label: "아니요",
-        },
-      ],
-    });
-  };
+  //   confirmAlert({
+  //     title: `${changedStatus === "confirmed" ? "승인" : "거절"} 하시겠습니까?`,
+  //     // message: ,
+  //     buttons: [
+  //       {
+  //         label: "예",
+  //         onClick: (e) => {
+  //           axios
+  //             .post(
+  //               process.env.REACT_APP_DB_HOST + "/reservationUpdate",
+  //               {
+  //                 id: data.id,
+  //                 confirm: changedStatus,
+  //                 people : data.people,
+  //                 showId : data.show.id
+  //               }
+  //               ,
+  //              { headers: {
+  //                 authorization: userstate.token,
+  //               },
+  //               withCredentials: true,}
+  //             )
+  //             .then((res) => {
+  //               const token = res.data.data.accessToken;
+  //               dispatch(setToken(token));
+  //               dispatch(setBossReservationList)
+  //             })
+  //             .then(window.location.reload(true))
+  //             .catch((err) => console.log(err));
+  //         },
+  //       },
+  //       {
+  //         label: "아니요",
+  //       },
+  //     ],
+  //   });
+  // };
 
   return (
     <div>
@@ -93,7 +95,7 @@ function ReserAll() {
 
         <div
           className="status-s status"
-          onClick={() => ChangeTableByStatus("confirm")}
+          onClick={() => ChangeTableByStatus("confirmed")}
         >
           <span className="status-title">승인 </span>
           <span className="status-number">{Bconfirm.length}</span>
@@ -133,11 +135,11 @@ function ReserAll() {
           </tbody>
 
           {selected.length === 0
-            ? BossState.map((el) => (
-                <ReserTable key={el.id}data={el} confirmAlert={statusAlert}></ReserTable>
+            ? Bsort.map((el) => (
+                <ReserTable key={el.id} data={el}  confirmAlert={null}></ReserTable>
               ))
             : selected.map((el) => (
-                <ReserTable key={el.id} data={el} confirmAlert={statusAlert}></ReserTable>
+                <ReserTable key={el.id} data={el} confirmAlert={null}></ReserTable>
               ))}
         </table>
       </div>

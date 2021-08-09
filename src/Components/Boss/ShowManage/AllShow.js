@@ -15,6 +15,7 @@ useEffect(()=>{
   .post(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
   .then(res => {
     let showList = res.data.data
+    showList = showList.filter(el => el.jazzbarId === jazzbarId)
     showList.map(el => el.player =JSON.parse(el.player))
     dispatch(setBossShowList(showList))
   })

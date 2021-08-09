@@ -57,6 +57,7 @@ export default function CustomizedSelects({ data, imgFile }) {
    }
   
   useEffect(() => {
+    SetInputValue({...inputValue, startTime:start, endTime:end})
     console.log(data)
   let copy = state;
   for(let position in data.player){
@@ -91,14 +92,14 @@ export default function CustomizedSelects({ data, imgFile }) {
       SetInputValue({ ...inputValue, [name]: nameValue });
     } else {
       setPlayer({...player, [idValue] : nameValue})
-
     }
-    console.log(player)
+    // console.log(player)
   };
 
 
   const updateShowHandler = () => {
-    console.log('update')
+    SetInputValue({ ...inputValue, time : `${inputValue.startTime}-${inputValue.endTime}` });
+
     if(imgFile.length === 0){
       imgFile = data.thumbnail;
     }
@@ -205,7 +206,7 @@ export default function CustomizedSelects({ data, imgFile }) {
             name="date"
             type="date"
             onChange={handleInputChange}
-            defaultValue={data ? data.date : "2021-07-01"}
+            defaultValue={data ? data.date : null}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,

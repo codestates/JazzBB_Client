@@ -3,13 +3,10 @@ const initialState = {
   isLogin: false,
   currentPage: '/service',
   history: [],
-
-
   search: null,
   searchOption: null,
   searchData: null,
   AllPage : true,
-
   modifyUser:{mobile : null, username: null, usertype: null},
   everyShowList : [
   ],

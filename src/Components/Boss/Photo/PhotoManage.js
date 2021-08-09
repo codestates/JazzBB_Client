@@ -1,29 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar";
 // import InputFile from "../ShowManage/InputFile";
-import { useSelector, useDispatch } from "react-redux";
-// import {setBossJazzBar} from "../../redux/new/action";
-// import axios from "axios";
+import { useSelector } from "react-redux";
+import {setBossMenu} from "../../redux/new/action";
+import axios from "axios";
 import "./PhotoManage.css";
 import PhotoInput from './PhotoInput'
 
-const PhotoManage = () => {
-  // const dispatch = useDispatch;
+function PhotoManage(){
   const state = useSelector((state) => state.reducer);
-  const jazzbar = useSelector((state) => state.reducer.jazzbar);
-  console.log(jazzbar,'jazzbar')
 const [img, setImg] =useState('')
+const [menu, setMenu] = useState()
+console.log(menu)
 
-//   useEffect(() => {
-//     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-//     .then(res => {
-//       const jazzbarList = res.data.data;
-//       const jazzbardata = jazzbarList.filter(el => el.id === state.jazzbarId)
-// dispatch(setBossJazzBar(jazzbardata[0]));
-//       });
-//   }, []);
-
-
+useEffect(()=>{
+  axios.post( process.env.REACT_APP_DB_HOST + "/menuRead", {jazzbarId : state.jazzBarId})
+  .then(res => {
+    const list = res.data.data.data[0].thumbnail;
+    if(list !== undefined){
+      const arr = list.split(',')
+      setMenu(arr)
+    }
+  })
+},[])
+ 
+console.log(menu)
   return (
     <div className="photocontentbody">
       <Sidebar></Sidebar>
@@ -36,16 +37,12 @@ const [img, setImg] =useState('')
         </div>
 
         <div className="registered-photo-body">
-            {state.menu !== []
-              ? state.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el.thumbnail} key={index} alt =""/>;
+            {menu
+              ? menu.map((el) => {
+                return  <img className="registered-photo-img" src={el}  alt =""/>;
                 })
               : null}
-
-            {/* {jazzbar.thumbnail !== null
-             ? 
-                  <img className="registered-photo-img" src={jazzbar.thumbnail} alt="" />
-              : null} */}
+           
       
         </div>
         
