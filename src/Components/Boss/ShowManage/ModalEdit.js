@@ -9,17 +9,11 @@ import "./ShowManage.css";
 
 import react, { useState } from "react";
 
-//showUpdate 수정 필요.
-//checkbox default값 수정 필요
-//thumbnail default값 수정 필요
 
 function ModalEdit() {
   const location = useLocation();
   const { info } = location.state;
-
   const [imgFile, setImgFile] = useState([]); //이미지파일
-
-  console.log(info, "info");
 
 
 
@@ -33,7 +27,7 @@ function ModalEdit() {
           <div className="modify-show-innerbox">
             <div className="modify-show-box_photo">
               <div className="modify-show-photo">
-                <InputFile setImgFile={setImgFile} ></InputFile>
+                <InputFile setImgFile={setImgFile} data = {info}></InputFile>
               </div>
             </div>
           </div>

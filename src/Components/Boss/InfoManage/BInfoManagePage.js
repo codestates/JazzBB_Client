@@ -39,13 +39,22 @@ function BInfoManagePage() {
 
   const handleInput = (e) => {
     const targetName = e.target.name;
+    const targetId = e.target.id;
+
     if (targetName === "serviceOption") {
       const {
         target: { checked },
       } = e;
       setService({ ...serviceitem, [e.target.id]: checked });
       // console.log(serviceitem);
-    } else {
+    }else if (targetName === "openTime") {
+      if(targetId === 'open'){
+        setInitState({...initstate, [targetId] : e.target.value})
+      }else if(targetId === 'close'){
+        setInitState({...initstate, [targetId] : e.target.value})
+      }
+    } 
+    else {
       setInitState({ ...initstate, [targetName]: e.target.value });
     }
   };
@@ -80,9 +89,7 @@ function BInfoManagePage() {
       newForm.append("address", initstate.addressFront + " " + initstate.addressETC);
       newForm.append("serviceOption", temp);
       newForm.append("mobile", initstate.mobile);
-      newForm.append("openTime", initstate.openTime);
-
-      // for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+      newForm.append("openTime",  initstate.open + "-" + initstate.close,);
       // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, {
@@ -100,39 +107,32 @@ function BInfoManagePage() {
           // console.log(barId,'~~~~server : jazzbarId')
           return barId
         })
-        // .then((barId)=>{
-        // const menuFormData = new FormData();
-        // for (let i = 0; i < targetFile.length; i++) {
-        //   menuFormData.append(`thumbnail`, targetFile[i]);
-        // }
-        // menuFormData.append(`jazzbarId`, barId);
+        .then((barId)=>{
+        const menuFormData = new FormData();
+        for (let i = 0; i < targetFile.length; i++) {
+          menuFormData.append(`thumbnail`, targetFile[i]);
+        }
+        menuFormData.append(`jazzbarId`, barId);
+      for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
         
-        //   axios
-        //     .post(process.env.REACT_APP_DB_HOST + "/menuCreate", menuFormData, {
-        //       headers: {
-
-        //         "Content-Type": "multipart/form-data",
-        //       },
-        //       withCredentials: true,
-        //     })
-        //     return barId
-        // })
-        .then((barId) =>{
-          console.log(barId,'barId')
-          axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-          .then(res => {
-            const jazzbarList = res.data.data;
-          console.log(jazzbarList,'jazzbarList')
-            const jazzbardata = jazzbarList.filter(el => el.id === barId)
-    console.log(jazzbardata, 'jazzbardata')
-      dispatch(setBossJazzBar(jazzbardata[0]));
-          // window.location.href = "/boss/infoupdate"
+          axios
+            .post(process.env.REACT_APP_DB_HOST + "/menuCreate", menuFormData, {
+              headers: {
+          authorization: initialState.token,
+                "Content-Type": "multipart/form-data",
+              },
+              withCredentials: true,
+            })
+            .then(res => {
+              console.log(res)
+              const token = res.data.data.accessToken
+              dispatch(setToken(token))
+            })
+        })
+        .then((res) =>{
           history.push('/boss/main')
-          })
-         } )
-        
+         })
     }
-            // .then((window.location.href = "/boss/main"))
   };
 
 
@@ -283,17 +283,20 @@ function BInfoManagePage() {
               <div className="barMobile boxopt">
                 <div className="inputformlabel">영업 시간</div>
                 <div className="phoneWrapper">
-                  <input
+                  {/* <input
                     className="phoneform"
                     placeholder="영업 시간"
                     type="text"
                     name="openTime"
                     onChange={handleInput}
                     autocomplete="off"
-                  ></input>
-                  <div className="phonelabel">
-                    형식에 맞게 입력해주세요. 예) 18:00-20:00
-                  </div>
+                  ></input> */}
+                   <>
+                <input className ="" id="open" type="time" name="openTime"  onChange={handleInput} ></input>
+                ~
+                <input className ="" id="close" type="time" name="openTime"  onChange={handleInput} ></input>
+                </> 
+                 
                 </div>
               </div>
 

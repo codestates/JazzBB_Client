@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ShowManage.css";
 
 //img url 생성과 state에 set해주는 기능 필요.
 
-function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
+function AddShowInput({ imgFile, setImgFile, data }) {
   const [imgBase64, setImgBase64] = useState("");
 
+  useEffect(()=>{
+    if(data !== null ){
+      if(data.thumbnail){
+        setImgBase64(data.thumbnail)
+      }
+    }
+  },[])
+
+
   const setFile = (e) => {
-    console.log("setFile");
     if (e.target.files[0]) {
       const img = new FormData();
       img.append("image", e.target.files[0]);
@@ -19,7 +27,6 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
     let reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
-      // console.log(base64, "absfs");
       if (base64) {
         setImgBase64(base64.toString());
       }
@@ -56,14 +63,10 @@ function AddShowInput({ imgFile, setImgFile, handleThumbnail }) {
                 id="imgFile"
                 onChange={handleChangeFile}
               />
-
               <div className="add-subtitle">
                 사진 크기는 (500 * 500)픽셀로 조정됩니다
               </div>
             </div>
-            <button className="add-photo-submit" onClick={handleThumbnail}>
-              사진 등록
-            </button>
           </div>
         </div>
       </div>

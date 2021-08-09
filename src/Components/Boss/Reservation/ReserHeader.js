@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LabTabs({unset,set, all}) {
+export default function LabTabs() {
   
  
   const classes = useStyles();
@@ -34,8 +34,8 @@ export default function LabTabs({unset,set, all}) {
             {/* <Tab label="날짜별 예약 보기" value="3" /> */}
           </TabList>
         </AppBar>
-        <TabPanel value="2"><ReserByDate  AllPage={all} setAll={set} unsetAll={unset}></ReserByDate></TabPanel>
-        <TabPanel value="1"> <ReserAll></ReserAll></TabPanel>
+        <TabPanel value="2"><ReserByDate ></ReserByDate></TabPanel>
+        <TabPanel value="1"> <ReserAll ></ReserAll></TabPanel>
         {/* <TabPanel value="3"> <ReserByShow ></ReserByShow></TabPanel> */}
       </TabContext>
     </div>

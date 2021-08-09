@@ -29,11 +29,21 @@ export const FINISH_ACTION = "FINISH_ACTION"
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 export const SAVE_REDUCER = "SAVE_REDUCER"
 export const RESET = "RESET"
+export const SET_BOSS_MENU = "SET_BOSS_MENU"
 
 
 export const setJazzId = (id) => {
   return {
     type: SET_JAZZID_BOSS,
+    payload: {
+      id
+    }
+  }
+}
+
+export const setBossMenu = (id) => {
+  return {
+    type: SET_BOSS_MENU,
     payload: {
       id
     }

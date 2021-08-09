@@ -4,30 +4,22 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { setToken } from "../../redux/new/action";
+import { setBossMenu, setToken, setBossJazzBar } from "../../redux/new/action";
 import {Link} from 'react-router-dom'
 import "./infoupdate.css";
 
-//아래 useSelector가 안먹힘. 아마 이 페이지는 오류날듯.
-//서버 연결 제대로 되고 나서 수정해야 할 페이지 임.
 function InfoUpdate() {
   const dispatch = useDispatch();
   const initialState = useSelector((state) => state.reducer);
-  const barList = useSelector((state) => state.reducer.barList);
-  const jazzBarId = useSelector((state) => state.reducer.jazzBarId);
-  const bardata = barList.filter((el) => el.id === initialState.jazzBarId);
-  console.log(bardata,'bardata')
+  const bardata = initialState.barList.filter((el) => el.id === initialState.jazzBarId);
   let data;
-  if (bardata === []) {
-    data = null;
-  } else {
-    data = bardata[0];
-  }
-  const serviceOption = useSelector((state) => state.reducer.serviceOption);
-  const banner = [];
-  const menu = useSelector((state) => state.reducer.menu);
-  const [editActive, setEdit] = useState(false);
+  if (bardata === []) {data = null;} else {data = bardata[0];}
+
+  //barData initial setting (gps, serviceOption, address, time)
   const [state, setState] = useState(data);
+  const [start, end] = data.openTime.split('-')
+  const [gps, setGps] = useState({ gpsX: data.gpsX, gpsY: data.gpsY });
+  const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const [serviceitem, setService] = useState({
     주차가능: false,
     발렛주차: false,
@@ -37,33 +29,48 @@ function InfoUpdate() {
     콜키지가능: false,
     심야영업: false,
     온라인예약가능: false,
-  });
-  let searchAddress;
-  let detailAddress;
+});
+  let searchAddress, detailAddress;
   if(data.address){
     let frontIndex = data.address.lastIndexOf(")")+1
     searchAddress=data.address.substring(0,frontIndex)
     detailAddress = data.address.substring(frontIndex, data.address.length)
   }
 
+  console.log(state)
+  //배너, 메뉴 이미지
+  const [banners, setBanner] = useState([]); // 배너 -객체 
+  const [bannerDetail, setBannerDetail] = useState([]); //배너 - src
+  const [menuFiles, setMenufiles] = useState([]); //메뉴 - 객체
+  const [menuDetail, setMenuDetail] = useState([]); //메뉴 - src
+  const [editActive, setEdit] = useState(false);
+  
+
+  //오류메세지, 카카오팝업, 정보수정버튼 handling
   const [alertMsg, setalertMsg] = useState("");
-  const [gps, setGps] = useState({ gpsX: data.gpsX, gpsY: data.gpsY });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [openAddressEtc, setOpenAddress] = useState(false);
   const openPostCode = () => {
     setIsPopupOpen(true);
-    setOpenAddress(true);
   };
   const closePostCode = () => {
     setIsPopupOpen(false);
   };
-  // const serviceArray = Object.keys(serviceitem);
+  const handleEditActive = () => {
+    setEdit(true);
+  };
 
-  const [start, end] = data.openTime.split('-')
+  const closeActive = () =>{
+    setEdit(false)
+  }
+
 
   useEffect(() => {
-    console.log(data)
-  setState({...state, open : start, close: end, addressFront :searchAddress, addressETC : detailAddress})
+    console.log('useEffect')
+    //배너이미지 있을 때 기초 세팅
+    if(data.thumbnail){
+      setBannerDetail(data.thumbnail)
+    }
+    //서비스옵션 있을 때 기초 세팅
     if (data.serviceOption !== null) {
       let copy = serviceitem;
       const yap = data.serviceOption.split("");
@@ -77,27 +84,29 @@ function InfoUpdate() {
       setService(copy);
       copy = serviceitem;
     }
+
+    //메뉴 이미지 불러오기
+    axios.post( process.env.REACT_APP_DB_HOST + "/menuRead", {jazzbarId : initialState.jazzBarId})
+    .then(res => {
+      const list = res.data.data.data[0].thumbnail;
+      if(list !== undefined){
+        const arr = list.split(',')
+        dispatch(setBossMenu(arr))
+        setMenuDetail(arr)
+  setState({...state, menu : arr, open : start, close: end, addressFront :searchAddress, addressETC : detailAddress})
+      }
+    })
   }, []);
 
-  // console.log(serviceArray, "serviceArray");
-  // console.log(data.serviceOption, "dataserviceOption");
-  // console.log(serviceitem, "serviceitem");
 
-  const handleEditActive = () => {
-    setEdit(true);
-  };
-
-  const closeActive = () =>{
-    setEdit(false)
-  }
-
-  const [targetFile, setFile] = useState([]); //파일 정보 이름 등등
-  const [detailImgs, setDetailImgs] = useState([]); //졸라 긴거
-
+ 
+ 
+//이미지 업로드 handling 
   const handleImageUpload = (e) => {
     let fileArr = e.target.files;
-    console.log(fileArr);
-    setFile([...fileArr]);
+    console.log(fileArr,'1');
+    console.log([...fileArr]);
+    setMenufiles([...fileArr]);
 
     if (fileArr.length > 5) {
       alert("파일은 5개까지 첨부가 가능합니다.");
@@ -115,18 +124,14 @@ function InfoUpdate() {
         let reader = new FileReader();
         reader.onload = () => {
           fileURLs[i] = reader.result;
-          setDetailImgs([...fileURLs]);
+          setMenuDetail([...fileURLs]);
+      setState({...state, menu : [...fileURLs]})
         };
         reader.readAsDataURL(file);
       }
     }
   };
-  const [banners, setBanner] = useState([]);
-  const [bannerDetail, setBannerDetail] = useState([]);
-
   const handleBannerImg = (e) => {
-    // console.log(banners,'banners')
-    // console.log(bannerDetail,'bannerDetail')
     const BannerArr = e.target.files;
     setBanner([...BannerArr]);
     let fileURLs = [];
@@ -136,17 +141,15 @@ function InfoUpdate() {
     reader.onload = () => {
       fileURLs[0] = reader.result;
       setBannerDetail([...fileURLs]);
+      setState({...state, thumbnail: [...fileURLs]})
     };
     reader.readAsDataURL(file);
   };
-
+ 
+  //입력 handling
   const handleInput = (e) => {
-console.log(state)
-
     const targetName = e.target.name;
     const targetId = e.target.id;
-    // console.log(targetId)
-    // console.log(e.target.value)
     if (targetName === "serviceOption") {
       const {
         target: { checked },
@@ -162,43 +165,23 @@ console.log(state)
     else {
       setState({ ...state, [targetName]: e.target.value });
     }
-    // console.log(state);
 
   };
 
+  //제출 handling
   const handleSubmit = () => {
+    console.log(state.thumbnail,'thumbnail')
+    console.log(banners,'banners')
     let temp = [];
     if (serviceitem !== []) {
       for (let service in serviceitem) {
         if (serviceitem[service] === true) {
           // temp = temp + service;
-          let find = serviceOption.find(ele=> ele.content === service).id
+          let find = initialState.serviceOption.find(ele=> ele.content === service).id
           temp.push(find)
         }
       }
       temp = temp.join(',')
-    }
-    console.log(temp,"temp")
-    console.log(state,'state')
-    if (banner.length !== 0) {
-      const formDataBanner = new FormData();
-      formDataBanner.append(`bannerImg`, banner[0]);
-      setState({ ...state, bannerPhoto: formDataBanner });
-    }
-    if (targetFile.length !== 0) {
-      const formData = new FormData();
-      for (let i = 0; i < targetFile.length; i++) {
-        formData.append(`image${i}`, targetFile[i]);
-      }
-      setState({ ...state, menuPhoto: formData });
-
-      axios.post(
-        process.env.REACT_APP_DB_HOST + "/menuCreate",
-        {
-          authorization: initialState.user.token,
-        },
-        { state, jazzBarId }
-      );
     }
 
     if (
@@ -225,6 +208,7 @@ console.log(state)
         gpsX: gps.gpsX,
         gpsY: gps.gpsY,
         openTime : state.open + "-" + state.close,
+        // menu : menuFiles
       });
       const newForm = new FormData();
       newForm.append("thumbnail", banners[0]);
@@ -248,39 +232,48 @@ console.log(state)
         withCredentials: true,
       })
       .then((res) => {
+        console.log('jazzbarUpdate')
         const token1 = res.data.data.accessToken;
+        console.log('jazzbarRes', res.data)
         if(token1 !== {}){
           dispatch(setToken(token1));
         }
       })
-      // .then(
-      //   axios.post(
-      //     process.env.REACT_APP_DB_HOST + "/menuCreate",
-      //     { state, jazzBarId },
-      //     {
-      //       headers: {
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //       withCredentials: true,
-      //     }
-      //   )
-      // );
+      .then(()=>{
+        const menuFormData = new FormData();
+        for (let i = 0; i < menuFiles.length; i++) {
+          menuFormData.append(`thumbnail`, menuFiles[i]);
+        }
+        menuFormData.append(`jazzbarId`, initialState.jazzBarId);
+      // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
+        axios.post(
+          process.env.REACT_APP_DB_HOST + "/menuUpdate",
+          menuFormData ,
+          {
+            headers: {
+              authorization: initialState.token,
+              "Content-Type": "multipart/form-data",
+            },
+            withCredentials: true,
+          }
+        )
+        .then(res =>{
+          console.log('menuUpdate')
+        console.log('menuUpdate', res)
+
+        })
+       
+      }
+      );
     closeActive()
-
     }
-
-    
   };
  
-  
-
-
-
 
   return (
     <div>
       <Sidebar></Sidebar>
-      {jazzBarId === null ? (
+      {initialState.jazzBarId === null ? (
         <div className="infowrapper">
           <div className="dummydiv"></div>
           <div className="BIUcontentBox">
@@ -416,7 +409,7 @@ console.log(state)
                 <div className="cbarea">
                   {editActive ? (
                     <div className="cbarea2">
-                      {serviceOption.map((el) => (
+                      {initialState.serviceOption.map((el) => (
                         <div className="checkboxWrapper">
                           <input
                             className="thisischeckbox"
@@ -478,21 +471,23 @@ console.log(state)
                       onChange={handleImageUpload}
                     ></input>
                     <div>{alertMsg}</div>
-                    {detailImgs.map((el) => (
+                    {state.menu[0] !== "" ? (state.menu.map((el) => (
                       <img
                         className="add-thumbnail"
                         src={el}
-                        alt="" // onChange={(e) => setFile(e)}
+                        alt="" 
                       ></img>
-                    ))}
+                    ))) : (<h4>등록된 이미지가 없습니다.</h4>)}
                   </div>
-                ) : menu.length !== 0 ? (
-                  menu.map((el) => (
-                    <img className="menuthumbnail" src={el.thumbnail} alt="" />
+                ) 
+                : state.menu  ? (
+                  state.menu.map((el) => (
+                    <img className="menuthumbnail" src={el} alt="" />
                   ))
                 ) : (
                   <h4>등록된 이미지가 없습니다.</h4>
-                )}
+                )
+                }
               </div>
             </div>
 
@@ -514,22 +509,15 @@ console.log(state)
                         className="add-thumbnail"
                         src={bannerDetail}
                         alt=""
-                        // onChange={(e) => setFile(e)}
                       ></img>
                     </div>
                   ) : (
-                    // banners.length !== 0 ? (
-                    // banners.map((el) => (
                     <img
                       className="bannerthumbnail"
-                      src={data.thumbnail}
+                      src={state.thumbnail}
                       alt=""
                     />
                   )
-                  // ))
-                  // ) : (
-                  //   <h4>등록된 이미지가 없습니다.</h4>
-                  // )
                 }
               </div>
             </div>
