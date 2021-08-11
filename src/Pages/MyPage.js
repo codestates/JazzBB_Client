@@ -1,22 +1,19 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from "react-router-dom";
-import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState, setCurrentPage, saveThisHistory } from "../Components/redux/new/action";
+import { Link, useHistory } from "react-router-dom";
+import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState, setCurrentPage, saveThisHistory, Reset } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 
  function MyPage() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
+  let history = useHistory();
 
-  useEffect(() => {
+  useEffect(async () => {
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    axiosRequest();
-  }, [])
-
-  const axiosRequest = async() => {
     await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', 
     { headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
@@ -41,7 +38,7 @@ import "../css/mypage.css"
        const review = res.data.data.list;
        dispatch(setList(review, 'reviewList'));
      })
-  }
+  }, [])
 
   const modifyUserTogle = (variety) => {
     dispatch(modifySwitch(variety));
@@ -63,11 +60,10 @@ import "../css/mypage.css"
   }
 
   const withdrawUser = () => {
-    axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", { headers: { authorization: state.token }, withCredentials: true })
+    axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", '',{ headers: { authorization: state.token }, withCredentials: true })
       .then(() => {
-        dispatch(modifySwitch('withdrawModal'));
-        dispatch(modifySwitch('withdrawConfirm'));
-        dispatch(deleteState('user'));
+        dispatch(Reset())
+        history.push('/')
       })
   }
 
@@ -186,16 +182,20 @@ import "../css/mypage.css"
             </div>
 
             <div className="mypage-body-recent-review-container">
-              {state.reviewList.map(el => {
-                return (
-                !el ? null : 
-                  <div className="recentreview-body">
-                    <div className="recentreview-body-info-date">{el.createdAt.replace(/-/g, '.').slice(0,10) + '.'}</div>
-                    <div className="recentreview-body-info-name">{el.jazzbar.barName}</div>
-                    <div className="recentreview-body-info-text">{el.content}</div>
-                  </div>
-                )
-              })}
+              {
+                state.reviewList.length === 0 ? null :
+              state.reviewList.map(el => {
+                if(el && el.jazzbar){
+                  return (
+                    <div className="recentreview-body">
+                      <div className="recentreview-body-info-date">{el.createdAt.replace(/-/g, '.').slice(0,10) + '.'}</div>
+                      <div className="recentreview-body-info-name">{el.jazzbar.barName}</div>
+                      <div className="recentreview-body-info-text">{el.content}</div>
+                    </div>
+                  )
+                }
+              })
+              }
             </div>
           </div>
         </div>

@@ -133,16 +133,18 @@ function JazzBar() {
     dispatch(modifySwitch("reviewDelete"));
   };
 
-  const reviewUpdate = async () => {
+  const reviewUpdate = async (el) => {
+    console.log(el)
     await axios
       .post(
         process.env.REACT_APP_DB_HOST + "/reviewUpdate",
-        { headers: { authorization: state.token }, withCredentials: true },
         {
-          jazzbarId: state.currentJazzbar,
+          // jazzbarId: state.currentJazzbar,
+          id: el.id,
           point: state.review.point,
           content: state.review.content,
-        }
+        },
+        { headers: { authorization: state.token }, withCredentials: true },
       )
       .then((res) => {
         const token = res.data.data.accessToken;
@@ -152,13 +154,13 @@ function JazzBar() {
       .catch((err) => console.log(err));
   };
 
-  const reviewDeleteRequest = async () => {
+  const reviewDeleteRequest = async (el) => {
     await axios
       .post(
         process.env.REACT_APP_DB_HOST + "/reviewDelete",
         { headers: { authorization: state.token }, withCredentials: true },
         {
-          id: state.myReviewId,
+          id: el.id,
         }
       )
       .then((res) => {
@@ -398,8 +400,8 @@ function JazzBar() {
                       </div>
                     </div>
                   ) : (
+                    // 여기부터
                     <>
-                      {dispatch(saveMyId(el.id))}
                       {state.togle.reviewModify ? (
                         <div className="shop-info-review-modify-form">
                           <select
@@ -429,14 +431,20 @@ function JazzBar() {
                           <input
                             className="shopinfo-review-modify-imput"
                             type="text"
-                            value={el.content}
+                            defaultValue={el.content}
                             onChange={(e) => typingReview(e, "content")}
                           ></input>
                           <button
                             className="shopinfo-review-form-submit"
-                            onClick={() => reviewUpdate()}
+                            onClick={() => reviewUpdate(el)}
                           >
                             수정
+                          </button>
+                          <button
+                            className="shopinfo-review-form-modify-cancel"
+                            onClick={() => modifyReview()}
+                          >
+                            수정취소
                           </button>
                         </div>
                       ) : state.togle.reviewDelete ? (
@@ -456,7 +464,7 @@ function JazzBar() {
                             </div>
                             <button
                               className="shopinfo-review-modify"
-                              onClick={() => reviewDeleteRequest()}
+                              onClick={() => reviewDeleteRequest(el)}
                             >
                               삭제
                             </button>
@@ -546,7 +554,7 @@ function JazzBar() {
 
               </>
               )}
-             
+             {/* 여기까지 */}
           </div>
         </div>
       </div>
