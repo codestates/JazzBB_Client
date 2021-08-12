@@ -258,10 +258,11 @@ function BInfoManagePage() {
                   <input
                     className="phoneform"
                     placeholder="매장 연락처"
-                    type="number"
+                    type="tel"
                     name="mobile"
                     onChange={handleInput}
                     autocomplete="off"
+                    pattern="[0-9]{13}"
                   ></input>
                   <div className="phonelabel">
                     숫자만 입력해주세요. 예) 01012341234
@@ -280,21 +281,13 @@ function BInfoManagePage() {
                 ></input>
               </div>
 
-              <div className="barMobile boxopt">
-                <div className="inputformlabel">영업 시간</div>
-                <div className="phoneWrapper">
-                  {/* <input
-                    className="phoneform"
-                    placeholder="영업 시간"
-                    type="text"
-                    name="openTime"
-                    onChange={handleInput}
-                    autocomplete="off"
-                  ></input> */}
+              <div className="opentime boxopt">
+                <div className="inputformlabel">영업시간</div>
+                <div className="opentimeWrapper">     
                    <>
-                <input className ="" id="open" type="time" name="openTime"  onChange={handleInput} ></input>
+                <input className ="timeform" id="open" type="time" name="openTime"  onChange={handleInput} ></input>
                 ~
-                <input className ="" id="close" type="time" name="openTime"  onChange={handleInput} ></input>
+                <input className ="timeform" id="close" type="time" name="openTime"  onChange={handleInput} ></input>
                 </> 
                  
                 </div>
@@ -305,18 +298,9 @@ function BInfoManagePage() {
 
                 {serviceOption.map((el) => (
                   <div className="svcdiv">
-                    <input
-                      className="svcoptcheck"
-                      type="checkbox"
-                      name="serviceOption"
-                      id={el.id}
-                      onChange={handleInput}
-                    />
-                    {/* <div className="svcopWrapper"> */}
+                    <input className="svcoptcheck" type="checkbox" name="serviceOption" id={el.id} onChange={handleInput} />
                     <div className="svcoptel">{el.content}</div>
                     <img className="svcopicon" src={el.img} alt=""></img>
-                    {/* </div> */}
-
                   </div>
                 ))}
               </div>
@@ -405,7 +389,7 @@ function BInfoManagePage() {
             </div>
           </div>
         </div>
-      ) 
+      
        
     </div>
   );
