@@ -51,9 +51,9 @@ function Nav() {
     window.Kakao.Auth.login({
       success: (authObj) => {
         const { access_token, refresh_token } = authObj;
-        axios.post(process.env.REACT_APP_DB_HOST+'/login', { access_token, refresh_token })
+        axios.post(process.env.REACT_APP_DB_HOST+'/login', { access_token, refresh_token }, {withCredentials: true})
          .then(res =>{
-           console.log(res.data,'nav res.data')
+           console.log(res, '@@@@@@@@@@@@@@@@@@')
           if(res.data.data.jazzbarId){
             dispatch(setJazzId(res.data.data.jazzbarId));
           };
@@ -156,11 +156,6 @@ function Nav() {
                 width="222"
                 onClick={()=> loginWithKakao()}
                 />
-              <img
-                class="login-modal-btn-kakao-signup"
-                src="/img/resource/kakao_start.png"
-                onClick={() => loginWithKakao()}
-              />
 
             </div>
           </div>

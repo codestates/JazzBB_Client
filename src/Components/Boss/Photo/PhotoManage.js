@@ -41,7 +41,7 @@ console.log(menu)
               ? menu.map((el) => {
                 return  <img className="registered-photo-img" src={el}  alt =""/>;
                 })
-              : null}
+              : <div> 등록된 사진이 없습니다.</div>}
            
       
         </div>

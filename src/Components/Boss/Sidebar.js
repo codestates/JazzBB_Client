@@ -61,7 +61,7 @@ const Sidebar = () => {
                   공연관리 <Link to="/boss/show" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<HiOutlinePhotograph />}>
-                  사진관리 <Link to="/boss/photo" />
+                  메뉴관리 <Link to="/boss/photo" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<RiPencilLine />}>
                   정보수정 <Link to="/boss/infoupdate" />

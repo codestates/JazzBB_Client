@@ -32,7 +32,6 @@ function Service () {
      .then(async res => {
        const list = res.data.data;
        dispatch(setList(list, 'barList'));
-       console.log('dlkfnsdlcnsdknvdsnvkl')
       })
       .catch(err => console.log(err))
       
@@ -40,13 +39,10 @@ function Service () {
       .then(res => {
         const list = res.data.data;
         dispatch(setList(list, 'boardList'));
-        // console.log(list, "@@@@@@@@@@@good2")
       })
       .catch(err => console.log(err))
       await axios.post(process.env.REACT_APP_DB_HOST + "/showRead")
       .then(res => {
-        // console.log('dklnvkldsklsdnvklsdnvlskdnvsdlknvdsklnvsdlknvsdlknvslknvskdlnvklk')
-        // console.log(res)
         const showList = res.data.data;
         dispatch(addEveryShowList(showList));
       })
@@ -55,7 +51,6 @@ function Service () {
  
 
   const goJazzbar = (jazzbar) => {
-    // console.log(e)
     dispatch(setJazzbar(jazzbar.id));
   }
 
