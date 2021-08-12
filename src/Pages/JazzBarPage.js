@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -67,7 +68,8 @@ function JazzBar() {
         jazzbarId: state.currentJazzbar,
       })
       .then((res) => {
-        console.log(res.data.data);
+        console.log('review')
+        console.log(res.data.data,'review');
         const reviewList = res.data.data.list;
         dispatch(setList(reviewList, "reviewList"));
       })
@@ -175,33 +177,37 @@ function JazzBar() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
+    console.log('clicked')
     setIsOpen(!modalIsOpen);
-  setDisplay("")
+      setDisplay(true)
   }
  
-  // useEffect(()=>{
-  //   var container = document.getElementById('map');
-  //   let gpsY = thisBar.gpsY
-  //   let gpsX = thisBar.gpsX
-  //   var options = {
-  //     center: new Kakao.maps.LatLng(gpsY, gpsX),
-  //     level: 3
-  //   };
+ 
 
-  //   var map = new Kakao.maps.Map(container, options);
-  //   var markerPosition  = new Kakao.maps.LatLng(gpsY, gpsX);
-  //   var marker = new Kakao.maps.Marker({
-  //     position: markerPosition
-  // });
-  // marker.setMap(map);
-  //   }, [modalIsOpen])
+    // useEffect(()=>{
+    //   var container = document.getElementById('map');
+    //   let gpsY = thisBar.gpsY
+    //   let gpsX = thisBar.gpsX
+    //   var options = {
+    //     center: new Kakao.maps.LatLng(gpsY, gpsX),
+    //     level: 3
+    //   };
+  
+    //   var map = new Kakao.maps.Map(container, options);
+    //   var markerPosition  = new Kakao.maps.LatLng(gpsY, gpsX);
+    //   var marker = new Kakao.maps.Marker({
+    //     position: markerPosition
+    // });
+    // marker.setMap(map);
+    //   }, [])
+  
 
   function closeModal() {
     setIsOpen(false);
   setDisplay('none')
 
   }
-
+console.log(display,'display')
   return (
     <div className="shopinfo">
       <div className="shopinfo-body">
@@ -226,17 +232,21 @@ function JazzBar() {
               </div>
               <button
                 className="shopinfo-header-infoarea-tmapbtn"
-                onClick={openModal}
+                onClick={!modalIsOpen ? openModal : closeModal}
               >
                 지도 위치 보기
               </button>
             </div>
 
               <div
-                id="map"
+                id="map1"
                 onClick={closeModal}
                 style={{ width: "100%", height: "400px", display: display }}
-              ></div>
+              >
+
+                <div id="map"></div>
+              </div>
+             
            
 
             <div className="shopinfo-header-infoarea-phone">
