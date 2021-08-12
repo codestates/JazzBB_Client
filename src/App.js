@@ -31,8 +31,7 @@ import ModalEdit from './Components/Boss/ShowManage/ModalEdit'
 import NotFound from "./Components/notfound"
 
 dotenv.config();
-window.Kakao.init('07635f87ed7fa2d86228e356d8d036ce');
-// window.Kakao.init(process.env.REACT_APP_OAUTH);
+window.Kakao.init(process.env.REACT_APP_OAUTH);
 
 function App() {
   const state = useSelector(state => state.reducer);
