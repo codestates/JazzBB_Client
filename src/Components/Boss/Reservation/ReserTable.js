@@ -10,7 +10,6 @@ import { setToken, setBossReservationList } from "../../redux/new/action";
 function ReserTable ({data}){
   const dispatch = useDispatch();
   const userstate = useSelector((state) => state.reducer);
- const [status, setStatus] = useState(data.status)
  const today = new Date();
   var year = today.getFullYear();
   var month = today.getMonth() + 1;
@@ -25,11 +24,15 @@ function ReserTable ({data}){
     year + "-" + month + "-" + date ;
 
 
+    if(fixedDate > data.show.date ){
+console.log('yap')
+    }
    
   const statusAlert = (e) => {
     let changedStatus = e.target.name;
     console.log(e.target.name)
-     console.log(data,'confirmAlert data')
+     
+
 
     confirmAlert({
       title: `${changedStatus === "confirmed" ? "승인" : "거절"} 하시겠습니까?`,
@@ -57,9 +60,8 @@ function ReserTable ({data}){
                 const token = res.data.data.accessToken;
                 dispatch(setToken(token));
                 dispatch(setBossReservationList)
-                setStatus(changedStatus)
               })
-              .then(window.location.reload(true))
+              // .then(window.location.reload(true))
               .catch((err) => console.log(err));
           },
         },
