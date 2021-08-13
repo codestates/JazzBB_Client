@@ -18,7 +18,7 @@ import "./sidebar.css";
 import "../../../src/dist/css/comm.css"
 
 
-const Sidebar = () => {
+const Sidebar = ({fold}) => {
   const state = useSelector(state => state.reducer);
   const thisBar = state.barList.find(el => el.id === state.currentJazzbar)
   const [openClose, setOpenClose] = useState(false);
@@ -29,7 +29,9 @@ const Sidebar = () => {
   // const menuActive = () => {
   //   active ? setactive(false) : setactive(true);
   // };
+// if(fold !== undefined){
 
+// }
   return (
     <div>
       <div className="sidebar">

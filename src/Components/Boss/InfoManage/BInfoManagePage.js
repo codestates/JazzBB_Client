@@ -258,7 +258,7 @@ function BInfoManagePage() {
                   <input
                     className="phoneform"
                     placeholder="매장 연락처"
-                    type="number"
+                    type="phone"
                     name="mobile"
                     onChange={handleInput}
                     autocomplete="off"
