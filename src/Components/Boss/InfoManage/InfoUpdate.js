@@ -381,13 +381,13 @@ function InfoUpdate() {
               )}
             </div>
 
-            <div className="barMobile boxop">
+            {/* <div className="barMobile boxop"> */}
+            <div className="opentime boxop">
               <div className="barlabel">영업시간</div>
               {editActive ? (
                 <>
-                  {/* className="barcontents inputform" */}
                   <input
-                    className=""
+                    className="timeform"
                     id="open"
                     type="time"
                     name="openTime"
@@ -396,7 +396,7 @@ function InfoUpdate() {
                   ></input>
                   ~
                   <input
-                    className=""
+                    className="timeform"
                     id="close"
                     type="time"
                     name="openTime"
