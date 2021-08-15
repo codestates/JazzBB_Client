@@ -42,7 +42,6 @@ function JazzBar() {
   useEffect(async () => {
     dispatch(saveThisHistory());
     dispatch(setCurrentPage(window.location.pathname));
-    console.log("dskvnsdovnsdklnsdlknsdvnk");
     await axios
       .post(process.env.REACT_APP_DB_HOST + "/showRead", {
         jazzbarId: state.currentJazzbar,
@@ -68,8 +67,6 @@ function JazzBar() {
         jazzbarId: state.currentJazzbar,
       })
       .then((res) => {
-        console.log('review')
-        console.log(res.data.data,'review');
         const reviewList = res.data.data.list;
         dispatch(setList(reviewList, "reviewList"));
       })
@@ -136,7 +133,6 @@ function JazzBar() {
   };
 
   const reviewUpdate = async (el) => {
-    console.log(el)
     await axios
       .post(
         process.env.REACT_APP_DB_HOST + "/reviewUpdate",
@@ -179,7 +175,6 @@ function JazzBar() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
-    console.log('clicked')
     setIsOpen(!modalIsOpen);
       setDisplay(true)
   }
@@ -192,7 +187,6 @@ function JazzBar() {
     "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services";
   document.head.appendChild(script);
 
-  console.log(thisBar.address,'address', thisBar.gpsY)
   script.onload = () => {
     kakao.maps.load(() => {
       let container = document.getElementById("map");
@@ -238,7 +232,6 @@ function JazzBar() {
   setDisplay('none')
 
   }
-console.log(display,'display')
   return (
     <div className="shopinfo">
       <div className="shopinfo-body">

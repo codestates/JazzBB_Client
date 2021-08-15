@@ -15,7 +15,6 @@ export default function DatePick({ChangeDate}) {
       var fixedDate =
         year + "-" + month + "-" + date ;
         // year + "-" + month + "- " + date + "- " + "(" + day + ")";
-        console.log(fixedDate)
       return fixedDate;
     };
     }

@@ -186,7 +186,6 @@ function BInfoManagePage() {
 
   const photoDelete = (e) => {
     let number = e.target.name;
-    console.log(number)
     if(number === "banner"){
       setBanner([])
       setBannerDetail([])
@@ -263,7 +262,10 @@ function BInfoManagePage() {
                 >
                   우편번호 검색
                 </button>
-                <div id="popupDom">
+              </div>
+            </div>
+
+            <div id="popupDom">
                   {isPopupOpen && (
                     <PopupDom>
                       <PopupPostCode
@@ -275,9 +277,6 @@ function BInfoManagePage() {
                     </PopupDom>
                   )}
                 </div>
-              </div>
-            </div>
-
             <div className="barMobile boxopt">
               <div className="inputformlabel">연락처</div>
               <div className="phoneWrapper">
@@ -345,7 +344,6 @@ function BInfoManagePage() {
                 <div className="inputformsublabel">
                   최대 5개의 이미지까지 업로드가 가능합니다
                 </div>
-
                 <div style={styles}>
                   <label className="custom-file-upload">
                     <input

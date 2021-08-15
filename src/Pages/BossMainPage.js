@@ -24,7 +24,6 @@ function BossMainPage() {
        const list = res.data.data;
        await dispatch(setList(list, 'barList'));
       })
-      .catch(err => console.log(err))
 
       const barId = await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true })
        .then(res => {
