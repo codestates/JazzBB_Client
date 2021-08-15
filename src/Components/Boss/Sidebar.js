@@ -9,7 +9,7 @@ import {
 } from "react-pro-sidebar";
 import { useSelector } from 'react-redux'
 import "react-pro-sidebar/dist/css/styles.css";
-import { FiSidebar, FiArrowLeftCircle, FiArrowRightCircle ,  FiHome} from "react-icons/fi";
+import { FiArrowLeftCircle, FiArrowRightCircle ,  FiHome} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { CgMusicNote } from "react-icons/cg";
 import { HiOutlinePhotograph } from "react-icons/hi";
@@ -32,10 +32,8 @@ const Sidebar = ({fold}) => {
 // if(fold !== undefined){
 
 // }
-const [size, setSize] = useState([0, 0]);
 useLayoutEffect(() => {
   function updateSize() {
-    setSize([window.innerWidth, window.innerHeight]);
     if(window.innerWidth < 900){
       setOpenClose(true)
     }else{
@@ -48,7 +46,6 @@ useLayoutEffect(() => {
   return () => window.removeEventListener('resize', updateSize);
 }, []);
 
-console.log(size,'size')
 
 
 

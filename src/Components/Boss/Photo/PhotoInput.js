@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import '../ShowManage/ShowManage.css'
 import { useSelector, useDispatch } from "react-redux";
-import { setToken, setBossMenu } from "../../redux/new/action";
+import { setToken } from "../../redux/new/action";
 
 //img url 생성과 state에 set해주는 기능 필요.
 function AddShowInput() {
@@ -12,7 +12,6 @@ function AddShowInput() {
   const [imgFile, setImgFile] =useState('')
 
   const setFile = (e) => {
-    console.log("setFile");
     if (e.target.files[0]) {
       const img = new FormData();
       img.append("image", e.target.files[0]);
@@ -23,7 +22,6 @@ function AddShowInput() {
     let reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
-      // console.log(base64, "absfs");
       if (base64) {
         setMenuImg(base64.toString());
       }

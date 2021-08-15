@@ -10,10 +10,8 @@ function PhotoInputFile() {
 //   const [imageUrl, setImageUrl] = useState(imgBase64);
   
   const setFile = (e) => {
-    console.log('setFile')
     if (e.target.files[0]) {
       const img = new FormData();
-      console.log(img,'img')
 
       img.append("file", e.target.files[0]);
       axios
@@ -28,25 +26,17 @@ function PhotoInputFile() {
   };
 
   const handleChangeFile = (event) => {
-    console.log('handleChangeFile')
-    console.log(event.target.files,'@@$@$A#')
-
     let reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
-    //   console.log(base64,"0")
-    //   console.log(base64[1],"1")
       if (base64) {
         setImgBase64(base64.toString()); 
-        // console.log(imgBase64,'imgBase64imgBase64')
       }
     };
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장
       setImgFile(event.target.files[0]); // 파일 상태 업데이트
     }
-    // console.log(imgFile,'imgFile')
-     // })
      const formData = new FormData ()
      axios
      .post(process.env.REACT_APP_DB_HOST + "/jazzbarImg", formData, {

@@ -339,3 +339,9 @@
     opacity: 1;
 }
 
+#popupDom{
+    position: fixed;
+    bottom: 15%;
+  }
+
+ 
