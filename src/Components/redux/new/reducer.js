@@ -1,4 +1,4 @@
-import { Palette } from "@material-ui/icons";
+// import { Palette } from "@material-ui/icons";
 import {
   SET_SHOW_BOSS,
   SET_RESER_BOSS,
@@ -29,8 +29,11 @@ import {
   SET_JAZZID_BOSS,
   FINISH_ACTION,
   SET_CURRENT_PAGE,
+  RESET,
+  SET_BOSS_MENU
 } from "./action";
 import initialState from "./initialState";
+import ResetState from './ResetState'
 
 const reducer = (state = initialState, action) => {
   const payload = action.payload;
@@ -40,6 +43,11 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         jazzBarId: payload.id },
       );
+
+      case SET_BOSS_MENU:
+        return Object.assign({}, state, {
+          menu: payload.id },
+        );
 
     case SET_TOKEN:
       return Object.assign({}, state, {
@@ -54,7 +62,7 @@ const reducer = (state = initialState, action) => {
 
 
     case SET_RESER_BOSS:
-      return Object.assign({}, state, { reservation: payload.list });
+      return Object.assign({}, state, { bossReservation: payload.list });
 
     case SET_LIST:
       return Object.assign({}, state, { [payload.verify]: payload.list });
@@ -131,7 +139,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { isLogin: !state.isLogin });
 
     case ADD_EVERY_SHOW_LIST:
-      return Object.assign({}, state, { everyShowList: [...state.everyShowList, ...payload.list] });
+      return Object.assign({}, state, { everyShowList: [...payload.list] });
 
     case FINISH_ACTION:
       return Object.assign({}, state, { codeAction: true });
@@ -139,6 +147,12 @@ const reducer = (state = initialState, action) => {
     case SET_CURRENT_PAGE:
       return Object.assign({}, state, { currentPage: payload.page });
 
+
+    // case SAVE_REDUCER:
+    //   return Object.assign({}, state, { isLogin: payload.login, codeAction: payload.codeAction, user: payload.user, token: payload.token });
+    case RESET:
+      return Object.assign({}, ResetState);
+    
 
     default:
       return state;

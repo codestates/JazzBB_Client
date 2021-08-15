@@ -9,9 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 // import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 // import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Modal from "react-modal";
 import Button from "@material-ui/core/Button";
-import ModalEdit from "./ModalEdit";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,20 +37,23 @@ const useStyles = makeStyles((theme) => ({
 
 function AllShowEntry({ data }) {
   const classes = useStyles();
-
-
   const content = data.content;
+  let array = [];
+  for(let name in data.player){
+    array.push([name, data.player[name]])
+  }
   const player = (el) => {
-    return <div>{`${el.position} :: ${el.name}`}</div>;
-  };
+      return <div>{`${el[0]} :: ${el[1]}`}</div>
 
-  const [edit, setEdit] = useState(false);
+  };
+ 
+
+  // const [edit, setEdit] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   function toggleModal() {
     setIsOpen(!isOpen);
-    setEdit(false);
+    // setEdit(false);
   }
-  const info = data;
   return (
     <div>
       <div className="card-outer-box">
@@ -109,7 +110,7 @@ function AllShowEntry({ data }) {
                   <BsMusicNoteList />
                 </div>
                 <div className="data-player">
-                  {data.player.map((el) => player(el))}
+                  {array.map(el => player(el))}
                 </div>
               </div>
               <div className="oneShow-content">

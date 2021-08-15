@@ -1,11 +1,10 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList, setCurrentPage } from "../Components/redux/new/action";
+import { saveThisHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, addEveryShowList, setCurrentPage } from "../Components/redux/new/action";
 import "../css/service.css"
 import SimpleSlider from "../Components/adbanner";
-import { SignalCellularNullRounded } from "@material-ui/icons";
 
 function Service () {
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ function Service () {
     await axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
      .then(async res => {
        const list = res.data.data;
-       await dispatch(setList(list, 'barList'));
+       dispatch(setList(list, 'barList'));
       })
       .catch(err => console.log(err))
       
@@ -40,24 +39,18 @@ function Service () {
       .then(res => {
         const list = res.data.data;
         dispatch(setList(list, 'boardList'));
-        // console.log(list, "@@@@@@@@@@@good2")
       })
       .catch(err => console.log(err))
       await axios.post(process.env.REACT_APP_DB_HOST + "/showRead")
       .then(res => {
-        // console.log('dklnvkldsklsdnvklsdnvlskdnvsdlknvdsklnvsdlknvsdlknvslknvskdlnvklk')
-        // console.log(res)
         const showList = res.data.data;
         dispatch(addEveryShowList(showList));
-      })
-      .then(() => {
       })
       .catch(err => console.log(err))
     }, [])
  
 
   const goJazzbar = (jazzbar) => {
-    // console.log(e)
     dispatch(setJazzbar(jazzbar.id));
   }
 
@@ -112,6 +105,7 @@ function Service () {
                       
 
                       {
+                        state.everyShowList.length !== 0 ?
                         state.everyShowList.map(el => {
                           return el.date === thisDate ?
                              (
@@ -143,6 +137,7 @@ function Service () {
                           :
                           null
                         })
+                        : null
                       }
 
 
@@ -168,6 +163,7 @@ function Service () {
                             <div className="service-popular-contents">
 
                                 {
+                                  state.boardList.length !== 0 ?
                                   state.boardList.reverse().map(el => {
                                     return (
                                       <Link to="/posting" className="service-popular-object" onClick={()=> goPosting(el)}>
@@ -182,6 +178,7 @@ function Service () {
                                       </Link>
                                     )
                                   })
+                                  : null
                                 }
                             </div>
                         </div>
@@ -202,7 +199,7 @@ function Service () {
                             <div className="service-newResOpen-contents">
                                 {
 
-                                  state.barList ? 
+                                  state.barList.length !== 0 ? 
                                   state.barList.reverse().map((el) => {
                                     return (
                                     <Link to="/jazzbar" key={el.id} className="service-newResOpen-object" onClick={()=> goJazzbar(el)}>

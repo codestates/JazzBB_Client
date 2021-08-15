@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from "react-router-dom";
-import { setPeople, setToken, setCurrentPage, saveThisHistory} from "../Components/redux/new/action";
+import { useHistory } from "react-router-dom";
+import { setPeople, setToken, setCurrentPage, saveThisHistory, modifySwitch } from "../Components/redux/new/action";
 import "../css/reservation.css";
 
 
 function Reservation(){
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  const [openTime, closeTime] = state.jazzbar.openTime.split('-');
+  const [openTime, closeTime] = state.barList.find(el => el.id === state.currentJazzbar).openTime.split('-');
+  let history = useHistory();
 
   useEffect(()=>{
     dispatch(saveThisHistory())
@@ -20,27 +21,33 @@ function Reservation(){
     dispatch(setPeople(e.target.value));
   }
 
-  const requestReservation = async() => {
-    await axios.get(process.env.REACT_APP_DB_HOST + '/reservationCreate', { headers: { authorization: state.token }, withCredentials: true }, {
-      showId: state.show.id,
-      userId: state.user.dbUserId,
-      people: state.people,
-    })
-    .then(res => {
-      const token = res.data.data.accessToken;
-      dispatch(setToken(token));
-    })
+  const requestReservation = () => {
+    if(!state.isLogin) {
+      alert('로그인 후 예약이 가능합니다.');
+      dispatch(modifySwitch('loginModal'));
+    } else {
+      axios.post(process.env.REACT_APP_DB_HOST + '/reservationCreate', {
+        showId: state.show.id,
+        userId: state.user.id,
+        people: state.people,
+      }, { headers: { authorization: state.token }, withCredentials: true })
+      .then(res => {
+        const token = res.data.data.accessToken;
+        dispatch(setToken(token));
+        history.push('/jazzbar')
+      })
+    }
   }
 
   return (
     <div className="reservation">
       <div className="reservation-body">
         <div className="reservation-header">
-          <div className="reservation-header-name">{state.jazzbar.barName}</div>
+          <div className="reservation-header-name">{state.barList.find(el => el.id === state.currentJazzbar).barName}</div>
           <div className="reservation-header-locale">
-            <div className="reservation-header-locale-location">{state.jazzbar.area}</div>
+            <div className="reservation-header-locale-location">{state.barList.find(el => el.id === state.currentJazzbar).area}</div>
           </div>
-          <div className="reservation-header-phone">{state.jazzbar.mobile}</div>
+          <div className="reservation-header-phone">{state.barList.find(el => el.id === state.currentJazzbar).mobile}</div>
           <div className="reservation-header-openhour">{`${openTime}~${closeTime}`}</div>
         </div>
         <div className="reservation-shopnotice">
@@ -57,7 +64,7 @@ function Reservation(){
         <div className="reservation-container">
   
           <div className="reservation-photobox">
-            <img className="reservation-photobox-img" src={state.show.thumbnail ? state.show.thumbnail : state.jazzbar.thumbnail} />
+            <img className="reservation-photobox-img" src={state.show.thumbnail ? state.show.thumbnail : state.barList.find(el => el.id === state.currentJazzbar).thumbnail} />
           </div>
   
           <div className="reservation-details">
@@ -71,12 +78,10 @@ function Reservation(){
   
             <div className="reservation-details-personWrapper">
               <div className="reservation-details-label">방문인원</div>
-              <input className="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.jazzbar.defaultSeat} onChange={(number) => changePeople(number)} value="1" />
+              <input className="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.barList.find(el => el.id === state.currentJazzbar).defaultSeat} onChange={(number) => changePeople(number)} defaultValue="1" />
             </div>
   
-            <Link to="/jazzbar">
-              <button className="reservation-details-submit" onClick={()=> requestReservation()}>예약신청</button>
-            </Link>                  
+              <button className="reservation-details-submit" onClick={()=> requestReservation()}>예약신청</button>               
   
           </div>
   

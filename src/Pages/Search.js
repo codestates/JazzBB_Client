@@ -136,7 +136,7 @@ function Search () {
                   <div className="search-result-info-shopname">{el.title}</div>
                   <div className="search-result-info-phone"></div>
                   <div className="search-result-info-shoplocate"></div>
-                  <div className="search-result-info-time">{el.content.slice(0,10)}</div>
+                  <div className="search-result-info-time">{el.content.length > 10 ? el.content.slice(0,10) : el.content}</div>
                 </div>
               </Link>
             )

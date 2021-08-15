@@ -41,7 +41,7 @@ function BoardPostingObject () {
       alert('로그인 후 리뷰 작성이 가능합니다.');
       dispatch(modifySwitch('loginModal'));
     } else {
-      console.log(state.user)
+      // console.log(state.user)
       await axios.post(process.env.REACT_APP_DB_HOST + '/reviewCreate',{
         boardId: state.currentBoard, 
         point: '5', 
@@ -143,7 +143,10 @@ function BoardPostingObject () {
           </div>
           <table className="infobbsdataentry-body-data-infobody">
             <tr>
-              {state.boardList.find(el => el.id === state.currentBoard).content}
+              {state.boardList.find(el => el.id === state.currentBoard).content.split('<br>').map(el => {
+              return (<span>{el}<br/></span>)
+            })
+              }
             </tr>
           </table>
 

@@ -5,19 +5,16 @@ import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
-// import { CgEnter } from 'react-icons/cg';
-// import { BsTextCenter } from 'react-icons/bs';
 import ReserByDate from './ReserByDate'
 import ReserAll from './ReserALL'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // backgroundColor: theme.palette.background.paper,
   },
 }));
 
-export default function LabTabs({unset,set, all}) {
+export default function LabTabs() {
   
  
   const classes = useStyles();
@@ -37,8 +34,8 @@ export default function LabTabs({unset,set, all}) {
             {/* <Tab label="날짜별 예약 보기" value="3" /> */}
           </TabList>
         </AppBar>
-        <TabPanel value="2"><ReserByDate  AllPage={all} setAll={set} unsetAll={unset}></ReserByDate></TabPanel>
-        <TabPanel value="1"> <ReserAll></ReserAll></TabPanel>
+        <TabPanel value="2"><ReserByDate ></ReserByDate></TabPanel>
+        <TabPanel value="1"> <ReserAll ></ReserAll></TabPanel>
         {/* <TabPanel value="3"> <ReserByShow ></ReserByShow></TabPanel> */}
       </TabContext>
     </div>

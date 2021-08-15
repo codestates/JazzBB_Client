@@ -1,48 +1,43 @@
-import React, { useEffect } from "react";
-// import DatePick from "../DatePick";
+import React, { useEffect,useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ReserHeader from "./ReserHeader";
 import {
-  setBossReservationList,
-  setBossShowList,
-  // setToken,
+  setBossJazzBar,setToken, setBossReservationList
 } from "../../redux/new/action";
 import "../RvManage.css";
 
 const BreservationPage = () => {
   const dispatch = useDispatch();
-  const jazzbarId = useSelector((state) => state.reducer.jazzBarId);
-  const [All, SetNotAll] = React.useState(true);
-  const set = () => {
-    SetNotAll(true);
-  };
+  const state = useSelector((state) => state.reducer);
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
+    .then(res => {
+      const jazzbarList = res.data.data;
+      const jazzbardata = jazzbarList.filter(el => el.id === state.jazzbarId)
+    dispatch(setBossJazzBar(jazzbardata[0]));
+    })
+    .then(
+      axios.post(process.env.REACT_APP_DB_HOST + "/reservationRead",{jazzbarId : state.jazzBarId}, {
+        headers: {
+          authorization: state.token,
+        },
+        withCredentials: true,
+      }) 
+      .then(res =>{
+        const list = res.data.data.list;
+        dispatch(setBossReservationList(list))
+         const token = res.data.data.accessToken;
+        dispatch(setToken(token));
+      } 
+      )
+      )
+      .catch(err => console.log(err))
+  },[])
 
-  const unset = () => {
-    SetNotAll(false);
-  };
-
-  // useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_DB_HOST + "/showRead", jazzbarId)
-  //     .then((res) => {
-  //       const showlist = res.data.data;
-  //       dispatch(setBossShowList(showlist));
-  //       return showlist;
-  //     })
-  //     .then(
-  //       axios
-  //         .get(process.env.REACT_APP_DB_HOST + "/reservationRead", jazzbarId)
-  //         .then((res) => {
-  //           const list = res.data.data.list;
-  //          const jazzbarData =  list.filter(el => el.id === jazzbarId)
-  //           dispatch(setBossReservationList(jazzbarData));
-  //         })
-  //     );
-  // }, []);
-
+  
   return (
     <div>
       <Sidebar></Sidebar>
@@ -50,9 +45,8 @@ const BreservationPage = () => {
         {/* <div className="bossHeader"><img src="/img/tokyoJazz.jpg" alt=""/></div> */}
         <div className="content">
           <div className="content-title">예약 관리</div>
-          <hr class="hrcss"></hr>
-          <ReserHeader set={set} unset={unset} all={All}></ReserHeader>
-          {/* <ReserByDate set ={set} unset={unset} all={All}></ReserByDate> */}
+          <hr className="hrcss"></hr>
+          <ReserHeader ></ReserHeader>
         </div>
       </div>
     </div>

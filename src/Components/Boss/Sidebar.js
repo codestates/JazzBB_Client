@@ -7,6 +7,7 @@ import {
   SidebarHeader,
   SidebarContent,
 } from "react-pro-sidebar";
+import { useSelector } from 'react-redux'
 import "react-pro-sidebar/dist/css/styles.css";
 import { FiSidebar, FiHome} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
@@ -15,7 +16,11 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { BsBook } from "react-icons/bs";
 import "./sidebar.css";
 import "../../../src/dist/css/comm.css"
+
+
 const Sidebar = () => {
+  const state = useSelector(state => state.reducer);
+  const thisBar = state.barList.find(el => el.id === state.currentJazzbar)
   const [openClose, setOpenClose] = useState(false);
   const menuIconClick = () => {
     openClose ? setOpenClose(false) : setOpenClose(true);
@@ -36,7 +41,7 @@ const Sidebar = () => {
                 {openClose ? <FiSidebar /> : <FiSidebar />}
               </div>
               <div className="logotext">
-                <p>{openClose ? "Vinga" : "뱅가(Vin-ga)"}</p>
+                <p>{thisBar ? thisBar.barName : '재즈바바'}</p>
               </div>
             </SidebarHeader>
             <SidebarContent>
@@ -56,10 +61,10 @@ const Sidebar = () => {
                   공연관리 <Link to="/boss/show" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<HiOutlinePhotograph />}>
-                  사진관리 <Link to="/boss/photo" />
+                  메뉴관리 <Link to="/boss/photo" />
                 </MenuItem>
                 <MenuItem className="tag" icon={<RiPencilLine />}>
-                  정보수정 <Link to="/boss/infoedit" />
+                  정보수정 <Link to="/boss/infoupdate" />
                 </MenuItem>
               </Menu>
             </SidebarContent>

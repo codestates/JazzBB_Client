@@ -1,33 +1,36 @@
 /*global kakao */
 import React, { useEffect, useState } from "react";
-import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, Redirect } from "react-router-dom";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import InfoUpdate from "./InfoUpdate";
 import "./BInfoManagePage.css";
 import { setBossJazzBar, setToken, setJazzId } from "../../redux/new/action";
-const { kakao } = window;
+// const { kakao } = window;
 
+
+//menu 사진 기능 테스트할 때, 105번 주석 풀어야 함.
 function BInfoManagePage() {
   const dispatch = useDispatch();
   const initialState = useSelector((initstate) => initstate.reducer);
   const jazzbarId = useSelector((initstate) => initstate.reducer.jazzBarId);
-  const Jazz = useSelector((initstate) => initstate.reducer.jazzbar);
   const serviceOption = useSelector((initstate) => initstate.reducer.serviceOption);
   const [gps, setGps] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [serviceitem, setService] = useState([]);
   const [initstate, setInitState] = useState({});
-
+  let history = useHistory();
   useEffect(() => {
     axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead").then((res) => {
       const jazzbarList = res.data.data;
-      console.log(jazzbarList,'jazzbarList')
+      // console.log(jazzbarList,'jazzbarList')
         const jazzbardata = jazzbarList.filter(el => el.id === jazzbarId)
-console.log(jazzbardata, 'jazzbardata')
-  dispatch(setBossJazzBar(jazzbardata[0]));
+        if(jazzbardata.length !== 0){
+          <Redirect to='/infoupdate'></Redirect>
+        }else{
+          dispatch(setBossJazzBar(jazzbardata[0]));
+        }
     });
   }, []);
 
@@ -36,13 +39,22 @@ console.log(jazzbardata, 'jazzbardata')
 
   const handleInput = (e) => {
     const targetName = e.target.name;
+    const targetId = e.target.id;
+
     if (targetName === "serviceOption") {
       const {
         target: { checked },
       } = e;
       setService({ ...serviceitem, [e.target.id]: checked });
       // console.log(serviceitem);
-    } else {
+    }else if (targetName === "openTime") {
+      if(targetId === 'open'){
+        setInitState({...initstate, [targetId] : e.target.value})
+      }else if(targetId === 'close'){
+        setInitState({...initstate, [targetId] : e.target.value})
+      }
+    } 
+    else {
       setInitState({ ...initstate, [targetName]: e.target.value });
     }
   };
@@ -56,7 +68,7 @@ console.log(jazzbardata, 'jazzbardata')
         }
       }
     }
-   
+
     if (
       initstate.addressFront === undefined ||
       initstate.addressETC === undefined ||
@@ -66,6 +78,7 @@ console.log(jazzbardata, 'jazzbardata')
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
+
       const newForm = new FormData();
       newForm.append("thumbnail", banner[0]);
       newForm.append("barName", initstate.barName);
@@ -76,14 +89,8 @@ console.log(jazzbardata, 'jazzbardata')
       newForm.append("address", initstate.addressFront + " " + initstate.addressETC);
       newForm.append("serviceOption", temp);
       newForm.append("mobile", initstate.mobile);
-
-   
-
-      // for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+      newForm.append("openTime",  initstate.open + "-" + initstate.close,);
       // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
-
-
-
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, {
           headers: {
@@ -97,41 +104,35 @@ console.log(jazzbardata, 'jazzbardata')
           dispatch(setToken(token1));
           const barId = res.data.data.jazzbarId;
           dispatch(setJazzId(barId));
-          console.log(barId,'~~~~server : jazzbarId')
+          // console.log(barId,'~~~~server : jazzbarId')
           return barId
         })
-        // .then((barId)=>{
-        // const menuFormData = new FormData();
-        // for (let i = 0; i < targetFile.length; i++) {
-        //   menuFormData.append(`thumbnail`, targetFile[i]);
-        // }
-        // menuFormData.append(`jazzbarId`, barId);
+        .then((barId)=>{
+        const menuFormData = new FormData();
+        for (let i = 0; i < targetFile.length; i++) {
+          menuFormData.append(`thumbnail`, targetFile[i]);
+        }
+        menuFormData.append(`jazzbarId`, barId);
+      for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
         
-        //   axios
-        //     .post(process.env.REACT_APP_DB_HOST + "/menuCreate", menuFormData, {
-        //       headers: {
-
-        //         "Content-Type": "multipart/form-data",
-        //       },
-        //       withCredentials: true,
-        //     })
-        //     return barId
-        // })
-        .then((barId) =>{
-          console.log(barId,'barId')
-          axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-          .then(res => {
-            const jazzbarList = res.data.data;
-          console.log(jazzbarList,'jazzbarList')
-            const jazzbardata = jazzbarList.filter(el => el.id === barId)
-    console.log(jazzbardata, 'jazzbardata')
-      dispatch(setBossJazzBar(jazzbardata[0]));
-          // window.location.href = "/boss/infoupdate"
-          })
-         } )
-        
+          axios
+            .post(process.env.REACT_APP_DB_HOST + "/menuCreate", menuFormData, {
+              headers: {
+          authorization: initialState.token,
+                "Content-Type": "multipart/form-data",
+              },
+              withCredentials: true,
+            })
+            .then(res => {
+              console.log(res)
+              const token = res.data.data.accessToken
+              dispatch(setToken(token))
+            })
+        })
+        .then((res) =>{
+          history.push('/boss/main')
+         })
     }
-            // .then((window.location.href = "/boss/main"))
   };
 
 
@@ -182,8 +183,8 @@ console.log(jazzbardata, 'jazzbardata')
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
     <div className="infoPage">
-      <Sidebar></Sidebar>
-      {/* {Jazz=== [] ? ( */}
+      {/* <Sidebar></Sidebar> */}
+      {/* {Jazz === [] ? ( */}
         <div className="infobody">
           <div className="BIMcontentBox">
             <div className="ctBoxheader">
@@ -257,10 +258,11 @@ console.log(jazzbardata, 'jazzbardata')
                   <input
                     className="phoneform"
                     placeholder="매장 연락처"
-                    type="number"
+                    type="tel"
                     name="mobile"
                     onChange={handleInput}
                     autocomplete="off"
+                    pattern="[0-9]{13}"
                   ></input>
                   <div className="phonelabel">
                     숫자만 입력해주세요. 예) 01012341234
@@ -279,20 +281,15 @@ console.log(jazzbardata, 'jazzbardata')
                 ></input>
               </div>
 
-              <div className="barMobile boxopt">
-                <div className="inputformlabel">영업 시간</div>
-                <div className="phoneWrapper">
-                  <input
-                    className="phoneform"
-                    placeholder="영업 시간"
-                    type="text"
-                    name="openTime"
-                    onChange={handleInput}
-                    autocomplete="off"
-                  ></input>
-                  <div className="phonelabel">
-                    형식에 맞게 입력해주세요. 예) 18:00-20:00
-                  </div>
+              <div className="opentime boxopt">
+                <div className="inputformlabel">영업시간</div>
+                <div className="opentimeWrapper">     
+                   <>
+                <input className ="timeform" id="open" type="time" name="openTime"  onChange={handleInput} ></input>
+                ~
+                <input className ="timeform" id="close" type="time" name="openTime"  onChange={handleInput} ></input>
+                </> 
+                 
                 </div>
               </div>
 
@@ -301,18 +298,9 @@ console.log(jazzbardata, 'jazzbardata')
 
                 {serviceOption.map((el) => (
                   <div className="svcdiv">
-                    <input
-                      className="svcoptcheck"
-                      type="checkbox"
-                      name="serviceOption"
-                      id={el.id}
-                      onChange={handleInput}
-                    />
-                    {/* <div className="svcopWrapper"> */}
+                    <input className="svcoptcheck" type="checkbox" name="serviceOption" id={el.id} onChange={handleInput} />
                     <div className="svcoptel">{el.content}</div>
                     <img className="svcopicon" src={el.img} alt=""></img>
-                    {/* </div> */}
-
                   </div>
                 ))}
               </div>
@@ -401,12 +389,8 @@ console.log(jazzbardata, 'jazzbardata')
             </div>
           </div>
         </div>
-      ) 
-      {/* : 
-      (
-       <InfoUpdate data={Jazz}></InfoUpdate>
-       ) 
-       }  */}
+      
+       
     </div>
   );
 }

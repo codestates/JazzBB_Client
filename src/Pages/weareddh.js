@@ -73,7 +73,7 @@ function Weareddh() {
                                     <div className="weareddh-aboutus-members-grade">대표이사</div>
                                     <div className="weareddh-aboutus-members-name">서지민</div>
                                 </div>
-                                <div className="weareddh-aboutus-members-position">Front-end</div>
+                                <div className="weareddh-aboutus-members-positionLabel">Front-end</div>
                                 <div className="weareddh-aboutus-members-position">Client Engineering</div>
                                 <div className="weareddh-aboutus-members-position">Client API management</div>
                                 <div className="weareddh-aboutus-members-position">kakaoMap master</div>
@@ -85,7 +85,7 @@ function Weareddh() {
                                     <div className="weareddh-aboutus-members-grade">리더</div>
                                     <div className="weareddh-aboutus-members-name">김수황</div>                                        
                                 </div>
-                                <div className="weareddh-aboutus-members-position">Back-end</div>
+                                <div className="weareddh-aboutus-members-positionLabel">Back-end</div>
                                 <div className="weareddh-aboutus-members-position">Server Engineering</div>
                                 <div className="weareddh-aboutus-members-position">Server API management</div>
                                 <div className="weareddh-aboutus-members-position">Schema/Dataflow Design</div>
@@ -97,26 +97,49 @@ function Weareddh() {
                                     <div className="weareddh-aboutus-members-grade">디자이너</div>
                                     <div className="weareddh-aboutus-members-name">성준락</div>    
                                 </div>                                
-                                <div className="weareddh-aboutus-members-position">Front-end</div>
+                                <div className="weareddh-aboutus-members-positionLabel">Front-end</div>
                                 <div className="weareddh-aboutus-members-position">Client Engineering</div>
                                 <div className="weareddh-aboutus-members-position">Brand Design</div>
                                 <div className="weareddh-aboutus-members-position">UI/UX Design</div>
                                 <div className="weareddh-aboutus-members-position">git management</div>
-                                <div className="weareddh-aboutus-members-position">Infra/Deploy management</div>
                             </div>
 
                             <div className="weareddh-aboutus-membersWrapper">
                                 <img className="weareddh-aboutus-members-photo" src="/img/resource/member-tess.jpeg" />
                                 <div className="weareddh-aboutus-members-fullname">
-                                    <div className="weareddh-aboutus-members-grade">도비는 무료에요!</div>
+                                    <div className="weareddh-aboutus-members-grade">N사를 노리는 엘리트</div>
                                     <div className="weareddh-aboutus-members-name">김태선</div>                                        
                                 </div>
-                                <div className="weareddh-aboutus-members-position">Full-stack</div>
+                                <div className="weareddh-aboutus-members-positionLabel">Full-stack</div>
                                 <div className="weareddh-aboutus-members-position">Client Engineering</div>
                                 <div className="weareddh-aboutus-members-position">kakao certification management</div>
                                 <div className="weareddh-aboutus-members-position">Client-Server API Design</div>
                                 <div className="weareddh-aboutus-members-position">Internal API management</div>
                             </div>
+
+                            <div className="weareddh-aboutus-membersWrapper">
+                                <img className="weareddh-aboutus-members-photo" src="/img/resource/member-dh.jpeg" />
+                                <div className="weareddh-aboutus-members-fullname">
+                                    <div className="weareddh-aboutus-members-grade">미적 감각이 뛰어난</div>
+                                    <div className="weareddh-aboutus-members-name">정다희</div>                                        
+                                </div>
+                                <div className="weareddh-aboutus-members-positionLabel">Full-stack</div>
+                                <div className="weareddh-aboutus-members-position">Code Review</div>
+                                <div className="weareddh-aboutus-members-position">Debug supervisor</div>
+                            </div>
+
+                            <div className="weareddh-aboutus-membersWrapper">
+                                <img className="weareddh-aboutus-members-photo" src="/img/resource/member-js.jpeg" />
+                                <div className="weareddh-aboutus-members-fullname">
+                                    <div className="weareddh-aboutus-members-grade">멘탈케어 전문가</div>
+                                    <div className="weareddh-aboutus-members-name">박준석</div>                                        
+                                </div>
+                                <div className="weareddh-aboutus-members-positionLabel">DevOps</div>
+                                <div className="weareddh-aboutus-members-position">Infra/Deploy management</div>
+                                <div className="weareddh-aboutus-members-position">Technical supervisor</div>
+                            </div>
+
+
 
                         </div>
                     </div>

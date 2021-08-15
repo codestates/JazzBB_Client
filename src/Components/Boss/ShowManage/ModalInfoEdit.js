@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { confirmAlert } from "react-confirm-alert";
+import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { setToken } from "../../redux/new/action";
+
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-export default function CustomizedSelects({ data }) {
+export default function CustomizedSelects({ data, imgFile }) {
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -21,7 +26,11 @@ export default function CustomizedSelects({ data }) {
     },
   }));
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const time = data.time;
+  const start = time.substring(0, 5);
+  const end = time.substring(6, 11);
+  const initstate = useSelector((state) => state.reducer);
   const [state, setState] = useState({
     singer: false,
     piano: false,
@@ -34,102 +43,120 @@ export default function CustomizedSelects({ data }) {
     percussion: false,
     etc: false,
   });
-
-  const [name, setName] = useState({ yap: "yap" });
+  const [player, setPlayer] = React.useState(data.player);
+  const [inputValue, SetInputValue] = useState({...data,});
   const playerArr = Object.keys(state);
-  let checkedPosition = data.player.map((el) => el.position);
-
-  let yop = {};
+  const defaultPlayer = Object.keys(data.player)
+  
+  const findName = (el) =>{
+    if(defaultPlayer.find(ele => ele === el) === undefined){
+        return null;
+    }else{
+      return data.player[el]
+    }
+   }
+  
   useEffect(() => {
-    let copy = state;
-    checkedPosition.map((el) => {
-      state[el] = true;
-      setState(copy);
-    });
-    data.player.filter((el) => {
-      const exist = checkedPosition.find((ele) => el.position == ele);
-      yop[exist] = el.name;
-    });
-    setName(yop);
-    yop = {};
+    SetInputValue({...inputValue, startTime:start, endTime:end})
+    console.log(data)
+  let copy = state;
+  for(let position in data.player){
+    copy[position] = true
+  }
+   setState(copy)
+
   }, []);
 
-  const time = data.time;
-  const start = time.substring(0, 5);
-  const end = time.substring(6, 11);
+  
 
   const handleChange = (event) => {
-    if (name[event.target.name]) {
-      const copy = name;
+    if (player[event.target.name]) {
+      const copy = player;
       delete copy[event.target.name];
-      setName(copy);
-      checkedPosition = checkedPosition.filter(
-        (element) => element !== event.target.name
-      );
+      setPlayer(copy);
+      console.log(player)
     }
     setState({ ...state, [event.target.name]: !state[event.target.name] });
   };
 
-  const [player, setPlayer] = React.useState(data.player);
-  const [inputValue, SetInputValue] = useState({
-    ...data,
-    id: "02",
-    jazzbarId: "01",
-    thumbnail: "", //server 코드에서 thumbnail 빠져있음. 추후 논의 필요.
-  });
+  
 
   const handleInputChange = (event) => {
     const name = event.target.name;
-    if (name !== "player") {
-      const nameValue = event.target.value;
+    const nameValue = event.target.value;
+    const idValue = event.target.id;
+    if(name === 'endTime' || name === 'startTime'){
       SetInputValue({ ...inputValue, [name]: nameValue });
-      // console.log(inputValue)
-    } else {
-      let posi = player.map((el) => el.position);
-      console.log(posi, "posi");
-      let editPlayer = player;
-      editPlayer.map((el) => {
-        if (el.position == event.target.id) {
-          el.name = event.target.value;
-        }
-      });
-
-      console.log(editPlayer);
-      // setPlayer({ ...player, [event.target.id]: event.target.value });
-      // SetInputValue({ ...inputValue, player: {...player, position :{[event.target.id]: event.target.value} }});
     }
-    console.log(player);
+    else if (name !== "player") {
+      SetInputValue({ ...inputValue, [name]: nameValue });
+    } else {
+      setPlayer({...player, [idValue] : nameValue})
+    }
+    // console.log(player)
   };
 
-  const addPosition = () => {};
 
-  const CreateShow = () => {
-    confirmAlert({
-      title: "새로운 공연을 등록하시겠습니까?",
-      buttons: [
+  const updateShowHandler = () => {
+    SetInputValue({ ...inputValue, time : `${inputValue.startTime}-${inputValue.endTime}` });
+
+    if(imgFile.length === 0){
+      imgFile = data.thumbnail;
+    }
+    const filefile = new FormData();
+    filefile.append('thumbnail', imgFile)
+    filefile.append('content',inputValue.content )
+    filefile.append('time',`${inputValue.startTime}-${inputValue.endTime}` )
+    filefile.append('date',inputValue.date )
+    filefile.append('showCharge',inputValue.showCharge )
+    filefile.append('player', JSON.stringify(player))
+    filefile.append('jazzbarId', initstate.jazzBarId )
+    filefile.append('id', data.id )
+    axios
+      .post(
+        process.env.REACT_APP_DB_HOST + "/showUpdate",
+        filefile,
         {
-          label: "예",
-          onClick: () => {
-            axios
-              .post(process.env.REACT_APP_DB_HOST + "/showCreate", inputValue)
-              .then((res) => (window.location.href = "/boss/show"));
-            //server-showCreate  :jazzbar_id 빠짐....!!!
+          headers: {
+            authorization: initstate.token,
+            "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        const token1 = res.data.data.accessToken;
+        dispatch(setToken(token1));
+      })
+      .then((res) => {
+        console.log("updateShowHandler");
+        window.location.href='/boss/show'
+      });
+  };
+
+  const deleteShowHandler = () => {
+    axios
+      .post(
+        process.env.REACT_APP_DB_HOST + "/showDelete",
+        {
+          jazzbarId: data.jazzbarId,
+          id: data.id,
         },
         {
-          label: "아니오",
-        },
-      ],
-    });
-  };
-  const handleAddShow = async () => {
-    const StartEndtime = `${inputValue.startTime}-${inputValue.endTime}`;
-    await SetInputValue({
-      ...inputValue,
-      time: StartEndtime,
-      player: [player],
-    });
-    CreateShow();
+          headers: {
+            authorization: initstate.token,
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        const token1 = res.data.data.accessToken;
+        dispatch(setToken(token1));
+      })
+      .then((res) => {
+        console.log("deleteShowHandler success");
+        window.location.href='/boss/show'
+      });
   };
 
   return (
@@ -179,7 +206,7 @@ export default function CustomizedSelects({ data }) {
             name="date"
             type="date"
             onChange={handleInputChange}
-            defaultValue={data ? data.date : "2021-07-01"}
+            defaultValue={data ? data.date : null}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -230,7 +257,7 @@ export default function CustomizedSelects({ data }) {
                 type="checkbox"
                 name={el}
                 defaultChecked={
-                  checkedPosition.find((ele) => ele === el) ? true : false
+                  defaultPlayer.find(ele => ele === el) ? true : false
                 }
                 value={state.el}
                 onChange={handleChange}
@@ -244,7 +271,7 @@ export default function CustomizedSelects({ data }) {
 
 
 
-        {state.singer === true || name.singer ? (
+        {state.singer === true || data.player["singer"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="singer"
@@ -253,7 +280,7 @@ export default function CustomizedSelects({ data }) {
             name="player"
             placeholder="보컬 이름"
             onChange={handleInputChange}
-            defaultValue={name.singer ? name.singer : null}
+            defaultValue={findName("singer")}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -265,7 +292,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.piano || name.piano ? (
+      {state.piano || data.player["piano"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="piano"
@@ -275,7 +302,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="피아노 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.piano ? name.piano : null}
+            defaultValue={findName("piano")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -286,7 +313,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.trumpet || name.trumpet ? (
+      {state.trumpet || data.player["trumpet"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="trumpet"
@@ -296,7 +323,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="트럼펫 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.trumpet ? name.trumpet : null}
+            defaultValue={findName("trumpet")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -307,7 +334,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.base || name.base ? (
+      {state.base || data.player["base"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="base"
@@ -317,7 +344,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="베이스 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.base ? name.base : null}
+            defaultValue={findName("base")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -328,7 +355,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.guitar || name.guitar ? (
+      {state.guitar || data.player["guitar"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="guitar"
@@ -338,7 +365,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="기타 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.guitar ? name.guitar : null}
+            defaultValue={findName("guitar")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -349,7 +376,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.percussion || name.percussion ? (
+      {state.percussion || data.player["percussion"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="percussion"
@@ -359,7 +386,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="퍼커션 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.percussion ? name.percussion : null}
+            defaultValue={findName("percussion")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -370,7 +397,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.drum || name.drum ? (
+      {state.drum || data.player["drum"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="drum"
@@ -380,7 +407,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="드럼 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.drum ? name.drum : null}
+            defaultValue={findName("drum")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -391,7 +418,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.trombone || name.trombone ? (
+      {state.trombone || data.player["trombone"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="trombone"
@@ -401,7 +428,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="트럼본 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.trombone ? name.trombone : null}
+            defaultValue={findName("trombone")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -411,7 +438,7 @@ export default function CustomizedSelects({ data }) {
           />
         </div>
       ) : null}
-      {state.saxophone || name.saxophone ? (
+      {state.saxophone || data.player["saxophone"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="saxophone"
@@ -421,7 +448,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="색소폰 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.saxophone ? name.saxophone : null}
+            defaultValue={findName("saxophone")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -432,7 +459,7 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-      {state.etc || name.etc ? (
+      {state.etc || data.player["etc"] ? (
         <div className="input-showPlayer inputdiv">
           <TextField
             id="etc"
@@ -442,7 +469,7 @@ export default function CustomizedSelects({ data }) {
             placeholder="포지션 : 연주자 이름"
             onChange={handleInputChange}
             className={classes.textField}
-            defaultValue={name.etc ? name.etc : null}
+            defaultValue={findName("etc")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -453,7 +480,30 @@ export default function CustomizedSelects({ data }) {
         </div>
       ) : null}
 
-
+<div className="modify-bottom-box">
+        <div className="modify-delete-btn">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={deleteShowHandler}
+            startIcon={<RiDeleteBin5Line />}
+          >
+            삭제
+          </Button>
+        </div>
+        <div className="modify-save-btn">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={updateShowHandler}
+            startIcon={<SaveIcon />}
+          >
+            저장
+          </Button>
+        </div>
+      </div>
 
         </div>
 

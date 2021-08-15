@@ -1,30 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar";
-import InputFile from "../ShowManage/InputFile";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setBossJazzBar,
-} from "../../redux/new/action";
-
+// import InputFile from "../ShowManage/InputFile";
+import { useSelector } from "react-redux";
+import {setBossMenu} from "../../redux/new/action";
 import axios from "axios";
 import "./PhotoManage.css";
+import PhotoInput from './PhotoInput'
 
-const PhotoManage = () => {
-  const dispatch = useDispatch;
-  const jazzbarId = useSelector((state) => state.reducer.jazzbarId);
+function PhotoManage(){
   const state = useSelector((state) => state.reducer);
+const [img, setImg] =useState('')
+const [menu, setMenu] = useState()
+console.log(menu)
 
-  // useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_DB_HOST + "/jazzbarRead", jazzbarId)
-  //     .then((res) => {
-  //       const list = res.data.data;
-  //       dispatch(setBossJazzBar(list));
-  //     });
-  // }, []);
-
-  const jazzbar = useSelector((state) => state.reducer.jazzbar);
-
+useEffect(()=>{
+  axios.post( process.env.REACT_APP_DB_HOST + "/menuRead", {jazzbarId : state.jazzBarId})
+  .then(res => {
+    const list = res.data.data.data[0].thumbnail;
+    if(list !== undefined){
+      const arr = list.split(',')
+      setMenu(arr)
+    }
+  })
+},[])
+ 
+console.log(menu)
   return (
     <div className="photocontentbody">
       <Sidebar></Sidebar>
@@ -37,20 +37,13 @@ const PhotoManage = () => {
         </div>
 
         <div className="registered-photo-body">
-            {state.menu !== undefined
-              ? state.menu.map((el, index) => {
-                  <img className="registered-photo-img" src={el.thumbnail} key={index} alt =""/>;
+            {menu
+              ? menu.map((el) => {
+                return  <img className="registered-photo-img" src={el}  alt =""/>;
                 })
-              : null}
-
-            {jazzbar.thumbnail !== undefined
-             ? 
-            //  jazzbar.thumbnail.map((el, index) => {
-                  <img className="registered-photo-img" src={jazzbar.thumbnail} alt="" />
-                // })
-              : null}
+              : <div> 등록된 사진이 없습니다.</div>}
+           
       
-          {/* <img className="registered-photo-img" src="/img/tokyoJazz.jpg" alt=""/> */}
         </div>
         
         <div className="register-new-photo">
@@ -58,7 +51,7 @@ const PhotoManage = () => {
             <div className="register-header-label">신규 사진 등록</div>
           </div>
           <div className="register-inputfile">
-              <InputFile></InputFile>
+              <PhotoInput setImgFile={setImg}></PhotoInput>
           </div>
           
         </div>

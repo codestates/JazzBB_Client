@@ -1,65 +1,58 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from "react-router-dom";
-import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState, setCurrentPage, saveThisHistory } from "../Components/redux/new/action";
+import { Link, useHistory } from "react-router-dom";
+import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, setCurrentPage, saveThisHistory, Reset } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 
  function MyPage() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
+  let history = useHistory();
 
-  useEffect(async() => {
+  useEffect(async () => {
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    axiosRequest();
-  }, [])
-
-  const axiosRequest = () => {
-
-    axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true })
+    await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', 
+    { headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
+      console.log(res.data,'1data')
        const token1 = res.data.data.accessToken;
        const info = res.data.data.userinfo;
        dispatch(setUser(info));
        dispatch(setToken(token1));
      })
-     console.log("******** state", state)
-
-    axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', { userId: state.user.id }, { headers: { authorization: state.token }, withCredentials: true })
+      await axios.post(process.env.REACT_APP_DB_HOST + '/reservationRead', 
+      { userId: state.user.id }, 
+      { headers: { authorization: state.token }, withCredentials: true })
+      .then(res => {
+        const token2 = res.data.data.accessToken;
+        const reservation = res.data.data.list;
+        dispatch(setList(reservation, 'reservation'));
+        // dispatch(setToken(token2))
+      })
+    
+    await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.token }, withCredentials: true })
      .then(res => {
-       const token2 = res.data.data.token;
-       const reservation = res.data.data.list;
-       
-       dispatch(setList(reservation, 'reservation'));
-       dispatch(setToken(token2))
-       
-     })
- 
-
-    axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.token }, withCredentials: true }, { userId: state.user.id })
-     .then(res => {
-       const token3 = res.data.data.accessToken;
        const review = res.data.data.list;
        dispatch(setList(review, 'reviewList'));
-       dispatch(setToken(token3));
      })
-  }
+  }, [])
 
   const modifyUserTogle = (variety) => {
     dispatch(modifySwitch(variety));
   }
 
   const changeState = (event, variety) => {
-    console.log(event.target.value)
     dispatch(modifyUser(event.target.value, variety));
   }
 
   const handleModifyUser = (variety) => {
     dispatch(modifyFinish());
-    axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true }, { ...state.user })
+    axios.post(process.env.REACT_APP_DB_HOST + '/userinfo', { ...state.user, ...state.modifyUser }, { headers: { authorization: state.token }, withCredentials: true })
       .then(res => {
+        console.log(res.data.data)
         const token4 = res.data.data.accessToken;
         dispatch(setToken(token4));
         dispatch(modifySwitch(variety));
@@ -67,11 +60,10 @@ import "../css/mypage.css"
   }
 
   const withdrawUser = () => {
-    axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", { headers: { authorization: state.token }, withCredentials: true })
+    axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", '',{ headers: { authorization: state.token }, withCredentials: true })
       .then(() => {
-        dispatch(modifySwitch('withdrawModal'));
-        dispatch(modifySwitch('withdrawConfirm'));
-        dispatch(deleteState('user'));
+        dispatch(Reset())
+        history.push('/')
       })
   }
 
@@ -130,8 +122,8 @@ import "../css/mypage.css"
             :
             <div className="mypage-body-info-data">
               <div className="mypage-body-info-data-result">{state.user.userId}</div>
-              <input className="mypage-body-info-data-result" value={state.user.username} onChange={(e) => changeState(e, 'username')} />
-              <input className="mypage-body-info-data-result" value={state.user.mobile} onChange={(e) => changeState(e, 'mobile')} />
+              <input className="mypage-body-info-data-result" defaultValue={state.user.username} onChange={(e) => changeState(e, 'username')} />
+              <input className="mypage-body-info-data-result" defaultValue={state.user.mobile} onChange={(e) => changeState(e, 'mobile')} />
             </div>
           }
         </div>
@@ -157,7 +149,7 @@ import "../css/mypage.css"
                 return (
                   <div className="recentreservation-body">
                     <div className="recentreservation-body-date">{el.show.date.replace(/-/g, '.') + '.'}</div>
-                    <div className="recentreservation-body-name">{el.jazzbar.barName}</div>
+                    <div className="recentreservation-body-name">{el.show.jazzbar.barName}</div>
                     <div className="recentreservation-body-time">{el.show.time}</div>
                     <div className="recentreservation-body-person">{el.people}</div>
                     {el.confirm == 'pending' ?
@@ -190,16 +182,20 @@ import "../css/mypage.css"
             </div>
 
             <div className="mypage-body-recent-review-container">
-              {state.reviewList.map(el => {
-                return (
-                !el ? null : 
-                  <div className="recentreview-body">
-                    <div className="recentreview-body-info-date">⭐ {el.point}</div>
-                    <div className="recentreview-body-info-name">{el.jazzbar.barName ? el.jazzbar.barName : el.board.title}</div>
-                    <div className="recentreview-body-info-text">{el.content}</div>
-                  </div>
-                )
-              })}
+              {
+                state.reviewList.length === 0 ? null :
+              state.reviewList.map(el => {
+                if(el && el.jazzbar){
+                  return (
+                    <div className="recentreview-body">
+                      <div className="recentreview-body-info-date">{el.createdAt.replace(/-/g, '.').slice(0,10) + '.'}</div>
+                      <div className="recentreview-body-info-name">{el.jazzbar.barName}</div>
+                      <div className="recentreview-body-info-text">{el.content}</div>
+                    </div>
+                  )
+                }
+              })
+              }
             </div>
           </div>
         </div>
