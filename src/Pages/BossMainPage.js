@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux'
-import { modifySwitch, setList, setJazzbar, setToken } from "../Components/redux/new/action"
+import { setList, setJazzbar, setToken } from "../Components/redux/new/action"
 import Sidebar from "../Components/Boss/Sidebar";
 import "../css/sidebar.css";
 import "../css/BossMainPage.css";
@@ -10,29 +10,8 @@ import JazzBarPage from "./JazzBarPage";
 function BossMainPage() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
-  // function getWindowDimensions() {
-  //   const { innerWidth: width, innerHeight: height } = window;
-  //   return {
-  //     width,
-  //     height
-  //   };
-  // }
-//   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  const [fold, setFold]=useState(false)
 
-//     function handleResize() {
-//       setWindowDimensions(getWindowDimensions());
-//     }
-//     window.addEventListener('resize', handleResize);
 
-//     useEffect(()=>{
-//  console.log(windowDimensions,'windowDimensions')
-//  if(windowDimensions.width <1301){
-//   setFold(true)
-//  }
-//     },[windowDimensions])
-    // if(windowDimensions.width<)
-  
 
   useEffect(async ()=> {
     // if(!state.token || state.user.usertype !== 'boss' ){
@@ -67,7 +46,7 @@ function BossMainPage() {
 
   return (
     <div className="App">
-      <Sidebar fold={fold}></Sidebar>
+      <Sidebar ></Sidebar>
       <div className="contentsWrapper">
         <div className="dummydiv"></div>
         <div className="jbpage">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ProSidebar,
@@ -9,7 +9,7 @@ import {
 } from "react-pro-sidebar";
 import { useSelector } from 'react-redux'
 import "react-pro-sidebar/dist/css/styles.css";
-import { FiSidebar, FiHome} from "react-icons/fi";
+import { FiSidebar, FiArrowLeftCircle, FiArrowRightCircle ,  FiHome} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { CgMusicNote } from "react-icons/cg";
 import { HiOutlinePhotograph } from "react-icons/hi";
@@ -32,6 +32,28 @@ const Sidebar = ({fold}) => {
 // if(fold !== undefined){
 
 // }
+const [size, setSize] = useState([0, 0]);
+useLayoutEffect(() => {
+  function updateSize() {
+    setSize([window.innerWidth, window.innerHeight]);
+    if(window.innerWidth < 900){
+      setOpenClose(true)
+    }else{
+      setOpenClose(false)
+      
+    }
+  }
+  window.addEventListener('resize', updateSize);
+  updateSize();
+  return () => window.removeEventListener('resize', updateSize);
+}, []);
+
+console.log(size,'size')
+
+
+
+
+
   return (
     <div>
       <div className="sidebar">
@@ -40,7 +62,8 @@ const Sidebar = ({fold}) => {
           <ProSidebar collapsed={openClose}>
             <SidebarHeader>
             <div className="closemenu" onClick={menuIconClick}>
-                {openClose ? <FiSidebar /> : <FiSidebar />}
+                {/* {openClose ? <FiSidebar /> : <FiSidebar />} */}
+                {openClose ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
               </div>
               <div className="logotext">
                 <p>{thisBar ? thisBar.barName : '재즈바바'}</p>
