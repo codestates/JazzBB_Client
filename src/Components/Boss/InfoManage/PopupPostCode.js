@@ -32,13 +32,6 @@ const PopupPostCode = (props) => {
   };
 
   function getGps(data) {
-    // var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-    // const container = document.getElementById("myMap");
-    // const options = {
-    //   center: new kakao.maps.LatLng(33.450701, 126.570667),
-    //   level: 3,
-    // };
-    // const map = new kakao.maps.Map(container, options);
 
     const ps = new kakao.maps.services.Places();
 
@@ -46,9 +39,6 @@ const PopupPostCode = (props) => {
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
-        // let bounds = new kakao.maps.LatLngBounds();
-        // setGps({ gpsY: data[0].y, gpsX: data[0].x });
-        // map.setBounds(bounds);
         props.setGps({gpsY: data[0].y, gpsX: data[0].x, })
       }
     }
