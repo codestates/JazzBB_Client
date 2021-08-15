@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux'
-import { modifySwitch, setList, setJazzbar, setToken } from "../Components/redux/new/action"
+import { setList, setJazzbar, setToken } from "../Components/redux/new/action"
 import Sidebar from "../Components/Boss/Sidebar";
 import "../css/sidebar.css";
 import "../css/BossMainPage.css";
@@ -10,6 +10,8 @@ import JazzBarPage from "./JazzBarPage";
 function BossMainPage() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
+
+
 
   useEffect(async ()=> {
     // if(!state.token || state.user.usertype !== 'boss' ){
@@ -44,7 +46,7 @@ function BossMainPage() {
 
   return (
     <div className="App">
-      <Sidebar></Sidebar>
+      <Sidebar ></Sidebar>
       <div className="contentsWrapper">
         <div className="dummydiv"></div>
         <div className="jbpage">

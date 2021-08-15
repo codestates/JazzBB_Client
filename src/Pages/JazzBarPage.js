@@ -1,4 +1,4 @@
-
+/*global kakao*/
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ import Modal from "react-modal";
 import "../css/shopinfo.css";
 
 function JazzBar() {
-  const { Kakao } = window;
+  const { kakao } = window;
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
   const thisBar = state.barList.find((el) => el.id === state.currentJazzbar);
@@ -184,7 +184,36 @@ function JazzBar() {
       setDisplay(true)
   }
  
- 
+ useEffect(()=>{
+  const script = document.createElement("script");
+  script.async = true;
+  script.src =
+    // "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services&autoload=false";
+    "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services";
+  document.head.appendChild(script);
+
+  console.log(thisBar.address,'address', thisBar.gpsY)
+  script.onload = () => {
+    kakao.maps.load(() => {
+      let container = document.getElementById("map");
+      let gpsY = thisBar.gpsY
+      let gpsX = thisBar.gpsX
+      let options = {
+        center: new kakao.maps.LatLng(gpsY, gpsX),
+        level: 3
+      };
+
+      const map = new window.kakao.maps.Map(container, options);
+        
+       var markerPosition  = new window.kakao.maps.LatLng(gpsY, gpsX);
+      var marker = new window.kakao.maps.Marker({
+        position: markerPosition
+    });
+    marker.setMap(map);
+   
+    });
+  };
+ },[])
 
     // useEffect(()=>{
     //   var container = document.getElementById('map');
@@ -241,12 +270,11 @@ console.log(display,'display')
             </div>
 
               <div
-                id="map1"
+                id="map"
                 onClick={closeModal}
                 style={{ width: "100%", height: "400px", display: display }}
               >
 
-                <div id="map"></div>
               </div>
              
            
@@ -304,6 +332,9 @@ console.log(display,'display')
             </div> */}
           </div>
         </div>
+
+        {/* <div id="map1" 
+                style={{ width: "100%", height: "400px"}}></div> */}
 
         <Modal
           className="shopinfo-menuarea-modal"
