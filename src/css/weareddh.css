@@ -136,9 +136,10 @@
 
 .weareddh-aboutus-contents {
     display: flex;
-    justify-content:space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 
 .weareddh-aboutus-membersWrapper {
@@ -149,7 +150,9 @@
     padding: 30px;
     text-align: center;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .weareddh-aboutus-members-photo {
@@ -177,4 +180,10 @@
 .weareddh-aboutus-members-position {
     margin-bottom: 5px;
     font-size: 0.9rem;
+}
+
+.weareddh-aboutus-members-positionLabel {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    font-weight: 900;
 }

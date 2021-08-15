@@ -251,6 +251,9 @@ function BInfoManagePage() {
                     name="addressETC"
                     onChange={handleInput}
                     placeholder="상세 주소"
+
+
+                   
                   ></input>
                 </div>
                 <button
@@ -281,10 +284,11 @@ function BInfoManagePage() {
                 <input
                   className="phoneform"
                   placeholder="매장 연락처"
-                  type="phone"
+                  type="tel"
                   name="mobile"
                   onChange={handleInput}
                   autocomplete="off"
+                  pattern="[0-9]{13}"
                 ></input>
                 <div className="phonelabel">
                   숫자만 입력해주세요. 예) 01012341234
@@ -303,32 +307,21 @@ function BInfoManagePage() {
               ></input>
             </div>
 
-            <div className="barMobile boxopt">
-              <div className="inputformlabel">영업 시간</div>
-              <div className="phoneWrapper">
-                <>
-                  <input
-                    className=""
-                    id="open"
-                    type="time"
-                    name="openTime"
-                    onChange={handleInput}
-                  ></input>
-                  ~
-                  <input
-                    className=""
-                    id="close"
-                    type="time"
-                    name="openTime"
-                    onChange={handleInput}
-                  ></input>
-                </>
+              <div className="opentime boxopt">
+                <div className="inputformlabel">영업시간</div>
+                <div className="opentimeWrapper">     
+                   <>
+                <input className ="timeform" id="open" type="time" name="openTime"  onChange={handleInput} ></input>
+                ~
+                <input className ="timeform" id="close" type="time" name="openTime"  onChange={handleInput} ></input>
+                </> 
+                 
+                </div>
               </div>
             </div>
 
             <div className="serviceOption boxopt">
               <div className="inputformlabel">서비스</div>
-
               {serviceOption.map((el) => (
                 <div className="svcdiv">
                   <input
@@ -366,6 +359,7 @@ function BInfoManagePage() {
                     <i className="fa fa-cloud-upload" /> 파일 선택
                   </label>
                 </div>
+               
               </div>
 
               <div className="inputmenu-body">
@@ -480,8 +474,7 @@ function BInfoManagePage() {
         </div>
       </div>
       )
-    </div>
-  );
+       
 }
 
 export default BInfoManagePage;

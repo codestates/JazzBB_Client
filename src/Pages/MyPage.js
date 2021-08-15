@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from "react-router-dom";
-import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, deleteState, setCurrentPage, saveThisHistory, Reset } from "../Components/redux/new/action";
+import { setList, modifySwitch, setToken, setUser, modifyUser, modifyFinish, setCurrentPage, saveThisHistory, Reset } from "../Components/redux/new/action";
 import Modal from "react-modal";
 import "../css/mypage.css"
 
