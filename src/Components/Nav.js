@@ -1,6 +1,4 @@
-
-
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -28,7 +26,6 @@ function Nav() {
 
   const logout = () => {
     dispatch(Reset())
-    //token, codeaction,history, jazzBarId, jazzbar, modifyUser, reservation, serviceOption, token, user
     window.location.pathname = "/service";
     axios
       .post(process.env.REACT_APP_DB_HOST + "/logout", {

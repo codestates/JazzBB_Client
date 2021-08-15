@@ -10,6 +10,8 @@ import {
 import "../RvManage.css";
 
 const BreservationPage = () => {
+  console.log('BreservationPage')
+
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
   useEffect(() => {
@@ -31,6 +33,8 @@ const BreservationPage = () => {
         dispatch(setBossReservationList(list))
          const token = res.data.data.accessToken;
         dispatch(setToken(token));
+  console.log(list,"list")
+
       } 
       )
       )

@@ -5,19 +5,30 @@ import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import { setBossMenu, setToken, setBossJazzBar } from "../../redux/new/action";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import "./infoupdate.css";
 
 function InfoUpdate() {
   const dispatch = useDispatch();
   const initialState = useSelector((state) => state.reducer);
-  const bardata = initialState.barList.filter((el) => el.id === initialState.jazzBarId);
+  if(initialState.menu[0] === ""){
+    console.log("[]")
+  }else{
+    console.log('false')
+  }
+  const bardata = initialState.barList.filter(
+    (el) => el.id === initialState.jazzBarId
+  );
   let data;
-  if (bardata === []) {data = null;} else {data = bardata[0];}
+  if (bardata === []) {
+    data = null;
+  } else {
+    data = bardata[0];
+  }
 
   //barData initial setting (gps, serviceOption, address, time)
   const [state, setState] = useState(data);
-  const [start, end] = data.openTime.split('-')
+  const [start, end] = data.openTime.split("-");
   const [gps, setGps] = useState({ gpsX: data.gpsX, gpsY: data.gpsY });
   const serviceOption = useSelector((state) => state.reducer.serviceOption);
   const [serviceitem, setService] = useState({
@@ -29,22 +40,21 @@ function InfoUpdate() {
     콜키지가능: false,
     심야영업: false,
     온라인예약가능: false,
-});
+  });
   let searchAddress, detailAddress;
-  if(data.address){
-    let frontIndex = data.address.lastIndexOf(")")+1
-    searchAddress=data.address.substring(0,frontIndex)
-    detailAddress = data.address.substring(frontIndex, data.address.length)
+  if (data.address) {
+    let frontIndex = data.address.lastIndexOf(")") + 1;
+    searchAddress = data.address.substring(0, frontIndex);
+    detailAddress = data.address.substring(frontIndex, data.address.length);
   }
 
-  console.log(state)
+  console.log(state);
   //배너, 메뉴 이미지
-  const [banners, setBanner] = useState([]); // 배너 -객체 
+  const [banners, setBanner] = useState([]); // 배너 -객체
   const [bannerDetail, setBannerDetail] = useState([]); //배너 - src
   const [menuFiles, setMenufiles] = useState([]); //메뉴 - 객체
   const [menuDetail, setMenuDetail] = useState([]); //메뉴 - src
   const [editActive, setEdit] = useState(false);
-  
 
   //오류메세지, 카카오팝업, 정보수정버튼 handling
   const [alertMsg, setalertMsg] = useState("");
@@ -59,16 +69,15 @@ function InfoUpdate() {
     setEdit(true);
   };
 
-  const closeActive = () =>{
-    setEdit(false)
-  }
-
+  const closeActive = () => {
+    setEdit(false);
+  };
 
   useEffect(() => {
-    console.log('useEffect')
+    console.log("useEffect");
     //배너이미지 있을 때 기초 세팅
-    if(data.thumbnail){
-      setBannerDetail(data.thumbnail)
+    if (data.thumbnail) {
+      setBannerDetail(data.thumbnail);
     }
     //서비스옵션 있을 때 기초 세팅
     if (data.serviceOption !== null) {
@@ -86,25 +95,32 @@ function InfoUpdate() {
     }
 
     //메뉴 이미지 불러오기
-    axios.post( process.env.REACT_APP_DB_HOST + "/menuRead", {jazzbarId : initialState.jazzBarId})
-    .then(res => {
-      const list = res.data.data.data[0].thumbnail;
-      if(list !== undefined){
-        const arr = list.split(',')
-        dispatch(setBossMenu(arr))
-        setMenuDetail(arr)
-  setState({...state, menu : arr, open : start, close: end, addressFront :searchAddress, addressETC : detailAddress})
-      }
-    })
+    axios
+      .post(process.env.REACT_APP_DB_HOST + "/menuRead", {
+        jazzbarId: initialState.jazzBarId,
+      })
+      .then((res) => {
+        const list = res.data.data.data[0].thumbnail;
+        if (list !== undefined) {
+          const arr = list.split(",");
+          dispatch(setBossMenu(arr));
+          setMenuDetail(arr);
+          setState({
+            ...state,
+            menu: arr,
+            open: start,
+            close: end,
+            addressFront: searchAddress,
+            addressETC: detailAddress,
+          });
+        }
+      });
   }, []);
 
-
- 
- 
-//이미지 업로드 handling 
+  //이미지 업로드 handling
   const handleImageUpload = (e) => {
     let fileArr = e.target.files;
-    console.log(fileArr,'1');
+    console.log(fileArr, "1");
     console.log([...fileArr]);
     setMenufiles([...fileArr]);
 
@@ -125,7 +141,7 @@ function InfoUpdate() {
         reader.onload = () => {
           fileURLs[i] = reader.result;
           setMenuDetail([...fileURLs]);
-      setState({...state, menu : [...fileURLs]})
+          setState({ ...state, menu: [...fileURLs] });
         };
         reader.readAsDataURL(file);
       }
@@ -141,11 +157,11 @@ function InfoUpdate() {
     reader.onload = () => {
       fileURLs[0] = reader.result;
       setBannerDetail([...fileURLs]);
-      setState({...state, thumbnail: [...fileURLs]})
+      setState({ ...state, thumbnail: [...fileURLs] });
     };
     reader.readAsDataURL(file);
   };
- 
+
   //입력 handling
   const handleInput = (e) => {
     const targetName = e.target.name;
@@ -156,32 +172,32 @@ function InfoUpdate() {
       } = e;
       setService({ ...serviceitem, [e.target.id]: checked });
     } else if (targetName === "openTime") {
-      if(targetId === 'open'){
-        setState({...state, [targetId] : e.target.value})
-      }else if(targetId === 'close'){
-        setState({...state, [targetId] : e.target.value})
+      if (targetId === "open") {
+        setState({ ...state, [targetId]: e.target.value });
+      } else if (targetId === "close") {
+        setState({ ...state, [targetId]: e.target.value });
       }
-    }
-    else {
+    } else {
       setState({ ...state, [targetName]: e.target.value });
     }
-
   };
 
   //제출 handling
   const handleSubmit = () => {
-    console.log(state.thumbnail,'thumbnail')
-    console.log(banners,'banners')
+    console.log(state.thumbnail, "thumbnail");
+    console.log(banners, "banners");
     let temp = [];
     if (serviceitem !== []) {
       for (let service in serviceitem) {
         if (serviceitem[service] === true) {
           // temp = temp + service;
-          let find = initialState.serviceOption.find(ele=> ele.content === service).id
-          temp.push(find)
+          let find = initialState.serviceOption.find(
+            (ele) => ele.content === service
+          ).id;
+          temp.push(find);
         }
       }
-      temp = temp.join(',')
+      temp = temp.join(",");
     }
 
     if (
@@ -207,7 +223,7 @@ function InfoUpdate() {
         // thumbnail: state.bannerPhoto,
         gpsX: gps.gpsX,
         gpsY: gps.gpsY,
-        openTime : state.open + "-" + state.close,
+        openTime: state.open + "-" + state.close,
         // menu : menuFiles
       });
       const newForm = new FormData();
@@ -222,54 +238,55 @@ function InfoUpdate() {
       newForm.append("mobile", state.mobile);
       newForm.append("openTime", state.open + "-" + state.close);
       newForm.append("jazzbarId", initialState.jazzBarId);
-      for (var pair of newForm.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
-    axios
-      .post(process.env.REACT_APP_DB_HOST + "/jazzbarUpdate", newForm, {
-        headers: {
-          authorization: initialState.token,
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('jazzbarUpdate')
-        const token1 = res.data.data.accessToken;
-        console.log('jazzbarRes', res.data)
-        if(token1 !== {}){
-          dispatch(setToken(token1));
-        }
-      })
-      .then(()=>{
-        const menuFormData = new FormData();
-        for (let i = 0; i < menuFiles.length; i++) {
-          menuFormData.append(`thumbnail`, menuFiles[i]);
-        }
-        menuFormData.append(`jazzbarId`, initialState.jazzBarId);
-      // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
-        axios.post(
-          process.env.REACT_APP_DB_HOST + "/menuUpdate",
-          menuFormData ,
-          {
-            headers: {
-              authorization: initialState.token,
-              "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true,
-          }
-        )
-        .then(res =>{
-          console.log('menuUpdate')
-        console.log('menuUpdate', res)
-
-        })
-       
+      for (var pair of newForm.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
       }
-      );
-    closeActive()
+      axios
+        .post(process.env.REACT_APP_DB_HOST + "/jazzbarUpdate", newForm, {
+          headers: {
+            authorization: initialState.token,
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log("jazzbarUpdate");
+          const token1 = res.data.data.accessToken;
+          console.log("jazzbarRes", res.data);
+          if (token1 !== {}) {
+            dispatch(setToken(token1));
+          }
+        })
+        .then(() => {
+          const menuFormData = new FormData();
+          for (let i = 0; i < menuFiles.length; i++) {
+            menuFormData.append(`thumbnail`, menuFiles[i]);
+          }
+          menuFormData.append(`jazzbarId`, initialState.jazzBarId);
+          // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
+          axios
+            .post(process.env.REACT_APP_DB_HOST + "/menuUpdate", menuFormData, {
+              headers: {
+                authorization: initialState.token,
+                "Content-Type": "multipart/form-data",
+              },
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log("menuUpdate");
+              console.log("menuUpdate", res);
+            });
+        })
+        
+      closeActive();
     }
   };
- 
 
+  const deletePhoto = (e) =>{
+    console.log(e.target.name, "@@@@@@@@@@@@@@@@@@@@@@@@")
+    console.log(state.menu,'Menu')
+    console.log(menuFiles,'menuFiles')
+  }
   return (
     <div>
       <Sidebar></Sidebar>
@@ -281,7 +298,9 @@ function InfoUpdate() {
               <div className="BIUcontentheader-label">정보수정</div>
               <div className="BIUcontentheader-sublabel">
                 등록된 매장 정보가 없습니다.
-                <Link to='/infoedit'><button className="btnbtnbtn">매장 정보 등록하기</button></Link>
+                <Link to="/infoedit">
+                  <button className="btnbtnbtn">매장 정보 등록하기</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -326,14 +345,14 @@ function InfoUpdate() {
                     name="address"
                     readOnly
                   ></input>
-                   <input
-                      className="inputform"
-                      type="text"
-                      placeholder="상세주소"
-                      name="addressETC"
-                      defaultValue={state.addressETC}
-                      onChange={handleInput}
-                    ></input>
+                  <input
+                    className="inputform"
+                    type="text"
+                    placeholder="상세주소"
+                    name="addressETC"
+                    defaultValue={state.addressETC}
+                    onChange={handleInput}
+                  ></input>
                   <button
                     className="adrbtn"
                     type="button"
@@ -364,10 +383,10 @@ function InfoUpdate() {
               {editActive ? (
                 <input
                   className="barcontents inputform"
-                  type="text"
+                  type="number"
                   defaultValue={state.mobile}
                   onChange={handleInput}
-                  name="mobile"
+                  name="phone"
                 ></input>
               ) : (
                 <div className="barcontents">{state.mobile}</div>
@@ -378,10 +397,24 @@ function InfoUpdate() {
               <div className="barlabel">영업시간</div>
               {editActive ? (
                 <>
-                {/* className="barcontents inputform" */}
-                <input className ="" id="open" type="time" name="openTime"  onChange={handleInput} defaultValue={start}></input>
-                ~
-                <input className ="" id="close" type="time" name="openTime"  onChange={handleInput} defaultValue={end}></input>
+                  {/* className="barcontents inputform" */}
+                  <input
+                    className=""
+                    id="open"
+                    type="time"
+                    name="openTime"
+                    onChange={handleInput}
+                    defaultValue={start}
+                  ></input>
+                  ~
+                  <input
+                    className=""
+                    id="close"
+                    type="time"
+                    name="openTime"
+                    onChange={handleInput}
+                    defaultValue={end}
+                  ></input>
                 </>
               ) : (
                 <div className="barcontents">{state.openTime}</div>
@@ -471,20 +504,24 @@ function InfoUpdate() {
                       onChange={handleImageUpload}
                     ></input>
                     <div>{alertMsg}</div>
-                    {state.menu[0] !== "" ? (state.menu.map((el) => (
-                      <img
-                        className="add-thumbnail"
-                        src={el}
-                        alt="" 
-                      ></img>
-                    ))) : (<h4>등록된 이미지가 없습니다.</h4>)}
+                    {initialState.menu[0] !== ""  ? (
+                      state.menu.map((el) => (
+                        <>
+                        <img className="add-thumbnail" src={el} alt=""></img>
+                        <button name ={el} onClick={deletePhoto}>x</button>
+                        </>
+                      ))
+                    ) : (
+                      <h4>등록된 이미지가 없습니다.</h4>
+                    )}
                   </div>
-                ) 
-                : state.menu  ? (
-                  state.menu.map((el) => (
+                ) : 
+                initialState.menu[0] !== "" ? (
+                  initialState.menu.map((el) => (
                     <img className="menuthumbnail" src={el} alt="" />
                   ))
-                ) : (
+                ) 
+                : (
                   <h4>등록된 이미지가 없습니다.</h4>
                 )
                 }
@@ -494,31 +531,34 @@ function InfoUpdate() {
             <div className="changebanner boxop">
               <div className="barlabel">대표이미지</div>
               <div className="barcontents">
-                {
-                  editActive ? (
-                    <div>
-                      <input
-                        className="add-file"
-                        type="file"
-                        name="image"
-                        accept="image/jpg,image/png,image/jpeg,image/gif"
-                        onChange={handleBannerImg}
-                      ></input>
-
+                {editActive ? (
+                  <div>
+                    <input
+                      className="add-file"
+                      type="file"
+                      name="image"
+                      accept="image/jpg,image/png,image/jpeg,image/gif"
+                      onChange={handleBannerImg}
+                    ></input>
+                    {state.thumbnail !== "" ? (
                       <img
                         className="add-thumbnail"
                         src={bannerDetail}
                         alt=""
                       ></img>
-                    </div>
-                  ) : (
-                    <img
-                      className="bannerthumbnail"
-                      src={state.thumbnail}
-                      alt=""
-                    />
-                  )
-                }
+                    ) : (
+                      <div>등록된 이미지가 없습니다.</div>
+                    )}
+                  </div>
+                ) : state.thumbnail ? (
+                  <img
+                    className="bannerthumbnail"
+                    src={state.thumbnail}
+                    alt=""
+                  />
+                ) : (
+                  <h4>등록된 이미지가 없습니다.</h4>
+                )}
               </div>
             </div>
             {editActive ? (
