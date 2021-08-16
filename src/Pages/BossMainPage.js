@@ -45,9 +45,12 @@ function BossMainPage() {
          jazzbarId: barId,
        })
        .then((res) => {
-         let list = res.data.data.data[0].thumbnail
-         list = list.split(',')
-         dispatch(setList(list, "menu"));
+         console.log("******** : ", res.data)
+         if(res.data.data.data[0]){
+           let list = res.data.data.data[0].thumbnail
+           list = list.split(',')
+           dispatch(setList(list, "menu"));
+         }
        })
       //  .catch((err) => console.log(err));
     // }
