@@ -1,11 +1,11 @@
-import React, {  useState } from "react";
+import React from "react";
 import DaumPostcode from "react-daum-postcode";
 
 const { kakao } = window;
 
+
+
 const PopupPostCode = (props) => {
-  const [address, setAddress] = useState("수내중학교");
-  // const [gps, setGps] = useState("");
   const handlePostCode = (data) => {
 
     let fullAddress = data.address;
@@ -24,35 +24,21 @@ const PopupPostCode = (props) => {
 
     const ar = fullAddress.split(" ");
     const area = `${ar[0]} ${ar[1]}`;
-    setAddress(fullAddress);
-    getGps(data);
-    props.setState({ ...props.state, addressFront: fullAddress, area: area });
+    var geocoder = new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(fullAddress, function(result, status) {
+         if (status === kakao.maps.services.Status.OK) {
+            props.setGps({gpsY: result[0].y, gpsX: result[0].x})
+    props.setState({ ...props.state, addressFront: fullAddress, area: area, gpsY :result[0].y, gpsX: result[0].x });
+
+        } 
+    });
     props.onClose();
+   
 
   };
 
-  function getGps(data) {
-    // var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-    // const container = document.getElementById("myMap");
-    // const options = {
-    //   center: new kakao.maps.LatLng(33.450701, 126.570667),
-    //   level: 3,
-    // };
-    // const map = new kakao.maps.Map(container, options);
 
-    const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(address, placesSearchCB);
-
-    function placesSearchCB(data, status, pagination) {
-      if (status === kakao.maps.services.Status.OK) {
-        // let bounds = new kakao.maps.LatLngBounds();
-        // setGps({ gpsY: data[0].y, gpsX: data[0].x });
-        // map.setBounds(bounds);
-        props.setGps({gpsY: data[0].y, gpsX: data[0].x, })
-      }
-    }
-  }
 
 
   const postCodeStyle = {
@@ -86,8 +72,6 @@ const PopupPostCode = (props) => {
   return (
     <div style={div}>
       <button className="postCode_btn" style={style} onClick={() => {props.onClose();}} >닫기</button>
-      {/* <div id="myMap"></div> */}
-
       <DaumPostcode style={postCodeStyle} onComplete={handlePostCode}></DaumPostcode>
     </div>
   );
