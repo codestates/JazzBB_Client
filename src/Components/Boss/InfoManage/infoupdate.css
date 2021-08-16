@@ -226,3 +226,23 @@
   
 }
 
+.timeform {
+  width: 47%;
+  height: 30px;
+  text-align: center;
+}
+
+.img-wrap{
+  position: relative;
+    display: inline-block;
+    font-size: 0;
+
+}
+.menuImg{
+  width: 150px;
+height: 150px;
+padding: 0px;
+
+}
+
+

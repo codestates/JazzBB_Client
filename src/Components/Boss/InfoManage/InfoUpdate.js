@@ -117,7 +117,7 @@ function InfoUpdate() {
       });
   }, []);
 
-  //이미지 업로드 handling
+  //메뉴 이미지 업로드 handling
   const handleImageUpload = (e) => {
     let fileArr = e.target.files;
     setMenufiles([...fileArr]);
@@ -182,6 +182,7 @@ function InfoUpdate() {
 
   //제출 handling
   const handleSubmit = () => {
+    
     let temp = [];
     if (serviceitem !== []) {
       for (let service in serviceitem) {
@@ -266,6 +267,7 @@ function InfoUpdate() {
               },
               withCredentials: true,
             })
+            // .catch(err => console.log(err))
            
         })
         
@@ -359,7 +361,7 @@ function InfoUpdate() {
                         <PopupPostCode
                           onClose={closePostCode}
                           setGps={setGps}
-                          state={state}
+                          state={state.address}
                           setState={setState}
                         />
                       </PopupDom>
@@ -381,11 +383,11 @@ function InfoUpdate() {
               )}
             </div>
 
-            {/* <div className="barMobile boxop"> */}
             <div className="opentime boxop">
               <div className="barlabel">영업시간</div>
               {editActive ? (
                 <>
+              <div className="opentimeWrapper">  
                   <input
                     className="timeform"
                     id="open"
@@ -403,6 +405,7 @@ function InfoUpdate() {
                     onChange={handleInput}
                     defaultValue={end}
                   ></input>
+                  </div>
                 </>
               ) : (
                 <div className="barcontents">{state.openTime}</div>
@@ -480,7 +483,7 @@ function InfoUpdate() {
             <div className="changemenu boxop">
               <div className="barlabel">메뉴</div>
               <div className="barcontents">
-                {editActive ? (
+                {editActive ? ( // 수정
                   <>
                    <div style={styles} className="fileAttach">
                   <label className="custom-file-upload">
@@ -501,17 +504,17 @@ function InfoUpdate() {
                   </div>
 
                     <div>{alertMsg}</div>
-                    {initialState.menu[0] !== ""  ? (
-                      state.menu.map((el) => (
+                    {/* {initialState.menu[0] !== ""  ? (
+                      menuDetail.map((el) => (
                         <img className="add-thumbnail" src={el} alt=""></img>
                       ))
                     ) : (
                       <h4>등록된 이미지가 없습니다.</h4>
-                    )}
+                    )} */}
                     
                   </>
-                ) : 
-                initialState.menu[0] !== "" ? (
+                ) : //수정 아닐 때
+                initialState.menu[0] !== "" ? ( // 등록한 메뉴 사진이 있을 때
                   initialState.menu.map((el) => (
                     <img className="menuthumbnail" src={el} alt="" />
                   ))

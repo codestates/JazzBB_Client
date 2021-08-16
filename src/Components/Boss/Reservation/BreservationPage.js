@@ -36,7 +36,6 @@ const BreservationPage = () => {
       } 
       )
       )
-      .catch(err => console.log(err))
   },[])
 
   
