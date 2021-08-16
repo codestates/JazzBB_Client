@@ -39,7 +39,6 @@ function ReserByDate() {
     const data = DataPerDate.filter((el) => el.confirm === status);
     if (status === "all") {
       setSelect(DataPerDate);
-      console.log(selected);
     } else if (data.length === 0) {
       alert("해당 상테의 예약 리스트가 존재하지 않습니다.");
       setSelect([]);
@@ -81,7 +80,6 @@ function ReserByDate() {
                 }
               )
               .then((res) => (window.location.href = "/boss/reservation"))
-              .catch((err) => console.log(err));
           },
         },
         {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux'
-import { modifySwitch, setList, setJazzbar, setToken } from "../Components/redux/new/action"
+import { setList, setJazzbar, setToken } from "../Components/redux/new/action"
 import Sidebar from "../Components/Boss/Sidebar";
 import "../css/sidebar.css";
 import "../css/BossMainPage.css";
@@ -10,6 +10,8 @@ import JazzBarPage from "./JazzBarPage";
 function BossMainPage() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.reducer);
+
+
 
   useEffect(async ()=> {
     // if(!state.token || state.user.usertype !== 'boss' ){
@@ -22,7 +24,6 @@ function BossMainPage() {
        const list = res.data.data;
        await dispatch(setList(list, 'barList'));
       })
-      .catch(err => console.log(err))
 
       const barId = await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true })
        .then(res => {
@@ -38,13 +39,23 @@ function BossMainPage() {
          const list = res.data.data;
          dispatch(setList(list, 'showList'));
        })
-       .catch(err => console.log(err))
+
+       await axios
+       .post(process.env.REACT_APP_DB_HOST + "/menuRead", {
+         jazzbarId: barId,
+       })
+       .then((res) => {
+         let list = res.data.data.data[0].thumbnail
+         list = list.split(',')
+         dispatch(setList(list, "menu"));
+       })
+      //  .catch((err) => console.log(err));
     // }
   }, [])
 
   return (
     <div className="App">
-      <Sidebar></Sidebar>
+      <Sidebar ></Sidebar>
       <div className="contentsWrapper">
         <div className="dummydiv"></div>
         <div className="jbpage">

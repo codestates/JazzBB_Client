@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import ReserTable from "./ReserTable";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../dist/css/comm.css";
-import { confirmAlert } from "react-confirm-alert"; // Import
+// import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { setToken, setBossReservationList } from "../../redux/new/action";
+// import { setToken, setBossReservationList } from "../../redux/new/action";
 
 function ReserAll() {
-  const dispatch = useDispatch();
-  const userstate = useSelector((state) => state.reducer);
   const BossState = useSelector((state) => state.reducer.bossReservation);
+
   const Bsort = BossState.sort((a, b) => {
     let x = a.show.date.toLowerCase();
     let y = b.show.date.toLowerCase();
@@ -95,10 +93,10 @@ function ReserAll() {
 
           {selected.length === 0
             ? Bsort.map((el) => (
-                <ReserTable key={el.id} data={el}  confirmAlert={null}></ReserTable>
+                <ReserTable key={el.id} datas={el}  confirmAlert={null}></ReserTable>
               ))
             : selected.map((el) => (
-                <ReserTable key={el.id} data={el} confirmAlert={null}></ReserTable>
+                <ReserTable key={el.id} datas={el} confirmAlert={null}></ReserTable>
               ))}
         </table>
       </div>

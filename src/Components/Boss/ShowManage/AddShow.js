@@ -57,7 +57,6 @@ function AddShow() {
             filefile.append("showCharge", inputValue.showCharge);
             filefile.append("player", JSON.stringify(inputValue.player));
             filefile.append("jazzbarId", jazzbarId);
-            // for (var pair of filefile.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
 
             axios
               .post(process.env.REACT_APP_DB_HOST + "/showCreate", filefile, {
