@@ -20,6 +20,7 @@ function JazzBar() {
   const { kakao } = window;
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
+  let jazzBarId ;  //menuread boss 일경우 ....
   const thisBar = state.barList.find((el) => el.id === state.currentJazzbar);
   let thisDate = new Date()
     .toLocaleDateString()
@@ -42,7 +43,6 @@ function JazzBar() {
   useEffect(async () => {
     dispatch(saveThisHistory());
     dispatch(setCurrentPage(window.location.pathname));
-    console.log("dskvnsdovnsdklnsdlknsdvnk");
     await axios
       .post(process.env.REACT_APP_DB_HOST + "/showRead", {
         jazzbarId: state.currentJazzbar,
@@ -58,7 +58,8 @@ function JazzBar() {
         jazzbarId: state.currentJazzbar,
       })
       .then((res) => {
-        const list = res.data.data.data;
+        let list = res.data.data.data[0].thumbnail
+        list = list.split(',')
         dispatch(setList(list, "menu"));
       })
       .catch((err) => console.log(err));
@@ -68,8 +69,6 @@ function JazzBar() {
         jazzbarId: state.currentJazzbar,
       })
       .then((res) => {
-        console.log('review')
-        console.log(res.data.data,'review');
         const reviewList = res.data.data.list;
         dispatch(setList(reviewList, "reviewList"));
       })
@@ -136,7 +135,6 @@ function JazzBar() {
   };
 
   const reviewUpdate = async (el) => {
-    console.log(el)
     await axios
       .post(
         process.env.REACT_APP_DB_HOST + "/reviewUpdate",
@@ -179,25 +177,21 @@ function JazzBar() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
-    console.log('clicked')
     setIsOpen(!modalIsOpen);
       setDisplay(true)
-  }
- 
- useEffect(()=>{
-  const script = document.createElement("script");
+      const script = document.createElement("script");
   script.async = true;
   script.src =
     // "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services&autoload=false";
     "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services";
   document.head.appendChild(script);
 
-  console.log(thisBar.address,'address', thisBar.gpsY)
   script.onload = () => {
     kakao.maps.load(() => {
       let container = document.getElementById("map");
       let gpsY = thisBar.gpsY
       let gpsX = thisBar.gpsX
+      console.log(gpsY, 127.126456210328)
       let options = {
         center: new kakao.maps.LatLng(gpsY, gpsX),
         level: 3
@@ -210,27 +204,12 @@ function JazzBar() {
         position: markerPosition
     });
     marker.setMap(map);
-   
-    });
-  };
- },[])
+    map.relayout()
+  });
+};
+  }
+ 
 
-    // useEffect(()=>{
-    //   var container = document.getElementById('map');
-    //   let gpsY = thisBar.gpsY
-    //   let gpsX = thisBar.gpsX
-    //   var options = {
-    //     center: new Kakao.maps.LatLng(gpsY, gpsX),
-    //     level: 3
-    //   };
-  
-    //   var map = new Kakao.maps.Map(container, options);
-    //   var markerPosition  = new Kakao.maps.LatLng(gpsY, gpsX);
-    //   var marker = new Kakao.maps.Marker({
-    //     position: markerPosition
-    // });
-    // marker.setMap(map);
-    //   }, [])
   
 
   function closeModal() {
@@ -238,7 +217,6 @@ function JazzBar() {
   setDisplay('none')
 
   }
-console.log(display,'display')
   return (
     <div className="shopinfo">
       <div className="shopinfo-body">
@@ -274,11 +252,7 @@ console.log(display,'display')
                 onClick={closeModal}
                 style={{ width: "100%", height: "400px", display: display }}
               >
-
               </div>
-             
-           
-
             <div className="shopinfo-header-infoarea-phone">
               {thisBar.mobile}
             </div>
@@ -324,19 +298,24 @@ console.log(display,'display')
 
           <div className="shopinfo-menuarea-body">
             
-            {/* <div
-              className="shopinfo-menuarea-link"
-              onClick={() => menuModalTogle()}
-            >
-              메뉴판 사진 보기
-            </div> */}
+              {state.menu.length !== 0
+                ? state.menu.map((el) => {
+                    return (
+                      <div class="img-wrap">
+                      <img
+                        className="menuImg"
+                        src={el}
+                        alt =""
+                      ></img>
+                      </div>
+                    );
+                  })
+                : null}
+            
           </div>
         </div>
 
-        {/* <div id="map1" 
-                style={{ width: "100%", height: "400px"}}></div> */}
-
-        <Modal
+        {/* <Modal
           className="shopinfo-menuarea-modal"
           isOpen={state.togle.menuModal}
           onRequestClose={menuModalTogle}
@@ -349,19 +328,11 @@ console.log(display,'display')
 
           <div className="shopinfo-menu-object">
             <div className="shopinfo-menu-object-photobox">
-              {state.menu.length !== 0
-                ? state.menu.map((el) => {
-                    return (
-                      <img
-                        className="shopinfo-menu-object-img"
-                        src={el.thumbnail}
-                      ></img>
-                    );
-                  })
-                : null}
+            
+          
             </div>
           </div>
-        </Modal>
+        </Modal> */}
 
         <div className="shopinfo-reservation">
           <div className="shopinfo-reservation-header">

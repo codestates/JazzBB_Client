@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../dist/css/comm.css";
@@ -24,12 +24,10 @@ function ReserTable({ datas, key }) {
   var fixedDate = year + "-" + month + "-" + date;
 
   if (fixedDate > data.show.date) {
-    console.log("yap");
   }
 
   const statusAlert = (e) => {
     let changedStatus = e.target.name;
-    console.log(e.target.name);
 
     confirmAlert({
       title: `${changedStatus === "confirmed" ? "승인" : "거절"} 하시겠습니까?`,
@@ -71,16 +69,13 @@ function ReserTable({ datas, key }) {
                     dispatch(setBossReservationList(list))
                      const token = res.data.data.accessToken;
                     dispatch(setToken(token));
-              console.log(list,"list")
             
                   } 
                   )
-                console.log('send 완료')
 
               }
                 )
               // .then(window.location.reload(true))
-              .catch((err) => console.log(err));
           },
         },
         {

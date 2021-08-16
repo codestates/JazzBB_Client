@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -10,7 +10,6 @@ import {
 import "../RvManage.css";
 
 const BreservationPage = () => {
-  console.log('BreservationPage')
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
@@ -33,12 +32,10 @@ const BreservationPage = () => {
         dispatch(setBossReservationList(list))
          const token = res.data.data.accessToken;
         dispatch(setToken(token));
-  console.log(list,"list")
 
       } 
       )
       )
-      .catch(err => console.log(err))
   },[])
 
   

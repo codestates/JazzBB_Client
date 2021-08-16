@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar";
 // import InputFile from "../ShowManage/InputFile";
 import { useSelector } from "react-redux";
-import {setBossMenu} from "../../redux/new/action";
 import axios from "axios";
 import "./PhotoManage.css";
 import PhotoInput from './PhotoInput'
@@ -11,7 +10,6 @@ function PhotoManage(){
   const state = useSelector((state) => state.reducer);
 const [img, setImg] =useState('')
 const [menu, setMenu] = useState()
-console.log(menu)
 
 useEffect(()=>{
   axios.post( process.env.REACT_APP_DB_HOST + "/menuRead", {jazzbarId : state.jazzBarId})
@@ -24,7 +22,6 @@ useEffect(()=>{
   })
 },[])
  
-console.log(menu)
   return (
     <div className="photocontentbody">
       <Sidebar></Sidebar>

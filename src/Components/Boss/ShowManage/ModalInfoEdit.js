@@ -58,7 +58,6 @@ export default function CustomizedSelects({ data, imgFile }) {
   
   useEffect(() => {
     SetInputValue({...inputValue, startTime:start, endTime:end})
-    console.log(data)
   let copy = state;
   for(let position in data.player){
     copy[position] = true
@@ -74,7 +73,6 @@ export default function CustomizedSelects({ data, imgFile }) {
       const copy = player;
       delete copy[event.target.name];
       setPlayer(copy);
-      console.log(player)
     }
     setState({ ...state, [event.target.name]: !state[event.target.name] });
   };
@@ -93,7 +91,6 @@ export default function CustomizedSelects({ data, imgFile }) {
     } else {
       setPlayer({...player, [idValue] : nameValue})
     }
-    // console.log(player)
   };
 
 
@@ -129,7 +126,6 @@ export default function CustomizedSelects({ data, imgFile }) {
         dispatch(setToken(token1));
       })
       .then((res) => {
-        console.log("updateShowHandler");
         window.location.href='/boss/show'
       });
   };
@@ -154,7 +150,6 @@ export default function CustomizedSelects({ data, imgFile }) {
         dispatch(setToken(token1));
       })
       .then((res) => {
-        console.log("deleteShowHandler success");
         window.location.href='/boss/show'
       });
   };

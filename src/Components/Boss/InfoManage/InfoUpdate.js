@@ -4,18 +4,20 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { setBossMenu, setToken, setBossJazzBar } from "../../redux/new/action";
+import { setBossMenu, setToken } from "../../redux/new/action";
 import { Link } from "react-router-dom";
 import "./infoupdate.css";
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center",
+  display: "flex",
+  
+};
 
 function InfoUpdate() {
   const dispatch = useDispatch();
   const initialState = useSelector((state) => state.reducer);
-  if(initialState.menu[0] === ""){
-    console.log("[]")
-  }else{
-    console.log('false')
-  }
+  
   const bardata = initialState.barList.filter(
     (el) => el.id === initialState.jazzBarId
   );
@@ -48,7 +50,6 @@ function InfoUpdate() {
     detailAddress = data.address.substring(frontIndex, data.address.length);
   }
 
-  console.log(state);
   //배너, 메뉴 이미지
   const [banners, setBanner] = useState([]); // 배너 -객체
   const [bannerDetail, setBannerDetail] = useState([]); //배너 - src
@@ -74,7 +75,6 @@ function InfoUpdate() {
   };
 
   useEffect(() => {
-    console.log("useEffect");
     //배너이미지 있을 때 기초 세팅
     if (data.thumbnail) {
       setBannerDetail(data.thumbnail);
@@ -117,11 +117,9 @@ function InfoUpdate() {
       });
   }, []);
 
-  //이미지 업로드 handling
+  //메뉴 이미지 업로드 handling
   const handleImageUpload = (e) => {
     let fileArr = e.target.files;
-    console.log(fileArr, "1");
-    console.log([...fileArr]);
     setMenufiles([...fileArr]);
 
     if (fileArr.length > 5) {
@@ -184,8 +182,7 @@ function InfoUpdate() {
 
   //제출 handling
   const handleSubmit = () => {
-    console.log(state.thumbnail, "thumbnail");
-    console.log(banners, "banners");
+    
     let temp = [];
     if (serviceitem !== []) {
       for (let service in serviceitem) {
@@ -238,9 +235,9 @@ function InfoUpdate() {
       newForm.append("mobile", state.mobile);
       newForm.append("openTime", state.open + "-" + state.close);
       newForm.append("jazzbarId", initialState.jazzBarId);
-      for (var pair of newForm.entries()) {
-        console.log(pair[0] + ", " + pair[1]);
-      }
+      // for (var pair of newForm.entries()) {
+      //   console.log(pair[0] + ", " + pair[1]);
+      // }
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarUpdate", newForm, {
           headers: {
@@ -250,9 +247,7 @@ function InfoUpdate() {
           withCredentials: true,
         })
         .then((res) => {
-          console.log("jazzbarUpdate");
           const token1 = res.data.data.accessToken;
-          console.log("jazzbarRes", res.data);
           if (token1 !== {}) {
             dispatch(setToken(token1));
           }
@@ -272,21 +267,15 @@ function InfoUpdate() {
               },
               withCredentials: true,
             })
-            .then((res) => {
-              console.log("menuUpdate");
-              console.log("menuUpdate", res);
-            });
+            // .catch(err => console.log(err))
+           
         })
         
       closeActive();
     }
   };
 
-  const deletePhoto = (e) =>{
-    console.log(e.target.name, "@@@@@@@@@@@@@@@@@@@@@@@@")
-    console.log(state.menu,'Menu')
-    console.log(menuFiles,'menuFiles')
-  }
+  
   return (
     <div>
       <Sidebar></Sidebar>
@@ -360,23 +349,24 @@ function InfoUpdate() {
                   >
                     우편번호 검색
                   </button>
-                  <div id="popupDom">
-                    {isPopupOpen && (
-                      <PopupDom>
-                        <PopupPostCode
-                          onClose={closePostCode}
-                          setGps={setGps}
-                          state={state}
-                          setState={setState}
-                        />
-                      </PopupDom>
-                    )}
-                  </div>
+                 
                 </div>
               ) : (
                 <div className="barcontents">{state.address}</div>
               )}
             </div>
+            <div id="popupDom">
+                    {isPopupOpen && (
+                      <PopupDom>
+                        <PopupPostCode
+                          onClose={closePostCode}
+                          setGps={setGps}
+                          state={state.address}
+                          setState={setState}
+                        />
+                      </PopupDom>
+                    )}
+                  </div>
 
             <div className="barMobile boxop">
               <div className="barlabel">연락처</div>
@@ -393,13 +383,13 @@ function InfoUpdate() {
               )}
             </div>
 
-            <div className="barMobile boxop">
+            <div className="opentime boxop">
               <div className="barlabel">영업시간</div>
               {editActive ? (
                 <>
-                  {/* className="barcontents inputform" */}
+              <div className="opentimeWrapper">  
                   <input
-                    className=""
+                    className="timeform"
                     id="open"
                     type="time"
                     name="openTime"
@@ -408,13 +398,14 @@ function InfoUpdate() {
                   ></input>
                   ~
                   <input
-                    className=""
+                    className="timeform"
                     id="close"
                     type="time"
                     name="openTime"
                     onChange={handleInput}
                     defaultValue={end}
                   ></input>
+                  </div>
                 </>
               ) : (
                 <div className="barcontents">{state.openTime}</div>
@@ -492,8 +483,10 @@ function InfoUpdate() {
             <div className="changemenu boxop">
               <div className="barlabel">메뉴</div>
               <div className="barcontents">
-                {editActive ? (
-                  <div>
+                {editActive ? ( // 수정
+                  <>
+                   <div style={styles} className="fileAttach">
+                  <label className="custom-file-upload">
                     <input
                       className="add-file"
                       type="file"
@@ -502,21 +495,26 @@ function InfoUpdate() {
                       name="image"
                       accept="image/jpg,image/png,image/jpeg,image/gif"
                       onChange={handleImageUpload}
+                      style={{ display: "none" }}
+
                     ></input>
+                    <i className="fa fa-cloud-upload" /> 파일 선택
+                  </label>
+
+                  </div>
+
                     <div>{alertMsg}</div>
-                    {initialState.menu[0] !== ""  ? (
-                      state.menu.map((el) => (
-                        <>
+                    {/* {initialState.menu[0] !== ""  ? (
+                      menuDetail.map((el) => (
                         <img className="add-thumbnail" src={el} alt=""></img>
-                        <button name ={el} onClick={deletePhoto}>x</button>
-                        </>
                       ))
                     ) : (
                       <h4>등록된 이미지가 없습니다.</h4>
-                    )}
-                  </div>
-                ) : 
-                initialState.menu[0] !== "" ? (
+                    )} */}
+                    
+                  </>
+                ) : //수정 아닐 때
+                initialState.menu[0] !== "" ? ( // 등록한 메뉴 사진이 있을 때
                   initialState.menu.map((el) => (
                     <img className="menuthumbnail" src={el} alt="" />
                   ))
@@ -532,14 +530,21 @@ function InfoUpdate() {
               <div className="barlabel">대표이미지</div>
               <div className="barcontents">
                 {editActive ? (
-                  <div>
-                    <input
+                  <>
+                  <div style={styles} className="fileAttach">
+                     <label className="custom-file-upload">
+                     <input
                       className="add-file"
                       type="file"
                       name="image"
                       accept="image/jpg,image/png,image/jpeg,image/gif"
                       onChange={handleBannerImg}
+                      style={{ display: "none" }}
                     ></input>
+                    <i className="fa fa-cloud-upload" /> 파일 선택
+                     </label>
+                  </div>
+                   
                     {state.thumbnail !== "" ? (
                       <img
                         className="add-thumbnail"
@@ -549,7 +554,7 @@ function InfoUpdate() {
                     ) : (
                       <div>등록된 이미지가 없습니다.</div>
                     )}
-                  </div>
+                  </>
                 ) : state.thumbnail ? (
                   <img
                     className="bannerthumbnail"

@@ -24,7 +24,6 @@ function BossMainPage() {
        const list = res.data.data;
        await dispatch(setList(list, 'barList'));
       })
-      .catch(err => console.log(err))
 
       const barId = await axios.get(process.env.REACT_APP_DB_HOST + '/userinfo', { headers: { authorization: state.token }, withCredentials: true })
        .then(res => {
@@ -40,7 +39,17 @@ function BossMainPage() {
          const list = res.data.data;
          dispatch(setList(list, 'showList'));
        })
-       .catch(err => console.log(err))
+
+       await axios
+       .post(process.env.REACT_APP_DB_HOST + "/menuRead", {
+         jazzbarId: barId,
+       })
+       .then((res) => {
+         let list = res.data.data.data[0].thumbnail
+         list = list.split(',')
+         dispatch(setList(list, "menu"));
+       })
+      //  .catch((err) => console.log(err));
     // }
   }, [])
 
