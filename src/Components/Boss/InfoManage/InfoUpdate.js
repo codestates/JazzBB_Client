@@ -119,6 +119,7 @@ function InfoUpdate() {
 
   //메뉴 이미지 업로드 handling
   const handleImageUpload = (e) => {
+    console.log(e.target.files)
     let fileArr = e.target.files;
     setMenufiles([...fileArr]);
 
@@ -134,11 +135,10 @@ function InfoUpdate() {
 
       for (let i = 0; i < filesLength; i++) {
         file = fileArr[i];
-
         let reader = new FileReader();
         reader.onload = () => {
           fileURLs[i] = reader.result;
-          setMenuDetail([...fileURLs]);
+          // setMenuDetail([...fileURLs]);
           setState({ ...state, menu: [...fileURLs] });
         };
         reader.readAsDataURL(file);
@@ -182,7 +182,6 @@ function InfoUpdate() {
 
   //제출 handling
   const handleSubmit = () => {
-    
     let temp = [];
     if (serviceitem !== []) {
       for (let service in serviceitem) {
@@ -217,11 +216,9 @@ function InfoUpdate() {
         ...state,
         serviceOption: temp,
         address: state.addressFront + " " + state.addressETC,
-        // thumbnail: state.bannerPhoto,
         gpsX: gps.gpsX,
         gpsY: gps.gpsY,
         openTime: state.open + "-" + state.close,
-        // menu : menuFiles
       });
       const newForm = new FormData();
       newForm.append("thumbnail", banners[0]);
@@ -505,7 +502,7 @@ function InfoUpdate() {
 
                     <div>{alertMsg}</div>
                     {/* {initialState.menu[0] !== ""  ? (
-                      menuDetail.map((el) => (
+                      state.map((el) => (
                         <img className="add-thumbnail" src={el} alt=""></img>
                       ))
                     ) : (

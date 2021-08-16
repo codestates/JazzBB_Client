@@ -67,7 +67,6 @@ function BInfoManagePage() {
   };
 
   const handleSubmit = () => {
-         
     let temp = "";
     if (serviceitem !== []) {
       for (let service in serviceitem) {
@@ -86,15 +85,6 @@ function BInfoManagePage() {
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
-      // let gpsY, gpsX;
-      // var geocoder = new kakao.maps.services.Geocoder();
-      // geocoder.addressSearch(initstate.addressFront, function(result, status) {
-      //      if (status === kakao.maps.services.Status.OK) {
-      //        gpsY = result[0].y
-      //        gpsX = result[0].x
-      //     } 
-      // });
-
       const newForm = new FormData();
       newForm.append("thumbnail", banner[0]);
       newForm.append("barName", initstate.barName);
