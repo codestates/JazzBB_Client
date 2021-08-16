@@ -80,7 +80,6 @@ function ReserByDate() {
                 }
               )
               .then((res) => (window.location.href = "/boss/reservation"))
-              .catch((err) => console.log(err));
           },
         },
         {

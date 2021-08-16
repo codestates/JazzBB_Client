@@ -1,11 +1,11 @@
-import React, {  useState } from "react";
+import React from "react";
 import DaumPostcode from "react-daum-postcode";
 
 const { kakao } = window;
 
+
+
 const PopupPostCode = (props) => {
-  const [address, setAddress] = useState(props.state);
-  // const [gps, setGps] = useState("");
   const handlePostCode = (data) => {
 
     let fullAddress = data.address;
@@ -24,26 +24,21 @@ const PopupPostCode = (props) => {
 
     const ar = fullAddress.split(" ");
     const area = `${ar[0]} ${ar[1]}`;
-    setAddress(fullAddress);
-    getGps(data);
-    props.setState({ ...props.state, addressFront: fullAddress, area: area });
+    var geocoder = new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(fullAddress, function(result, status) {
+         if (status === kakao.maps.services.Status.OK) {
+            props.setGps({gpsY: result[0].y, gpsX: result[0].x})
+    props.setState({ ...props.state, addressFront: fullAddress, area: area, gpsY :result[0].y, gpsX: result[0].x });
+
+        } 
+    });
     props.onClose();
+   
 
   };
 
-  function getGps(data) {
 
-    const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(address, placesSearchCB);
-
-    function placesSearchCB(data, status, pagination) {
-      if (status === kakao.maps.services.Status.OK) {
-        console.log(data[0].y, data[0].x)
-        props.setGps({gpsY: data[0].y, gpsX: data[0].x, })
-      }
-    }
-  }
 
 
   const postCodeStyle = {

@@ -75,7 +75,6 @@ function InfoUpdate() {
   };
 
   useEffect(() => {
-    console.log('useEffect')
     //배너이미지 있을 때 기초 세팅
     if (data.thumbnail) {
       setBannerDetail(data.thumbnail);
@@ -183,8 +182,6 @@ function InfoUpdate() {
 
   //제출 handling
   const handleSubmit = () => {
-    console.log(menuFiles)
-    console.log(banners)
     
     let temp = [];
     if (serviceitem !== []) {
@@ -261,7 +258,7 @@ function InfoUpdate() {
             menuFormData.append(`thumbnail`, menuFiles[i]);
           }
           menuFormData.append(`jazzbarId`, initialState.jazzBarId);
-          for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
+          // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
           axios
             .post(process.env.REACT_APP_DB_HOST + "/menuUpdate", menuFormData, {
               headers: {
@@ -270,7 +267,7 @@ function InfoUpdate() {
               },
               withCredentials: true,
             })
-            .catch(err => console.log(err))
+            // .catch(err => console.log(err))
            
         })
         
@@ -507,13 +504,13 @@ function InfoUpdate() {
                   </div>
 
                     <div>{alertMsg}</div>
-                    {initialState.menu[0] !== ""  ? (
-                      state.menu.map((el) => (
+                    {/* {initialState.menu[0] !== ""  ? (
+                      menuDetail.map((el) => (
                         <img className="add-thumbnail" src={el} alt=""></img>
                       ))
                     ) : (
                       <h4>등록된 이미지가 없습니다.</h4>
-                    )}
+                    )} */}
                     
                   </>
                 ) : //수정 아닐 때

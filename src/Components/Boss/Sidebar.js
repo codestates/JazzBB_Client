@@ -12,7 +12,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { FiArrowLeftCircle, FiArrowRightCircle ,  FiHome} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { CgMusicNote } from "react-icons/cg";
-import { HiOutlinePhotograph } from "react-icons/hi";
+// import { HiOutlinePhotograph } from "react-icons/hi";
 import { BsBook } from "react-icons/bs";
 import "./sidebar.css";
 import "../../../src/dist/css/comm.css"

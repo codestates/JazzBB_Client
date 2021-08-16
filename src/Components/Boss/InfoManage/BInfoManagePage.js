@@ -23,7 +23,6 @@ function BInfoManagePage() {
   const serviceOption = useSelector(
     (initstate) => initstate.reducer.serviceOption
   );
-  const [gps, setGps] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [serviceitem, setService] = useState([]);
   const [initstate, setInitState] = useState({});
@@ -68,6 +67,7 @@ function BInfoManagePage() {
   };
 
   const handleSubmit = () => {
+         
     let temp = "";
     if (serviceitem !== []) {
       for (let service in serviceitem) {
@@ -86,13 +86,22 @@ function BInfoManagePage() {
     ) {
       alert("모든 항목을 입력해주세요.");
     } else {
+      // let gpsY, gpsX;
+      // var geocoder = new kakao.maps.services.Geocoder();
+      // geocoder.addressSearch(initstate.addressFront, function(result, status) {
+      //      if (status === kakao.maps.services.Status.OK) {
+      //        gpsY = result[0].y
+      //        gpsX = result[0].x
+      //     } 
+      // });
+
       const newForm = new FormData();
       newForm.append("thumbnail", banner[0]);
       newForm.append("barName", initstate.barName);
       newForm.append("defaultSeat", initstate.defaultSeat);
       newForm.append("area", initstate.area);
-      newForm.append("gpsX", gps.gpsX);
-      newForm.append("gpsY", gps.gpsY);
+      newForm.append("gpsX", initstate.gpsX);
+      newForm.append("gpsY", initstate.gpsY);
       newForm.append(
         "address",
         initstate.addressFront + " " + initstate.addressETC
@@ -100,7 +109,7 @@ function BInfoManagePage() {
       newForm.append("serviceOption", temp);
       newForm.append("mobile", initstate.mobile);
       newForm.append("openTime", initstate.open + "-" + initstate.close);
-      // for (var form of menuFormData.entries()) { console.log(form[0]+ ', ' + form[1]); }
+      // for (var form of newForm.entries()) { console.log(form[0]+ ', ' + form[1]); }
       axios
         .post(process.env.REACT_APP_DB_HOST + "/jazzbarCreate", newForm, {
           headers: {
@@ -265,7 +274,6 @@ function BInfoManagePage() {
                     <PopupDom>
                       <PopupPostCode
                         onClose={closePostCode}
-                        setGps={setGps}
                         state={initstate}
                         setState={setInitState}
                       />

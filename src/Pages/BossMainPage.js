@@ -49,7 +49,7 @@ function BossMainPage() {
          list = list.split(',')
          dispatch(setList(list, "menu"));
        })
-       .catch((err) => console.log(err));
+      //  .catch((err) => console.log(err));
     // }
   }, [])
 

@@ -179,10 +179,7 @@ function JazzBar() {
   function openModal() {
     setIsOpen(!modalIsOpen);
       setDisplay(true)
-  }
- 
- useEffect(()=>{
-  const script = document.createElement("script");
+      const script = document.createElement("script");
   script.async = true;
   script.src =
     // "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services&autoload=false";
@@ -207,27 +204,12 @@ function JazzBar() {
         position: markerPosition
     });
     marker.setMap(map);
-   
-    });
-  };
- },[])
+    map.relayout()
+  });
+};
+  }
+ 
 
-    // useEffect(()=>{
-    //   var container = document.getElementById('map');
-    //   let gpsY = thisBar.gpsY
-    //   let gpsX = thisBar.gpsX
-    //   var options = {
-    //     center: new Kakao.maps.LatLng(gpsY, gpsX),
-    //     level: 3
-    //   };
-  
-    //   var map = new Kakao.maps.Map(container, options);
-    //   var markerPosition  = new Kakao.maps.LatLng(gpsY, gpsX);
-    //   var marker = new Kakao.maps.Marker({
-    //     position: markerPosition
-    // });
-    // marker.setMap(map);
-    //   }, [])
   
 
   function closeModal() {
@@ -330,19 +312,10 @@ function JazzBar() {
                   })
                 : null}
             
-            {/* <div
-              className="shopinfo-menuarea-link"
-              onClick={() => menuModalTogle()}
-            >
-              메뉴판 사진 보기
-            </div> */}
           </div>
         </div>
 
-        {/* <div id="map1" 
-                style={{ width: "100%", height: "400px"}}></div> */}
-
-        <Modal
+        {/* <Modal
           className="shopinfo-menuarea-modal"
           isOpen={state.togle.menuModal}
           onRequestClose={menuModalTogle}
@@ -356,20 +329,10 @@ function JazzBar() {
           <div className="shopinfo-menu-object">
             <div className="shopinfo-menu-object-photobox">
             
-              {/* {state.menu.length !== 0
-                ? state.menu.map((el) => {
-                    return (
-                      <img
-                        className="shopinfo-menu-object-img"
-                        src={el}
-                        alt =""
-                      ></img>
-                    );
-                  })
-                : null} */}
+          
             </div>
           </div>
-        </Modal>
+        </Modal> */}
 
         <div className="shopinfo-reservation">
           <div className="shopinfo-reservation-header">
