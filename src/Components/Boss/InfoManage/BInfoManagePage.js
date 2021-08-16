@@ -250,9 +250,6 @@ function BInfoManagePage() {
                     name="addressETC"
                     onChange={handleInput}
                     placeholder="상세 주소"
-
-
-                   
                   ></input>
                 </div>
                 <button
@@ -263,9 +260,7 @@ function BInfoManagePage() {
                   우편번호 검색
                 </button>
               </div>
-            </div>
-
-            <div id="popupDom">
+              <div id="popupDom">
                   {isPopupOpen && (
                     <PopupDom>
                       <PopupPostCode
@@ -277,6 +272,9 @@ function BInfoManagePage() {
                     </PopupDom>
                   )}
                 </div>
+            </div>
+
+           
             <div className="barMobile boxopt">
               <div className="inputformlabel">연락처</div>
               <div className="phoneWrapper">
@@ -317,7 +315,7 @@ function BInfoManagePage() {
                  
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
             <div className="serviceOption boxopt">
               <div className="inputformlabel">서비스</div>
@@ -470,6 +468,7 @@ function BInfoManagePage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
       )
        

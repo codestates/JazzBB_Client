@@ -4,7 +4,7 @@ import DaumPostcode from "react-daum-postcode";
 const { kakao } = window;
 
 const PopupPostCode = (props) => {
-  const [address, setAddress] = useState("수내중학교");
+  const [address, setAddress] = useState(props.state);
   // const [gps, setGps] = useState("");
   const handlePostCode = (data) => {
 
@@ -39,6 +39,7 @@ const PopupPostCode = (props) => {
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
+        console.log(data[0].y, data[0].x)
         props.setGps({gpsY: data[0].y, gpsX: data[0].x, })
       }
     }

@@ -20,6 +20,7 @@ function JazzBar() {
   const { kakao } = window;
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reducer);
+  let jazzBarId ;  //menuread boss 일경우 ....
   const thisBar = state.barList.find((el) => el.id === state.currentJazzbar);
   let thisDate = new Date()
     .toLocaleDateString()
@@ -57,7 +58,8 @@ function JazzBar() {
         jazzbarId: state.currentJazzbar,
       })
       .then((res) => {
-        const list = res.data.data.data;
+        let list = res.data.data.data[0].thumbnail
+        list = list.split(',')
         dispatch(setList(list, "menu"));
       })
       .catch((err) => console.log(err));
@@ -192,6 +194,7 @@ function JazzBar() {
       let container = document.getElementById("map");
       let gpsY = thisBar.gpsY
       let gpsX = thisBar.gpsX
+      console.log(gpsY, 127.126456210328)
       let options = {
         center: new kakao.maps.LatLng(gpsY, gpsX),
         level: 3
@@ -267,11 +270,7 @@ function JazzBar() {
                 onClick={closeModal}
                 style={{ width: "100%", height: "400px", display: display }}
               >
-
               </div>
-             
-           
-
             <div className="shopinfo-header-infoarea-phone">
               {thisBar.mobile}
             </div>
@@ -317,6 +316,20 @@ function JazzBar() {
 
           <div className="shopinfo-menuarea-body">
             
+              {state.menu.length !== 0
+                ? state.menu.map((el) => {
+                    return (
+                      <div class="img-wrap">
+                      <img
+                        className="menuImg"
+                        src={el}
+                        alt =""
+                      ></img>
+                      </div>
+                    );
+                  })
+                : null}
+            
             {/* <div
               className="shopinfo-menuarea-link"
               onClick={() => menuModalTogle()}
@@ -342,16 +355,18 @@ function JazzBar() {
 
           <div className="shopinfo-menu-object">
             <div className="shopinfo-menu-object-photobox">
-              {state.menu.length !== 0
+            
+              {/* {state.menu.length !== 0
                 ? state.menu.map((el) => {
                     return (
                       <img
                         className="shopinfo-menu-object-img"
-                        src={el.thumbnail}
+                        src={el}
+                        alt =""
                       ></img>
                     );
                   })
-                : null}
+                : null} */}
             </div>
           </div>
         </Modal>
