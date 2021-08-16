@@ -27,7 +27,6 @@ const PopupPostCode = (props) => {
     var geocoder = new kakao.maps.services.Geocoder();
     geocoder.addressSearch(fullAddress, function(result, status) {
          if (status === kakao.maps.services.Status.OK) {
-            props.setGps({gpsY: result[0].y, gpsX: result[0].x})
     props.setState({ ...props.state, addressFront: fullAddress, area: area, gpsY :result[0].y, gpsX: result[0].x });
 
         } 
