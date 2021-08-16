@@ -182,7 +182,6 @@ function JazzBar() {
       const script = document.createElement("script");
   script.async = true;
   script.src =
-    // "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services&autoload=false";
     "https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5d2b234d7581ef9f9bc2eb3fd250c1e&libraries=services";
   document.head.appendChild(script);
 
@@ -191,7 +190,6 @@ function JazzBar() {
       let container = document.getElementById("map");
       let gpsY = thisBar.gpsY
       let gpsX = thisBar.gpsX
-      console.log(gpsY, 127.126456210328)
       let options = {
         center: new kakao.maps.LatLng(gpsY, gpsX),
         level: 3
@@ -247,12 +245,7 @@ function JazzBar() {
               </button>
             </div>
 
-              <div
-                id="map"
-                onClick={closeModal}
-                style={{ width: "100%", height: "400px", display: display }}
-              >
-              </div>
+             
             <div className="shopinfo-header-infoarea-phone">
               {thisBar.mobile}
             </div>
@@ -267,6 +260,13 @@ function JazzBar() {
               </div>
             </div>
           </div>
+
+          <div
+                id="map"
+                onClick={closeModal}
+                style={{ width: "100%", height: "400px", display: display }}
+              >
+              </div>
         </div>
 
         {thisBar.serviceOption ? (
@@ -298,7 +298,7 @@ function JazzBar() {
 
           <div className="shopinfo-menuarea-body">
             
-              {state.menu.length !== 0
+              {state.menu[0] !== ""
                 ? state.menu.map((el) => {
                     return (
                       <div class="img-wrap">
@@ -310,7 +310,8 @@ function JazzBar() {
                       </div>
                     );
                   })
-                : null}
+                : <div className="shopinfo-reservation-sublabel">
+                  등록된 메뉴 이미지가 없습니다. 매장에 문의하여 주세요</div>}
             
           </div>
         </div>
