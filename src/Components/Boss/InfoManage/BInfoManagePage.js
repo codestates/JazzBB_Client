@@ -221,6 +221,7 @@ function BInfoManagePage() {
                           ? initstate.addressFront
                           : null
                       }
+                      onClick={openPostCode}
                     ></input>
                     <input
                       className="inputbarlocationdetail"
@@ -273,7 +274,7 @@ function BInfoManagePage() {
                 <div className="inputformlabel">좌석수</div>
                 <input
                   className="seatform"
-                  placeholder="매장 좌석 수"
+                  placeholder="매장에서 예약이 가능한 좌석 수를 입력해주세요."
                   type="number"
                   name="defaultSeat"
                   onChange={handleInput}

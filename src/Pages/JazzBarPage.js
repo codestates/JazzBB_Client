@@ -154,21 +154,42 @@ function JazzBar() {
         dispatch(modifySwitch("reviewModify"));
       })
       .catch((err) => console.log(err));
+
+      await axios
+      .post(process.env.REACT_APP_DB_HOST + "/reviewRead", {
+        jazzbarId: state.currentJazzbar,
+      })
+      .then((res) => {
+
+        const reviewList = res.data.data.list;
+        dispatch(setList(reviewList, "reviewList"));
+      })
+      .catch((err) => console.log(err));
   };
 
   const reviewDeleteRequest = async (el) => {
     await axios
       .post(
         process.env.REACT_APP_DB_HOST + "/reviewDelete",
-        { headers: { authorization: state.token }, withCredentials: true },
         {
           id: el.id,
-        }
+        },
+        { headers: { authorization: state.token }, withCredentials: true }
       )
       .then((res) => {
         const token = res.data.data.accessToken;
         dispatch(setToken(token));
         dispatch(modifySwitch("reviewDelete"));
+      })
+      .catch((err) => console.log(err));
+      await axios
+      .post(process.env.REACT_APP_DB_HOST + "/reviewRead", {
+        jazzbarId: state.currentJazzbar,
+      })
+      .then((res) => {
+
+        const reviewList = res.data.data.list;
+        dispatch(setList(reviewList, "reviewList"));
       })
       .catch((err) => console.log(err));
   };

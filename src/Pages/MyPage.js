@@ -115,13 +115,13 @@ import "../css/mypage.css"
 
           {!state.togle.user ?
             <div className="mypage-body-info-data">
-              <div className="mypage-body-info-data-result">{state.user.userId}</div>
+              <div className="mypage-body-info-data-result">{state.user.userEmail}</div>
               <div className="mypage-body-info-data-result">{state.user.username}</div>
               <div className="mypage-body-info-data-result">{state.user.mobile}</div>
             </div>
             :
             <div className="mypage-body-info-data">
-              <div className="mypage-body-info-data-result">{state.user.userId}</div>
+              <div className="mypage-body-info-data-result">{state.user.userEmail}</div>
               <input className="mypage-body-info-data-result" defaultValue={state.user.username} onChange={(e) => changeState(e, 'username')} />
               <input className="mypage-body-info-data-result" defaultValue={state.user.mobile} onChange={(e) => changeState(e, 'mobile')} />
             </div>
