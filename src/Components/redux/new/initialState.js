@@ -4,7 +4,7 @@ const initialState = {
   currentPage: '/service',
   history: [],
   search: null,
-  searchOption: null,
+  searchOption: '/searchJazzbar',
   searchData: null,
   AllPage : true,
   modifyUser:{mobile : null, username: null, usertype: null},

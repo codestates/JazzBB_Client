@@ -133,6 +133,10 @@
   width: 30px;
 }
 
+.close:hover {
+  transform: translateY(-3px);
+}
+
 .login-modal-body {
   display: flex;
   justify-content: center;
@@ -155,6 +159,10 @@
 .login-modal-btn-kakao-login {
   margin-top: 100px;
   margin-bottom: 20px;
+}
+
+.login-modal-btn-kakao-login:hover {
+  transform: translateY(-3px);
 }
 
 ul {
@@ -194,6 +202,7 @@ a {
   border: 1px solid royalblue;
   display: none;
   box-sizing: border-box;
+  z-index: 50;
 }
 
 .sub li{

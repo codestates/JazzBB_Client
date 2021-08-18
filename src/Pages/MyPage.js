@@ -62,8 +62,8 @@ import "../css/mypage.css"
   const withdrawUser = () => {
     axios.post(process.env.REACT_APP_DB_HOST + "/withdraw", '',{ headers: { authorization: state.token }, withCredentials: true })
       .then(() => {
-        dispatch(Reset())
-        history.push('/')
+        dispatch(Reset());
+        history.push('/');
       })
   }
 
