@@ -144,7 +144,9 @@ function BoardPostingObject () {
           <table className="infobbsdataentry-body-data-infobody">
             <tr>
               {state.boardList.find(el => el.id === state.currentBoard).content.split('<br>').map(el => {
-              return (<span>{el}<br/></span>)
+              return (
+                <span>{el}<br/></span>
+              )
             })
               }
             </tr>
