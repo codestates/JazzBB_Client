@@ -2,8 +2,7 @@ import axios from "axios";
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
-import { saveThisHistory, dequeueHistory, search, selectSearchType, saveSearchData, setJazzbar, setList, setBoard, setCurrentPage } from "../Components/redux/new/action";
-import Modal from "react-modal";
+import { saveThisHistory, search, selectSearchType, saveSearchData, setJazzbar, setBoard, setCurrentPage } from "../Components/redux/new/action";
 import "../css/search.css"
 
 
@@ -16,17 +15,6 @@ function Search () {
   useEffect(()=>{
     dispatch(saveThisHistory())
     dispatch(setCurrentPage(window.location.pathname))
-    // axios.get(process.env.REACT_APP_DB_HOST + "/jazzbarRead")
-    //  .then(res => {
-    //    const list = res.data.data;
-    //    dispatch(setList(list, 'barList'));
-    //  })
-  
-    // axios.get(process.env.REACT_APP_DB_HOST + "/boardRead")
-    //  .then(res => {
-    //    const list = res.data.data;
-    //    dispatch(setList(list, 'boardList'));
-    //  })
   }, [])
   
   
@@ -75,10 +63,10 @@ function Search () {
         </Link>
       </div>
       <div className="search-body-searchbox">
-        <select className='search-body-search-select' onChange={(e) => modifySearchType(e.target.value)}>
+        <select className='search-body-search-select' onChange={(e) => modifySearchType(e.target.value)} defaultValue='/searchJazzbar'>
+          <option value='/searchJazzbar'>재즈바 검색</option>
           <option value='/searchReview'>리뷰 검색</option>
           <option value='/searchBoard'>게시판 검색</option>
-          <option value='/searchJazzbar'>재즈바 검색</option>
           <option value='/searchShow'>공연 검색</option>
         </select>
         <input className="search-body-search" type="text" placeholder={

@@ -156,7 +156,13 @@ function BoardPostingObject () {
             <div className="infobbsdataentry-body-data-comment">
               {
                 stateReviewList ? stateReviewList.map(el => {
-                  return (
+                  return state.user && el.user.username === state.user.username ?
+                  (
+                    <div className="infobbsdataentry-body-data-commentcontainer">
+                      <div className="comment-name">{el.user.username}</div>
+                      <div className="comment-comment">{el.content}</div>
+                    </div>
+                  ) : (
                     <div className="infobbsdataentry-body-data-commentcontainer">
                       <div className="comment-name">{el.user.username}</div>
                       <div className="comment-comment">{el.content}</div>

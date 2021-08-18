@@ -78,10 +78,20 @@ function Reservation(){
   
             <div className="reservation-details-personWrapper">
               <div className="reservation-details-label">방문인원</div>
-              <input className="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.barList.find(el => el.id === state.currentJazzbar).defaultSeat} onChange={(number) => changePeople(number)} defaultValue="1" />
+              {
+                state.show.currentSeat < 1 ? 
+                <div className="reservation-details-person">현재 예약 가능한 좌석이 없습니다.</div>
+                :
+                <input className="reservation-details-person" type="number" name="reservation-persons" min="1" max={state.show.currentSeat} onChange={(number) => changePeople(number)} defaultValue="1" />
+              }
             </div>
+              {
+                state.show.currentSeat < 1 ? 
+                <button className="reservation-details-submit">현재 예약 가능한 좌석이 없습니다.</button>
+                :
+                <button className="reservation-details-submit" onClick={()=> requestReservation()}>예약신청</button>               
+              }
   
-              <button className="reservation-details-submit" onClick={()=> requestReservation()}>예약신청</button>               
   
           </div>
   
