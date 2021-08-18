@@ -1,4 +1,3 @@
-// import { Palette } from "@material-ui/icons";
 import {
   SET_SHOW_BOSS,
   SET_RESER_BOSS,

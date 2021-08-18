@@ -27,10 +27,8 @@ import "../css/mypage.css"
       { userId: state.user.id }, 
       { headers: { authorization: state.token }, withCredentials: true })
       .then(res => {
-        const token2 = res.data.data.accessToken;
         const reservation = res.data.data.list;
         dispatch(setList(reservation, 'reservation'));
-        // dispatch(setToken(token2))
       })
     
     await axios.post(process.env.REACT_APP_DB_HOST + '/reviewRead', {userId : state.user.id} ,{ headers: { authorization: state.token }, withCredentials: true })

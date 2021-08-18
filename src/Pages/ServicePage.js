@@ -60,10 +60,9 @@ function Service () {
 
   
 
-  const goSearch = (type, input) => {
-    dispatch(selectSearchType(type));
+  const goSearch = (input) => {
     dispatch(search(input));
-    axios.get(process.env.REACT_APP_DB_HOST + state.searchOption, { content: state.search })
+    axios.get(process.env.REACT_APP_DB_HOST + '/searchArea', { content: state.search })
      .then(res => {
         const response = res.data.data.searchData;
         dispatch(saveSearchData(response));
@@ -85,13 +84,13 @@ function Service () {
             <div className="service-location">
                 <div className="service-location-label">어디로 가시나요?</div> 
                 <div className="service-location-objarea">
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 강남구')} className="service-location-object" style={{"background-image": "url(/resource/location-apgujeong.png)"}}><span className="service-location-btn-label">강남</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 용산구')} className="service-location-object" style={{"background-image": "url(/resource/location-itaewon.png)"}}><span className="service-location-btn-label">이태원/<br />한남</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 성동구')} className="service-location-object" style={{"background-image": "url(/resource/location-sungsoo.png)"}}><span className="service-location-btn-label">성수</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 마포구')} className="service-location-object" style={{"background-image": "url(/resource/location-hongdae.png)"}}><span className="service-location-btn-label">홍대/<br />합정</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 중구')} className="service-location-object" style={{"background-image": "url(/resource/location-euljiro.png)"}}><span className="service-location-btn-label">을지로</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 종로구')} className="service-location-object" style={{"background-image": "url(/resource/location-gwanghwamun.png)"}}><span className="service-location-btn-label">광화문/<br />종로</span></Link>
-                    <Link to="/search" onClick={()=> goSearch('/searchJazzbar', '서울 영등포구')} className="service-location-object" style={{"background-image": "url(/resource/location-yeouido.png)"}}><span className="service-location-btn-label">여의도</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('서울 강남구')} className="service-location-object" style={{"background-image": "url(/resource/location-apgujeong.png)"}}><span className="service-location-btn-label">강남</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('서울 용산구')} className="service-location-object" style={{"background-image": "url(/resource/location-itaewon.png)"}}><span className="service-location-btn-label">이태원/<br />한남</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('서울 성동구')} className="service-location-object" style={{"background-image": "url(/resource/location-sungsoo.png)"}}><span className="service-location-btn-label">성수</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('서울 마포구')} className="service-location-object" style={{"background-image": "url(/resource/location-hongdae.png)"}}><span className="service-location-btn-label">홍대/<br />합정</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('서울 중구')} className="service-location-object" style={{"background-image": "url(/resource/location-euljiro.png)"}}><span className="service-location-btn-label">을지로</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('서울 종로구')} className="service-location-object" style={{"background-image": "url(/resource/location-gwanghwamun.png)"}}><span className="service-location-btn-label">광화문/<br />종로</span></Link>
+                    <Link to="/search" onClick={()=> goSearch('서울 영등포구')} className="service-location-object" style={{"background-image": "url(/resource/location-yeouido.png)"}}><span className="service-location-btn-label">여의도</span></Link>
                 </div>
             </div>
             <div className="service-liveon">

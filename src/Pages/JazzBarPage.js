@@ -7,7 +7,6 @@ import {
   setList,
   typeText,
   modifySwitch,
-  saveMyId,
   setShow,
   setToken,
   saveThisHistory,
