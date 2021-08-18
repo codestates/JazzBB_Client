@@ -176,7 +176,7 @@ function BInfoManagePage() {
         let reader = new FileReader();
         reader.onload = () => {
           fileURLs[i] = reader.result;
-          setDetailImgs([...fileURLs]);
+          setDetailImgs([...detailImgs, ...fileURLs]);
         };
         reader.readAsDataURL(file);
       }
@@ -200,6 +200,10 @@ function BInfoManagePage() {
     setInitState({ ...initstate, menu: File });
     }
   };
+
+  const photoDrop = (e) => {
+    console.log(e.dataTransfer)
+  }
 
   return (
     //회원가입 후 재즈바 인포 없을 시 렌더될 페이지. 그 후에는 infoUpdate 가 열림.
@@ -242,6 +246,7 @@ function BInfoManagePage() {
                         ? initstate.addressFront
                         : null
                     }
+                    onClick={openPostCode}
                   ></input>
                   <input
                     className="inputbarlocationdetail"
@@ -334,7 +339,7 @@ function BInfoManagePage() {
               ))}
             </div>
 
-            <div className="Menu boxopt">
+            <div className="Menu boxopt" onDrop={(e) => console.log(e)} >
               <div className="inputmenu-header">
                 <div className="inputformlabel">메뉴</div>
                 <div className="inputformsublabel">
@@ -356,20 +361,24 @@ function BInfoManagePage() {
                
               </div>
 
-              <div className="inputmenu-body">
-                {detailImgs[0] !== undefined ? (
-                  <div class="img-wrap">
-                    <button name={0} className="delBtn" onClick={photoDelete}>
-                      x
-                    </button>
-                    <img
-                      className="add-thumbnail"
-                      src={detailImgs[0]}
-                      alt=""
-                    ></img>
-                  </div>
-                ) : null}
-
+              <div className="inputmenu-body" >
+                {detailImgs.length !== 0 ? 
+                  detailImgs.map((el,idx) => {
+                    return (
+                      <div class="img-wrap">
+                        <button name={idx} className="delBtn" onClick={photoDelete}>
+                          x
+                        </button>
+                        <img
+                          className="add-thumbnail"
+                          src={el}
+                          alt=""
+                        ></img>
+                      </div>
+                    )
+                  })
+                 : null}
+{/* 
                 {detailImgs[1] !== undefined ? (
                   <div class="img-wrap">
                     <button name={1} className="delBtn" onClick={photoDelete}>
@@ -420,7 +429,7 @@ function BInfoManagePage() {
                     x
                     </button>
                   </div>
-                ) : null}
+                ) : null} */}
               </div>
             </div>
 

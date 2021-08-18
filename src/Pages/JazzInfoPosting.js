@@ -130,7 +130,7 @@ function BoardPostingObject () {
         <div className="infobbsdataentry-body-data">
           <div className="infobbsdataentry-body-data-header">
             <div className="infobbsdataentry-body-data-header-label">{state.boardList.find(el => el.id === state.currentBoard).title}</div>
-            <div className="infobbsdataentry-body-data-header-createdAt">{state.boardList.find(el => el.id === state.currentBoard).createdAt}</div>
+            <div className="infobbsdataentry-body-data-header-createdAt">{state.boardList.find(el => el.id === state.currentBoard).createdAt.slice(0,10)}</div>
           </div>
 
           <div className="infobbsdataentry-body-data-thumbnail">

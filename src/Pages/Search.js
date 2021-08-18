@@ -68,6 +68,7 @@ function Search () {
           <option value='/searchReview'>리뷰 검색</option>
           <option value='/searchBoard'>게시판 검색</option>
           <option value='/searchShow'>공연 검색</option>
+          <option value='/searchArea'>지역 검색</option>
         </select>
         <input className="search-body-search" type="text" placeholder={
           state.searchOption == '/searchReview' ?
@@ -78,6 +79,8 @@ function Search () {
           "찾고 싶은 재즈바의 상호명이나 지역을 검색해보세요!"
           :state.searchOption == '/searchShow' ?
           "찾고 싶은 공연의 연주자나 공연 소개 내용을 검색해보세요!"
+          :state.searchOption == '/searchArea' ?
+          "찾고 싶은 재즈바의 지역을 검색해보세요! ex) 서울 강남구"
           : ""
         } onChange={(e)=> searchBar(e.target.value)}/>
         <button className="search-body-searchbtn" onClick={()=> requestSearch()}>검색</button>
@@ -147,7 +150,7 @@ function Search () {
           })
           :
           state.searchOption == '/searchShow' ?
-          state.searchData.map(async el => {
+          state.searchData.map(el => {
             const jazzbar = state.barList.find(bar => bar.id == el.jazzbarId);
             return (
               <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', jazzbar.id)}>
@@ -165,7 +168,22 @@ function Search () {
           })
           
           :
-           ''
+          state.searchData.map(el => {
+            return (
+              <Link to="/jazzbar" className="search-result-box" onClick={()=> clickSearchData('jazzbar', el.id)}>
+                <div className="search-result-thumbnail">
+                  <img className="search-result-thumbnail-img" src={el.thumbnail ? el.thumbnail : "/resouce/jazzbb_logo_black.png"} />
+                </div>
+                <div className="search-result-information">
+                  <div className="search-result-info-shopname">{el.barName}</div>
+                  <div className="search-result-info-phone">{el.mobile}</div>
+                  <div className="search-result-info-shoplocate">{el.area}</div>
+                  <div className="search-result-info-time">{el.opentime}</div>
+                </div>
+              </Link>
+            )
+          })
+           
         }
 
       </div>
